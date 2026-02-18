@@ -140,7 +140,7 @@ function calculateScore() {
     for (let q in answers) {
         let selected = document.querySelector('input[name="' + q + '"]:checked');
         if (selected && selected.value === answers[q]) {
-            score+4;
+            score=score+4;
         }
     }
 
