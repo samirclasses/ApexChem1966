@@ -140,12 +140,12 @@ function calculateScore() {
     for (let q in answers) {
         let selected = document.querySelector('input[name="' + q + '"]:checked');
         if (selected && selected.value === answers[q]) {
-            score++;
+            score+4;
         }
     }
 
     document.getElementById("result").innerHTML =
-        "Your Score: " + score + " / 10";
+        "Your Score: " + score + " / 40";
 }
 </script>
 
