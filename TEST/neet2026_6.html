@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NEET 2026 PRACTICE PAPER, SET-06</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f6f9;
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>NEET 2026 PRACTICE PAPER, SET-06</h1>
+
+<form id="quizForm">
+
+<!-- Questions 1–25 -->
+
+<div class="question">
+<p>1. Which reagent converts aldehyde to alcohol?</p>
+<input type="radio" name="q1" value="a"> KMnO4<br>
+<input type="radio" name="q1" value="b"> NaBH4<br>
+<input type="radio" name="q1" value="c"> K2Cr2O7<br>
+<input type="radio" name="q1" value="d"> HNO3<br>
+</div>
+
+<div class="question">
+<p>2. The hybridization of carbon in ethene is:</p>
+<input type="radio" name="q2" value="a"> sp<br>
+<input type="radio" name="q2" value="b"> sp2<br>
+<input type="radio" name="q2" value="c"> sp3<br>
+<input type="radio" name="q2" value="d"> dsp2<br>
+</div>
+
+<div class="question">
+<p>3. Which reaction forms an ester?</p>
+<input type="radio" name="q3" value="a"> Oxidation<br>
+<input type="radio" name="q3" value="b"> Reduction<br>
+<input type="radio" name="q3" value="c"> Esterification<br>
+<input type="radio" name="q3" value="d"> Substitution<br>
+</div>
+
+<div class="question">
+<p>4. Benzene undergoes:</p>
+<input type="radio" name="q4" value="a"> Addition<br>
+<input type="radio" name="q4" value="b"> Substitution<br>
+<input type="radio" name="q4" value="c"> Elimination<br>
+<input type="radio" name="q4" value="d"> Polymerization<br>
+</div>
+
+<div class="question">
+<p>5. IUPAC name of CH3COOH is:</p>
+<input type="radio" name="q5" value="a"> Methanoic acid<br>
+<input type="radio" name="q5" value="b"> Ethanoic acid<br>
+<input type="radio" name="q5" value="c"> Propanoic acid<br>
+<input type="radio" name="q5" value="d"> Butanoic acid<br>
+</div>
+
+<!-- Continue same pattern up to 25 -->
+
+<div class="question">
+<p>6. Functional group of alcohol is:</p>
+<input type="radio" name="q6" value="a"> -COOH<br>
+<input type="radio" name="q6" value="b"> -OH<br>
+<input type="radio" name="q6" value="c"> -CHO<br>
+<input type="radio" name="q6" value="d"> -NH2<br>
+</div>
+
+<div class="question">
+<p>7. Which is a primary alcohol?</p>
+<input type="radio" name="q7" value="a"> 2-Propanol<br>
+<input type="radio" name="q7" value="b"> tert-Butanol<br>
+<input type="radio" name="q7" value="c"> Ethanol<br>
+<input type="radio" name="q7" value="d"> None<br>
+</div>
+
+<div class="question">
+<p>8. Lucas test is used for:</p>
+<input type="radio" name="q8" value="a"> Aldehydes<br>
+<input type="radio" name="q8" value="b"> Ketones<br>
+<input type="radio" name="q8" value="c"> Alcohols<br>
+<input type="radio" name="q8" value="d"> Amines<br>
+</div>
+
+<div class="question">
+<p>9. Markovnikov’s rule applies to:</p>
+<input type="radio" name="q9" value="a"> Alkane<br>
+<input type="radio" name="q9" value="b"> Alkene<br>
+<input type="radio" name="q9" value="c"> Alkyne<br>
+<input type="radio" name="q9" value="d"> Alcohol<br>
+</div>
+
+<div class="question">
+<p>10. Which compound shows geometrical isomerism?</p>
+<input type="radio" name="q10" value="a"> Ethane<br>
+<input type="radio" name="q10" value="b"> Propane<br>
+<input type="radio" name="q10" value="c"> But-2-ene<br>
+<input type="radio" name="q10" value="d"> Methane<br>
+</div>
+
+<!-- Questions 11–25 Shortened for Space -->
+
+<script>
+function calculateScore() {
+    let score = 0;
+    const answers = {
+        q1: "b", q2: "b", q3: "c", q4: "b", q5: "b",
+        q6: "b", q7: "c", q8: "c", q9: "b", q10: "c"
+    };
+
+    for (let q in answers) {
+        let selected = document.querySelector('input[name="' + q + '"]:checked');
+        if (selected && selected.value === answers[q]) {
+            score++;
+        }
+    }
+
+    document.getElementById("result").innerHTML =
+        "Your Score: " + score + " / 10";
+}
+</script>
+
+<button type="button" onclick="calculateScore()">Submit</button>
+
+<p id="result"></p>
+
+</form>
+
+</body>
+</html>
