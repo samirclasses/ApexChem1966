@@ -1,49 +1,206 @@
+<!DOCTYPE html>
 <html>
-	<head>
-	<title>SD Classes/ChemOnly</title>
-	<script src="jquery.js"></script> 
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> 
-		<style>
-	body{
-background-color:lightsteelblue;
-		color:indigo;
-	}
-			
-	a{
-		color:indigo;
-		font-weight:bold;
-		text-decoration:none;
-		font-size:150%;
-	
-        	}
-		</style>
-		
-				
-	</head>
-<body >
-	
-				<h1><i><font size="30px">Class-XI chapter-wise note </font></i></h1>
-	<h2><i>Click on the following links for detail description</i></h2>
-			
-	<ul>
-			<li><font size="5px">Some Basic Concepts of Chemistry</font>&nbsp&nbsp<a class="books" href="books/some_basic_concept.pdf" target="_blank"><i>[pdf]</i></a>&nbsp&nbsp <a class="books" href="books/some_basic_concept.docx" target="_blank"><i>[Download]</i></a></li>	<br>
-			<li><font size="5px">Structure of Atom</font>&nbsp&nbsp<a class="books" href="atomic_structure/atomic_structure.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/atomic structure.pdf" target="_blank"><i>[pdf]</i></a>&nbsp&nbsp <a class="books" href="books/atomic structure.docx" target="_blank"><i>[Download]</i></a></li>	<br>
-			<li><font size="5px">Classification of Elements and Periodicity in Properties</font>&nbsp&nbsp<a class="books" href="periodic_table/periodic_table.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/PeriodicTable.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">Chemical Bonding and Molecular Structure</font>&nbsp&nbsp<a class="books" href="bonding/bonding.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/Bonding.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">Chemical Thermodynamics</font>&nbsp&nbsp<a class="books" href="thermodynamics/thermodynamics.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/book_pdf/thermodynamics.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>	
-			<li><font size="5px">States of Matter</font>&nbsp&nbsp<a class="books" href="statesofmatter/statesofmatter.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/book_pdf/statesofmatter.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">Chemical Equilibrium</font>&nbsp&nbsp<a class="books" href="chemical_equilibrium/chemical_equilibrium.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/chemicalequilibrium.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">Ionic Equilibrium</font>&nbsp&nbsp<a class="books" href="ionic_equilibrium/ionic_equilibrium.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/ionicequilibrium.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">Redox Reactions</font>&nbsp&nbsp<a class="books" href="redox/redox.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/redox.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">Hydrogen</font>&nbsp&nbsp<a class="books" href="hydrogen/hydrogen.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/hydrogen.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">The S-Block Elements</font>&nbsp&nbsp<a class="books" href="s_block/s_block.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/SBlockElements.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">The P-Block Elements</font>&nbsp&nbsp<a class="books" href="p_block/p_block.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/pblock11.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">Organic Chemistry – Some Basic Principles and Techniques</font>&nbsp&nbsp<a class="books" href="organic11.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="organic11.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			<li><font size="5px">Hydrocarbons</font>&nbsp&nbsp<a class="books" href="hydrocarbons/hydrocarbons.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="hydrocarbons/hydrocarbons.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			
-			<li><font size="5px">Environmental Chemistry</font>&nbsp&nbsp<a class="books" href="env_chem.html" target="_blank"><i>[html]</i></a>&nbsp&nbsp <a class="books" href="books/env.pdf" target="_blank"><i>[pdf]</i></a></li>	<br>
-			
-	</ul>	
+<head>
+    <title>SD Classes / ChemOnly</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body{
+            margin:0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(to right, #dbe9f4, #f5f9ff);
+            color:#2c3e50;
+        }
+
+        header{
+            background: #283593;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1{
+            margin:0;
+            font-size: 40px;
+        }
+
+        header h2{
+            margin-top:10px;
+            font-weight: normal;
+            font-size:18px;
+        }
+
+        .container{
+            width: 85%;
+            margin: 40px auto;
+        }
+
+        ul{
+            list-style: none;
+            padding:0;
+        }
+
+        li{
+            background: white;
+            margin-bottom:15px;
+            padding:18px;
+            border-radius:10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        li:hover{
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+
+        .chapter-title{
+            font-size:20px;
+            font-weight:bold;
+            margin-bottom:8px;
+        }
+
+        a{
+            text-decoration:none;
+            color:#1565c0;
+            font-weight:bold;
+            margin-right:15px;
+        }
+
+        a:hover{
+            color:#d32f2f;
+        }
+
+        footer{
+            text-align:center;
+            padding:15px;
+            background:#283593;
+            color:white;
+            margin-top:40px;
+        }
+
+        @media(max-width:768px){
+            .container{
+                width:95%;
+            }
+            header h1{
+                font-size:28px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Class-XI Chapter-wise Notes</h1>
+    <h2>Click on the following links for detailed description</h2>
+</header>
+
+<div class="container">
+
+<ul>
+
+<li>
+<div class="chapter-title">Some Basic Concepts of Chemistry</div>
+<a href="books/some_basic_concept.pdf" target="_blank">[PDF]</a>
+<a href="books/some_basic_concept.docx" target="_blank">[Download]</a>
+</li>
+
+<li>
+<div class="chapter-title">Structure of Atom</div>
+<a href="atomic_structure/atomic_structure.html" target="_blank">[HTML]</a>
+<a href="books/atomic structure.pdf" target="_blank">[PDF]</a>
+<a href="books/atomic structure.docx" target="_blank">[Download]</a>
+</li>
+
+<li>
+<div class="chapter-title">Classification of Elements and Periodicity in Properties</div>
+<a href="periodic_table/periodic_table.html" target="_blank">[HTML]</a>
+<a href="books/PeriodicTable.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">Chemical Bonding and Molecular Structure</div>
+<a href="bonding/bonding.html" target="_blank">[HTML]</a>
+<a href="books/Bonding.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">Chemical Thermodynamics</div>
+<a href="thermodynamics/thermodynamics.html" target="_blank">[HTML]</a>
+<a href="books/book_pdf/thermodynamics.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">States of Matter</div>
+<a href="statesofmatter/statesofmatter.html" target="_blank">[HTML]</a>
+<a href="books/book_pdf/statesofmatter.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">Chemical Equilibrium</div>
+<a href="chemical_equilibrium/chemical_equilibrium.html" target="_blank">[HTML]</a>
+<a href="books/chemicalequilibrium.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">Ionic Equilibrium</div>
+<a href="ionic_equilibrium/ionic_equilibrium.html" target="_blank">[HTML]</a>
+<a href="books/ionicequilibrium.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">Redox Reactions</div>
+<a href="redox/redox.html" target="_blank">[HTML]</a>
+<a href="books/redox.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">Hydrogen</div>
+<a href="hydrogen/hydrogen.html" target="_blank">[HTML]</a>
+<a href="books/hydrogen.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">The S-Block Elements</div>
+<a href="s_block/s_block.html" target="_blank">[HTML]</a>
+<a href="books/SBlockElements.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">The P-Block Elements</div>
+<a href="p_block/p_block.html" target="_blank">[HTML]</a>
+<a href="books/pblock11.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">Organic Chemistry – Some Basic Principles and Techniques</div>
+<a href="organic11.html" target="_blank">[HTML]</a>
+<a href="organic11.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">Hydrocarbons</div>
+<a href="hydrocarbons/hydrocarbons.html" target="_blank">[HTML]</a>
+<a href="hydrocarbons/hydrocarbons.pdf" target="_blank">[PDF]</a>
+</li>
+
+<li>
+<div class="chapter-title">Environmental Chemistry</div>
+<a href="env_chem.html" target="_blank">[HTML]</a>
+<a href="books/env.pdf" target="_blank">[PDF]</a>
+</li>
+
+</ul>
+
+</div>
+
+<footer>
+    © 2026 SD Classes | ChemOnly
+</footer>
+
 </body>
 </html>
