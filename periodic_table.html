@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Periodic Table</title>
+<title>Complete Interactive Periodic Table</title>
 
 <style>
 
 body{
     margin:0;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#1e3c72,#2a5298);
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
     color:white;
     text-align:center;
 }
@@ -22,7 +22,7 @@ h1{
 
 #table{
     display:grid;
-    grid-template-columns: repeat(18, 60px);
+    grid-template-columns: repeat(18, 65px);
     gap:6px;
     justify-content:center;
     padding:20px;
@@ -32,14 +32,15 @@ h1{
     background:white;
     color:black;
     border-radius:8px;
-    padding:5px;
+    padding:4px;
     cursor:pointer;
     transition:0.3s;
-    box-shadow:0 4px 6px rgba(0,0,0,0.3);
+    box-shadow:0 4px 6px rgba(0,0,0,0.4);
+    font-size:12px;
 }
 
 .element:hover{
-    transform:scale(1.1);
+    transform:scale(1.08);
 }
 
 .number{
@@ -48,20 +49,24 @@ h1{
 }
 
 .symbol{
-    font-size:20px;
+    font-size:18px;
     font-weight:bold;
 }
 
 .name{
-    font-size:10px;
+    font-size:9px;
 }
 
-.alkali{background:#ff9f43;}
-.alkaline{background:#feca57;}
-.transition{background:#48dbfb;}
-.nonmetal{background:#1dd1a1;}
-.noble{background:#ff6b6b;}
+.alkali{background:#ff7675;}
+.alkaline{background:#fdcb6e;}
+.transition{background:#74b9ff;}
+.post{background:#81ecec;}
 .metalloid{background:#a29bfe;}
+.nonmetal{background:#55efc4;}
+.halogen{background:#fab1a0;}
+.noble{background:#e17055;}
+.lanthanide{background:#ffeaa7;}
+.actinide{background:#dfe6e9;}
 
 #popup{
     position:fixed;
@@ -74,6 +79,7 @@ h1{
     border-radius:10px;
     display:none;
     width:300px;
+    z-index:10;
 }
 
 #close{
@@ -87,71 +93,9 @@ h1{
 
 <body>
 
-<h1>Interactive Periodic Table</h1>
+<h1>Complete Interactive Periodic Table (118 Elements)</h1>
 
-<div id="table">
-
-<div class="element nonmetal" onclick="showInfo('Hydrogen','H','1','Non-metal')" style="grid-column:1;">
-<div class="number">1</div>
-<div class="symbol">H</div>
-<div class="name">Hydrogen</div>
-</div>
-
-<div class="element noble" onclick="showInfo('Helium','He','2','Noble Gas')" style="grid-column:18;">
-<div class="number">2</div>
-<div class="symbol">He</div>
-<div class="name">Helium</div>
-</div>
-
-<div class="element alkali" onclick="showInfo('Lithium','Li','3','Alkali Metal')" style="grid-column:1; grid-row:2;">
-<div class="number">3</div>
-<div class="symbol">Li</div>
-<div class="name">Lithium</div>
-</div>
-
-<div class="element alkaline" onclick="showInfo('Beryllium','Be','4','Alkaline Earth Metal')" style="grid-column:2; grid-row:2;">
-<div class="number">4</div>
-<div class="symbol">Be</div>
-<div class="name">Beryllium</div>
-</div>
-
-<div class="element metalloid" onclick="showInfo('Boron','B','5','Metalloid')" style="grid-column:13; grid-row:2;">
-<div class="number">5</div>
-<div class="symbol">B</div>
-<div class="name">Boron</div>
-</div>
-
-<div class="element nonmetal" onclick="showInfo('Carbon','C','6','Non-metal')" style="grid-column:14; grid-row:2;">
-<div class="number">6</div>
-<div class="symbol">C</div>
-<div class="name">Carbon</div>
-</div>
-
-<div class="element nonmetal" onclick="showInfo('Nitrogen','N','7','Non-metal')" style="grid-column:15; grid-row:2;">
-<div class="number">7</div>
-<div class="symbol">N</div>
-<div class="name">Nitrogen</div>
-</div>
-
-<div class="element nonmetal" onclick="showInfo('Oxygen','O','8','Non-metal')" style="grid-column:16; grid-row:2;">
-<div class="number">8</div>
-<div class="symbol">O</div>
-<div class="name">Oxygen</div>
-</div>
-
-<div class="element nonmetal" onclick="showInfo('Fluorine','F','9','Non-metal')" style="grid-column:17; grid-row:2;">
-<div class="number">9</div>
-<div class="symbol">F</div>
-<div class="name">Fluorine</div>
-</div>
-
-<div class="element noble" onclick="showInfo('Neon','Ne','10','Noble Gas')" style="grid-column:18; grid-row:2;">
-<div class="number">10</div>
-<div class="symbol">Ne</div>
-<div class="name">Neon</div>
-</div>
-
-</div>
+<div id="table"></div>
 
 <div id="popup">
 <span id="close" onclick="closePopup()">X</span>
@@ -163,11 +107,137 @@ h1{
 
 <script>
 
+const elements = [
+[1,"H","Hydrogen","nonmetal",1,1],
+[2,"He","Helium","noble",1,18],
+[3,"Li","Lithium","alkali",2,1],
+[4,"Be","Beryllium","alkaline",2,2],
+[5,"B","Boron","metalloid",2,13],
+[6,"C","Carbon","nonmetal",2,14],
+[7,"N","Nitrogen","nonmetal",2,15],
+[8,"O","Oxygen","nonmetal",2,16],
+[9,"F","Fluorine","halogen",2,17],
+[10,"Ne","Neon","noble",2,18],
+
+[11,"Na","Sodium","alkali",3,1],
+[12,"Mg","Magnesium","alkaline",3,2],
+[13,"Al","Aluminium","post",3,13],
+[14,"Si","Silicon","metalloid",3,14],
+[15,"P","Phosphorus","nonmetal",3,15],
+[16,"S","Sulfur","nonmetal",3,16],
+[17,"Cl","Chlorine","halogen",3,17],
+[18,"Ar","Argon","noble",3,18],
+
+[19,"K","Potassium","alkali",4,1],
+[20,"Ca","Calcium","alkaline",4,2],
+[21,"Sc","Scandium","transition",4,3],
+[22,"Ti","Titanium","transition",4,4],
+[23,"V","Vanadium","transition",4,5],
+[24,"Cr","Chromium","transition",4,6],
+[25,"Mn","Manganese","transition",4,7],
+[26,"Fe","Iron","transition",4,8],
+[27,"Co","Cobalt","transition",4,9],
+[28,"Ni","Nickel","transition",4,10],
+[29,"Cu","Copper","transition",4,11],
+[30,"Zn","Zinc","transition",4,12],
+[31,"Ga","Gallium","post",4,13],
+[32,"Ge","Germanium","metalloid",4,14],
+[33,"As","Arsenic","metalloid",4,15],
+[34,"Se","Selenium","nonmetal",4,16],
+[35,"Br","Bromine","halogen",4,17],
+[36,"Kr","Krypton","noble",4,18],
+
+[37,"Rb","Rubidium","alkali",5,1],
+[38,"Sr","Strontium","alkaline",5,2],
+[39,"Y","Yttrium","transition",5,3],
+[40,"Zr","Zirconium","transition",5,4],
+[41,"Nb","Niobium","transition",5,5],
+[42,"Mo","Molybdenum","transition",5,6],
+[43,"Tc","Technetium","transition",5,7],
+[44,"Ru","Ruthenium","transition",5,8],
+[45,"Rh","Rhodium","transition",5,9],
+[46,"Pd","Palladium","transition",5,10],
+[47,"Ag","Silver","transition",5,11],
+[48,"Cd","Cadmium","transition",5,12],
+[49,"In","Indium","post",5,13],
+[50,"Sn","Tin","post",5,14],
+[51,"Sb","Antimony","metalloid",5,15],
+[52,"Te","Tellurium","metalloid",5,16],
+[53,"I","Iodine","halogen",5,17],
+[54,"Xe","Xenon","noble",5,18],
+
+[55,"Cs","Cesium","alkali",6,1],
+[56,"Ba","Barium","alkaline",6,2],
+[57,"La","Lanthanum","lanthanide",8,3],
+
+[72,"Hf","Hafnium","transition",6,4],
+[73,"Ta","Tantalum","transition",6,5],
+[74,"W","Tungsten","transition",6,6],
+[75,"Re","Rhenium","transition",6,7],
+[76,"Os","Osmium","transition",6,8],
+[77,"Ir","Iridium","transition",6,9],
+[78,"Pt","Platinum","transition",6,10],
+[79,"Au","Gold","transition",6,11],
+[80,"Hg","Mercury","transition",6,12],
+[81,"Tl","Thallium","post",6,13],
+[82,"Pb","Lead","post",6,14],
+[83,"Bi","Bismuth","post",6,15],
+[84,"Po","Postonium","metalloid",6,16],
+[85,"At","Astatine","halogen",6,17],
+[86,"Rn","Radon","noble",6,18],
+
+[87,"Fr","Francium","alkali",7,1],
+[88,"Ra","Radium","alkaline",7,2],
+[89,"Ac","Actinium","actinide",9,3],
+
+[104,"Rf","Rutherfordium","transition",7,4],
+[105,"Db","Dubnium","transition",7,5],
+[106,"Sg","Seaborgium","transition",7,6],
+[107,"Bh","Bohrium","transition",7,7],
+[108,"Hs","Hassium","transition",7,8],
+[109,"Mt","Meitnerium","transition",7,9],
+[110,"Ds","Darmstadtium","transition",7,10],
+[111,"Rg","Roentgenium","transition",7,11],
+[112,"Cn","Copernicium","transition",7,12],
+[113,"Nh","Nihonium","post",7,13],
+[114,"Fl","Flerovium","post",7,14],
+[115,"Mc","Moscovium","post",7,15],
+[116,"Lv","Livermorium","post",7,16],
+[117,"Ts","Tennessine","halogen",7,17],
+[118,"Og","Oganesson","noble",7,18]
+];
+
+// Lanthanides 58–71
+let lanRow=8;
+for(let i=58;i<=71;i++){
+    elements.push([i,"","", "lanthanide",8,i-54]);
+}
+
+// Actinides 90–103
+for(let i=90;i<=103;i++){
+    elements.push([i,"","", "actinide",9,i-86]);
+}
+
+const table=document.getElementById("table");
+
+elements.forEach(el=>{
+    let div=document.createElement("div");
+    div.className="element "+el[3];
+    div.style.gridRow=el[4];
+    div.style.gridColumn=el[5];
+    div.innerHTML=
+        "<div class='number'>"+el[0]+"</div>"+
+        "<div class='symbol'>"+el[1]+"</div>"+
+        "<div class='name'>"+el[2]+"</div>";
+    div.onclick=()=>showInfo(el[2],el[1],el[0],el[3]);
+    table.appendChild(div);
+});
+
 function showInfo(name,symbol,number,category){
-    document.getElementById("pname").innerText = name;
-    document.getElementById("psymbol").innerText = symbol;
-    document.getElementById("pnumber").innerText = number;
-    document.getElementById("pcategory").innerText = category;
+    document.getElementById("pname").innerText=name;
+    document.getElementById("psymbol").innerText=symbol;
+    document.getElementById("pnumber").innerText=number;
+    document.getElementById("pcategory").innerText=category;
     document.getElementById("popup").style.display="block";
 }
 
