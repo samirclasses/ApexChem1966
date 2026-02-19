@@ -1,133 +1,238 @@
 <!DOCTYPE html>
-<html>
-    <head>
-       
-        <meta charset="UTF-8">
-        <meta name="viewpoint" content="width=device-width,initial-scale=1.0">
-        <title>ChemWeb</title>
-        <link rel="stylesheet" href="sdchemstyle.css">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemistry Hub | A to Z Chemistry</title>
+
+<link rel="stylesheet" href="sdchemstyle.css">
+
 <style>
-    a{
-        font-size:20x;
-        text-align:center;
-        vertical-align:center;
-        text-decoration: none;
-    }
+
+/* ===== GENERAL ===== */
+body{
+    margin:0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#f4f8fb;
+}
+
+a{
+    text-decoration:none;
+    color:#0b3d91;
+    font-size:18px;
+    font-weight:600;
+}
+
+a:hover{
+    color:#e63946;
+}
+
+/* ===== HEADER ===== */
+.header{
+    background:linear-gradient(90deg,#ffffff,#ffd6e0,#c8f7c5);
+    text-align:center;
+    padding:25px 10px;
+    box-shadow:0 3px 6px rgba(0,0,0,0.1);
+}
+
+.header h1{
+    margin:0;
+    font-size:42px;
+}
+
+.header p{
+    margin:5px;
+    font-size:18px;
+    color:#333;
+}
+
+/* ===== QUICK LINKS ===== */
+.quick-links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    background:#0b3d91;
+    padding:10px;
+}
+
+.quick-links a{
+    color:white;
+    margin:8px 15px;
+    font-size:16px;
+}
+
+/* ===== SCROLLING QUOTE ===== */
+.scroll-text{
+    background:black;
+    color:yellow;
+    padding:10px;
+    font-size:22px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    animation:scroll 12s linear infinite;
+}
+
+@keyframes scroll{
+    from{transform:translateX(100%);}
+    to{transform:translateX(-100%);}
+}
+
+/* ===== SECTION ===== */
+.section{
+    width:90%;
+    margin:auto;
+    margin-top:40px;
+}
+
+.section h2{
+    border-left:6px solid #0b3d91;
+    padding-left:10px;
+    font-size:26px;
+}
+
+.section hr{
+    margin-bottom:15px;
+}
+
+.section div{
+    margin:8px 0;
+}
+
+/* ===== IFRAME ===== */
+iframe{
+    width:100%;
+    height:500px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+/* ===== BLINK ===== */
+.blink{
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* ===== FOOTER ===== */
+.footer{
+    margin-top:40px;
+    padding:15px;
+    text-align:center;
+    background:white;
+    border-top:2px solid #0b3d91;
+    font-weight:bold;
+}
+
 </style>
-        
-    </head>
-    <body>
-        <div class="title" style="background-image:linear-gradient(to right,white,pink,green);"><font size="200%">A to Z:Chemistry Only</font>
-           <font size="5px"> (https://samirclasses.github.io/AskChem)</font>
-        </div>
-       
-        <div class="aside">
-            <div class="aside_body"><a href="https://www.youtube.com/">YouTube</a></div>
-            <div class="aside_body"><a href="https://en.wikipedia.org">Wickipedia</a></div>
-            <div class="aside_body"><a href="https://www.britannica.com/">Britannica</a></div>
-            <div class="aside_body"><a href="https://www.google.com/">Google</a></div>
-            <div class="aside_body"><a href="https://www.nature.com/">Nature</a></div>
-            <div class="aside_body"><a href="https://www.rsc.org/">Royal Society of Chemistry</a></div>
-        </div>
-     
-    <marquee direction="left" scrollamount="12" > <em><font size="7px" color="yellow">“Chemistry is the art of balancing equations – both in the lab and in life."</font></em> </marquee>  
-       <br><br>
-         
-       
-        <div>
-        
-            <div style="width:100%;">
-            <div id="heading" style="background-color:white;"><font style="margin-left:5%; margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:left;">Class-XI  &nbsp&nbsp&nbsp  ></font> </div>
-          <hr>  <div class="header_body" style="background-color:white;"><a href="class11chapter.html" style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Chapter-wise notes</a></div>
-            <div class="header_body" style="background-color:white;"><a href="xi_mcq.html" style="margin-top:20px;font-size:25px;font-weight:bolder;color:black;text-align:center;">Multiple Choice Questions&nbsp&nbsp<i id="blink" style=" font-size: 30 px;color:blue; transition:0.4s;">[<b>New Update</b>]</i> </a></div>
-            <div class="header_body" style="background-color:white;"><a href="test_yourself_11.html" style="margin-top:20px;font-size:25px;font-weight:bolder;color:black;text-align:center;">Test Yourself</a></div>
-           
-            </div>
-    </div>  
-       
-        <div class="blanck"></div>
-       
+</head>
 
- <div>
-        
-       <div style="width:100%;">
-            <div id="heading" style="background-color:white;"><font style="margin-left:5%; margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:left;">Class-XII  &nbsp&nbsp&nbsp  ></font> </div>
-           <hr> <div class="class11_body" style="background-color:white;"><a href="class12_chapter_notes.html" style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Chapter-wise notes</a></div>
-            <div class="class11_body" style="background-color:white;"><a href="mcq_12.html" style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Multiple Choice Questions&nbsp&nbsp<i id="blink1" style=" font-size: 30 px;color:green; transition:0.5s;">[<b>New Update</b>]</i> </a></div>
-            <div class="class11_body" style="background-color:white;"><a href="test_yourself_12.html" style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Test Yourself</a></div>
-           
-       </div>
- </div>     
-        <div class="blanck"></div>
-              
-             
-         <div style="width:100%;">
-             <div id="heading" style="background-color:white; "><font style="margin-left:5%; margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:left;">Competitive Examinations Corner  &nbsp&nbsp&nbsp  ></font> </div>            
-             <hr><div class="comp_body" style="background-color:white;"><a href="mcq_competitive.html"style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Multiple Choice Questions</a></div>
-            <div class="comp_body" style="background-color:white;"><a href="test_yourself_comp.html"style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Test Yourself </a></div>
-            <div class="comp_body" style="background-color:white;"><a href="org_reactions.html"style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Organic reactions & their Mechanism</a></div>
-            <div class="comp_body" style="background-color:white;"><a href="important_law_test.html"style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Important Laws,Tests and other Topics</a></div>
-             
-           
-         </div>
-        <div class="blanck"></div>
+<body>
 
-                  
-      <h1> Recent Developments in Chemistry</h1>
-   
-       
-             <iframe src="recent_dev.html" style="width:100%; height:500px;  overflow:hidden;"></iframe>
-      
-        <div class="blanck"></div>
-       
-        
-        <h1>Let us solve Together</h1> 
+<!-- HEADER -->
+<div class="header">
+    <h1>A to Z: Chemistry Only</h1>
+    <p>https://samirclasses.github.io/AskChem</p>
+</div>
 
-         <iframe src="let_us_solve/let_us_solve.html" style="width:100%; height:500px;  overflow:hidden;"></iframe><br>
-        <h1>Know your Elements: Click on any symbol to see detail</h1>
+<!-- QUICK LINKS -->
+<div class="quick-links">
+    <a href="https://www.youtube.com/">YouTube</a>
+    <a href="https://en.wikipedia.org">Wikipedia</a>
+    <a href="https://www.britannica.com/">Britannica</a>
+    <a href="https://www.google.com/">Google</a>
+    <a href="https://www.nature.com/">Nature</a>
+    <a href="https://www.rsc.org/">Royal Society of Chemistry</a>
+</div>
 
-       
-           
-            <iframe src="periodic_table.html" style="height:525px;width:98%;padding:5px;"></iframe> 
-            
-            <div id="p_table_desc" style="width:98%;padding:5px; height:100px; color:white;font-weight:bold;font-size:100%;">
-                The periodic table, also known as the periodic table of the elements, is an ordered arrangement of the chemical elements into rows 
-                ("periods") and columns ("groups"). It is an icon of chemistry and is widely used in physics and other sciences. It is a depiction 
-                of the periodic law, which states that when the elements are arranged in order of their atomic numbers an approximate recurrence of 
-                their properties is evident. The table is divided into four roughly rectangular areas called blocks. Elements in the same group tend 
-                to show similar chemical characteristics.
-            </div>
-        <div class="blanck"></div>
-              
-             
-         <div style="width:100%;">
-             <div id="heading" style="background-color:white; "><font style="margin-left:5%; margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:left;">Graduate Level Chemistry  &nbsp&nbsp&nbsp  ></font> </div>            
-           <div class="aside">
-            <div class="aside_body"><a href="kinetic_theory/kinetic_theory.html" style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Kinetic theory of gas(Hons)</a></div>
-            <div class="aside_body"><a href="quantum/quantum.html"style="margin-top:20px;font-size:25px;font-weight:bolder;color:black; text-align:center;">Quantum Chemistry</a></div>
-            
-           </div>
-            </div>
-                
-          <div id="author" style="height:50px;width:100%;background:white;color:black; font-weight:bold;border:1px solid black;">Creator of this Website: SAMIR DUTTA<br>
-          Email-ID: samirj210@gmail.com
-          </div>
-      <script type="text/javascript">
-            var blink = document.getElementById('blink');
-            setInterval(function() {
-                blink.style.opacity = (blink.style.opacity == 0 ? 1 : 0);
-            }, 1000);
-        </script>
-        
-         <script type="text/javascript">
-            var blink1 = document.getElementById('blink1');
-            setInterval(function() {
-                blink1.style.opacity = (blink1.style.opacity == 0 ? 1 : 0);
-            }, 1500);
-        </script>
-        
-    </body>
+<!-- QUOTE -->
+<div class="scroll-text">
+“Chemistry is the art of balancing equations – both in the lab and in life.”
+</div>
+
+<!-- CLASS XI -->
+<div class="section">
+    <h2>Class-XI</h2>
+    <hr>
+    <div><a href="class11chapter.html">Chapter-wise Notes</a></div>
+    <div>
+        <a href="xi_mcq.html">
+            Multiple Choice Questions 
+            <span id="blink" class="blink" style="color:blue;">[New Update]</span>
+        </a>
+    </div>
+    <div><a href="test_yourself_11.html">Test Yourself</a></div>
+</div>
+
+<!-- CLASS XII -->
+<div class="section">
+    <h2>Class-XII</h2>
+    <hr>
+    <div><a href="class12_chapter_notes.html">Chapter-wise Notes</a></div>
+    <div>
+        <a href="mcq_12.html">
+            Multiple Choice Questions 
+            <span id="blink1" class="blink" style="color:green;">[New Update]</span>
+        </a>
+    </div>
+    <div><a href="test_yourself_12.html">Test Yourself</a></div>
+</div>
+
+<!-- COMPETITIVE -->
+<div class="section">
+    <h2>Competitive Examinations Corner</h2>
+    <hr>
+    <div><a href="mcq_competitive.html">Multiple Choice Questions</a></div>
+    <div><a href="test_yourself_comp.html">Test Yourself</a></div>
+    <div><a href="org_reactions.html">Organic Reactions & Their Mechanism</a></div>
+    <div><a href="important_law_test.html">Important Laws, Tests and Topics</a></div>
+</div>
+
+<!-- RECENT DEVELOPMENTS -->
+<div class="section">
+    <h2>Recent Developments in Chemistry</h2>
+    <iframe src="recent_dev.html"></iframe>
+</div>
+
+<!-- LET US SOLVE -->
+<div class="section">
+    <h2>Let Us Solve Together</h2>
+    <iframe src="let_us_solve/let_us_solve.html"></iframe>
+</div>
+
+<!-- PERIODIC TABLE -->
+<div class="section">
+    <h2>Know Your Elements</h2>
+    <iframe src="periodic_table.html"></iframe>
+</div>
+
+<!-- GRADUATE LEVEL -->
+<div class="section">
+    <h2>Graduate Level Chemistry</h2>
+    <hr>
+    <div><a href="kinetic_theory/kinetic_theory.html">Kinetic Theory of Gas (Hons)</a></div>
+    <div><a href="quantum/quantum.html">Quantum Chemistry</a></div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+Creator of this Website: SAMIR DUTTA <br>
+Email-ID: samirj210@gmail.com
+</div>
+
+<script>
+function blinkEffect(id,time){
+    var element=document.getElementById(id);
+    setInterval(function(){
+        element.style.opacity=(element.style.opacity==0?1:0);
+    },time);
+}
+blinkEffect("blink",1000);
+blinkEffect("blink1",1500);
+</script>
+
+</body>
 </html>
+
 
 
 
