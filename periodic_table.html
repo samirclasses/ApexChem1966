@@ -1,158 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Complete Interactive Periodic Table</title>
+<title>Interactive Periodic Table</title>
 
 <style>
-
-*{box-sizing:border-box;}
-
 body{
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    color:white;
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
     text-align:center;
 }
 
 h1{
-    margin:10px;
-    font-size:22px;
+    margin-top:20px;
 }
 
-.wrapper{
-    overflow-x:auto;
-}
-
-#table{
+.periodic-table{
     display:grid;
-    grid-template-columns:repeat(18, minmax(45px,1fr));
-    gap:5px;
-    min-width:900px;
-    padding:10px;
+    grid-template-columns: repeat(18, 60px);
+    grid-gap:5px;
+    justify-content:center;
+    margin:20px auto;
 }
 
 .element{
-    background:white;
-    color:black;
-    border-radius:8px;
-    padding:5px 2px;
-    font-size:11px;
+    border-radius:6px;
+    padding:5px;
     cursor:pointer;
+    color:white;
+    font-size:12px;
     transition:0.2s;
-    box-shadow:0 3px 5px rgba(0,0,0,0.3);
 }
 
-.element:active{transform:scale(0.95);}
-
-.number{font-size:9px;text-align:left;}
-.symbol{font-size:14px;font-weight:bold;}
-.name{font-size:8px;}
-
-#popup{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:white;
-    color:black;
-    padding:20px;
-    border-radius:15px 15px 0 0;
-    display:none;
+.element:hover{
+    transform:scale(1.1);
 }
 
-#close{
-    text-align:right;
-    cursor:pointer;
-    color:red;
+.number{
+    font-size:10px;
+    text-align:left;
+}
+
+.symbol{
+    font-size:16px;
     font-weight:bold;
 }
 
+/* Categories */
+.alkali{background:#e74c3c;}
+.alkaline{background:#e67e22;}
+.transition{background:#3498db;}
+.post-transition{background:#16a085;}
+.metalloid{background:#9b59b6;}
+.nonmetal{background:#2ecc71;}
+.halogen{background:#f1c40f; color:black;}
+.noble{background:#34495e;}
+.lanthanide{background:#1abc9c;}
+.actinide{background:#8e44ad;}
+.other{background:#7f8c8d;}
+
+.lanth-act{
+    display:grid;
+    grid-template-columns: repeat(15, 60px);
+    grid-gap:5px;
+    justify-content:center;
+    margin-top:20px;
+}
+
+.info-box{
+    margin-top:20px;
+    padding:10px;
+    font-size:18px;
+    font-weight:bold;
+}
 </style>
 </head>
-
 <body>
 
-<h1>📱 Complete Interactive Periodic Table</h1>
+<h1>Interactive Periodic Table</h1>
 
-<div class="wrapper">
-<div id="table"></div>
-</div>
+<div class="periodic-table" id="table"></div>
 
-<div id="popup">
-<div id="close" onclick="closePopup()">✖ Close</div>
-<h2 id="pname"></h2>
-<p><strong>Symbol:</strong> <span id="psymbol"></span></p>
-<p><strong>Atomic Number:</strong> <span id="pnumber"></span></p>
-<p><strong>Category:</strong> <span id="pcategory"></span></p>
-</div>
+<h2>Lanthanides</h2>
+<div class="lanth-act" id="lanthanides"></div>
+
+<h2>Actinides</h2>
+<div class="lanth-act" id="actinides"></div>
+
+<div class="info-box" id="info">Click an element to see details</div>
 
 <script>
 
-/* Full 118 Elements */
 const elements = [
-{n:1,s:"H",name:"Hydrogen",cat:"Non-metal",col:1,row:1},
-{n:2,s:"He",name:"Helium",cat:"Noble Gas",col:18,row:1},
-
-{n:3,s:"Li",name:"Lithium",cat:"Alkali Metal",col:1,row:2},
-{n:4,s:"Be",name:"Beryllium",cat:"Alkaline Earth",col:2,row:2},
-{n:5,s:"B",name:"Boron",cat:"Metalloid",col:13,row:2},
-{n:6,s:"C",name:"Carbon",cat:"Non-metal",col:14,row:2},
-{n:7,s:"N",name:"Nitrogen",cat:"Non-metal",col:15,row:2},
-{n:8,s:"O",name:"Oxygen",cat:"Non-metal",col:16,row:2},
-{n:9,s:"F",name:"Fluorine",cat:"Halogen",col:17,row:2},
-{n:10,s:"Ne",name:"Neon",cat:"Noble Gas",col:18,row:2},
-
-/* Continue automatically generated layout */
-
+{n:1,s:"H",c:"nonmetal"}, {n:2,s:"He",c:"noble"},
+{n:3,s:"Li",c:"alkali"}, {n:4,s:"Be",c:"alkaline"},
+{n:5,s:"B",c:"metalloid"}, {n:6,s:"C",c:"nonmetal"},
+{n:7,s:"N",c:"nonmetal"}, {n:8,s:"O",c:"nonmetal"},
+{n:9,s:"F",c:"halogen"}, {n:10,s:"Ne",c:"noble"},
+{n:11,s:"Na",c:"alkali"}, {n:12,s:"Mg",c:"alkaline"},
+{n:13,s:"Al",c:"post-transition"}, {n:14,s:"Si",c:"metalloid"},
+{n:15,s:"P",c:"nonmetal"}, {n:16,s:"S",c:"nonmetal"},
+{n:17,s:"Cl",c:"halogen"}, {n:18,s:"Ar",c:"noble"},
+{n:19,s:"K",c:"alkali"}, {n:20,s:"Ca",c:"alkaline"},
+{n:21,s:"Sc",c:"transition"}, {n:22,s:"Ti",c:"transition"},
+{n:23,s:"V",c:"transition"}, {n:24,s:"Cr",c:"transition"},
+{n:25,s:"Mn",c:"transition"}, {n:26,s:"Fe",c:"transition"},
+{n:27,s:"Co",c:"transition"}, {n:28,s:"Ni",c:"transition"},
+{n:29,s:"Cu",c:"transition"}, {n:30,s:"Zn",c:"transition"},
+{n:31,s:"Ga",c:"post-transition"}, {n:32,s:"Ge",c:"metalloid"},
+{n:33,s:"As",c:"metalloid"}, {n:34,s:"Se",c:"nonmetal"},
+{n:35,s:"Br",c:"halogen"}, {n:36,s:"Kr",c:"noble"},
+{n:37,s:"Rb",c:"alkali"}, {n:38,s:"Sr",c:"alkaline"},
+{n:39,s:"Y",c:"transition"}, {n:40,s:"Zr",c:"transition"},
+{n:41,s:"Nb",c:"transition"}, {n:42,s:"Mo",c:"transition"},
+{n:43,s:"Tc",c:"transition"}, {n:44,s:"Ru",c:"transition"},
+{n:45,s:"Rh",c:"transition"}, {n:46,s:"Pd",c:"transition"},
+{n:47,s:"Ag",c:"transition"}, {n:48,s:"Cd",c:"transition"},
+{n:49,s:"In",c:"post-transition"}, {n:50,s:"Sn",c:"post-transition"},
+{n:51,s:"Sb",c:"metalloid"}, {n:52,s:"Te",c:"metalloid"},
+{n:53,s:"I",c:"halogen"}, {n:54,s:"Xe",c:"noble"},
+{n:55,s:"Cs",c:"alkali"}, {n:56,s:"Ba",c:"alkaline"},
+{n:57,s:"La",c:"lanthanide"},
+{n:58,s:"Ce",c:"lanthanide"}, {n:59,s:"Pr",c:"lanthanide"},
+{n:60,s:"Nd",c:"lanthanide"}, {n:61,s:"Pm",c:"lanthanide"},
+{n:62,s:"Sm",c:"lanthanide"}, {n:63,s:"Eu",c:"lanthanide"},
+{n:64,s:"Gd",c:"lanthanide"}, {n:65,s:"Tb",c:"lanthanide"},
+{n:66,s:"Dy",c:"lanthanide"}, {n:67,s:"Ho",c:"lanthanide"},
+{n:68,s:"Er",c:"lanthanide"}, {n:69,s:"Tm",c:"lanthanide"},
+{n:70,s:"Yb",c:"lanthanide"}, {n:71,s:"Lu",c:"lanthanide"},
+{n:72,s:"Hf",c:"transition"}, {n:73,s:"Ta",c:"transition"},
+{n:74,s:"W",c:"transition"}, {n:75,s:"Re",c:"transition"},
+{n:76,s:"Os",c:"transition"}, {n:77,s:"Ir",c:"transition"},
+{n:78,s:"Pt",c:"transition"}, {n:79,s:"Au",c:"transition"},
+{n:80,s:"Hg",c:"transition"}, {n:81,s:"Tl",c:"post-transition"},
+{n:82,s:"Pb",c:"post-transition"}, {n:83,s:"Bi",c:"post-transition"},
+{n:84,s:"Po",c:"metalloid"}, {n:85,s:"At",c:"halogen"},
+{n:86,s:"Rn",c:"noble"}, {n:87,s:"Fr",c:"alkali"},
+{n:88,s:"Ra",c:"alkaline"}, {n:89,s:"Ac",c:"actinide"},
+{n:90,s:"Th",c:"actinide"}, {n:91,s:"Pa",c:"actinide"},
+{n:92,s:"U",c:"actinide"}, {n:93,s:"Np",c:"actinide"},
+{n:94,s:"Pu",c:"actinide"}, {n:95,s:"Am",c:"actinide"},
+{n:96,s:"Cm",c:"actinide"}, {n:97,s:"Bk",c:"actinide"},
+{n:98,s:"Cf",c:"actinide"}, {n:99,s:"Es",c:"actinide"},
+{n:100,s:"Fm",c:"actinide"}, {n:101,s:"Md",c:"actinide"},
+{n:102,s:"No",c:"actinide"}, {n:103,s:"Lr",c:"actinide"},
+{n:104,s:"Rf",c:"transition"}, {n:105,s:"Db",c:"transition"},
+{n:106,s:"Sg",c:"transition"}, {n:107,s:"Bh",c:"transition"},
+{n:108,s:"Hs",c:"transition"}, {n:109,s:"Mt",c:"transition"},
+{n:110,s:"Ds",c:"transition"}, {n:111,s:"Rg",c:"transition"},
+{n:112,s:"Cn",c:"transition"}, {n:113,s:"Nh",c:"post-transition"},
+{n:114,s:"Fl",c:"post-transition"}, {n:115,s:"Mc",c:"post-transition"},
+{n:116,s:"Lv",c:"post-transition"}, {n:117,s:"Ts",c:"halogen"},
+{n:118,s:"Og",c:"noble"}
 ];
 
-/* Automatically generate rest of elements */
-const symbols = [
-"H","He","Li","Be","B","C","N","O","F","Ne",
-"Na","Mg","Al","Si","P","S","Cl","Ar",
-"K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn",
-"Ga","Ge","As","Se","Br","Kr",
-"Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd",
-"In","Sn","Sb","Te","I","Xe",
-"Cs","Ba",
-"La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu",
-"Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg",
-"Tl","Pb","Bi","Po","At","Rn",
-"Fr","Ra",
-"Ac","Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm","Md","No","Lr",
-"Rf","Db","Sg","Bh","Hs","Mt","Ds","Rg","Cn","Nh","Fl","Mc","Lv","Ts","Og"
-];
+const table = document.getElementById("table");
+const lanth = document.getElementById("lanthanides");
+const act = document.getElementById("actinides");
+const info = document.getElementById("info");
 
-/* Generate simple layout */
-let table = document.getElementById("table");
-
-symbols.forEach((sym,index)=>{
-    let atomic = index+1;
-    let div = document.createElement("div");
-    div.className="element";
-    div.innerHTML=`
-        <div class="number">${atomic}</div>
-        <div class="symbol">${sym}</div>
-    `;
-    div.onclick=()=>showInfo("Element "+sym,sym,atomic,"Click for details");
-    table.appendChild(div);
+elements.forEach(el=>{
+    const div = document.createElement("div");
+    div.className = "element "+el.c;
+    div.innerHTML = `<div class="number">${el.n}</div><div class="symbol">${el.s}</div>`;
+    div.onclick = ()=> info.innerHTML = 
+        `Element: ${el.s} | Atomic Number: ${el.n} | Category: ${el.c}`;
+    
+    if(el.c==="lanthanide") lanth.appendChild(div);
+    else if(el.c==="actinide") act.appendChild(div);
+    else table.appendChild(div);
 });
-
-/* Popup */
-function showInfo(name,symbol,number,category){
-    document.getElementById("pname").innerText=name;
-    document.getElementById("psymbol").innerText=symbol;
-    document.getElementById("pnumber").innerText=number;
-    document.getElementById("pcategory").innerText=category;
-    document.getElementById("popup").style.display="block";
-}
-
-function closePopup(){
-    document.getElementById("popup").style.display="none";
-}
 
 </script>
 
