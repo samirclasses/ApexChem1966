@@ -1,48 +1,122 @@
-<html>
-	<head>
-	<title>SD Classes/ChemOnly</title>
-	<script src="jquery.js"></script> 
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> 
-		<style>
-	body{
-background-color:lightsteelblue;
-		color:indigo;
-	}
-			
-	a{
-		color:indigo;
-		font-weight:bold;
-		text-decoration:none;
-		font-size:140%;
-	
-        	}
-		</style>
-		
-				
-	</head>
-<body >
-	
-				<h1><i><font size="30px">Class-XI MCQ</font></i></h1>
-			
-	<ul>
-			<li><a class="books" href="MCQ/SomeBasicConcepts.pdf" target="_blank">Some Basic Concepts of Chemistry</a></li>	
-			<li><a class="books" href="MCQ/mcq_basic-1.pdf" target="_blank">Some Basic Concepts of Chemistry MCQ PLUS -----[NEW] </a></li>
-			<li><a class="books" href="MCQ/AtomicStructure.pdf" target="_blank">Atomic Structure</a></li>
-			<li><a class="books" href="MCQ/mcqplus_ato_str.pdf" target="_blank">Atomic Structure MCQ PLUS</a></li>
-			<li><a class="books" href="MCQ/periodicTable.pdf" target="_blank">Periodic Table</a></li>
-			<li><a class="books" href="MCQ/mcq_periodic_table.pdf" target="_blank">Periodic Table MCQ PLUS</a></li>
-			<li><a class="books" href="MCQ/chemicalBonding.pdf" target="_blank">Chemical Bonding</a></li>
-			<li><a class="books" href="MCQ/mcq_bonding.pdf" target="_blank">Chemical Bonding MCQ PLUS</a></li>
-			<li><a class="books" href="MCQ/statesOfMatter.pdf" target="_blank">States of Matter</a></li>
-			<li><a class="books" href="MCQ/thermodynamics.pdf" target="_blank">Chemical Thermodynamics</a></li>
-			<li><a class="books" href="MCQ/chemicalEquilibrium.pdf" target="_blank">Chemical Equilibrium</a></li>
-			<li><a class="books" href="MCQ/ionicEquilibrium.pdf" target="_blank">Ionic Equilibrium</a></li>
-			<li><a class="books" href="MCQ/redoxReactions.pdf" target="_blank">Redox Reactions</a></li>
-			<li><a class="books" href="MCQ/mcq_hydrogen.pdf" target="_blank">Hydrogen and Hydrides MCQ PLUS</a></li>
-			<li><a class="books" href="MCQ/mcq_sblock.pdf" target="_blank">S-Block Elements MCQ PLUS</a></li>
-			<li><a class="books" href="MCQ/mcq_group13.pdf" target="_blank">Group-13 Elements: Boron family MCQ PLUS</a></li>
-			<li><a class="books" href="MCQ/mcq_group14.pdf" target="_blank">Group-14 Elements: Carbon family MCQ PLUS</a></li>
-	</ul>	
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SD Classes | Class XI MCQ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    background:linear-gradient(135deg,#1e3c72,#2a5298);
+    color:#333;
+}
+
+/* Header */
+header{
+    background:white;
+    padding:25px 0;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+}
+
+header h1{
+    margin:0;
+    font-size:40px;
+    color:#1e3c72;
+    letter-spacing:1px;
+}
+
+/* Container */
+.container{
+    width:90%;
+    max-width:1100px;
+    margin:40px auto;
+}
+
+/* Grid layout */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+}
+
+/* Card */
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 6px 15px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Links */
+.card a{
+    text-decoration:none;
+    font-size:18px;
+    font-weight:500;
+    color:#1e3c72;
+}
+
+.card a:hover{
+    color:#e63946;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:15px;
+    background:white;
+    margin-top:40px;
+    font-size:14px;
+    color:#555;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Class XI Chemistry MCQ</h1>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="card"><a href="MCQ/SomeBasicConcepts.pdf" target="_blank">Some Basic Concepts of Chemistry</a></div>
+        <div class="card"><a href="MCQ/mcq_basic-1.pdf" target="_blank">Some Basic Concepts MCQ PLUS [NEW]</a></div>
+        <div class="card"><a href="MCQ/AtomicStructure.pdf" target="_blank">Atomic Structure</a></div>
+        <div class="card"><a href="MCQ/mcqplus_ato_str.pdf" target="_blank">Atomic Structure MCQ PLUS</a></div>
+        <div class="card"><a href="MCQ/periodicTable.pdf" target="_blank">Periodic Table</a></div>
+        <div class="card"><a href="MCQ/mcq_periodic_table.pdf" target="_blank">Periodic Table MCQ PLUS</a></div>
+        <div class="card"><a href="MCQ/chemicalBonding.pdf" target="_blank">Chemical Bonding</a></div>
+        <div class="card"><a href="MCQ/mcq_bonding.pdf" target="_blank">Chemical Bonding MCQ PLUS</a></div>
+        <div class="card"><a href="MCQ/statesOfMatter.pdf" target="_blank">States of Matter</a></div>
+        <div class="card"><a href="MCQ/thermodynamics.pdf" target="_blank">Chemical Thermodynamics</a></div>
+        <div class="card"><a href="MCQ/chemicalEquilibrium.pdf" target="_blank">Chemical Equilibrium</a></div>
+        <div class="card"><a href="MCQ/ionicEquilibrium.pdf" target="_blank">Ionic Equilibrium</a></div>
+        <div class="card"><a href="MCQ/redoxReactions.pdf" target="_blank">Redox Reactions</a></div>
+        <div class="card"><a href="MCQ/mcq_hydrogen.pdf" target="_blank">Hydrogen and Hydrides MCQ PLUS</a></div>
+        <div class="card"><a href="MCQ/mcq_sblock.pdf" target="_blank">S-Block Elements MCQ PLUS</a></div>
+        <div class="card"><a href="MCQ/mcq_group13.pdf" target="_blank">Group-13 Elements (Boron Family) MCQ PLUS</a></div>
+        <div class="card"><a href="MCQ/mcq_group14.pdf" target="_blank">Group-14 Elements (Carbon Family) MCQ PLUS</a></div>
+
+    </div>
+</div>
+
+<footer>
+    © 2026 SD Classes | ChemOnly
+</footer>
+
 </body>
 </html>
