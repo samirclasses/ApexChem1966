@@ -3,52 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chemistry Hub | Apex chemistry</title>
+<title>Apex Chemistry | Premier Chemistry Coaching Institute</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
 /* ===== GENERAL ===== */
-body{
+*{
     margin:0;
-    font-family: 'Poppins', sans-serif;
-    background:#f1f5f9;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins', sans-serif;
+    background:#f4f7fb;
+    color:#1a1a1a;
 }
 
 a{
     text-decoration:none;
 }
 
-/* ===== HEADER ===== */
-.header{
-    background:linear-gradient(135deg,#0b3d91,#142850);
+/* ===== TOP BAR ===== */
+.top-bar{
+    background:#0b3d91;
     color:white;
-    text-align:center;
-    padding:40px 20px;
+    padding:8px 20px;
+    text-align:right;
+    font-size:14px;
 }
 
-.header h1{
-    margin:0;
-    font-size:44px;
-    font-weight:700;
+/* ===== HEADER / HERO ===== */
+.hero{
+    background:linear-gradient(rgba(11,61,145,0.85),rgba(20,40,80,0.9)),
+    url('https://images.unsplash.com/photo-1532094349884-543bc11b234d');
+    background-size:cover;
+    background-position:center;
+    color:white;
+    text-align:center;
+    padding:100px 20px;
+}
+
+.hero h1{
+    font-size:48px;
+    font-weight:800;
     letter-spacing:1px;
 }
 
-.header p{
-    margin-top:8px;
-    font-size:18px;
+.hero p{
+    margin-top:15px;
+    font-size:20px;
     font-weight:300;
 }
 
-/* ===== NAVIGATION BAR ===== */
+.hero-buttons{
+    margin-top:30px;
+}
+
+.hero-buttons a{
+    display:inline-block;
+    margin:10px;
+    padding:12px 25px;
+    border-radius:30px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.btn-primary{
+    background:#e63946;
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#c81d25;
+}
+
+.btn-outline{
+    border:2px solid white;
+    color:white;
+}
+
+.btn-outline:hover{
+    background:white;
+    color:#0b3d91;
+}
+
+/* ===== QUICK LINKS ===== */
 .quick-links{
     display:flex;
     flex-wrap:wrap;
     justify-content:center;
     background:white;
-    padding:15px 10px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    padding:18px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
 .quick-links a{
@@ -63,54 +112,53 @@ a{
     color:#e63946;
 }
 
-/* ===== QUOTE SECTION ===== */
-.scroll-text{
-    background:#142850;
-    color:#ffd369;
-    text-align:center;
-    padding:15px;
-    font-size:20px;
-    font-weight:600;
-}
-
-/* ===== SECTION CARDS ===== */
+/* ===== SECTION ===== */
 .section{
     width:90%;
-    max-width:1100px;
-    margin:40px auto;
+    max-width:1200px;
+    margin:70px auto;
 }
 
 .section h2{
-    font-size:26px;
-    margin-bottom:15px;
+    text-align:center;
+    font-size:28px;
+    margin-bottom:40px;
     color:#0b3d91;
-    border-bottom:3px solid #e63946;
-    display:inline-block;
-    padding-bottom:5px;
+    position:relative;
 }
 
+.section h2::after{
+    content:"";
+    width:80px;
+    height:4px;
+    background:#e63946;
+    display:block;
+    margin:10px auto;
+}
+
+/* ===== CARDS ===== */
 .card-container{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
 }
 
 .card{
     background:white;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
     transition:0.3s;
 }
 
 .card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 6px 18px rgba(0,0,0,0.15);
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
 }
 
 .card a{
     display:block;
-    margin:10px 0;
+    margin:12px 0;
     font-size:16px;
     font-weight:600;
     color:#142850;
@@ -120,18 +168,52 @@ a{
     color:#e63946;
 }
 
+/* ===== QUOTE ===== */
+.quote{
+    background:#142850;
+    color:#ffd369;
+    text-align:center;
+    padding:30px 20px;
+    font-size:22px;
+    font-weight:600;
+}
+
 /* ===== FOOTER ===== */
 .footer{
     background:#0b3d91;
     color:white;
-    text-align:center;
-    padding:20px;
-    margin-top:40px;
-    font-size:14px;
+    padding:60px 20px 30px;
 }
 
-.footer span{
-    font-weight:600;
+.footer-container{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:40px;
+}
+
+.footer h3{
+    margin-bottom:15px;
+    font-size:18px;
+}
+
+.footer p, .footer a{
+    font-size:14px;
+    color:white;
+    line-height:1.6;
+}
+
+.footer a:hover{
+    color:#ffd369;
+}
+
+.footer-bottom{
+    text-align:center;
+    margin-top:40px;
+    border-top:1px solid rgba(255,255,255,0.3);
+    padding-top:15px;
+    font-size:14px;
 }
 
 </style>
@@ -139,13 +221,20 @@ a{
 
 <body>
 
-<!-- HEADER -->
-<div class="header">
-    <h1>Apex Chemistry</h1>
-    
+<div class="top-bar">
+Email: samirj210@gmail.com | Online Guidance Available
 </div>
 
-<!-- NAVIGATION -->
+<div class="hero">
+    <h1>Apex Chemistry</h1>
+    <p>Premier Coaching Institute for XI, XII, JEE, NEET & Graduate Level Chemistry</p>
+
+    <div class="hero-buttons">
+        <a href="mcq_competitive.html" class="btn-primary">Start Practice</a>
+        <a href="class11chapter.html" class="btn-outline">Explore Courses</a>
+    </div>
+</div>
+
 <div class="quick-links">
     <a href="https://www.youtube.com/">YouTube</a>
     <a href="https://en.wikipedia.org">Wikipedia</a>
@@ -155,14 +244,15 @@ a{
     <a href="https://www.rsc.org/">Royal Society of Chemistry</a>
 </div>
 
-<!-- QUOTE -->
-<div class="scroll-text">
+<div class="quote">
 “Chemistry is the art of balancing equations – both in the lab and in life.”
 </div>
 
+<!-- All your sections remain exactly intact -->
+
 <!-- CLASS XI -->
 <div class="section">
-    <h2>Class-XI</h2>
+    <h2>Class XI Program</h2>
     <div class="card-container">
         <div class="card">
             <a href="class11chapter.html">Chapter-wise Notes</a>
@@ -174,7 +264,7 @@ a{
 
 <!-- CLASS XII -->
 <div class="section">
-    <h2>Class-XII</h2>
+    <h2>Class XII Program</h2>
     <div class="card-container">
         <div class="card">
             <a href="class12_chapter_notes.html">Chapter-wise Notes</a>
@@ -186,7 +276,7 @@ a{
 
 <!-- COMPETITIVE -->
 <div class="section">
-    <h2>Competitive Examinations Corner</h2>
+    <h2>Competitive Examinations</h2>
     <div class="card-container">
         <div class="card">
             <a href="mcq_competitive.html">Multiple Choice Questions</a>
@@ -208,7 +298,7 @@ a{
     </div>
 </div>
 
-<!-- Miscellaneous -->
+<!-- MISC -->
 <div class="section">
     <h2>Miscellaneous Topics</h2>
     <div class="card-container">
@@ -219,13 +309,11 @@ a{
     </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="footer">
     <div class="footer-container">
-        
-        <!-- About -->
-        <div class="footer-col">
-            <h3> Apex Chemistry </h3>
+
+        <div>
+            <h3>Apex Chemistry</h3>
             <p>
                 A dedicated platform for conceptual Chemistry learning 
                 for Class XI, XII, Competitive Exams and Graduate Level.
@@ -233,17 +321,15 @@ a{
             </p>
         </div>
 
-        <!-- Quick Links -->
-        <div class="footer-col">
+        <div>
             <h3>Quick Links</h3>
-            <a href="class11chapter.html" style="color:white;">Class XI</a> &nbsp&nbsp
-            <a href="class12_chapter_notes.html" style="color:white;">Class XII</a>&nbsp&nbsp
-            <a href="mcq_competitive.html" style="color:white;">Competitive Exams</a>&nbsp&nbsp
-            <a href="quantum/quantum.html" style="color:white;">Graduate Level</a>
+            <a href="class11chapter.html">Class XI</a><br>
+            <a href="class12_chapter_notes.html">Class XII</a><br>
+            <a href="mcq_competitive.html">Competitive Exams</a><br>
+            <a href="quantum/quantum.html">Graduate Level</a>
         </div>
 
-        <!-- Programs -->
-        <div class="footer-col">
+        <div>
             <h3>Our Programs</h3>
             <p>✔ Foundation Course (XI & XII)</p>
             <p>✔ JEE / NEET Preparation</p>
@@ -251,8 +337,7 @@ a{
             <p>✔ Concept Booster Test Series</p>
         </div>
 
-        <!-- Contact -->
-        <div class="footer-col">
+        <div>
             <h3>Contact Us</h3>
             <p>Email: samirj210@gmail.com</p>
             <p>Website: samirclasses.github.io/ApexChemistry</p>
@@ -268,6 +353,3 @@ a{
 
 </body>
 </html>
-
-
-
