@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemical Equilibrium Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Code+Pro:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0f4ff;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --border: #d0d9f0;
+    --accent: #c8970a;
+    --accent2: #1a7bbf;
+    --accent3: #d63870;
+    --text: #1a1f3c;
+    --muted: #5a6490;
+    --correct: #2e7d32;
+    --wrong: #c62828;
+    --glow: 0 0 20px rgba(200, 151, 10, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(26,123,191,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(200,151,10,0.07) 0%, transparent 50%);
+  }
+
+  .header {
+    text-align: center;
+    padding: 48px 24px 32px;
+    border-bottom: 1px solid var(--border);
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(100,120,200,0.08);
+  }
+  .header::before {
+    content: "Kc = [Products] / [Reactants]";
+    position: absolute;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 13px;
+    color: rgba(26,123,191,0.15);
+    top: 16px; left: 50%; transform: translateX(-50%);
+    white-space: nowrap;
+    letter-spacing: 3px;
+  }
+  .header-sub {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.1;
+    text-shadow: var(--glow);
+  }
+  .header h1 span { color: var(--text); }
+  .meta-bar {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .meta-item strong { color: var(--accent); }
+
+  .quiz-container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 36px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    position: relative;
+    transition: border-color 0.2s;
+    box-shadow: 0 2px 12px rgba(100,120,200,0.07);
+  }
+  .question-card:hover { border-color: rgba(200,151,10,0.4); }
+
+  .q-number {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    background: #f7f9ff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+  }
+  .option:hover {
+    border-color: var(--accent);
+    background: rgba(200,151,10,0.05);
+    transform: translateX(3px);
+  }
+  .option input[type="radio"] { display: none; }
+  .option-label {
+    width: 26px; height: 26px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.18s;
+  }
+  .option-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #2a2f55;
+  }
+  .option:has(input:checked) {
+    border-color: var(--accent);
+    background: rgba(200,151,10,0.07);
+  }
+  .option:has(input:checked) .option-label {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+  }
+
+  .submit-section {
+    text-align: center;
+    margin-top: 40px;
+    padding: 32px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(100,120,200,0.07);
+  }
+  .submit-info {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-family: 'Source Code Pro', monospace;
+  }
+  .submit-info span { color: var(--accent); font-weight: 600; }
+
+  .btn-submit {
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    padding: 16px 56px;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 20px rgba(200,151,10,0.25);
+    transition: all 0.2s ease;
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(200,151,10,0.38);
+    background: #b5840a;
+  }
+  .btn-submit:active { transform: translateY(0); }
+
+  #result-panel {
+    display: none;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 32px;
+    text-align: center;
+    margin-top: 32px;
+    box-shadow: 0 4px 24px rgba(100,120,200,0.1);
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform:none; } }
+
+  .score-ring {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0%, transparent 0%);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    position: relative;
+    box-shadow: 0 0 40px rgba(200,151,10,0.15);
+  }
+  .score-ring-inner {
+    width: 128px; height: 128px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .score-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .score-denom {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .result-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  .stat-box { text-align: center; }
+  .stat-val {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .stat-val.correct { color: var(--correct); }
+  .stat-val.wrong   { color: var(--wrong); }
+  .stat-val.skip    { color: var(--muted); }
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .result-grade {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-top: 8px;
+  }
+  .btn-retry {
+    margin-top: 28px;
+    background: transparent;
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    padding: 12px 40px;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .btn-retry:hover { background: rgba(200,151,10,0.08); }
+
+  .option.answered-correct {
+    border-color: var(--correct) !important;
+    background: rgba(46,125,50,0.07) !important;
+  }
+  .option.answered-correct .option-label {
+    background: var(--correct);
+    border-color: var(--correct);
+    color: #fff;
+  }
+  .option.answered-wrong {
+    border-color: var(--wrong) !important;
+    background: rgba(198,40,40,0.06) !important;
+  }
+  .option.answered-wrong .option-label {
+    background: var(--wrong);
+    border-color: var(--wrong);
+    color: #fff;
+  }
+
+  @media (max-width: 600px) {
+    .question-card { padding: 20px 18px; }
+    .result-stats  { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-sub">&nbsp &nbsp <h4>Apex Chemistry </h4></div>
+  <h2 style="text-align:center;"><span>Chemical</span> Equilibrium</h2>
+  <div class="meta-bar">
+    <div class="meta-item">Questions: <strong>25</strong></div>
+    <div class="meta-item">Marks/Question: <strong>+4</strong></div>
+    <div class="meta-item">Total Marks: <strong>100</strong></div>
+    <div class="meta-item">Negative Marking: <strong>None</strong></div>
+  </div>
+</div>
+
+<div class="quiz-container">
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <div id="quiz-form"></div>
+
+  <div class="submit-section">
+    <div class="submit-info">Answered: <span id="answered-count">0</span> / 25 questions</div>
+    <button class="btn-submit" onclick="submitQuiz()">Submit Quiz</button>
+  </div>
+
+  <div id="result-panel">
+    <div class="score-ring" id="score-ring">
+      <div class="score-ring-inner">
+        <div class="score-num" id="score-display">0</div>
+        <div class="score-denom">out of 100</div>
+      </div>
+    </div>
+    <div class="result-title" id="result-title">—</div>
+    <div class="result-stats">
+      <div class="stat-box"><div class="stat-val correct" id="res-correct">0</div><div class="stat-lbl">Correct</div></div>
+      <div class="stat-box"><div class="stat-val wrong"   id="res-wrong">0</div><div class="stat-lbl">Wrong</div></div>
+      <div class="stat-box"><div class="stat-val skip"    id="res-skip">0</div><div class="stat-lbl">Skipped</div></div>
+    </div>
+    <div class="result-grade" id="grade-badge"></div>
+    <br>
+    <button class="btn-retry" onclick="retryQuiz()">↺ Retry Quiz</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "For the reaction N₂(g) + 3H₂(g) ⇌ 2NH₃(g), the expression for Kc is:",
+    opts: [
+      "Kc = [NH₃]² / ([N₂][H₂]³)",
+      "Kc = [N₂][H₂]³ / [NH₃]²",
+      "Kc = [NH₃] / ([N₂][H₂])",
+      "Kc = 2[NH₃] / ([N₂] + 3[H₂])"
+    ],
+    ans: 0
+  },
+  {
+    q: "The relationship between Kp and Kc is given by Kp = Kc(RT)^Δn. For the reaction 2SO₂(g) + O₂(g) ⇌ 2SO₃(g), the value of Δn is:",
+    opts: ["–1", "+1", "–2", "+2"],
+    ans: 0
+  },
+  {
+    q: "At equilibrium, which of the following is true?",
+    opts: [
+      "Concentrations of reactants and products are equal",
+      "Rate of forward reaction equals rate of reverse reaction",
+      "All reactions have stopped",
+      "ΔG > 0"
+    ],
+    ans: 1
+  },
+  {
+    q: "Le Chatelier's Principle states that if a system at equilibrium is disturbed, it will:",
+    opts: [
+      "Shift to increase the disturbance",
+      "Shift to minimise the effect of the disturbance",
+      "Reach a new equilibrium with the same concentrations",
+      "Stop reacting until the disturbance is removed"
+    ],
+    ans: 1
+  },
+  {
+    q: "If the reaction quotient Q < Kc, the reaction will proceed:",
+    opts: [
+      "In the reverse direction to form more reactants",
+      "In the forward direction to form more products",
+      "No shift; system is already at equilibrium",
+      "Cannot be determined"
+    ],
+    ans: 1
+  },
+  {
+    q: "For the equilibrium: PCl₅(g) ⇌ PCl₃(g) + Cl₂(g), increasing pressure at constant temperature will:",
+    opts: [
+      "Shift equilibrium to the right",
+      "Shift equilibrium to the left",
+      "Have no effect on equilibrium position",
+      "Increase Kc"
+    ],
+    ans: 1
+  },
+  {
+    q: "Which of the following statements about the equilibrium constant K is correct?",
+    opts: [
+      "K changes with concentration of reactants",
+      "K changes only with temperature",
+      "K changes with pressure",
+      "K changes with addition of a catalyst"
+    ],
+    ans: 1
+  },
+  {
+    q: "For the endothermic reaction A(g) ⇌ B(g), increasing temperature will:",
+    opts: [
+      "Decrease Kc",
+      "Increase Kc",
+      "Not change Kc",
+      "Make Kc = 1"
+    ],
+    ans: 1
+  },
+  {
+    q: "The degree of dissociation (α) of PCl₅ at equilibrium is 0.4. If the initial moles of PCl₅ = 1 at total pressure P, the mole fraction of Cl₂ at equilibrium is:",
+    opts: ["0.4/1.4", "0.4/0.6", "0.6/1.4", "0.2/1.4"],
+    ans: 0
+  },
+  {
+    q: "For a reaction with a very large value of K (K >> 1), which conclusion is correct?",
+    opts: [
+      "The reaction barely proceeds",
+      "The reaction is essentially complete — products are strongly favoured",
+      "The reaction is at equilibrium at standard conditions",
+      "Both forward and reverse rates are very fast"
+    ],
+    ans: 1
+  },
+  {
+    q: "The solubility product (Ksp) of AgCl is 1.8 × 10⁻¹⁰ at 25°C. The molar solubility of AgCl in pure water is:",
+    opts: [
+      "1.8 × 10⁻¹⁰ mol/L",
+      "1.34 × 10⁻⁵ mol/L",
+      "3.6 × 10⁻¹⁰ mol/L",
+      "9.0 × 10⁻⁶ mol/L"
+    ],
+    ans: 1
+  },
+  {
+    q: "According to Arrhenius concept, an acid is a substance that:",
+    opts: [
+      "Accepts a proton in aqueous solution",
+      "Donates a proton in aqueous solution",
+      "Produces H⁺ ions in aqueous solution",
+      "Accepts an electron pair"
+    ],
+    ans: 2
+  },
+  {
+    q: "The pH of a 0.01 M HCl solution (fully dissociated) is:",
+    opts: ["1", "2", "–2", "12"],
+    ans: 1
+  },
+  {
+    q: "The ionisation constant of water (Kw) at 25°C is 1.0 × 10⁻¹⁴. What is the pOH of a solution with [OH⁻] = 10⁻³ M?",
+    opts: ["3", "11", "7", "14"],
+    ans: 0
+  },
+  {
+    q: "Which of the following is a buffer solution?",
+    opts: [
+      "HCl + NaCl",
+      "NaOH + NaCl",
+      "CH₃COOH + CH₃COONa",
+      "H₂SO₄ + Na₂SO₄"
+    ],
+    ans: 2
+  },
+  {
+    q: "The Henderson-Hasselbalch equation for a buffer is pH = pKa + log([A⁻]/[HA]). If [A⁻] = [HA], then:",
+    opts: [
+      "pH = 0",
+      "pH = pKa",
+      "pH = 2 × pKa",
+      "pH = 7"
+    ],
+    ans: 1
+  },
+  {
+    q: "The common ion effect refers to:",
+    opts: [
+      "Increase in solubility of a sparingly soluble salt when a common ion is added",
+      "Suppression of ionisation of a weak electrolyte by addition of a common ion",
+      "Increase in pH when a strong acid is added",
+      "Decrease in Ksp when temperature is lowered"
+    ],
+    ans: 1
+  },
+  {
+    q: "For the reaction H₂(g) + I₂(g) ⇌ 2HI(g), Kc = 49 at 458°C. If [H₂] = [I₂] = 0.5 M at equilibrium, what is [HI]?",
+    opts: ["3.5 M", "0.5 M", "7.0 M", "1.75 M"],
+    ans: 0
+  },
+  {
+    q: "A Brønsted-Lowry acid is defined as a species that:",
+    opts: [
+      "Accepts an electron pair",
+      "Donates a proton (H⁺)",
+      "Produces OH⁻ in water",
+      "Accepts a proton (H⁺)"
+    ],
+    ans: 1
+  },
+  {
+    q: "The conjugate base of H₂PO₄⁻ is:",
+    opts: ["H₃PO₄", "HPO₄²⁻", "PO₄³⁻", "H₂PO₄"],
+    ans: 1
+  },
+  {
+    q: "If Kc for a reaction is 0.001 at 300 K, which statement is correct?",
+    opts: [
+      "Products are strongly favoured at equilibrium",
+      "Reactants are strongly favoured at equilibrium",
+      "The system has reached completion",
+      "The reaction does not occur"
+    ],
+    ans: 1
+  },
+  {
+    q: "For the reaction 2NO₂(g) ⇌ N₂O₄(g), when the volume of the container is halved at constant temperature:",
+    opts: [
+      "Q > K, so equilibrium shifts to the right (towards N₂O₄)",
+      "Q < K, so equilibrium shifts to the left",
+      "Q = K, no shift occurs",
+      "K increases because pressure doubled"
+    ],
+    ans: 0
+  },
+  {
+    q: "The solubility of PbCl₂ in a 0.1 M NaCl solution is much less than in pure water. This is due to:",
+    opts: [
+      "Decrease in Ksp at higher ionic strength",
+      "Common ion effect of Cl⁻",
+      "Increase in pH of the solution",
+      "Formation of PbNaCl complex"
+    ],
+    ans: 1
+  },
+  {
+    q: "Which of the following salts will produce a basic aqueous solution?",
+    opts: [
+      "NH₄Cl",
+      "NaCl",
+      "Na₂CO₃",
+      "AlCl₃"
+    ],
+    ans: 2
+  },
+  {
+    q: "The equilibrium constant for the reverse reaction is related to the forward reaction's equilibrium constant by:",
+    opts: [
+      "K_reverse = K_forward",
+      "K_reverse = 1 / K_forward",
+      "K_reverse = –K_forward",
+      "K_reverse = K_forward²"
+    ],
+    ans: 1
+  }
+];
+
+let userAnswers = new Array(25).fill(null);
+let submitted = false;
+
+function buildQuiz() {
+  const form = document.getElementById('quiz-form');
+  form.innerHTML = '';
+  questions.forEach((q, i) => {
+    const labels = ['A', 'B', 'C', 'D'];
+    let optHTML = q.opts.map((opt, j) => `
+      <label class="option" id="opt-${i}-${j}">
+        <input type="radio" name="q${i}" value="${j}" onchange="recordAnswer(${i}, ${j})">
+        <span class="option-label">${labels[j]}</span>
+        <span class="option-text">${opt}</span>
+      </label>
+    `).join('');
+
+    form.innerHTML += `
+      <div class="question-card" id="card-${i}">
+        <div class="q-number">Question ${i+1} of 25 &nbsp;·&nbsp; 4 Marks</div>
+        <div class="q-text">${q.q}</div>
+        <div class="options">${optHTML}</div>
+      </div>
+    `;
+  });
+}
+
+function recordAnswer(qi, val) {
+  if (submitted) return;
+  userAnswers[qi] = val;
+  updateProgress();
+}
+
+function updateProgress() {
+  const count = userAnswers.filter(a => a !== null).length;
+  document.getElementById('answered-count').textContent = count;
+  document.getElementById('progress').style.width = (count / 25 * 100) + '%';
+}
+
+function submitQuiz() {
+  if (submitted) return;
+
+  const unanswered = userAnswers.filter(a => a === null).length;
+  if (unanswered > 0) {
+    if (!confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) return;
+  }
+
+  submitted = true;
+  document.querySelectorAll('input[type=radio]').forEach(r => r.disabled = true);
+
+  let correct = 0, wrong = 0, skip = 0;
+
+  questions.forEach((q, i) => {
+    const ua = userAnswers[i];
+    if (ua === null) {
+      skip++;
+    } else if (ua === q.ans) {
+      correct++;
+      document.getElementById(`opt-${i}-${ua}`).classList.add('answered-correct');
+    } else {
+      wrong++;
+      document.getElementById(`opt-${i}-${ua}`).classList.add('answered-wrong');
+      document.getElementById(`opt-${i}-${q.ans}`).classList.add('answered-correct');
+    }
+  });
+
+  const score = correct * 4;
+  const pct = score / 100;
+
+  document.getElementById('score-display').textContent = score;
+  document.getElementById('res-correct').textContent = correct;
+  document.getElementById('res-wrong').textContent = wrong;
+  document.getElementById('res-skip').textContent = skip;
+
+  const ring = document.getElementById('score-ring');
+  const color = score >= 80 ? '#2e7d32' : score >= 50 ? '#c8970a' : '#c62828';
+  ring.style.background = `conic-gradient(${color} ${pct * 360}deg, #d0d9f0 0deg)`;
+  document.getElementById('score-display').style.color = color;
+
+  let grade, title, badgeColor;
+  if (score >= 90)      { grade = 'OUTSTANDING';       title = 'Excellent Mastery of Equilibrium!';      badgeColor = '#2e7d32'; }
+  else if (score >= 75) { grade = 'DISTINCTION';        title = 'Strong Grasp of Equilibrium Concepts!'; badgeColor = '#1a7bbf'; }
+  else if (score >= 60) { grade = 'MERIT';               title = 'Good Understanding!';                   badgeColor = '#c8970a'; }
+  else if (score >= 40) { grade = 'PASS';                 title = 'Needs More Practice';                  badgeColor = '#e67e22'; }
+  else                  { grade = 'NEEDS IMPROVEMENT';   title = 'Review the Fundamentals';               badgeColor = '#c62828'; }
+
+  document.getElementById('result-title').textContent = title;
+  const badge = document.getElementById('grade-badge');
+  badge.textContent = grade;
+  badge.style.background = badgeColor + '18';
+  badge.style.color = badgeColor;
+  badge.style.border = `1px solid ${badgeColor}44`;
+
+  const panel = document.getElementById('result-panel');
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  document.querySelector('.submit-section').style.opacity = '0.4';
+  document.querySelector('.submit-section').style.pointerEvents = 'none';
+}
+
+function retryQuiz() {
+  submitted = false;
+  userAnswers = new Array(25).fill(null);
+  document.getElementById('result-panel').style.display = 'none';
+  document.querySelector('.submit-section').style.opacity = '1';
+  document.querySelector('.submit-section').style.pointerEvents = 'auto';
+  document.getElementById('progress').style.width = '0%';
+  document.getElementById('answered-count').textContent = '0';
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
