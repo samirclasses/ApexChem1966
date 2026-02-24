@@ -34,6 +34,16 @@ h1{
     margin-left:20px;
 }
 
+.correct{
+    color:green;
+    font-weight:bold;
+}
+
+.wrong{
+    color:red;
+    font-weight:bold;
+}
+
 button{
     padding:10px 20px;
     font-size:16px;
@@ -58,7 +68,7 @@ button:hover{
 </head>
 <body>
 <h3 style="text-align:center;">Apex Chemistry</h3>
-<h1>Isomerism </h1>
+<h1>Isomerism</h1>
 
 <div class="quiz-box">
 <form id="quizForm"></form>
@@ -73,133 +83,31 @@ button:hover{
 <script>
 
 const quizData = [
-
-{
-question: "1. Maximum number of chain isomers possible for C6H14 is:",
-options:["3","4","5","6"],
-answer:2
-},
-{
-question: "2. Number of geometrical isomers possible for C4H8 (excluding cyclic) is:",
-options:["1","2","3","4"],
-answer:1
-},
-{
-question: "3. Number of optical isomers possible for 2,3-dichlorobutane:",
-options:["1","2","3","4"],
-answer:2
-},
-{
-question: "4. Which compound shows metamerism?",
-options:["Ethers","Alcohols","Alkanes","Aldehydes"],
-answer:0
-},
-{
-question: "5. Total stereoisomers possible for tartaric acid:",
-options:["2","3","4","5"],
-answer:1
-},
-{
-question: "6. Which compound shows tautomerism?",
-options:["Acetone","Ethanol","Benzene","Ethane"],
-answer:0
-},
-{
-question: "7. Number of structural isomers of C3H6O (aldehyde/ketone only):",
-options:["1","2","3","4"],
-answer:1
-},
-{
-question: "8. Number of chiral centers in glucose (open chain):",
-options:["3","4","5","6"],
-answer:2
-},
-{
-question: "9. Maximum stereoisomers possible for compound with 4 chiral centers:",
-options:["8","16","4","12"],
-answer:1
-},
-{
-question: "10. Geometrical isomerism is possible due to:",
-options:["Free rotation","Restricted rotation","Hybridization","Branching"],
-answer:1
-},
-{
-question: "11. Which shows position isomerism?",
-options:["1-butanol & 2-butanol","Butane & isobutane","Ethanol & dimethyl ether","None"],
-answer:0
-},
-{
-question: "12. Number of optical isomers of lactic acid:",
-options:["1","2","3","4"],
-answer:1
-},
-{
-question: "13. Cis-trans isomerism is absent in:",
-options:["Alkenes","Alkanes","Cycloalkanes","Oximes"],
-answer:1
-},
-{
-question: "14. Functional isomer of ethanol:",
-options:["Methanol","Dimethyl ether","Acetone","Ethane"],
-answer:1
-},
-{
-question: "15. Metamerism is shown by compounds having:",
-options:["Same alkyl groups","Different alkyl groups around polyvalent atom","Double bond","Triple bond"],
-answer:1
-},
-{
-question: "16. Number of geometrical isomers of C5H10 (open chain):",
-options:["3","4","5","2"],
-answer:3
-},
-{
-question: "17. Racemic mixture contains:",
-options:["Only D form","Only L form","Equal D & L forms","Mesocompound"],
-answer:2
-},
-{
-question: "18. Mesocompound is optically inactive due to:",
-options:["Chirality","Internal symmetry","External symmetry","Racemic mixture"],
-answer:1
-},
-{
-question: "19. Which cannot show optical isomerism?",
-options:["2-butanol","2-propanol","Lactic acid","Glyceraldehyde"],
-answer:1
-},
-{
-question: "20. Tautomerism involves:",
-options:["Bond rotation","Migration of hydrogen","Chain rearrangement","Functional change only"],
-answer:1
-},
-{
-question: "21. Maximum stereoisomers for 3 chiral centers:",
-options:["6","8","4","12"],
-answer:1
-},
-{
-question: "22. Which is not a type of structural isomerism?",
-options:["Chain","Position","Geometrical","Functional"],
-answer:2
-},
-{
-question: "23. Optical activity requires:",
-options:["Plane of symmetry","Chiral carbon","Double bond","Triple bond"],
-answer:1
-},
-{
-question: "24. Enantiomers differ in:",
-options:["Melting point","Boiling point","Optical rotation","Density"],
-answer:2
-},
-{
-question: "25. Number of structural isomers possible for C4H10:",
-options:["1","2","3","4"],
-answer:1
-}
-
+{question:"1. Maximum number of chain isomers possible for C6H14 is:",options:["3","4","5","6"],answer:2},
+{question:"2. Number of geometrical isomers possible for C4H8 (excluding cyclic) is:",options:["1","2","3","4"],answer:1},
+{question:"3. Number of optical isomers possible for 2,3-dichlorobutane:",options:["1","2","3","4"],answer:2},
+{question:"4. Which compound shows metamerism?",options:["Ethers","Alcohols","Alkanes","Aldehydes"],answer:0},
+{question:"5. Total stereoisomers possible for tartaric acid:",options:["2","3","4","5"],answer:1},
+{question:"6. Which compound shows tautomerism?",options:["Acetone","Ethanol","Benzene","Ethane"],answer:0},
+{question:"7. Number of structural isomers of C3H6O (aldehyde/ketone only):",options:["1","2","3","4"],answer:1},
+{question:"8. Number of chiral centers in glucose (open chain):",options:["3","4","5","6"],answer:2},
+{question:"9. Maximum stereoisomers possible for compound with 4 chiral centers:",options:["8","16","4","12"],answer:1},
+{question:"10. Geometrical isomerism is possible due to:",options:["Free rotation","Restricted rotation","Hybridization","Branching"],answer:1},
+{question:"11. Which shows position isomerism?",options:["1-butanol & 2-butanol","Butane & isobutane","Ethanol & dimethyl ether","None"],answer:0},
+{question:"12. Number of optical isomers of lactic acid:",options:["1","2","3","4"],answer:1},
+{question:"13. Cis-trans isomerism is absent in:",options:["Alkenes","Alkanes","Cycloalkanes","Oximes"],answer:1},
+{question:"14. Functional isomer of ethanol:",options:["Methanol","Dimethyl ether","Acetone","Ethane"],answer:1},
+{question:"15. Metamerism is shown by compounds having:",options:["Same alkyl groups","Different alkyl groups around polyvalent atom","Double bond","Triple bond"],answer:1},
+{question:"16. Number of geometrical isomers of C5H10 (open chain):",options:["3","4","5","2"],answer:3},
+{question:"17. Racemic mixture contains:",options:["Only D form","Only L form","Equal D & L forms","Mesocompound"],answer:2},
+{question:"18. Mesocompound is optically inactive due to:",options:["Chirality","Internal symmetry","External symmetry","Racemic mixture"],answer:1},
+{question:"19. Which cannot show optical isomerism?",options:["2-butanol","2-propanol","Lactic acid","Glyceraldehyde"],answer:1},
+{question:"20. Tautomerism involves:",options:["Bond rotation","Migration of hydrogen","Chain rearrangement","Functional change only"],answer:1},
+{question:"21. Maximum stereoisomers for 3 chiral centers:",options:["6","8","4","12"],answer:1},
+{question:"22. Which is not a type of structural isomerism?",options:["Chain","Position","Geometrical","Functional"],answer:2},
+{question:"23. Optical activity requires:",options:["Plane of symmetry","Chiral carbon","Double bond","Triple bond"],answer:1},
+{question:"24. Enantiomers differ in:",options:["Melting point","Boiling point","Optical rotation","Density"],answer:2},
+{question:"25. Number of structural isomers possible for C4H10:",options:["1","2","3","4"],answer:1}
 ];
 
 const form = document.getElementById("quizForm");
@@ -217,7 +125,7 @@ quizData.forEach((q,index)=>{
         const label = document.createElement("label");
         label.innerHTML = `
             <input type="radio" name="q${index}" value="${i}">
-            ${option}
+            <span id="q${index}o${i}">${option}</span>
         `;
         optionsDiv.appendChild(label);
         optionsDiv.appendChild(document.createElement("br"));
@@ -232,11 +140,20 @@ function calculateScore(){
 
     quizData.forEach((q,index)=>{
         const selected = document.querySelector(`input[name="q${index}"]:checked`);
+
         if(selected){
             attempted++;
-            if(parseInt(selected.value) === q.answer){
+            const selectedValue = parseInt(selected.value);
+
+            if(selectedValue === q.answer){
                 score += 4;
+                document.getElementById(`q${index}o${selectedValue}`).classList.add("correct");
+            }else{
+                document.getElementById(`q${index}o${selectedValue}`).classList.add("wrong");
+                document.getElementById(`q${index}o${q.answer}`).classList.add("correct");
             }
+        }else{
+            document.getElementById(`q${index}o${q.answer}`).classList.add("correct");
         }
     });
 
