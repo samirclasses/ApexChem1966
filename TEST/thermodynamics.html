@@ -1,251 +1,698 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chemistry Quiz - Chemical Thermodynamics</title>
-    <style>
-        body {
-            font-family: 'Times New Roman', serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-            background-color: #f9f9f9;
-        }
-        .header {
-            text-align: center;
-            border-bottom: 3px solid #333;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        .quiz-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            background-color: #e8f4f8;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        .question {
-            margin-bottom: 25px;
-            padding: 15px;
-            background-color: white;
-            border-left: 4px solid #007acc;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .question-number {
-            font-weight: bold;
-            color: #007acc;
-            margin-bottom: 10px;
-        }
-        .marks {
-            float: right;
-            font-weight: bold;
-            color: #d9534f;
-            background-color: #f8f8f8;
-            padding: 3px 8px;
-            border-radius: 3px;
-        }
-        .answer-space {
-            margin-top: 15px;
-            min-height: 60px;
-            border: 1px dashed #ccc;
-            background-color: #fafafa;
-        }
-        .instructions {
-            background-color: #fff3cd;
-            border: 1px solid #ffeaa7;
-            padding: 15px;
-            margin-bottom: 30px;
-            border-radius: 5px;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid #333;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemical Thermodynamics Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Code+Pro:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --card: #1a2235;
+    --border: #2a3555;
+    --accent: #e8c547;
+    --accent2: #4fc3f7;
+    --accent3: #f06292;
+    --text: #e8eaf6;
+    --muted: #7986cb;
+    --correct: #66bb6a;
+    --wrong: #ef5350;
+    --glow: 0 0 20px rgba(232, 197, 71, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(79,195,247,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(232,197,71,0.06) 0%, transparent 50%);
+  }
+
+  .header {
+    text-align: center;
+    padding: 48px 24px 32px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: "ΔG = ΔH − TΔS";
+    position: absolute;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 13px;
+    color: rgba(79,195,247,0.12);
+    top: 16px; left: 50%; transform: translateX(-50%);
+    white-space: nowrap;
+    letter-spacing: 3px;
+  }
+  .header-sub {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.1;
+    text-shadow: var(--glow);
+  }
+  .header h1 span { color: var(--text); }
+  .meta-bar {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .meta-item strong { color: var(--accent); }
+
+  .quiz-container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 36px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .question-card:hover { border-color: rgba(232,197,71,0.3); }
+
+  .q-number {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    position: relative;
+  }
+  .option:hover {
+    border-color: var(--accent);
+    background: rgba(232,197,71,0.05);
+    transform: translateX(3px);
+  }
+  .option input[type="radio"] { display: none; }
+  .option-label {
+    width: 26px; height: 26px;
+    border: 1.5px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.18s;
+  }
+  .option-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #c5cae9;
+  }
+  .option:has(input:checked) {
+    border-color: var(--accent);
+    background: rgba(232,197,71,0.08);
+  }
+  .option:has(input:checked) .option-label {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a0e1a;
+  }
+
+  .submit-section {
+    text-align: center;
+    margin-top: 40px;
+    padding: 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .submit-info {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-family: 'Source Code Pro', monospace;
+  }
+  .submit-info span { color: var(--accent); font-weight: 600; }
+
+  .btn-submit {
+    background: var(--accent);
+    color: #0a0e1a;
+    border: none;
+    padding: 16px 56px;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 0 30px rgba(232,197,71,0.3);
+    transition: all 0.2s ease;
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 40px rgba(232,197,71,0.45);
+    background: #f5d55a;
+  }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* Result Panel */
+  #result-panel {
+    display: none;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 32px;
+    text-align: center;
+    margin-top: 32px;
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform:none; } }
+
+  .score-ring {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0%, transparent 0%);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+    position: relative;
+    box-shadow: 0 0 40px rgba(232,197,71,0.2);
+  }
+  .score-ring-inner {
+    width: 128px; height: 128px;
+    background: var(--card);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .score-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .score-denom {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .result-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  .stat-box { text-align: center; }
+  .stat-val {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .stat-val.correct { color: var(--correct); }
+  .stat-val.wrong { color: var(--wrong); }
+  .stat-val.skip { color: var(--muted); }
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .result-grade {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-top: 8px;
+  }
+  .btn-retry {
+    margin-top: 28px;
+    background: transparent;
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    padding: 12px 40px;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .btn-retry:hover { background: rgba(232,197,71,0.1); }
+
+  .option.answered-correct {
+    border-color: var(--correct) !important;
+    background: rgba(102,187,106,0.1) !important;
+  }
+  .option.answered-correct .option-label { background: var(--correct); border-color: var(--correct); color: #fff; }
+  .option.answered-wrong {
+    border-color: var(--wrong) !important;
+    background: rgba(239,83,80,0.08) !important;
+  }
+  .option.answered-wrong .option-label { background: var(--wrong); border-color: var(--wrong); color: #fff; }
+
+  @media (max-width: 600px) {
+    .question-card { padding: 20px 18px; }
+    .result-stats { gap: 24px; }
+  }
+</style>
 </head>
 <body>
-    <div class="header">
-        <h1>CHEMISTRY QUIZ PAPER</h1>
-        <h2>Chemical Thermodynamics</h2>
-    </div>
 
-    <div class="quiz-info">
-        <div><strong>Subject:</strong> Chemistry</div>
-        <div><strong>Topic:</strong> Chemical Thermodynamics</div>
-        <div><strong>Total Questions:</strong> 25</div>
-        <div><strong>Total Marks:</strong> 100</div>
-        <div><strong>Time:</strong> 2 Hours</div>
-    </div>
+<div class="header">
+  <div class="header-sub">Apex Chemistry</div>
+  <h1><span>Chemical</span> Chemical Thermodynamics</h1>
+  <div class="meta-bar">
+    <div class="meta-item">Questions: <strong>25</strong></div>
+    <div class="meta-item">Marks/Question: <strong>+4</strong></div>
+    <div class="meta-item">Total Marks: <strong>100</strong></div>
+    <div class="meta-item">Negative Marking: <strong>None</strong></div>
+  </div>
+</div>
 
-    <div class="instructions">
-        <h3>Instructions:</h3>
-        <ul>
-            <li>Answer all questions</li>
-            <li>Each question carries 4 marks</li>
-            <li>Show all calculations clearly</li>
-            <li>Use appropriate units in your answers</li>
-        </ul>
+<div class="quiz-container">
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <div id="quiz-form"></div>
+  <div class="submit-section">
+    <div class="submit-info">Answered: <span id="answered-count">0</span> / 25 questions</div>
+    <button class="btn-submit" onclick="submitQuiz()">Submit Quiz</button>
+  </div>
+  <div id="result-panel">
+    <div class="score-ring" id="score-ring">
+      <div class="score-ring-inner">
+        <div class="score-num" id="score-display">0</div>
+        <div class="score-denom">out of 100</div>
+      </div>
     </div>
+    <div class="result-title" id="result-title">—</div>
+    <div class="result-stats">
+      <div class="stat-box"><div class="stat-val correct" id="res-correct">0</div><div class="stat-lbl">Correct</div></div>
+      <div class="stat-box"><div class="stat-val wrong" id="res-wrong">0</div><div class="stat-lbl">Wrong</div></div>
+      <div class="stat-box"><div class="stat-val skip" id="res-skip">0</div><div class="stat-lbl">Skipped</div></div>
+    </div>
+    <div class="result-grade" id="grade-badge"></div>
+    <br>
+    <button class="btn-retry" onclick="retryQuiz()">↺ Retry Quiz</button>
+  </div>
+</div>
 
-    <div class="question">
-        <div class="question-number">Question 1 <span class="marks">[4 marks]</span></div>
-        <p>State the first law of thermodynamics and explain its significance in chemical reactions.</p>
-        <div class="answer-space"></div>
-    </div>
+<script>
+const questions = [
+  {
+    q: "For a spontaneous process at constant temperature and pressure, which condition must hold?",
+    opts: ["ΔG > 0", "ΔG < 0", "ΔG = 0", "ΔH < 0"],
+    ans: 1
+  },
+  {
+    q: "The standard enthalpy of formation of H₂O(l) is –285.8 kJ/mol. What does this represent?",
+    opts: [
+      "Energy released when 1 mol H₂O evaporates",
+      "Energy released when 1 mol H₂O forms from H₂(g) and O₂(g) in standard states",
+      "Energy released when 1 mol H₂O decomposes",
+      "Lattice energy of H₂O"
+    ],
+    ans: 1
+  },
+  {
+    q: "A reaction has ΔH = –100 kJ and ΔS = –200 J/K. At what temperature (approx.) does the reaction switch from spontaneous to non-spontaneous?",
+    opts: ["200 K", "500 K", "100 K", "1000 K"],
+    ans: 1
+  },
+  {
+    q: "Which statement correctly describes an adiabatic process?",
+    opts: ["ΔT = 0", "ΔP = 0", "q = 0", "ΔU = 0"],
+    ans: 2
+  },
+  {
+    q: "The Clausius inequality states that for an irreversible process:",
+    opts: ["dS = dq/T", "dS > dq/T", "dS < dq/T", "dS = 0"],
+    ans: 1
+  },
+  {
+    q: "For an ideal gas expanding isothermally and reversibly, which is true?",
+    opts: [
+      "ΔU > 0 and ΔH > 0",
+      "ΔU = 0 and ΔH = 0",
+      "ΔU = 0 and w > 0",
+      "ΔS = 0"
+    ],
+    ans: 1
+  },
+  {
+    q: "Hess's Law is essentially a consequence of which thermodynamic principle?",
+    opts: [
+      "Second Law of Thermodynamics",
+      "Enthalpy being a state function",
+      "Entropy being path-dependent",
+      "Le Chatelier's principle"
+    ],
+    ans: 1
+  },
+  {
+    q: "The standard Gibbs free energy change (ΔG°) is related to the equilibrium constant K by:",
+    opts: [
+      "ΔG° = RT ln K",
+      "ΔG° = –RT ln K",
+      "ΔG° = –R ln K / T",
+      "ΔG° = RT / ln K"
+    ],
+    ans: 1
+  },
+  {
+    q: "Which of the following processes has the most positive entropy change (ΔS > 0 and largest)?",
+    opts: [
+      "H₂O(l) → H₂O(s)",
+      "NaCl(s) → Na⁺(aq) + Cl⁻(aq)",
+      "CO₂(g) → CO₂(s)",
+      "N₂(g) + 3H₂(g) → 2NH₃(g)"
+    ],
+    ans: 1
+  },
+  {
+    q: "The work done by a gas in a reversible isothermal expansion from V₁ to V₂ is:",
+    opts: [
+      "w = nRT ln(V₁/V₂)",
+      "w = nRT ln(V₂/V₁)",
+      "w = –nRT(V₂ – V₁)",
+      "w = P(V₂ – V₁)"
+    ],
+    ans: 0
+  },
+  {
+    q: "At constant pressure, the heat absorbed by a system equals:",
+    opts: ["ΔU", "ΔH", "ΔG", "ΔS · T"],
+    ans: 1
+  },
+  {
+    q: "The Kirchhoff equation relates the temperature dependence of ΔH to:",
+    opts: [
+      "ΔS of reaction",
+      "Difference in heat capacities (ΔCp) of products and reactants",
+      "Activation energy",
+      "Equilibrium constant"
+    ],
+    ans: 1
+  },
+  {
+    q: "For a reaction: C(graphite) + O₂(g) → CO₂(g), which is true about ΔH and ΔU?",
+    opts: [
+      "ΔH > ΔU because Δn_gas > 0",
+      "ΔH = ΔU because Δn_gas = 0",
+      "ΔH < ΔU because Δn_gas = 0",
+      "ΔH > ΔU because liquid water is formed"
+    ],
+    ans: 1
+  },
+  {
+    q: "Which of these has zero standard entropy (S° = 0) at 298 K?",
+    opts: [
+      "O₂(g)",
+      "H₂O(l)",
+      "A perfect crystalline solid at 0 K",
+      "Graphite at 298 K"
+    ],
+    ans: 2
+  },
+  {
+    q: "The Gibbs-Helmholtz equation is most directly used to determine:",
+    opts: [
+      "Effect of pressure on ΔG",
+      "Effect of temperature on ΔG",
+      "Effect of concentration on ΔG",
+      "Effect of catalyst on ΔG"
+    ],
+    ans: 1
+  },
+  {
+    q: "For a reaction with ΔH > 0 and ΔS > 0, the process is spontaneous:",
+    opts: [
+      "At all temperatures",
+      "At low temperatures only",
+      "At high temperatures only",
+      "Never"
+    ],
+    ans: 2
+  },
+  {
+    q: "Which equation correctly defines the Helmholtz free energy (A)?",
+    opts: ["A = H – TS", "A = U – TS", "A = G – PV", "A = U + PV – TS"],
+    ans: 1
+  },
+  {
+    q: "Bond dissociation enthalpy (BDE) data is used to estimate ΔH of a reaction using the relation:",
+    opts: [
+      "ΔH = Σ BDE(products) – Σ BDE(reactants)",
+      "ΔH = Σ BDE(reactants) – Σ BDE(products)",
+      "ΔH = Σ BDE(products) + Σ BDE(reactants)",
+      "ΔH = –Σ BDE(all bonds)"
+    ],
+    ans: 1
+  },
+  {
+    q: "The Van't Hoff equation describes how K varies with temperature. For an exothermic reaction, increasing temperature will:",
+    opts: ["Increase K", "Decrease K", "Not affect K", "First increase, then decrease K"],
+    ans: 1
+  },
+  {
+    q: "In a Carnot cycle, which two processes are reversible and adiabatic?",
+    opts: [
+      "Isothermal expansion and isothermal compression",
+      "Adiabatic expansion and adiabatic compression",
+      "Both isothermal steps",
+      "All four steps"
+    ],
+    ans: 1
+  },
+  {
+    q: "The Trouton's rule approximation for the entropy of vaporization at the normal boiling point is approximately:",
+    opts: ["21 J mol⁻¹ K⁻¹", "88 J mol⁻¹ K⁻¹", "44 J mol⁻¹ K⁻¹", "188 J mol⁻¹ K⁻¹"],
+    ans: 1
+  },
+  {
+    q: "Which statement about the Third Law of Thermodynamics is correct?",
+    opts: [
+      "The entropy of all substances is zero at 0 K",
+      "The entropy of a perfectly ordered crystalline substance is zero at 0 K",
+      "All chemical reactions stop at 0 K",
+      "The Gibbs energy is zero at 0 K"
+    ],
+    ans: 1
+  },
+  {
+    q: "The maximum non-expansion work obtainable from a process at constant T and P is given by:",
+    opts: ["–ΔH", "–ΔG", "T·ΔS", "–ΔU"],
+    ans: 1
+  },
+  {
+    q: "If ΔG° = 0 for a reaction, what can be concluded?",
+    opts: [
+      "The reaction does not occur",
+      "K = 1 and the system is at equilibrium in standard states",
+      "ΔH = ΔS = 0",
+      "The reaction goes to completion"
+    ],
+    ans: 1
+  },
+  {
+    q: "For a real gas, the Joule-Thomson coefficient (μ_JT) is defined as (∂T/∂P)_H. For most gases at room temperature, μ_JT is:",
+    opts: [
+      "Negative (gas warms on expansion)",
+      "Zero (ideal behavior)",
+      "Positive (gas cools on expansion)",
+      "Dependent only on pressure"
+    ],
+    ans: 2
+  }
+];
 
-    <div class="question">
-        <div class="question-number">Question 2 <span class="marks">[4 marks]</span></div>
-        <p>Calculate the enthalpy change for the combustion of 2 moles of methane (CH₄) if the standard enthalpy of combustion is -890.3 kJ/mol.</p>
-        <div class="answer-space"></div>
-    </div>
+let userAnswers = new Array(25).fill(null);
+let submitted = false;
 
-    <div class="question">
-        <div class="question-number">Question 3 <span class="marks">[4 marks]</span></div>
-        <p>Define entropy and explain why entropy increases in spontaneous processes.</p>
-        <div class="answer-space"></div>
-    </div>
+function buildQuiz() {
+  const form = document.getElementById('quiz-form');
+  form.innerHTML = '';
+  questions.forEach((q, i) => {
+    const labels = ['A', 'B', 'C', 'D'];
+    let optHTML = q.opts.map((opt, j) => `
+      <label class="option" id="opt-${i}-${j}">
+        <input type="radio" name="q${i}" value="${j}" onchange="recordAnswer(${i}, ${j})">
+        <span class="option-label">${labels[j]}</span>
+        <span class="option-text">${opt}</span>
+      </label>
+    `).join('');
 
-    <div class="question">
-        <div class="question-number">Question 4 <span class="marks">[4 marks]</span></div>
-        <p>What is Gibbs free energy? Write the relationship between Gibbs free energy, enthalpy, and entropy.</p>
-        <div class="answer-space"></div>
-    </div>
+    form.innerHTML += `
+      <div class="question-card" id="card-${i}">
+        <div class="q-number">Question ${i+1} of 25 &nbsp;·&nbsp; 4 Marks</div>
+        <div class="q-text">${q.q}</div>
+        <div class="options">${optHTML}</div>
+      </div>
+    `;
+  });
+}
 
-    <div class="question">
-        <div class="question-number">Question 5 <span class="marks">[4 marks]</span></div>
-        <p>A system absorbs 500 J of heat and does 300 J of work. Calculate the change in internal energy of the system.</p>
-        <div class="answer-space"></div>
-    </div>
+function recordAnswer(qi, val) {
+  if (submitted) return;
+  userAnswers[qi] = val;
+  updateProgress();
+}
 
-    <div class="question">
-        <div class="question-number">Question 6 <span class="marks">[4 marks]</span></div>
-        <p>Explain the difference between heat capacity at constant pressure (Cₚ) and heat capacity at constant volume (Cᵥ).</p>
-        <div class="answer-space"></div>
-    </div>
+function updateProgress() {
+  const count = userAnswers.filter(a => a !== null).length;
+  document.getElementById('answered-count').textContent = count;
+  document.getElementById('progress').style.width = (count / 25 * 100) + '%';
+}
 
-    <div class="question">
-        <div class="question-number">Question 7 <span class="marks">[4 marks]</span></div>
-        <p>Calculate the standard enthalpy of formation of CO₂(g) from the following data:<br>
-        C(s) + O₂(g) → CO₂(g) ΔH = -393.5 kJ/mol</p>
-        <div class="answer-space"></div>
-    </div>
+function submitQuiz() {
+  if (submitted) return;
 
-    <div class="question">
-        <div class="question-number">Question 8 <span class="marks">[4 marks]</span></div>
-        <p>What are the conditions for spontaneous processes in terms of Gibbs free energy? Give examples.</p>
-        <div class="answer-space"></div>
-    </div>
+  const unanswered = userAnswers.filter(a => a === null).length;
+  if (unanswered > 0) {
+    if (!confirm(`You have ${unanswered} unanswered question(s). Submit anyway?`)) return;
+  }
 
-    <div class="question">
-        <div class="question-number">Question 9 <span class="marks">[4 marks]</span></div>
-        <p>Define calorimetry and explain how it is used to measure enthalpy changes in chemical reactions.</p>
-        <div class="answer-space"></div>
-    </div>
+  submitted = true;
 
-    <div class="question">
-        <div class="question-number">Question 10 <span class="marks">[4 marks]</span></div>
-        <p>Calculate the work done by an ideal gas expanding from 2 L to 6 L against a constant external pressure of 1 atm.</p>
-        <div class="answer-space"></div>
-    </div>
+  // Disable all radios
+  document.querySelectorAll('input[type=radio]').forEach(r => r.disabled = true);
 
-    <div class="question">
-        <div class="question-number">Question 11 <span class="marks">[4 marks]</span></div>
-        <p>Explain Hess's law of constant heat summation with a suitable example.</p>
-        <div class="answer-space"></div>
-    </div>
+  let correct = 0, wrong = 0, skip = 0;
 
-    <div class="question">
-        <div class="question-number">Question 12 <span class="marks">[4 marks]</span></div>
-        <p>What is the second law of thermodynamics? How does it relate to the concept of entropy?</p>
-        <div class="answer-space"></div>
-    </div>
+  questions.forEach((q, i) => {
+    const ua = userAnswers[i];
+    if (ua === null) {
+      skip++;
+    } else if (ua === q.ans) {
+      correct++;
+      document.getElementById(`opt-${i}-${ua}`).classList.add('answered-correct');
+    } else {
+      wrong++;
+      document.getElementById(`opt-${i}-${ua}`).classList.add('answered-wrong');
+      document.getElementById(`opt-${i}-${q.ans}`).classList.add('answered-correct');
+    }
+  });
 
-    <div class="question">
-        <div class="question-number">Question 13 <span class="marks">[4 marks]</span></div>
-        <p>Calculate the entropy change when 100 g of ice at 0°C melts to water at 0°C. (ΔHfusion = 6.01 kJ/mol)</p>
-        <div class="answer-space"></div>
-    </div>
+  const score = correct * 4;
+  const pct = score / 100;
 
-    <div class="question">
-        <div class="question-number">Question 14 <span class="marks">[4 marks]</span></div>
-        <p>Define standard enthalpy of combustion and standard enthalpy of formation. How are they related?</p>
-        <div class="answer-space"></div>
-    </div>
+  document.getElementById('score-display').textContent = score;
+  document.getElementById('res-correct').textContent = correct;
+  document.getElementById('res-wrong').textContent = wrong;
+  document.getElementById('res-skip').textContent = skip;
 
-    <div class="question">
-        <div class="question-number">Question 15 <span class="marks">[4 marks]</span></div>
-        <p>Explain why the enthalpy change for an exothermic reaction is negative while for an endothermic reaction is positive.</p>
-        <div class="answer-space"></div>
-    </div>
+  // Conic gradient ring color
+  const ring = document.getElementById('score-ring');
+  const color = score >= 80 ? '#66bb6a' : score >= 50 ? '#e8c547' : '#ef5350';
+  ring.style.background = `conic-gradient(${color} ${pct * 360}deg, #2a3555 0deg)`;
+  document.getElementById('score-display').style.color = color;
 
-    <div class="question">
-        <div class="question-number">Question 16 <span class="marks">[4 marks]</span></div>
-        <p>What is the relationship between equilibrium constant (K) and Gibbs free energy change (ΔG)?</p>
-        <div class="answer-space"></div>
-    </div>
+  // Grade logic
+  let grade, title, badgeColor;
+  if (score >= 90)      { grade = 'OUTSTANDING'; title = 'Excellent Command of Thermodynamics!'; badgeColor = '#66bb6a'; }
+  else if (score >= 75) { grade = 'DISTINCTION';  title = 'Strong Thermodynamics Knowledge!';   badgeColor = '#4fc3f7'; }
+  else if (score >= 60) { grade = 'MERIT';         title = 'Good Understanding!';                badgeColor = '#e8c547'; }
+  else if (score >= 40) { grade = 'PASS';           title = 'Needs More Practice';               badgeColor = '#ffa726'; }
+  else                  { grade = 'NEEDS IMPROVEMENT'; title = 'Review the Fundamentals';        badgeColor = '#ef5350'; }
 
-    <div class="question">
-        <div class="question-number">Question 17 <span class="marks">[4 marks]</span></div>
-        <p>Calculate the heat required to raise the temperature of 500 g of water from 25°C to 75°C. (Specific heat of water = 4.18 J/g°C)</p>
-        <div class="answer-space"></div>
-    </div>
+  document.getElementById('result-title').textContent = title;
+  const badge = document.getElementById('grade-badge');
+  badge.textContent = grade;
+  badge.style.background = badgeColor + '22';
+  badge.style.color = badgeColor;
+  badge.style.border = `1px solid ${badgeColor}55`;
 
-    <div class="question">
-        <div class="question-number">Question 18 <span class="marks">[4 marks]</span></div>
-        <p>Explain the concept of reversible and irreversible processes in thermodynamics with examples.</p>
-        <div class="answer-space"></div>
-    </div>
+  const panel = document.getElementById('result-panel');
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    <div class="question">
-        <div class="question-number">Question 19 <span class="marks">[4 marks]</span></div>
-        <p>What is the third law of thermodynamics? State its importance in calculating absolute entropies.</p>
-        <div class="answer-space"></div>
-    </div>
+  document.querySelector('.submit-section').style.opacity = '0.4';
+  document.querySelector('.submit-section').style.pointerEvents = 'none';
+}
 
-    <div class="question">
-        <div class="question-number">Question 20 <span class="marks">[4 marks]</span></div>
-        <p>Calculate ΔG° for the reaction: 2H₂(g) + O₂(g) → 2H₂O(l) at 298 K if ΔH° = -571.6 kJ and ΔS° = -327 J/K</p>
-        <div class="answer-space"></div>
-    </div>
+function retryQuiz() {
+  submitted = false;
+  userAnswers = new Array(25).fill(null);
+  document.getElementById('result-panel').style.display = 'none';
+  document.querySelector('.submit-section').style.opacity = '1';
+  document.querySelector('.submit-section').style.pointerEvents = 'auto';
+  document.getElementById('progress').style.width = '0%';
+  document.getElementById('answered-count').textContent = '0';
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-    <div class="question">
-        <div class="question-number">Question 21 <span class="marks">[4 marks]</span></div>
-        <p>Define adiabatic process and isothermal process. Compare their characteristics.</p>
-        <div class="answer-space"></div>
-    </div>
-
-    <div class="question">
-        <div class="question-number">Question 22 <span class="marks">[4 marks]</span></div>
-        <p>Explain how temperature affects the spontaneity of chemical reactions using Gibbs-Helmholtz equation.</p>
-        <div class="answer-space"></div>
-    </div>
-
-    <div class="question">
-        <div class="question-number">Question 23 <span class="marks">[4 marks]</span></div>
-        <p>What is lattice energy? How is it related to the thermodynamic stability of ionic compounds?</p>
-        <div class="answer-space"></div>
-    </div>
-
-    <div class="question">
-        <div class="question-number">Question 24 <span class="marks">[4 marks]</span></div>
-        <p>Calculate the efficiency of a heat engine operating between temperatures 400 K and 300 K using Carnot cycle.</p>
-        <div class="answer-space"></div>
-    </div>
-
-    <div class="question">
-        <div class="question-number">Question 25 <span class="marks">[4 marks]</span></div>
-        <p>Explain the Born-Haber cycle and its application in determining lattice energies of ionic compounds.</p>
-        <div class="answer-space"></div>
-    </div>
-
-    <div class="footer">
-        <p><strong>*** END OF PAPER ***</strong></p>
-        <p>Total Marks: 100 | Time Allowed: 2 Hours</p>
-    </div>
+buildQuiz();
+</script>
 </body>
 </html>
