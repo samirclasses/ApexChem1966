@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>General Organic Chemistry - Higher Level Quiz</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#eef2f7;
+    padding:20px;
+}
+h1{
+    text-align:center;
+}
+.quiz-box{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+.question{
+    margin-top:20px;
+    font-weight:bold;
+}
+.options{
+    margin-left:20px;
+}
+.correct{
+    color:green;
+    font-weight:bold;
+}
+.wrong{
+    color:red;
+    font-weight:bold;
+}
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    font-size:16px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+button:hover{
+    background:#45a049;
+}
+#result{
+    margin-top:20px;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+<h3 style="text-align:center;">Apex Chemistry</h3>
+<h1>General Organic Chemistry (GOC) </h1>
+
+<div class="quiz-box">
+<form id="quizForm"></form>
+
+<center>
+<button type="button" onclick="calculateScore()">Submit Quiz</button>
+</center>
+
+<div id="result"></div>
+</div>
+
+<script>
+
+const quizData = [
+{question:"1. Correct order of +I effect is:",options:["-CH3 > -C2H5 > -C3H7","-C3H7 > -C2H5 > -CH3","-C2H5 > -CH3 > -C3H7","All equal"],answer:1},
+{question:"2. Most stable carbocation among the following:",options:["CH3+","1°","2°","3°"],answer:3},
+{question:"3. Correct order of acidity:",options:["Phenol > Ethanol > Water","Water > Phenol > Ethanol","Phenol > Water > Ethanol","Ethanol > Water > Phenol"],answer:2},
+{question:"4. Which shows maximum -I effect?",options:["-F","-Cl","-Br","-I"],answer:0},
+{question:"5. Hybridization of carbocation carbon:",options:["sp3","sp2","sp","None"],answer:1},
+{question:"6. Most stable free radical:",options:["Methyl","1°","2°","3°"],answer:3},
+{question:"7. Hyperconjugation is also called:",options:["No bond resonance","Back bonding","Inductive shift","Tautomerism"],answer:0},
+{question:"8. Which is strongest acid?",options:["CH3COOH","ClCH2COOH","CCl3COOH","CH2ClCOOH"],answer:2},
+{question:"9. Most stable carbanion:",options:["CH3-","1°","2°","3°"],answer:0},
+{question:"10. Order of bond angle:",options:["sp > sp2 > sp3","sp3 > sp2 > sp","sp2 > sp > sp3","All equal"],answer:0},
+{question:"11. Electron donating group among:",options:["-NO2","-CN","-OH","-COOH"],answer:2},
+{question:"12. Resonance stabilizes:",options:["Carbocation","Carbanion","Radical","All"],answer:3},
+{question:"13. Which has highest s-character?",options:["sp3","sp2","sp","All equal"],answer:2},
+{question:"14. Most acidic hydrogen in ethanol is:",options:["CH3","CH2","OH","None"],answer:2},
+{question:"15. Strongest base:",options:["NH3","OH-","Cl-","CH3COO-"],answer:1},
+{question:"16. Stability of alkenes increases with:",options:["Less substitution","More substitution","No substitution","None"],answer:1},
+{question:"17. Which shows mesomeric effect?",options:["-NO2","-CH3","-C2H5","-H"],answer:0},
+{question:"18. Which intermediate is planar?",options:["Carbocation","Carbanion","Free radical","All"],answer:0},
+{question:"19. Most electronegative atom:",options:["F","Cl","Br","I"],answer:0},
+{question:"20. Bond length order:",options:["C≡C < C=C < C-C","C-C < C=C < C≡C","All equal","None"],answer:0},
+{question:"21. Conjugation requires:",options:["sp3 carbon","Alternate double bond","Triple bond only","None"],answer:1},
+{question:"22. Most stable alkene:",options:["Ethene","Propene","2-Butene","2-Methylpropene"],answer:3},
+{question:"23. Acidity increases with:",options:["+I effect","-I effect","+M effect","Hyperconjugation"],answer:1},
+{question:"24. Most reactive towards nucleophile:",options:["Carbanion","Carbocation","Alkene","Alkyne"],answer:1},
+{question:"25. Resonance hybrid is:",options:["Real structure","Average structure","Hypothetical","Less stable"],answer:1}
+];
+
+const form = document.getElementById("quizForm");
+
+quizData.forEach((q,index)=>{
+    const questionDiv = document.createElement("div");
+    questionDiv.classList.add("question");
+    questionDiv.innerHTML = q.question;
+    form.appendChild(questionDiv);
+
+    const optionsDiv = document.createElement("div");
+    optionsDiv.classList.add("options");
+
+    q.options.forEach((option,i)=>{
+        const label = document.createElement("label");
+        label.innerHTML = `
+            <input type="radio" name="q${index}" value="${i}">
+            <span id="q${index}o${i}">${option}</span>
+        `;
+        optionsDiv.appendChild(label);
+        optionsDiv.appendChild(document.createElement("br"));
+    });
+
+    form.appendChild(optionsDiv);
+});
+
+function calculateScore(){
+    let score = 0;
+    let attempted = 0;
+
+    quizData.forEach((q,index)=>{
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+
+        if(selected){
+            attempted++;
+            const selectedValue = parseInt(selected.value);
+
+            if(selectedValue === q.answer){
+                score += 4;
+                document.getElementById(`q${index}o${selectedValue}`).classList.add("correct");
+            }else{
+                document.getElementById(`q${index}o${selectedValue}`).classList.add("wrong");
+                document.getElementById(`q${index}o${q.answer}`).classList.add("correct");
+            }
+        }else{
+            document.getElementById(`q${index}o${q.answer}`).classList.add("correct");
+        }
+    });
+
+    const totalMarks = quizData.length * 4;
+    const percentage = ((score/totalMarks)*100).toFixed(2);
+
+    document.getElementById("result").innerHTML =
+        `Attempted: ${attempted} / ${quizData.length}<br>
+         Total Marks: ${score} / ${totalMarks}<br>
+         Percentage: ${percentage}%`;
+}
+
+</script>
+
+</body>
+</html>
