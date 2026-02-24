@@ -7,25 +7,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Code+Pro:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0e1a;
-    --surface: #111827;
-    --card: #1a2235;
-    --border: #2a3555;
-    --accent: #e8c547;
-    --accent2: #4fc3f7;
-    --accent3: #f06292;
-    --text: #e8eaf6;
-    --muted: #7986cb;
-    --correct: #66bb6a;
-    --wrong: #ef5350;
-    --glow: 0 0 20px rgba(232, 197, 71, 0.25);
+   --bg: #f0f4ff;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --border: #d0d9f0;
+    --accent: #c8970a;
+    --accent2: #1a7bbf;
+    --accent3: #d63870;
+    --text: #1a1f3c;
+    --muted: #5a6490;
+    --correct: #2e7d32;
+    --wrong: #c62828;
+    --glow: 0 0 20px rgba(200, 151, 10, 0.2);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
+    background: var(--bg);
+    color: var(--text);
     font-family: 'Lato', sans-serif;
     min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(26,123,191,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(200,151,10,0.07) 0%, transparent 50%);
+  }
    
   }
 
