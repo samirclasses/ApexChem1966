@@ -164,25 +164,49 @@ form.appendChild(div);
 });
 
 function submitQuiz(){
-let score=0;
+
+let score = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let attempted = 0;
 
 quizData.forEach((item,index)=>{
-let selected=document.querySelector(`input[name="q${index}"]:checked`);
-let qDiv=document.getElementsByClassName("question")[index];
 
-if(selected && parseInt(selected.value)===item.answer){
-score+=4;
-qDiv.classList.add("correct");
-}else{
-qDiv.classList.add("wrong");
-}
+    let selected = document.querySelector(`input[name="q${index}"]:checked`);
+    let qDiv = document.getElementsByClassName("question")[index];
 
-document.getElementById("ans"+index).innerHTML=
-"Correct Answer: <b>"+item.options[item.answer]+"</b>";
+    if(selected){
+        attempted++;
+
+        if(parseInt(selected.value) === item.answer){
+            score += 4;
+            correctCount++;
+            qDiv.classList.add("correct");
+        } else {
+            wrongCount++;
+            qDiv.classList.add("wrong");
+        }
+    } else {
+        qDiv.classList.add("wrong");
+    }
+
+    document.getElementById("ans"+index).innerHTML =
+    "Correct Answer: <b>" + item.options[item.answer] + "</b>";
 });
 
-document.getElementById("result").innerHTML=
-"Your Score: "+score+" / 100";
+let percentage = (score / 100) * 100;
+let status = percentage >= 40 ? "PASS ✅" : "FAIL ❌";
+
+document.getElementById("result").innerHTML =
+`
+Total Questions: 25 <br>
+Attempted: ${attempted} <br>
+Correct: ${correctCount} <br>
+Wrong: ${wrongCount} <br><br>
+Final Score: ${score} / 100 <br>
+Percentage: ${percentage.toFixed(2)}% <br>
+Result: <b>${status}</b>
+`;
 
 }
 
