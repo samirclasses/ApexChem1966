@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hybridisation & Shapes - Higher Level Quiz</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#eef3f9;
+    padding:20px;
+}
+h1{
+    text-align:center;
+}
+.quiz-box{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+.question{
+    margin-top:20px;
+    font-weight:bold;
+}
+.options{
+    margin-left:20px;
+}
+.correct{
+    color:green;
+    font-weight:bold;
+}
+.wrong{
+    color:red;
+    font-weight:bold;
+}
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    font-size:16px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+button:hover{
+    background:#45a049;
+}
+#result{
+    margin-top:20px;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+<h3>Apex Chemistry</h3>
+<h1>Hybridisation & Shapes of Organic Compounds</h1>
+
+<div class="quiz-box">
+<form id="quizForm"></form>
+
+<center>
+<button type="button" onclick="calculateScore()">Submit Quiz</button>
+</center>
+
+<div id="result"></div>
+</div>
+
+<script>
+
+const quizData = [
+
+{question:"1. Hybridisation of carbon in methane is:",options:["sp","sp2","sp3","sp3d"],answer:2},
+{question:"2. Bond angle in ethene is approximately:",options:["109.5°","120°","180°","90°"],answer:1},
+{question:"3. Geometry of carbon in acetylene:",options:["Trigonal planar","Tetrahedral","Linear","Trigonal bipyramidal"],answer:2},
+{question:"4. s-character in sp hybridisation is:",options:["25%","33%","50%","75%"],answer:2},
+{question:"5. Greater s-character means:",options:["Longer bond","Shorter bond","Weaker bond","No change"],answer:1},
+{question:"6. Hybridisation of carbonyl carbon:",options:["sp3","sp2","sp","sp3d"],answer:1},
+{question:"7. Shape of NH3 molecule:",options:["Trigonal planar","Tetrahedral","Pyramidal","Linear"],answer:2},
+{question:"8. Bond angle order:",options:["sp3 > sp2 > sp","sp > sp2 > sp3","sp2 > sp > sp3","All equal"],answer:1},
+{question:"9. Hybridisation of carbon in benzene:",options:["sp","sp2","sp3","sp3d"],answer:1},
+{question:"10. Geometry of sp3 hybridised carbon:",options:["Tetrahedral","Trigonal planar","Linear","Square planar"],answer:0},
+{question:"11. Which has maximum bond angle?",options:["Methane","Ethene","Ethyne","Ammonia"],answer:2},
+{question:"12. Hybridisation of nitrogen in amine:",options:["sp","sp2","sp3","sp3d"],answer:2},
+{question:"13. Lone pair reduces bond angle due to:",options:["Repulsion","Attraction","Hybridisation","Resonance"],answer:0},
+{question:"14. Hybridisation in carbocation:",options:["sp3","sp2","sp","None"],answer:1},
+{question:"15. Hybridisation in carbanion:",options:["sp3","sp2","sp","sp3d"],answer:0},
+{question:"16. Bond length order:",options:["C≡C < C=C < C-C","C-C < C=C < C≡C","All equal","None"],answer:0},
+{question:"17. Shape of BF3:",options:["Tetrahedral","Trigonal planar","Linear","Pyramidal"],answer:1},
+{question:"18. Hybridisation of carbon in allene (central carbon):",options:["sp3","sp2","sp","sp3d"],answer:2},
+{question:"19. Shape of CO2:",options:["Bent","Linear","Trigonal planar","Tetrahedral"],answer:1},
+{question:"20. Maximum s-character among:",options:["sp3","sp2","sp","Equal"],answer:2},
+{question:"21. Which angle is largest?",options:["109.5°","120°","180°","107°"],answer:2},
+{question:"22. Hybridisation of oxygen in water:",options:["sp","sp2","sp3","sp3d"],answer:2},
+{question:"23. Shape of ethyne molecule:",options:["Linear","Trigonal planar","Tetrahedral","Bent"],answer:0},
+{question:"24. Hybridisation of carbon in carbene (singlet):",options:["sp","sp2","sp3","None"],answer:1},
+{question:"25. Greater s-character increases:",options:["Bond length","Bond strength","Bond angle decreases","None"],answer:1}
+
+];
+
+const form = document.getElementById("quizForm");
+
+quizData.forEach((q,index)=>{
+    const questionDiv = document.createElement("div");
+    questionDiv.classList.add("question");
+    questionDiv.innerHTML = q.question;
+    form.appendChild(questionDiv);
+
+    const optionsDiv = document.createElement("div");
+    optionsDiv.classList.add("options");
+
+    q.options.forEach((option,i)=>{
+        const label = document.createElement("label");
+        label.innerHTML = `
+            <input type="radio" name="q${index}" value="${i}">
+            <span id="q${index}o${i}">${option}</span>
+        `;
+        optionsDiv.appendChild(label);
+        optionsDiv.appendChild(document.createElement("br"));
+    });
+
+    form.appendChild(optionsDiv);
+});
+
+function calculateScore(){
+    let score = 0;
+    let attempted = 0;
+
+    quizData.forEach((q,index)=>{
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+
+        if(selected){
+            attempted++;
+            const selectedValue = parseInt(selected.value);
+
+            if(selectedValue === q.answer){
+                score += 4;
+                document.getElementById(`q${index}o${selectedValue}`).classList.add("correct");
+            }else{
+                document.getElementById(`q${index}o${selectedValue}`).classList.add("wrong");
+                document.getElementById(`q${index}o${q.answer}`).classList.add("correct");
+            }
+        }else{
+            document.getElementById(`q${index}o${q.answer}`).classList.add("correct");
+        }
+    });
+
+    const totalMarks = quizData.length * 4;
+    const percentage = ((score/totalMarks)*100).toFixed(2);
+
+    document.getElementById("result").innerHTML =
+        `Attempted: ${attempted} / ${quizData.length}<br>
+         Total Marks: ${score} / ${totalMarks}<br>
+         Percentage: ${percentage}%`;
+}
+
+</script>
+
+</body>
+</html>
