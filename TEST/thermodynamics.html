@@ -39,6 +39,7 @@
     text-align: center;
     padding: 48px 24px 32px;
     border-bottom: 1px solid var(--border);
+    background: #ffffff;
     position: relative;
     overflow: hidden;
   }
@@ -47,7 +48,7 @@
     position: absolute;
     font-family: 'Source Code Pro', monospace;
     font-size: 13px;
-    color: rgba(79,195,247,0.12);
+    color: rgba(26,123,191,0.15);
     top: 16px; left: 50%; transform: translateX(-50%);
     white-space: nowrap;
     letter-spacing: 3px;
@@ -105,7 +106,7 @@
     width: 0%;
   }
 
-  .question-card {
+ .question-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -113,8 +114,9 @@
     margin-bottom: 20px;
     position: relative;
     transition: border-color 0.2s;
+    box-shadow: 0 2px 12px rgba(100,120,200,0.07);
   }
-  .question-card:hover { border-color: rgba(232,197,71,0.3); }
+  .question-card:hover { border-color: rgba(200,151,10,0.4); }
 
   .q-number {
     font-family: 'Source Code Pro', monospace;
@@ -135,11 +137,11 @@
   .options { display: flex; flex-direction: column; gap: 10px; }
 
   .option {
-    display: flex;
+   display: flex;
     align-items: center;
     gap: 14px;
     padding: 13px 16px;
-    background: var(--surface);
+    background: #f7f9ff;
     border: 1px solid var(--border);
     border-radius: 8px;
     cursor: pointer;
@@ -147,8 +149,8 @@
     position: relative;
   }
   .option:hover {
-    border-color: var(--accent);
-    background: rgba(232,197,71,0.05);
+   border-color: var(--accent);
+    background: rgba(200,151,10,0.05);
     transform: translateX(3px);
   }
   .option input[type="radio"] { display: none; }
@@ -165,9 +167,9 @@
     transition: all 0.18s;
   }
   .option-text {
-    font-size: 14px;
+   font-size: 14px;
     line-height: 1.5;
-    color: #c5cae9;
+    color: #2a2f55;
   }
   .option:has(input:checked) {
     border-color: var(--accent);
@@ -183,9 +185,10 @@
     text-align: center;
     margin-top: 40px;
     padding: 32px;
-    background: var(--card);
+    background: #ffffff;
     border: 1px solid var(--border);
     border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(100,120,200,0.07);
   }
   .submit-info {
     font-size: 13px;
@@ -218,13 +221,14 @@
 
   /* Result Panel */
   #result-panel {
-    display: none;
-    background: var(--card);
+   display: none;
+    background: #ffffff;
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 48px 32px;
     text-align: center;
     margin-top: 32px;
+    box-shadow: 0 4px 24px rgba(100,120,200,0.1);
     animation: fadeIn 0.5s ease;
   }
   @keyframes fadeIn { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform:none; } }
@@ -334,7 +338,7 @@
 
 <div class="header">
   <div class="header-sub">Apex Chemistry</div>
-  <h1> Chemical Thermodynamics</h1>
+  <h1><span>Chemical</span> Thermodynamics</h1>
   <div class="meta-bar">
     <div class="meta-item">Questions: <strong>25</strong></div>
     <div class="meta-item">Marks/Question: <strong>+4</strong></div>
