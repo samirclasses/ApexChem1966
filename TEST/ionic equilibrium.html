@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ionic Equilibrium - HOTS Test</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#f1f2f6;
+    padding:20px;
+}
+.container{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+h1{text-align:center;color:#2f3542;}
+.question{
+    margin-bottom:22px;
+    padding:15px;
+    border-bottom:1px solid #ccc;
+}
+.options label{
+    display:block;
+    margin:6px 0;
+    cursor:pointer;
+}
+button{
+    display:block;
+    margin:25px auto;
+    padding:12px 30px;
+    font-size:16px;
+    background:#3742fa;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+button:hover{background:#2f3542;}
+.result{
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+}
+.correct{background:#d4edda;}
+.wrong{background:#f8d7da;}
+.answer{
+    font-size:14px;
+    margin-top:5px;
+}
+</style>
+</head>
+
+<body>
+<div class="container" >
+<h4>Apex Chemistry</h4>
+<h2>Ionic Equilibrium</h2>
+<p><b>Total Questions:</b> 25 | <b>4 Marks Each</b> | <b>Total: 100</b></p>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit Test</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+const quizData = [
+
+{q:"1. The pH of a solution obtained by mixing 100 mL 0.1M HCl and 100 mL 0.1M NaOH is:",
+options:["7","1","13","Depends on Ka"], answer:0},
+
+{q:"2. 0.1M CH3COOH (Ka=10⁻⁵) is diluted 10 times. pH change is approximately:",
+options:["0.5","1","2","No change"], answer:0},
+
+{q:"3. Which salt will show maximum hydrolysis?",
+options:["NH4Cl","NaCl","CH3COONa","KNO3"], answer:0},
+
+{q:"4. pH of buffer when [salt]/[acid]=10 is (pKa=5):",
+options:["6","5","4","10"], answer:0},
+
+{q:"5. If ionic product > Ksp, precipitate will:",
+options:["Dissolve","Form","Remain same","None"], answer:1},
+
+{q:"6. pH of 0.01M H2SO4 (consider complete 1st dissociation only):",
+options:["2","1","3","12"], answer:0},
+
+{q:"7. Degree of dissociation α for weak acid increases when:",
+options:["Pressure increases","Temperature decreases","Concentration decreases","Common ion added"], answer:2},
+
+{q:"8. Solubility of AgCl in 0.1M NaCl compared to pure water is:",
+options:["Higher","Lower","Same","Zero"], answer:1},
+
+{q:"9. For amphiprotic salt NaHCO3, solution is:",
+options:["Acidic","Basic","Neutral","Strongly acidic"], answer:1},
+
+{q:"10. pH at equivalence in strong acid–weak base titration is:",
+options:["<7",">7","7","14"], answer:0},
+
+{q:"11. If Ka1 >> Ka2 for diprotic acid, second dissociation is:",
+options:["Negligible","Equal","Greater","Infinite"], answer:0},
+
+{q:"12. Ionic strength mainly affects:",
+options:["Activity","Temperature","Pressure","Molarity"], answer:0},
+
+{q:"13. Maximum buffer action when:",
+options:["pH=pKa","pH=7","pH=0","pH=14"], answer:0},
+
+{q:"14. pOH of 0.001M NaOH after dilution to 10 times:",
+options:["4","3","2","5"], answer:0},
+
+{q:"15. If Kw increases with temperature, neutral pH becomes:",
+options:["Less than 7","7","More than 7","14"], answer:0},
+
+{q:"16. Hydrolysis of NH4Cl makes solution:",
+options:["Basic","Acidic","Neutral","Buffer"], answer:1},
+
+{q:"17. For sparingly soluble salt AB2, Ksp=4s³. True/False?",
+options:["True","False","Depends","None"], answer:0},
+
+{q:"18. In common ion effect, equilibrium shifts:",
+options:["Forward","Backward","No shift","Random"], answer:1},
+
+{q:"19. If pH=3, solution diluted 100 times. New pH:",
+options:["5","3","1","4"], answer:0},
+
+{q:"20. Strongest conjugate base among:",
+options:["Cl⁻","NO3⁻","CH3COO⁻","HSO4⁻"], answer:2},
+
+{q:"21. For weak acid HA, pH formula approx:",
+options:["½(pKa - logC)","pKa+log","logC","None"], answer:0},
+
+{q:"22. Solubility of CaF2 increases when:",
+options:["NaF added","HCl added","CaCl2 added","Common ion added"], answer:1},
+
+{q:"23. If pKa=5 and pH=4, acid is:",
+options:["Mostly dissociated","Mostly unionised","Fully ionised","Strong acid"], answer:1},
+
+{q:"24. Buffer capacity is maximum when:",
+options:["[acid]=[salt]","Only acid","Only salt","None"], answer:0},
+
+{q:"25. pKa + pKb at 25°C equals:",
+options:["14","7","1","0"], answer:0}
+
+];
+
+const form=document.getElementById("quizForm");
+
+quizData.forEach((item,index)=>{
+let div=document.createElement("div");
+div.classList.add("question");
+div.innerHTML="<b>"+item.q+"</b><div class='options'>"+
+item.options.map((opt,i)=>`
+<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label>`
+).join("")+"</div><div class='answer' id='ans${index}'></div>";
+form.appendChild(div);
+});
+
+function submitQuiz(){
+let score=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let qDiv=document.getElementsByClassName("question")[index];
+
+if(selected && parseInt(selected.value)===item.answer){
+score+=4;
+qDiv.classList.add("correct");
+}else{
+qDiv.classList.add("wrong");
+}
+
+document.getElementById("ans"+index).innerHTML=
+"Correct Answer: <b>"+item.options[item.answer]+"</b>";
+});
+
+document.getElementById("result").innerHTML=
+"Your Score: "+score+" / 100";
+
+}
+
+</script>
+
+</body>
+</html>
