@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Organic Nomenclature Test</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6fb;
+    padding:20px;
+}
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.15);
+}
+h1{
+    text-align:center;
+    color:#1f3c88;
+}
+.question{
+    margin-bottom:20px;
+    padding:15px;
+    border-bottom:1px solid #ddd;
+}
+.options label{
+    display:block;
+    margin:6px 0;
+    cursor:pointer;
+}
+button{
+    display:block;
+    margin:25px auto;
+    padding:12px 30px;
+    font-size:16px;
+    background:#1f3c88;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+button:hover{background:#0c2461;}
+.correct{background:#d4edda;}
+.wrong{background:#f8d7da;}
+.result{
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    margin-top:20px;
+}
+.answer{
+    font-size:14px;
+    margin-top:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h3>Apex Chemistry</h3>
+<h1>Classification & Nomenclature</h1>
+<p><b>Total Questions:</b> 25 | <b>4 Marks Each</b> | <b>Total: 100</b></p>
+
+<form id="quizForm"></form>
+
+<button type="button" onclick="submitQuiz()">Submit Test</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+const quizData = [
+
+{q:"1. Correct IUPAC name of CH3-CH(CH3)-CH2-CH(CH3)-COOH:",
+options:["2,4-dimethylpentanoic acid","3,4-dimethylpentanoic acid","2,4-dimethylbutanoic acid","4,5-dimethylpentanoic acid"], answer:0},
+
+{q:"2. Highest priority functional group among these:",
+options:["-COOH","-SO3H","-CHO","-CN"], answer:1},
+
+{q:"3. Correct name of (CH3)2CH-CH2-CH2-Br:",
+options:["1-bromo-3-methylbutane","4-bromo-2-methylbutane","2-bromopentane","1-bromopentane"], answer:0},
+
+{q:"4. Parent chain selection rule prioritizes:",
+options:["Maximum number of multiple bonds","Maximum substituents","Longest chain only","Alphabetical order"], answer:0},
+
+{q:"5. Correct name of CH3-CH=CH-CH2-CHO:",
+options:["Pent-3-enal","Pent-4-enal","Pent-2-enal","Pentanal"], answer:2},
+
+{q:"6. Which compound shows positional isomerism?",
+options:["But-1-ene & But-2-ene","n-Butane & Isobutane","Ethanol & Dimethyl ether","Propane & Cyclopropane"], answer:0},
+
+{q:"7. The correct name of benzene with NO2 at meta position:",
+options:["1,3-dinitrobenzene","m-dinitrobenzene","3-nitrobenzene","Nitrobenzene"], answer:1},
+
+{q:"8. IUPAC name of CH3-CO-CH2-COOH:",
+options:["3-oxobutanoic acid","4-oxobutanoic acid","2-oxobutanoic acid","Butanedioic acid"], answer:0},
+
+{q:"9. Maximum number of secondary carbons in hexane is:",
+options:["4","3","2","5"], answer:0},
+
+{q:"10. Correct name of (CH3)3C-CH2-OH:",
+options:["2,2-dimethylpropan-1-ol","3,3-dimethylbutanol","tert-butyl alcohol","2-methyl-2-propanol"], answer:0},
+
+{q:"11. Aromatic compound must follow:",
+options:["Huckel rule","Le Chatelier principle","Markovnikov rule","Saytzeff rule"], answer:0},
+
+{q:"12. Which is not aromatic?",
+options:["Cyclobutadiene","Benzene","Naphthalene","Pyridine"], answer:0},
+
+{q:"13. Functional group priority order (highest first):",
+options:["COOH > SO3H > COOR","SO3H > COOH > COOR","COOR > COOH > SO3H","COOH > COOR > SO3H"], answer:1},
+
+{q:"14. IUPAC name of CH2=CH-CH2-COOH:",
+options:["But-3-enoic acid","But-2-enoic acid","Butenoic acid","But-1-enoic acid"], answer:0},
+
+{q:"15. Number of chain isomers of C5H12:",
+options:["3","4","5","2"], answer:0},
+
+{q:"16. Compound having both aldehyde & alcohol priority goes as:",
+options:["Hydroxy aldehyde","Aldehyde alcohol","Alcohol aldehyde","Diol"], answer:0},
+
+{q:"17. Correct name of CH3-CH(OH)-CH2-CH3:",
+options:["Butan-2-ol","Butan-1-ol","2-methylpropanol","Propanol"], answer:0},
+
+{q:"18. Which is alicyclic?",
+options:["Cyclohexene","Benzene","Toluene","Naphthalene"], answer:0},
+
+{q:"19. Position numbering starts from:",
+options:["End nearer functional group","End nearer substituent","Longest chain end","Random end"], answer:0},
+
+{q:"20. Structural isomers have:",
+options:["Same molecular formula","Same structure","Same functional group always","Different molecular formula"], answer:0},
+
+{q:"21. IUPAC name of CH3-CH2-CO-CH3:",
+options:["Butan-2-one","Butan-1-one","Propanone","Pentane"], answer:0},
+
+{q:"22. Which compound shows functional isomerism with ethanol?",
+options:["Dimethyl ether","Methanol","Propanol","Acetone"], answer:0},
+
+{q:"23. The suffix '-al' represents:",
+options:["Aldehyde","Alcohol","Alkane","Alkene"], answer:0},
+
+{q:"24. If both double and triple bonds present, priority given to:",
+options:["Double bond","Triple bond","Functional group","Substituent"], answer:0},
+
+{q:"25. Compound C6H5-CH3 is:",
+options:["Toluene","Benzene","Phenol","Aniline"], answer:0}
+
+];
+
+const form=document.getElementById("quizForm");
+
+quizData.forEach((item,index)=>{
+let div=document.createElement("div");
+div.classList.add("question");
+div.innerHTML="<b>"+item.q+"</b><div class='options'>"+
+item.options.map((opt,i)=>`
+<label>
+<input type="radio" name="q${index}" value="${i}"> ${opt}
+</label>
+`).join("")+
+"</div><div class='answer' id='ans"+index+"'></div>";
+form.appendChild(div);
+});
+
+function submitQuiz(){
+
+let score=0;
+let correct=0;
+let wrong=0;
+let attempted=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let qDiv=document.getElementsByClassName("question")[index];
+
+if(selected){
+attempted++;
+if(parseInt(selected.value)===item.answer){
+score+=4;
+correct++;
+qDiv.classList.add("correct");
+}else{
+wrong++;
+qDiv.classList.add("wrong");
+}
+}else{
+qDiv.classList.add("wrong");
+}
+
+document.getElementById("ans"+index).innerHTML=
+"Correct Answer: <b>"+item.options[item.answer]+"</b>";
+});
+
+let percent=(score/100)*100;
+let status=percent>=40?"PASS ✅":"FAIL ❌";
+
+document.getElementById("result").innerHTML=
+`
+<hr>
+Attempted: ${attempted}/25 <br>
+Correct: ${correct} <br>
+Wrong: ${wrong} <br><br>
+Final Score: ${score}/100 <br>
+Percentage: ${percent.toFixed(2)}% <br>
+Result: ${status}
+`;
+
+window.scrollTo(0,document.body.scrollHeight);
+
+}
+
+</script>
+
+</body>
+</html>
