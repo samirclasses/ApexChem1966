@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Advanced HOTS Quiz - Alkyl & Aryl Halides</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f7fb;
+padding:20px;
+}
+h1{text-align:center;}
+.question{
+background:#ffffff;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+box-shadow:0 0 6px rgba(0,0,0,0.15);
+}
+button{
+padding:10px 20px;
+font-size:16px;
+background:#0c2461;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+.correct{color:green;font-weight:bold;}
+.incorrect{color:red;font-weight:bold;}
+#result{
+font-size:22px;
+margin-top:20px;
+font-weight:bold;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+<h3>Apex Chemistry</h3>
+<h1>
+Alkyl and Aryl Halides</h1>
+
+<form id="quizForm"></form>
+
+<center><button onclick="submitQuiz()">Submit Quiz</button></center>
+<div id="result"></div>
+
+<script>
+
+const quizData = [
+
+{q:"1) Reactivity in SN1 follows order:",
+o:["3° > 2° > 1°","1° > 2° > 3°","2° > 1° > 3°","All equal"],a:0},
+
+{q:"2) Reactivity in SN2 follows order:",
+o:["1° > 2° > 3°","3° > 2° > 1°","All equal","2° > 3° > 1°"],a:0},
+
+{q:"3) Aryl halides do not undergo SN1 because:",
+o:["Carbocation unstable","Steric hindrance","No leaving group","High polarity"],a:0},
+
+{q:"4) Best leaving group:",
+o:["I⁻","Cl⁻","F⁻","OH⁻"],a:0},
+
+{q:"5) Rate of SN2 depends on:",
+o:["Both substrate & nucleophile","Substrate only","Nucleophile only","Solvent only"],a:0},
+
+{q:"6) Which gives fastest SN1?",
+o:["(CH3)3CBr","CH3CH2Br","CH3Br","CH3CH2CH2Br"],a:0},
+
+{q:"7) Vinyl halides are less reactive because:",
+o:["Partial double bond character","Steric hindrance","Weak C–X bond","No nucleophile attack"],a:0},
+
+{q:"8) Optical activity retained in:",
+o:["SN2 inversion","SN1 racemisation","Elimination","Free radical"],a:0},
+
+{q:"9) Finkelstein reaction uses:",
+o:["NaI in acetone","NaCl in water","KOH","HCl"],a:0},
+
+{q:"10) Wurtz reaction forms:",
+o:["Alkane","Alcohol","Alkene","Ether"],a:0},
+
+{q:"11) Aryl halides react in nucleophilic substitution when:",
+o:["Electron withdrawing group present","Electron donating group","No substituent","High temp only"],a:0},
+
+{q:"12) Benzyl halide shows high reactivity due to:",
+o:["Resonance stabilisation","Inductive effect","Hyperconjugation only","Steric factor"],a:0},
+
+{q:"13) SN1 reaction intermediate:",
+o:["Carbocation","Carbanion","Free radical","Carbene"],a:0},
+
+{q:"14) Rate equation for SN1:",
+o:["k[RX]","k[RX][Nu]","k[Nu]","k"],a:0},
+
+{q:"15) Rate equation for SN2:",
+o:["k[RX][Nu]","k[RX]","k[Nu]","k"],a:0},
+
+{q:"16) Which gives elimination major product?",
+o:["Strong base & high temp","Weak base","Dilute solution","Polar solvent only"],a:0},
+
+{q:"17) Boiling point highest:",
+o:["RI","RCl","RF","RBr"],a:0},
+
+{q:"18) Aryl halide C–X bond shorter because:",
+o:["sp2 hybridised carbon","Steric factor","Low mass","Weak bond"],a:0},
+
+{q:"19) Grignard reagent formed by reaction with:",
+o:["Mg in dry ether","Na in water","KOH","HCl"],a:0},
+
+{q:"20) Which undergoes fastest SN2?",
+o:["CH3Br","(CH3)2CHBr","(CH3)3CBr","C6H5Br"],a:0},
+
+{q:"21) Lucas test differentiates:",
+o:["1°,2°,3° alcohols","Halides","Alkanes","Aldehydes"],a:0},
+
+{q:"22) Relative bond strength:",
+o:["C–F > C–Cl > C–Br > C–I","C–I strongest","All equal","C–Br strongest"],a:0},
+
+{q:"23) Aryl halides resist SN2 due to:",
+o:["Steric + resonance","Only steric","Only resonance","Weak bond"],a:0},
+
+{q:"24) Racemisation observed in:",
+o:["SN1","SN2","E2","Wurtz"],a:0},
+
+{q:"25) Rate of SN1 increases with:",
+o:["Carbocation stability","Strong nucleophile","Low temp","Non-polar solvent"],a:0}
+
+];
+
+const form=document.getElementById("quizForm");
+
+quizData.forEach((item,index)=>{
+let div=document.createElement("div");
+div.className="question";
+div.innerHTML="<b>"+item.q+"</b><br>";
+
+item.o.forEach((opt,i)=>{
+div.innerHTML+=`<label>
+<input type="radio" name="q${index}" value="${i}">
+${opt}
+</label><br>`;
+});
+
+div.innerHTML+=`<div id="fb${index}"></div>`;
+form.appendChild(div);
+});
+
+function submitQuiz(){
+let score=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let fb=document.getElementById("fb"+index);
+
+if(selected){
+if(parseInt(selected.value)===item.a){
+score+=4;
+fb.innerHTML="<span class='correct'>Correct ✔</span>";
+}else{
+fb.innerHTML="<span class='incorrect'>Incorrect ✘ | Correct: "+item.o[item.a]+"</span>";
+}
+}else{
+fb.innerHTML="<span class='incorrect'>Not Attempted | Correct: "+item.o[item.a]+"</span>";
+}
+});
+
+document.getElementById("result").innerHTML=
+"Your Score: "+score+" / 100";
+}
+
+</script>
+
+</body>
+</html>
