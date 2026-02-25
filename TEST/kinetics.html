@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Advanced HOTS Quiz - Chemical Kinetics</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f7fb;
+padding:20px;
+}
+h1{text-align:center;}
+.question{
+background:#ffffff;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+box-shadow:0 0 6px rgba(0,0,0,0.15);
+}
+button{
+padding:10px 20px;
+font-size:16px;
+background:#b71540;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+.correct{color:green;font-weight:bold;}
+.incorrect{color:red;font-weight:bold;}
+#result{
+font-size:22px;
+margin-top:20px;
+font-weight:bold;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+<h3 style="text.align:center;">Apex Chemistry</h3>
+<h1>Chemical Kinetics</h1>
+
+<form id="quizForm"></form>
+
+<center><button onclick="submitQuiz()">Submit Quiz</button></center>
+<div id="result"></div>
+
+<script>
+
+const quizData = [
+
+{q:"1) For first order reaction, t½ = 10 min. Rate constant k is:",
+o:["0.0693 min⁻¹","0.00693 min⁻¹","0.693 min⁻¹","0.000693 min⁻¹"],a:0},
+
+{q:"2) Unit of rate constant for second order reaction:",
+o:["L mol⁻¹ s⁻¹","s⁻¹","mol L⁻¹ s⁻¹","L² mol⁻² s⁻¹"],a:0},
+
+{q:"3) If concentration doubles in first order reaction, rate becomes:",
+o:["Double","Four times","Half","Same"],a:0},
+
+{q:"4) Integrated rate law for first order:",
+o:["k = 2.303/t log a/(a-x)","k = x/t","k = 1/t","k = 2.303 log t"],a:0},
+
+{q:"5) For zero order reaction, half life is:",
+o:["a/2k","0.693/k","1/ka","2.303/k"],a:0},
+
+{q:"6) Activation energy unit:",
+o:["J mol⁻¹","mol s⁻¹","K","atm"],a:0},
+
+{q:"7) Arrhenius equation:",
+o:["k = Ae^(-Ea/RT)","k = RT","k = Ea/RT","k = 1/T"],a:0},
+
+{q:"8) If temperature increases, rate constant:",
+o:["Increases exponentially","Decreases","Remains same","Becomes zero"],a:0},
+
+{q:"9) For first order reaction, time for 99% completion:",
+o:["4.6/k","2.3/k","1/k","0.693/k"],a:0},
+
+{q:"10) Slope of ln k vs 1/T graph:",
+o:["-Ea/R","Ea/R","R/Ea","-R/Ea"],a:0},
+
+{q:"11) Half life independent of concentration for:",
+o:["First order","Zero order","Second order","Third order"],a:0},
+
+{q:"12) For zero order reaction, rate constant unit:",
+o:["mol L⁻¹ s⁻¹","s⁻¹","L mol⁻¹ s⁻¹","L² mol⁻² s⁻¹"],a:0},
+
+{q:"13) Molecularity of elementary reaction is always:",
+o:["Whole number","Fractional","Zero","Negative"],a:0},
+
+{q:"14) Order of reaction can be:",
+o:["Fractional","Always integer","Zero only","Negative only"],a:0},
+
+{q:"15) If t½ = 20 min (first order), time for 75% completion:",
+o:["40 min","20 min","10 min","60 min"],a:0},
+
+{q:"16) Rate determining step is:",
+o:["Slowest step","Fastest step","First step","Last step"],a:0},
+
+{q:"17) For second order reaction, t½ proportional to:",
+o:["1/a","a","Constant","k"],a:0},
+
+{q:"18) If Ea = 0, rate constant:",
+o:["Independent of T","Zero","Infinite","Decreases"],a:0},
+
+{q:"19) Graph of zero order reaction:",
+o:["[A] vs t straight line","ln[A] vs t straight line","1/[A] vs t straight line","k vs t straight line"],a:0},
+
+{q:"20) For first order, 90% completion time:",
+o:["2.303/k","1/k","0.693/k","4.6/k"],a:0},
+
+{q:"21) Doubling temperature approx increases rate by:",
+o:["2–3 times","Half","No change","10 times always"],a:0},
+
+{q:"22) Rate constant depends on:",
+o:["Temperature","Concentration","Pressure","Volume"],a:0},
+
+{q:"23) If reaction order = 2, overall unit of rate:",
+o:["mol L⁻¹ s⁻¹","s⁻¹","L mol⁻¹ s⁻¹","mol² L⁻² s⁻¹"],a:0},
+
+{q:"24) First order reaction 50% completion time:",
+o:["0.693/k","1/k","2.303/k","a/2k"],a:0},
+
+{q:"25) Catalyst changes:",
+o:["Activation energy","ΔH","Equilibrium constant","Gibbs energy"],a:0}
+
+];
+
+const form=document.getElementById("quizForm");
+
+quizData.forEach((item,index)=>{
+let div=document.createElement("div");
+div.className="question";
+div.innerHTML="<b>"+item.q+"</b><br>";
+
+item.o.forEach((opt,i)=>{
+div.innerHTML+=`<label>
+<input type="radio" name="q${index}" value="${i}">
+${opt}
+</label><br>`;
+});
+
+div.innerHTML+=`<div id="fb${index}"></div>`;
+form.appendChild(div);
+});
+
+function submitQuiz(){
+let score=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let fb=document.getElementById("fb"+index);
+
+if(selected){
+if(parseInt(selected.value)===item.a){
+score+=4;
+fb.innerHTML="<span class='correct'>Correct ✔</span>";
+}else{
+fb.innerHTML="<span class='incorrect'>Incorrect ✘ | Correct: "+item.o[item.a]+"</span>";
+}
+}else{
+fb.innerHTML="<span class='incorrect'>Not Attempted | Correct: "+item.o[item.a]+"</span>";
+}
+});
+
+document.getElementById("result").innerHTML=
+"Your Score: "+score+" / 100";
+}
+
+</script>
+
+</body>
+</html>
