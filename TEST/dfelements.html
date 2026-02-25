@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>d & f Block Elements | HOTS MCQ Quiz</title>
+<style>
+body{
+font-family: Arial;
+background:#f4f6f9;
+padding:20px;
+}
+
+h1,h3{
+text-align:center;
+}
+
+.question{
+background:white;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.correct{ background:#d4edda; }
+.wrong{ background:#f8d7da; }
+
+button{
+padding:12px 20px;
+font-size:16px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+#result{
+margin-top:20px;
+padding:15px;
+background:white;
+font-size:18px;
+border-radius:8px;
+}
+</style>
+</head>
+<body>
+<h3>Apex Chemistry</h3>
+<h1>d- and f-Block Elements</h1>
+
+<div id="quiz"></div>
+
+<center>
+<button onclick="submitQuiz()">Submit Quiz</button>
+</center>
+
+<div id="result"></div>
+
+<script>
+
+const quizData = [
+
+{
+question:"1. Which transition metal shows highest oxidation state?",
+options:["Fe","Mn","Cr","V"],
+answer:1
+},
+
+{
+question:"2. The colour of transition metal ions is mainly due to:",
+options:[
+"s→p transition",
+"d–d transition",
+"f–f transition",
+"Charge on ion"
+],
+answer:1
+},
+
+{
+question:"3. Zn2+ is colourless because:",
+options:[
+"Fully filled d-orbitals",
+"No d-electrons",
+"High IE",
+"Low EN"
+],
+answer:0
+},
+
+{
+question:"4. Which has maximum number of unpaired electrons?",
+options:[
+"Fe2+",
+"Mn2+",
+"Co2+",
+"Ni2+"
+],
+answer:1
+},
+
+{
+question:"5. Calculate spin-only magnetic moment of Mn2+ (μ = √n(n+2)) BM.",
+options:[
+"5.92 BM",
+"4.90 BM",
+"3.87 BM",
+"2.83 BM"
+],
+answer:0
+},
+
+{
+question:"6. Lanthanoid contraction is due to:",
+options:[
+"Poor shielding of 4f electrons",
+"High EN",
+"Large size",
+"Low IE"
+],
+answer:0
+},
+
+{
+question:"7. Which element shows +7 oxidation state?",
+options:["Cr","Mn","Fe","Cu"],
+answer:1
+},
+
+{
+question:"8. KMnO4 acts as:",
+options:[
+"Reducing agent",
+"Oxidising agent",
+"Catalyst",
+"Complex ligand"
+],
+answer:1
+},
+
+{
+question:"9. Actinoids show more variable oxidation states because:",
+options:[
+"5f, 6d, 7s energies comparable",
+"Large size",
+"High EN",
+"Stable nucleus"
+],
+answer:0
+},
+
+{
+question:"10. Which ion is most stable?",
+options:[
+"Sc3+",
+"Ti3+",
+"V3+",
+"Cr3+"
+],
+answer:3
+},
+
+{
+question:"11. The highest number of oxidation states is shown by:",
+options:[
+"Fe",
+"Mn",
+"Co",
+"Ni"
+],
+answer:1
+},
+
+{
+question:"12. Calculate magnetic moment of Fe3+ (n=5).",
+options:[
+"5.92 BM",
+"4.90 BM",
+"3.87 BM",
+"2.83 BM"
+],
+answer:0
+},
+
+{
+question:"13. Transition metals form complexes because of:",
+options:[
+"Small size & vacant orbitals",
+"High IE",
+"Low mp",
+"High EN"
+],
+answer:0
+},
+
+{
+question:"14. Ce shows +4 oxidation state due to:",
+options:[
+"Empty f-orbital",
+"Half-filled f-orbital",
+"Fully filled f-orbital",
+"Large size"
+],
+answer:2
+},
+
+{
+question:"15. Which is strongest reducing agent?",
+options:[
+"Cr2+",
+"Fe2+",
+"Cu2+",
+"Zn2+"
+],
+answer:0
+},
+
+{
+question:"16. Which property increases across period?",
+options:[
+"Atomic size",
+"Oxidation states",
+"Ionic size",
+"Density decreases"
+],
+answer:1
+},
+
+{
+question:"17. In acidic medium, MnO4− reduces to:",
+options:[
+"Mn2+",
+"MnO2",
+"MnO4 2−",
+"Mn"
+],
+answer:0
+},
+
+{
+question:"18. Which shows anomalous behaviour?",
+options:[
+"Zn",
+"Cd",
+"Hg",
+"All"
+],
+answer:2
+},
+
+{
+question:"19. Lanthanoids are soft metals because:",
+options:[
+"Low metallic bonding",
+"High IE",
+"Small size",
+"Large charge"
+],
+answer:0
+},
+
+{
+question:"20. Which has maximum atomic radius?",
+options:[
+"Sc",
+"Y",
+"La",
+"Lu"
+],
+answer:2
+},
+
+{
+question:"21. If n=3, magnetic moment =",
+options:[
+"3.87 BM",
+"2.83 BM",
+"4.90 BM",
+"5.92 BM"
+],
+answer:0
+},
+
+{
+question:"22. Cu shows +1 oxidation state because:",
+options:[
+"Stable d10 configuration",
+"High EN",
+"Large size",
+"Low IE"
+],
+answer:0
+},
+
+{
+question:"23. Which is paramagnetic?",
+options:[
+"Sc3+",
+"Ti4+",
+"Zn2+",
+"Fe3+"
+],
+answer:3
+},
+
+{
+question:"24. The colour of KMnO4 is due to:",
+options:[
+"d–d transition",
+"Charge transfer",
+"f–f transition",
+"Metallic bonding"
+],
+answer:1
+},
+
+{
+question:"25. Maximum number of unpaired electrons in 3d series is:",
+options:[
+"3",
+"4",
+"5",
+"6"
+],
+answer:2
+}
+
+];
+
+const quiz = document.getElementById("quiz");
+
+quizData.forEach((q,index)=>{
+let div=document.createElement("div");
+div.classList.add("question");
+
+let optionsHTML="";
+q.options.forEach((opt,i)=>{
+optionsHTML+=`
+<label>
+<input type="radio" name="q${index}" value="${i}">
+${opt}
+</label><br>`;
+});
+
+div.innerHTML=`
+<p><b>${q.question}</b></p>
+${optionsHTML}
+<p id="ans${index}" style="font-weight:bold;"></p>
+`;
+
+quiz.appendChild(div);
+});
+
+function submitQuiz(){
+
+let score=0;
+let correctCount=0;
+let wrongCount=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let qDiv=document.getElementsByClassName("question")[index];
+
+if(selected){
+if(parseInt(selected.value)===item.answer){
+score+=4;
+correctCount++;
+qDiv.classList.add("correct");
+}else{
+wrongCount++;
+qDiv.classList.add("wrong");
+}
+}else{
+wrongCount++;
+qDiv.classList.add("wrong");
+}
+
+document.getElementById("ans"+index).innerHTML=
+"Correct Answer: "+item.options[item.answer];
+
+});
+
+let percentage=(score/100)*100;
+let status=percentage>=40?"PASS ✅":"FAIL ❌";
+
+document.getElementById("result").innerHTML=`
+Total Questions: 25 <br>
+Correct: ${correctCount} <br>
+Wrong: ${wrongCount} <br><br>
+Final Score: ${score} / 100 <br>
+Percentage: ${percentage.toFixed(2)}% <br>
+Result: <b>${status}</b>
+`;
+}
+
+</script>
+
+</body>
+</html>
