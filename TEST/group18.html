@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Group 18 Elements | HOTS MCQ Quiz</title>
+<style>
+body{
+font-family: Arial;
+background:#f4f6f9;
+padding:20px;
+}
+
+h1,h3{
+text-align:center;
+}
+
+.question{
+background:white;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.correct{ background:#d4edda; }
+.wrong{ background:#f8d7da; }
+
+button{
+padding:12px 20px;
+font-size:16px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+#result{
+margin-top:20px;
+padding:15px;
+background:white;
+font-size:18px;
+border-radius:8px;
+}
+</style>
+</head>
+<body>
+<h3>Apex Chemistry</h3>
+<h1>Group 18 Elements (Noble Gases)</h1>
+
+<div id="quiz"></div>
+
+<center>
+<button onclick="submitQuiz()">Submit Quiz</button>
+</center>
+
+<div id="result"></div>
+
+<script>
+
+const quizData = [
+
+{
+question:"1. The first noble gas compound discovered was:",
+options:[
+"XeF2",
+"KrF2",
+"XePtF6",
+"XeO3"
+],
+answer:2
+},
+
+{
+question:"2. The decreasing order of ionization enthalpy is:",
+options:[
+"He > Ne > Ar > Kr > Xe",
+"Xe > Kr > Ar > Ne > He",
+"Ne > He > Ar > Kr > Xe",
+"He > Ar > Ne > Kr > Xe"
+],
+answer:0
+},
+
+{
+question:"3. Xenon forms compounds mainly because:",
+options:[
+"Low IE",
+"High polarizability",
+"Vacant d-orbitals",
+"Both A and B"
+],
+answer:3
+},
+
+{
+question:"4. Which noble gas has highest boiling point?",
+options:["Ne","Ar","Kr","Xe"],
+answer:3
+},
+
+{
+question:"5. XeF4 has hybridization:",
+options:["sp3","sp3d","sp3d2","sp3d3"],
+answer:2
+},
+
+{
+question:"6. Shape of XeF4 is:",
+options:[
+"Tetrahedral",
+"Square planar",
+"See-saw",
+"Octahedral"
+],
+answer:1
+},
+
+{
+question:"7. Which noble gas does NOT form any stable compound?",
+options:["Kr","Xe","Rn","He"],
+answer:3
+},
+
+{
+question:"8. XeF2 is:",
+options:[
+"Linear",
+"Trigonal planar",
+"Tetrahedral",
+"Square planar"
+],
+answer:0
+},
+
+{
+question:"9. In XeO3, oxidation state of Xe is:",
+options:["+4","+6","+8","+2"],
+answer:1
+},
+
+{
+question:"10. Radon is radioactive because:",
+options:[
+"Large size",
+"Unstable nucleus",
+"Low IE",
+"High EN"
+],
+answer:1
+},
+
+{
+question:"11. Which has maximum electron affinity?",
+options:["He","Ne","Ar","Kr"],
+answer:3
+},
+
+{
+question:"12. Calculate total valence electrons in XeF6.",
+options:[
+"40",
+"42",
+"48",
+"56"
+],
+answer:2
+},
+
+{
+question:"13. XeF6 shows distorted octahedral shape due to:",
+options:[
+"Lone pair repulsion",
+"d-orbital involvement",
+"Back bonding",
+"High EN of F"
+],
+answer:0
+},
+
+{
+question:"14. Clathrates are formed due to:",
+options:[
+"Covalent bonding",
+"Ionic bonding",
+"Physical entrapment",
+"Hydrogen bonding"
+],
+answer:2
+},
+
+{
+question:"15. Which noble gas is used in cryogenic applications?",
+options:["He","Ne","Ar","Xe"],
+answer:0
+},
+
+{
+question:"16. Which compound is explosive?",
+options:["XeF2","XeO3","XeF4","KrF2"],
+answer:1
+},
+
+{
+question:"17. Stability of noble gas compounds increases with:",
+options:[
+"Increasing size",
+"Decreasing size",
+"Increasing EN",
+"Decreasing polarizability"
+],
+answer:0
+},
+
+{
+question:"18. Which statement is incorrect?",
+options:[
+"He has 1s2 configuration",
+"Ne forms compounds",
+"Xe forms fluorides",
+"Rn is radioactive"
+],
+answer:1
+},
+
+{
+question:"19. XeF2 + H2O gives:",
+options:[
+"Xe + HF",
+"XeO3",
+"XeO2F2",
+"No reaction"
+],
+answer:2
+},
+
+{
+question:"20. Highest oxidation state shown by Xe is:",
+options:[
+"+4",
+"+6",
+"+8",
+"+2"
+],
+answer:2
+},
+
+{
+question:"21. Which noble gas has maximum polarizability?",
+options:["Ne","Ar","Kr","Xe"],
+answer:3
+},
+
+{
+question:"22. In XeF2, number of lone pairs on Xe:",
+options:[
+"1",
+"2",
+"3",
+"4"
+],
+answer:2
+},
+
+{
+question:"23. The geometry of XeO4 is:",
+options:[
+"Tetrahedral",
+"Square planar",
+"Trigonal pyramidal",
+"Octahedral"
+],
+answer:0
+},
+
+{
+question:"24. Noble gases are monoatomic due to:",
+options:[
+"Strong bonding",
+"Complete octet",
+"High density",
+"High reactivity"
+],
+answer:1
+},
+
+{
+question:"25. Which noble gas compound involves +2 oxidation state?",
+options:[
+"XeF2",
+"XeF4",
+"XeO3",
+"XeO4"
+],
+answer:0
+}
+
+];
+
+const quiz = document.getElementById("quiz");
+
+quizData.forEach((q,index)=>{
+let div=document.createElement("div");
+div.classList.add("question");
+
+let optionsHTML="";
+q.options.forEach((opt,i)=>{
+optionsHTML+=`
+<label>
+<input type="radio" name="q${index}" value="${i}">
+${opt}
+</label><br>`;
+});
+
+div.innerHTML=`
+<p><b>${q.question}</b></p>
+${optionsHTML}
+<p id="ans${index}" style="font-weight:bold;"></p>
+`;
+
+quiz.appendChild(div);
+});
+
+function submitQuiz(){
+
+let score=0;
+let correctCount=0;
+let wrongCount=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let qDiv=document.getElementsByClassName("question")[index];
+
+if(selected){
+if(parseInt(selected.value)===item.answer){
+score+=4;
+correctCount++;
+qDiv.classList.add("correct");
+}else{
+wrongCount++;
+qDiv.classList.add("wrong");
+}
+}else{
+wrongCount++;
+qDiv.classList.add("wrong");
+}
+
+document.getElementById("ans"+index).innerHTML=
+"Correct Answer: "+item.options[item.answer];
+
+});
+
+let percentage=(score/100)*100;
+let status=percentage>=40?"PASS ✅":"FAIL ❌";
+
+document.getElementById("result").innerHTML=`
+Total Questions: 25 <br>
+Correct: ${correctCount} <br>
+Wrong: ${wrongCount} <br><br>
+Final Score: ${score} / 100 <br>
+Percentage: ${percentage.toFixed(2)}% <br>
+Result: <b>${status}</b>
+`;
+}
+
+</script>
+
+</body>
+</html>
