@@ -1,31 +1,94 @@
 <!DOCTYPE html>
-<html>
-    <title>Quantum Chemistry</title>
-    <head>
-        <style>
-            pic{
-                filter: grayscale(100);
-            }
-        </style>
-    </head>
-    <body>
-        <img src="pic_quantum/pic1.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic2.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic3.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic4.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic5.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic6.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic7.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic8.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic9.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic10.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic11.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic12.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic13.png" style="height: auto;width: auto;">
-        <img src="pic_quantum/pic14.png" style="height: auto;width: auto;">
-      <p style="font-size:20px;" > But this is not the only standing wave that we can imagine.<br>
-        These are also known as normal modes of motion of the string. <br>
-        The above one is the simplest possible normal mode of the motion of the string.
-      </p>
-    </body>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Chemistry</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#f4f6f9;
+}
+
+/* Header */
+.header{
+    background:linear-gradient(90deg,#141e30,#243b55);
+    color:white;
+    padding:20px;
+    text-align:center;
+    font-size:28px;
+    letter-spacing:1px;
+}
+
+/* Gallery Layout */
+.gallery{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap:15px;
+    padding:20px;
+}
+
+/* Images */
+.gallery img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    border-radius:10px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.2);
+    filter:grayscale(100%);
+    transition:0.4s;
+}
+
+.gallery img:hover{
+    filter:grayscale(0%);
+    transform:scale(1.05);
+}
+
+/* Paragraph Section */
+.content{
+    background:white;
+    margin:20px;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    font-size:20px;
+    line-height:1.6;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+Quantum Chemistry
+</div>
+
+<div class="gallery">
+    <img src="pic_quantum/pic1.png">
+    <img src="pic_quantum/pic2.png">
+    <img src="pic_quantum/pic3.png">
+    <img src="pic_quantum/pic4.png">
+    <img src="pic_quantum/pic5.png">
+    <img src="pic_quantum/pic6.png">
+    <img src="pic_quantum/pic7.png">
+    <img src="pic_quantum/pic8.png">
+    <img src="pic_quantum/pic9.png">
+    <img src="pic_quantum/pic10.png">
+    <img src="pic_quantum/pic11.png">
+    <img src="pic_quantum/pic12.png">
+    <img src="pic_quantum/pic13.png">
+    <img src="pic_quantum/pic14.png">
+</div>
+
+<div class="content">
+But this is not the only standing wave that we can imagine.<br>
+These are also known as normal modes of motion of the string. <br>
+The above one is the simplest possible normal mode of the motion of the string.
+</div>
+
+</body>
 </html>
