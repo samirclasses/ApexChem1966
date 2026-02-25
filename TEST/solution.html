@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Advanced HOTS Quiz - Colligative Properties</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f7fb;
+padding:20px;
+}
+h1{text-align:center;}
+.question{
+background:#ffffff;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+box-shadow:0 0 6px rgba(0,0,0,0.15);
+}
+button{
+padding:10px 20px;
+font-size:16px;
+background:#1e3799;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+.correct{color:green;font-weight:bold;}
+.incorrect{color:red;font-weight:bold;}
+#result{
+font-size:22px;
+margin-top:20px;
+font-weight:bold;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+<h3 style="text-align:center;">Apex Chemistry</h3>
+<h1> Non-Electrolytic Solutions & Colligative Properties</h1>
+
+<form id="quizForm"></form>
+
+<center><button onclick="submitQuiz()">Submit Quiz</button></center>
+<div id="result"></div>
+
+<script>
+
+const quizData = [
+
+{q:"1) 0.4m solution of a non-electrolyte in water (Kf=1.86). ΔTf is:",
+o:["0.744K","0.372K","0.186K","1.86K"],a:0},
+
+{q:"2) 10g solute in 200g benzene gives ΔTf=1.28K (Kf=5.12). Molecular mass?",
+o:["200","100","400","50"],a:0},
+
+{q:"3) 0.2 mol solute in 500g solvent. Molality?",
+o:["0.4m","0.2m","0.1m","0.8m"],a:0},
+
+{q:"4) Vapour pressure lowering proportional to:",
+o:["Mole fraction solute","Molality","Temp","Volume"],a:0},
+
+{q:"5) 0.1M solution at 300K. Osmotic pressure?",
+o:["2.46atm","1.23atm","4.92atm","0.82atm"],a:0},
+
+{q:"6) 4g solute in 100g water raises boiling point by 0.52K (Kb=0.52). M?",
+o:["40","80","100","200"],a:1},
+
+{q:"7) Relative lowering equals 0.02. Approx mole fraction?",
+o:["0.02","0.2","0.002","0.5"],a:0},
+
+{q:"8) 0.5m glucose. ΔTb (Kb=0.52)?",
+o:["0.26K","0.52K","0.13K","1.04K"],a:0},
+
+{q:"9) 18g solute gives π=4.92 atm at 300K (1L). M?",
+o:["90","60","30","45"],a:0},
+
+{q:"10) Freezing point depression depends on:",
+o:["Number of particles","Nature","Color","Size"],a:0},
+
+{q:"11) 0.3m solution. ΔTf?",
+o:["0.558K","0.93K","0.186K","0.372K"],a:0},
+
+{q:"12) 0.5 mol in 2kg solvent. ΔTb (Kb=0.52)?",
+o:["0.13K","0.26K","0.52K","0.065K"],a:0},
+
+{q:"13) Mole fraction 0.05. Lowering?",
+o:["0.05","0.5","0.005","0.95"],a:0},
+
+{q:"14) Osmotic pressure doubles if:",
+o:["Concentration doubles","Temp halves","Pressure doubles","Volume doubles"],a:0},
+
+{q:"15) 2g solute gives ΔTf=0.186K (Kf=1.86, 100g solvent). M?",
+o:["200","100","50","150"],a:1},
+
+{q:"16) Colligative properties independent of:",
+o:["Chemical nature","Particles","Molality","Concentration"],a:0},
+
+{q:"17) Ideal solution obeys:",
+o:["Raoult's law","Henry's law","Boyle's law","Avogadro law"],a:0},
+
+{q:"18) 0.25m solution. ΔTb?",
+o:["0.13K","0.52K","0.26K","0.65K"],a:0},
+
+{q:"19) 0.2M at 300K. π?",
+o:["4.92atm","2.46atm","1.23atm","0.82atm"],a:0},
+
+{q:"20) ΔTf proportional to:",
+o:["Molality","Molarity","Temp","Density"],a:0},
+
+{q:"21) Vapour pressure lowering greatest when:",
+o:["High mole fraction solute","Low solute","Pure solvent","High temp"],a:0},
+
+{q:"22) 5g solute in 250g solvent. Molality?",
+o:["0.08m","0.2m","0.02m","0.5m"],a:1},
+
+{q:"23) Osmotic pressure zero for:",
+o:["Pure solvent","Dilute solution","Concentrated","High temp"],a:0},
+
+{q:"24) 0.6m solution. ΔTf?",
+o:["1.116K","0.558K","0.372K","0.93K"],a:0},
+
+{q:"25) π directly proportional to:",
+o:["Concentration & Temp","Pressure","Volume","Density"],a:0}
+
+];
+
+const form=document.getElementById("quizForm");
+
+quizData.forEach((item,index)=>{
+let div=document.createElement("div");
+div.className="question";
+div.innerHTML="<b>"+item.q+"</b><br>";
+
+item.o.forEach((opt,i)=>{
+div.innerHTML+=`<label>
+<input type="radio" name="q${index}" value="${i}">
+${opt}
+</label><br>`;
+});
+
+div.innerHTML+=`<div id="fb${index}"></div>`;
+form.appendChild(div);
+});
+
+function submitQuiz(){
+let score=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let fb=document.getElementById("fb"+index);
+
+if(selected){
+if(parseInt(selected.value)===item.a){
+score+=4;
+fb.innerHTML="<span class='correct'>Correct ✔</span>";
+}else{
+fb.innerHTML="<span class='incorrect'>Incorrect ✘ | Correct: "+item.o[item.a]+"</span>";
+}
+}else{
+fb.innerHTML="<span class='incorrect'>Not Attempted | Correct: "+item.o[item.a]+"</span>";
+}
+});
+
+document.getElementById("result").innerHTML=
+"Your Score: "+score+" / 100";
+}
+
+</script>
+
+</body>
+</html>
