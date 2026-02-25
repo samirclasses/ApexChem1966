@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Advanced HOTS Quiz - Amines</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f7fb;
+padding:20px;
+}
+h1{text-align:center;}
+.question{
+background:#ffffff;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+box-shadow:0 0 6px rgba(0,0,0,0.15);
+}
+button{
+padding:10px 20px;
+font-size:16px;
+background:#0a3d62;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+.correct{color:green;font-weight:bold;}
+.incorrect{color:red;font-weight:bold;}
+#result{
+font-size:22px;
+margin-top:20px;
+font-weight:bold;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<h1><h3>Apex Chemistry</h3>Amines</h1>
+
+<form id="quizForm"></form>
+
+<center><button onclick="submitQuiz()">Submit Quiz</button></center>
+<div id="result"></div>
+
+<script>
+
+const quizData = [
+
+{q:"1) Basicity order in aqueous solution:",
+o:["2° > 1° > 3° > NH3","3° > 2° > 1° > NH3","NH3 > 1° > 2° > 3°","1° > 2° > 3° > NH3"],a:0},
+
+{q:"2) Basicity order in gas phase:",
+o:["3° > 2° > 1° > NH3","2° > 1° > 3° > NH3","NH3 > 3° > 2° > 1°","1° > 2° > 3° > NH3"],a:0},
+
+{q:"3) Aniline less basic than ethylamine due to:",
+o:["Resonance","Inductive effect","Steric hindrance","Hydrogen bonding"],a:0},
+
+{q:"4) Hinsberg test distinguishes:",
+o:["1°, 2°, 3° amines","Alcohols","Halides","Phenols"],a:0},
+
+{q:"5) Carbylamine test given by:",
+o:["1° amines","2° amines","3° amines","All amines"],a:0},
+
+{q:"6) Diazotization occurs at temperature:",
+o:["0–5°C","25°C","50°C","100°C"],a:0},
+
+{q:"7) Aniline + NaNO2 + HCl forms:",
+o:["Diazonium salt","Phenol","Nitrobenzene","Amide"],a:0},
+
+{q:"8) Sandmeyer reaction replaces –N2⁺ by:",
+o:["Cl, Br, CN","OH only","H only","NO2"],a:0},
+
+{q:"9) Hofmann bromamide reaction gives:",
+o:["Amine with one less C","Alcohol","Aldehyde","Ketone"],a:0},
+
+{q:"10) Most basic compound:",
+o:["Ethylamine","Aniline","p-Nitroaniline","Ammonia"],a:0},
+
+{q:"11) Electron withdrawing group on aniline:",
+o:["Decreases basicity","Increases basicity","No effect","Increases nucleophilicity only"],a:0},
+
+{q:"12) Lone pair in aniline involved in:",
+o:["Resonance","Inductive effect","Hydrogen bond only","Steric effect"],a:0},
+
+{q:"13) Gabriel phthalimide synthesis gives:",
+o:["1° amine","2° amine","3° amine","Amide"],a:0},
+
+{q:"14) Nitrous acid reacts with 1° aliphatic amine to give:",
+o:["Alcohol","Diazonium salt","Amide","Alkene"],a:0},
+
+{q:"15) Tertiary amine with HNO2 gives:",
+o:["Salt","Alcohol","Nitroso compound","No reaction"],a:0},
+
+{q:"16) Strongest base:",
+o:["(CH3)2NH","NH3","Aniline","p-NO2 aniline"],a:0},
+
+{q:"17) Reduction of nitrobenzene gives:",
+o:["Aniline","Phenol","Benzene","Amide"],a:0},
+
+{q:"18) Azo coupling occurs with:",
+o:["Phenol/aniline","Alcohol","Alkane","Ether"],a:0},
+
+{q:"19) Aromatic diazonium salts stable at:",
+o:["0–5°C","Room temp","50°C","High temp"],a:0},
+
+{q:"20) Alkylation of ammonia forms:",
+o:["Mixture of amines","Only 1° amine","Only 2° amine","Only 3° amine"],a:0},
+
+{q:"21) Most basic in aqueous:",
+o:["Dimethylamine","Trimethylamine","Aniline","Ammonia"],a:0},
+
+{q:"22) Quaternary ammonium salt formed by:",
+o:["Excess alkyl halide","NaNO2","HCl","Br2"],a:0},
+
+{q:"23) Basicity decreases due to:",
+o:["Resonance delocalisation","+I effect","Electron donation","Hyperconjugation"],a:0},
+
+{q:"24) Aniline does not undergo Friedel-Crafts because:",
+o:["Forms complex with AlCl3","Low reactivity","Steric effect","Weak base"],a:0},
+
+{q:"25) Most basic aromatic amine:",
+o:["p-Methoxyaniline","Aniline","p-Nitroaniline","m-Nitroaniline"],a:0}
+
+];
+
+const form=document.getElementById("quizForm");
+
+quizData.forEach((item,index)=>{
+let div=document.createElement("div");
+div.className="question";
+div.innerHTML="<b>"+item.q+"</b><br>";
+
+item.o.forEach((opt,i)=>{
+div.innerHTML+=`<label>
+<input type="radio" name="q${index}" value="${i}">
+${opt}
+</label><br>`;
+});
+
+div.innerHTML+=`<div id="fb${index}"></div>`;
+form.appendChild(div);
+});
+
+function submitQuiz(){
+let score=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let fb=document.getElementById("fb"+index);
+
+if(selected){
+if(parseInt(selected.value)===item.a){
+score+=4;
+fb.innerHTML="<span class='correct'>Correct ✔</span>";
+}else{
+fb.innerHTML="<span class='incorrect'>Incorrect ✘ | Correct: "+item.o[item.a]+"</span>";
+}
+}else{
+fb.innerHTML="<span class='incorrect'>Not Attempted | Correct: "+item.o[item.a]+"</span>";
+}
+});
+
+document.getElementById("result").innerHTML=
+"Your Score: "+score+" / 100";
+}
+
+</script>
+
+</body>
+</html>
