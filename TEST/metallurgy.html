@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Isolation of Elements | HOTS MCQ Quiz</title>
+<style>
+body{
+font-family: Arial;
+background:#f4f6f9;
+padding:20px;
+}
+
+h1{
+text-align:center;
+}
+
+.question{
+background:white;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.correct{ background:#d4edda; }
+.wrong{ background:#f8d7da; }
+
+button{
+padding:12px 20px;
+font-size:16px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+#result{
+margin-top:20px;
+padding:15px;
+background:white;
+font-size:18px;
+border-radius:8px;
+}
+</style>
+</head>
+<body>
+<h3>Apex Chemistry</h3>
+<h1>General Principles & Processes of Isolation of Elements</h1>
+
+<div id="quiz"></div>
+
+<center>
+<button onclick="submitQuiz()">Submit Quiz</button>
+</center>
+
+<div id="result"></div>
+
+<script>
+
+const quizData = [
+
+{
+question:"1. In Ellingham diagram, a metal oxide can be reduced by another metal if:",
+options:[
+"Its line lies above that metal",
+"Its line lies below that metal",
+"Both lines intersect",
+"ΔH is positive"
+],
+answer:1
+},
+
+{
+question:"2. For extraction of Al from Al2O3, cryolite is added to:",
+options:[
+"Increase melting point",
+"Decrease melting point",
+"Increase density",
+"Remove Fe2O3"
+],
+answer:1
+},
+
+{
+question:"3. Which metal cannot be obtained by carbon reduction?",
+options:["Zn","Fe","Mg","Pb"],
+answer:2
+},
+
+{
+question:"4. During roasting of sulphide ores, main purpose is:",
+options:[
+"Remove moisture",
+"Convert sulphide to oxide",
+"Reduce metal",
+"Add carbon"
+],
+answer:1
+},
+
+{
+question:"5. ΔG° = −RT ln K. If ΔG° is more negative, K will be:",
+options:["Smaller","Zero","Larger","Unchanged"],
+answer:2
+},
+
+{
+question:"6. In electrolytic refining, impurity which settles below anode is called:",
+options:["Slag","Gangue","Anode mud","Flux"],
+answer:2
+},
+
+{
+question:"7. The role of flux in metallurgy is to:",
+options:[
+"Increase temperature",
+"Remove gangue as slag",
+"Reduce metal",
+"Increase oxidation"
+],
+answer:1
+},
+
+{
+question:"8. For a reaction ΔG° becomes zero at 1000K. Above this temperature reaction will be:",
+options:["Non-spontaneous","Spontaneous","At equilibrium","Slow"],
+answer:1
+},
+
+{
+question:"9. In froth flotation process, collectors are added to:",
+options:[
+"Stabilize froth",
+"Wet gangue",
+"Make ore hydrophobic",
+"Increase density"
+],
+answer:2
+},
+
+{
+question:"10. If ΔG° of oxide formation is highly negative, metal is:",
+options:[
+"Easily reduced",
+"Moderately reactive",
+"Highly reactive",
+"Noble"
+],
+answer:2
+},
+
+{
+question:"11. In Mond’s process, Ni is purified via formation of:",
+options:[
+"NiCl2",
+"NiO",
+"Ni(CO)4",
+"NiS"
+],
+answer:2
+},
+
+{
+question:"12. Calculate ΔG° at 1000K if ΔH°=200 kJ and ΔS°=0.15 kJ/K.",
+options:[
+"50 kJ",
+"−50 kJ",
+"350 kJ",
+"−350 kJ"
+],
+answer:0
+},
+
+{
+question:"13. If metal A reduces oxide of B, then:",
+options:[
+"A more reactive than B",
+"B more reactive than A",
+"Both equal",
+"Depends on entropy"
+],
+answer:0
+},
+
+{
+question:"14. In zone refining, impurity concentration is:",
+options:[
+"Uniform",
+"Maximum at beginning",
+"Maximum at end",
+"Zero"
+],
+answer:2
+},
+
+{
+question:"15. Magnetic separation is useful when:",
+options:[
+"Ore is magnetic, gangue non-magnetic",
+"Gangue magnetic",
+"Both magnetic",
+"Both non-magnetic"
+],
+answer:0
+},
+
+{
+question:"16. If ΔH positive & ΔS positive, reaction spontaneous at:",
+options:[
+"Low T",
+"High T",
+"All T",
+"Never"
+],
+answer:1
+},
+
+{
+question:"17. Calcination is done in absence of:",
+options:["O2","CO2","Heat","Flux"],
+answer:0
+},
+
+{
+question:"18. Copper is refined electrolytically because:",
+options:[
+"It is reactive",
+"It forms volatile compound",
+"It is noble and impure",
+"It has low mp"
+],
+answer:2
+},
+
+{
+question:"19. In Ellingham diagram, slope equals:",
+options:[
+"ΔH",
+"ΔS",
+"−ΔS",
+"−ΔH"
+],
+answer:2
+},
+
+{
+question:"20. Which reducing agent works better at high T?",
+options:["CO","C","H2","All same"],
+answer:1
+},
+
+{
+question:"21. Calculate ΔG° at 800K if ΔH=120 kJ & ΔS=0.1 kJ/K.",
+options:[
+"40 kJ",
+"−40 kJ",
+"200 kJ",
+"−200 kJ"
+],
+answer:0
+},
+
+{
+question:"22. Slag formation requires:",
+options:[
+"Acidic flux + acidic gangue",
+"Basic flux + basic gangue",
+"Opposite nature flux & gangue",
+"Only carbon"
+],
+answer:2
+},
+
+{
+question:"23. In aluminothermic reduction, Al acts as:",
+options:[
+"Oxidizing agent",
+"Reducing agent",
+"Catalyst",
+"Flux"
+],
+answer:1
+},
+
+{
+question:"24. If ΔG becomes positive with rise in T, slope must be:",
+options:[
+"Positive",
+"Negative",
+"Zero",
+"Infinite"
+],
+answer:0
+},
+
+{
+question:"25. Most suitable method for purification of Si (semiconductor) is:",
+options:[
+"Distillation",
+"Zone refining",
+"Electrolysis",
+"Froth flotation"
+],
+answer:1
+}
+
+];
+
+const quiz = document.getElementById("quiz");
+
+quizData.forEach((q,index)=>{
+let div=document.createElement("div");
+div.classList.add("question");
+
+let optionsHTML="";
+q.options.forEach((opt,i)=>{
+optionsHTML+=`
+<label>
+<input type="radio" name="q${index}" value="${i}">
+${opt}
+</label><br>`;
+});
+
+div.innerHTML=`
+<p><b>${q.question}</b></p>
+${optionsHTML}
+<p id="ans${index}" style="font-weight:bold;"></p>
+`;
+
+quiz.appendChild(div);
+});
+
+function submitQuiz(){
+
+let score=0;
+let correctCount=0;
+let wrongCount=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let qDiv=document.getElementsByClassName("question")[index];
+
+if(selected){
+if(parseInt(selected.value)===item.answer){
+score+=4;
+correctCount++;
+qDiv.classList.add("correct");
+}else{
+wrongCount++;
+qDiv.classList.add("wrong");
+}
+}else{
+wrongCount++;
+qDiv.classList.add("wrong");
+}
+
+document.getElementById("ans"+index).innerHTML=
+"Correct Answer: "+item.options[item.answer];
+
+});
+
+let percentage=(score/100)*100;
+let status=percentage>=40?"PASS ✅":"FAIL ❌";
+
+document.getElementById("result").innerHTML=`
+Total Questions: 25 <br>
+Correct: ${correctCount} <br>
+Wrong: ${wrongCount} <br><br>
+Final Score: ${score} / 100 <br>
+Percentage: ${percentage.toFixed(2)}% <br>
+Result: <b>${status}</b>
+`;
+}
+
+</script>
+
+</body>
+</html>
