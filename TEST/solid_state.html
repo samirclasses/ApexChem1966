@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solid State Chemistry - Higher Level Quiz</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#eef3f9;
+    padding:20px;
+}
+h1{
+    text-align:center;
+}
+.quiz-box{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+.question{
+    margin-top:20px;
+    font-weight:bold;
+}
+.options{
+    margin-left:20px;
+}
+.correct{
+    color:green;
+    font-weight:bold;
+}
+.wrong{
+    color:red;
+    font-weight:bold;
+}
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    font-size:16px;
+    background:#4CAF50;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+button:hover{
+    background:#45a049;
+}
+#result{
+    margin-top:20px;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+<h3 style="text-align:center;">Apex Chemistry</h3>
+<h1>Solid State Chemistry</h1>
+
+<div class="quiz-box">
+<form id="quizForm"></form>
+
+<center>
+<button type="button" onclick="calculateScore()">Submit Quiz</button>
+</center>
+
+<div id="result"></div>
+</div>
+
+<script>
+
+const quizData = [
+
+{question:"1. Coordination number in simple cubic lattice:",options:["4","6","8","12"],answer:1},
+{question:"2. Number of atoms per unit cell in BCC:",options:["1","2","3","4"],answer:1},
+{question:"3. Packing efficiency in FCC:",options:["52%","68%","74%","78%"],answer:2},
+{question:"4. Relation between edge length (a) and radius (r) in FCC:",options:["a=2r","a=4r/√2","a=2√2 r","a=4r"],answer:2},
+{question:"5. Coordination number in HCP:",options:["6","8","12","4"],answer:2},
+{question:"6. Number of octahedral voids in FCC:",options:["4","8","12","6"],answer:0},
+{question:"7. Density formula of crystal is:",options:["Z×M/a³NA","a³×M/ZNA","Z/a³","M/Z"],answer:0},
+{question:"8. Packing efficiency in BCC:",options:["52%","68%","74%","60%"],answer:1},
+{question:"9. Edge length relation in BCC:",options:["a=4r/√3","a=2r","a=2√2r","a=√2r"],answer:0},
+{question:"10. Number of atoms in FCC unit cell:",options:["1","2","4","8"],answer:2},
+{question:"11. Schottky defect decreases:",options:["Density","Volume","Mass","Charge"],answer:0},
+{question:"12. Frenkel defect is common in:",options:["NaCl","AgCl","KCl","CsCl"],answer:1},
+{question:"13. Most efficient packing:",options:["SC","BCC","FCC","None"],answer:2},
+{question:"14. Coordination number in BCC:",options:["6","8","12","4"],answer:1},
+{question:"15. Number of tetrahedral voids in FCC:",options:["4","8","12","2"],answer:1},
+{question:"16. Crystal with highest packing efficiency:",options:["SC","BCC","FCC","Amorphous"],answer:2},
+{question:"17. Z value for simple cubic:",options:["1","2","4","3"],answer:0},
+{question:"18. Unit cell parameter for cubic crystal:",options:["a=b=c","a≠b≠c","a=b≠c","None"],answer:0},
+{question:"19. Density unit in solid state:",options:["g/cm³","kg","mol","g/mol"],answer:0},
+{question:"20. Void fraction in FCC:",options:["26%","32%","48%","74%"],answer:0},
+{question:"21. Metal deficiency defect causes:",options:["Increase density","Decrease density","No change","Increase mass"],answer:1},
+{question:"22. CsCl structure coordination number:",options:["6","8","12","4"],answer:1},
+{question:"23. Zinc blende coordination number:",options:["4","6","8","12"],answer:0},
+{question:"24. Amorphous solids are:",options:["Anisotropic","Isotropic","Crystalline","Periodic"],answer:1},
+{question:"25. Edge length of FCC in terms of r:",options:["2r","4r/√2","4r/√3","√2r"],answer:1}
+
+];
+
+const form = document.getElementById("quizForm");
+
+quizData.forEach((q,index)=>{
+    const questionDiv = document.createElement("div");
+    questionDiv.classList.add("question");
+    questionDiv.innerHTML = q.question;
+    form.appendChild(questionDiv);
+
+    const optionsDiv = document.createElement("div");
+    optionsDiv.classList.add("options");
+
+    q.options.forEach((option,i)=>{
+        const label = document.createElement("label");
+        label.innerHTML = `
+            <input type="radio" name="q${index}" value="${i}">
+            <span id="q${index}o${i}">${option}</span>
+        `;
+        optionsDiv.appendChild(label);
+        optionsDiv.appendChild(document.createElement("br"));
+    });
+
+    form.appendChild(optionsDiv);
+});
+
+function calculateScore(){
+    let score = 0;
+    let attempted = 0;
+
+    quizData.forEach((q,index)=>{
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+
+        if(selected){
+            attempted++;
+            const selectedValue = parseInt(selected.value);
+
+            if(selectedValue === q.answer){
+                score += 4;
+                document.getElementById(`q${index}o${selectedValue}`).classList.add("correct");
+            }else{
+                document.getElementById(`q${index}o${selectedValue}`).classList.add("wrong");
+                document.getElementById(`q${index}o${q.answer}`).classList.add("correct");
+            }
+        }else{
+            document.getElementById(`q${index}o${q.answer}`).classList.add("correct");
+        }
+    });
+
+    const totalMarks = quizData.length * 4;
+    const percentage = ((score/totalMarks)*100).toFixed(2);
+
+    document.getElementById("result").innerHTML =
+        `Attempted: ${attempted} / ${quizData.length}<br>
+         Total Marks: ${score} / ${totalMarks}<br>
+         Percentage: ${percentage}%`;
+}
+
+</script>
+
+</body>
+</html>
