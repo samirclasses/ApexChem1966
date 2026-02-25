@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Alcohols, Phenols & Ethers</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f7fb;
+padding:20px;
+}
+h1{text-align:center;}
+.question{
+background:#ffffff;
+padding:15px;
+margin-bottom:15px;
+border-radius:8px;
+box-shadow:0 0 6px rgba(0,0,0,0.15);
+}
+button{
+padding:10px 20px;
+font-size:16px;
+background:#6D214F;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+.correct{color:green;font-weight:bold;}
+.incorrect{color:red;font-weight:bold;}
+#result{
+font-size:22px;
+margin-top:20px;
+font-weight:bold;
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+<h3>Apex Chemistry</h3>
+<h1>Alcohols, Phenols & Ethers</h1>
+
+<form id="quizForm"></form>
+
+<center><button onclick="submitQuiz()">Submit Quiz</button></center>
+<div id="result"></div>
+
+<script>
+
+const quizData = [
+
+{q:"1) Acidic strength order:",
+o:["Phenol > Alcohol > Water","Alcohol > Phenol > Water","Water > Phenol > Alcohol","Alcohol > Water > Phenol"],a:0},
+
+{q:"2) Phenol is more acidic than alcohol due to:",
+o:["Resonance stabilization","Inductive effect only","Hydrogen bonding","Steric factor"],a:0},
+
+{q:"3) Lucas test fastest reaction:",
+o:["3° alcohol","2° alcohol","1° alcohol","Phenol"],a:0},
+
+{q:"4) Dehydration of alcohol gives alkene via:",
+o:["E1/E2 mechanism","SN1","SN2","Free radical"],a:0},
+
+{q:"5) Reimer–Tiemann reaction introduces:",
+o:["–CHO group","–NO2","–COOH","–SO3H"],a:0},
+
+{q:"6) Williamson synthesis forms:",
+o:["Ether","Alcohol","Alkene","Aldehyde"],a:0},
+
+{q:"7) Ether cleavage occurs with:",
+o:["HI","NaOH","H2SO4","NH3"],a:0},
+
+{q:"8) Most acidic compound:",
+o:["p-Nitrophenol","Phenol","Ethanol","Methanol"],a:0},
+
+{q:"9) Kolbe reaction gives:",
+o:["Salicylic acid","Benzoic acid","Phenol","Aniline"],a:0},
+
+{q:"10) Phenol reacts with NaOH but alcohol does not because:",
+o:["Phenol more acidic","Alcohol stronger base","Alcohol more acidic","Phenol less reactive"],a:0},
+
+{q:"11) Boiling point highest:",
+o:["Alcohol","Ether","Alkane","Alkene"],a:0},
+
+{q:"12) 2° alcohol oxidation gives:",
+o:["Ketone","Aldehyde","Acid","Alkane"],a:0},
+
+{q:"13) 1° alcohol oxidation (mild) gives:",
+o:["Aldehyde","Ketone","Acid","Alkene"],a:0},
+
+{q:"14) Phenol nitration (conc. HNO3) gives:",
+o:["Picric acid","Nitrobenzene","Aniline","Benzoic acid"],a:0},
+
+{q:"15) Intramolecular H-bonding reduces:",
+o:["Boiling point","Acidity","Reactivity","Density"],a:0},
+
+{q:"16) Ether is less reactive due to:",
+o:["No acidic hydrogen","Strong bond","Low mass","High polarity"],a:0},
+
+{q:"17) Most reactive towards HX:",
+o:["3° alcohol","2° alcohol","1° alcohol","Phenol"],a:0},
+
+{q:"18) Phenol reacts with bromine water to give:",
+o:["2,4,6-tribromophenol","Bromobenzene","No reaction","Mono-bromo product only"],a:0},
+
+{q:"19) Williamson synthesis follows:",
+o:["SN2","SN1","E1","Free radical"],a:0},
+
+{q:"20) Ether boiling point lower than alcohol because:",
+o:["No H-bonding","Low mass","Weak bond","High polarity"],a:0},
+
+{q:"21) Most acidic alcohol:",
+o:["CF3CH2OH","CH3CH2OH","(CH3)3COH","CH3OH"],a:0},
+
+{q:"22) Phenol does not undergo Friedel-Crafts because:",
+o:["Forms complex with AlCl3","Low reactivity","Steric hindrance","Weak bond"],a:0},
+
+{q:"23) Acid catalyzed dehydration rate order:",
+o:["3° > 2° > 1°","1° > 2° > 3°","All equal","2° > 3° > 1°"],a:0},
+
+{q:"24) Ether cleavage gives:",
+o:["Alkyl halide + alcohol","Two alcohols","Alkane","Aldehyde"],a:0},
+
+{q:"25) Phenol acidic strength increases with:",
+o:["Electron withdrawing group","Electron donating group","Alkyl group","Steric bulk"],a:0}
+
+];
+
+const form=document.getElementById("quizForm");
+
+quizData.forEach((item,index)=>{
+let div=document.createElement("div");
+div.className="question";
+div.innerHTML="<b>"+item.q+"</b><br>";
+
+item.o.forEach((opt,i)=>{
+div.innerHTML+=`<label>
+<input type="radio" name="q${index}" value="${i}">
+${opt}
+</label><br>`;
+});
+
+div.innerHTML+=`<div id="fb${index}"></div>`;
+form.appendChild(div);
+});
+
+function submitQuiz(){
+let score=0;
+
+quizData.forEach((item,index)=>{
+let selected=document.querySelector(`input[name="q${index}"]:checked`);
+let fb=document.getElementById("fb"+index);
+
+if(selected){
+if(parseInt(selected.value)===item.a){
+score+=4;
+fb.innerHTML="<span class='correct'>Correct ✔</span>";
+}else{
+fb.innerHTML="<span class='incorrect'>Incorrect ✘ | Correct: "+item.o[item.a]+"</span>";
+}
+}else{
+fb.innerHTML="<span class='incorrect'>Not Attempted | Correct: "+item.o[item.a]+"</span>";
+}
+});
+
+document.getElementById("result").innerHTML=
+"Your Score: "+score+" / 100";
+}
+
+</script>
+
+</body>
+</html>
