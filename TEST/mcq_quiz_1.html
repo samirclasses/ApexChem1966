@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AtomIQ — HOTS Chemistry Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#05060f;
+  --surface:#0b0c1a;
+  --card:#101120;
+  --card2:#14152a;
+  --border:rgba(100,160,255,0.12);
+  --accent:#4af0c4;
+  --accent2:#5b8fff;
+  --accent3:#ff6b9d;
+  --warn:#ffd166;
+  --text:#e8eaf6;
+  --muted:#7b8fa8;
+  --correct:#22c55e;
+  --incorrect:#ef4444;
+  --glow:rgba(74,240,196,0.12);
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── BG GRID ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(74,240,196,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,240,196,0.03) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:0;z-index:200;
+  background:rgba(5,6,15,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0.9rem 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:0.8rem;
+}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;letter-spacing:-1px;}
+.logo span{color:var(--accent);}
+.quiz-meta{display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap;}
+.meta-chip{
+  font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.08em;
+  padding:0.3rem 0.8rem;border-radius:100px;
+  border:1px solid var(--border);color:var(--muted);
+  white-space:nowrap;
+}
+#timer-chip{border-color:rgba(255,209,102,0.4);color:var(--warn);}
+#score-chip{border-color:rgba(74,240,196,0.4);color:var(--accent);}
+
+/* ── PROGRESS BAR ── */
+.progress-wrap{
+  position:sticky;top:58px;z-index:190;
+  background:rgba(5,6,15,0.7);
+  backdrop-filter:blur(10px);
+  padding:0.5rem 5%;
+  display:flex;align-items:center;gap:1rem;
+  border-bottom:1px solid var(--border);
+}
+.progress-bar-bg{
+  flex:1;height:5px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden;
+}
+.progress-bar-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:100px;
+  transition:width 0.4s ease;
+}
+.progress-label{font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);white-space:nowrap;}
+
+/* ── CONTAINER ── */
+.container{max-width:860px;margin:0 auto;padding:2.5rem 5%;position:relative;z-index:1;}
+
+/* ── INTRO ── */
+#intro-section{
+  text-align:center;
+  padding:5rem 5% 4rem;
+  max-width:660px;
+  margin:0 auto;
+}
+.intro-badge{
+  display:inline-block;
+  font-family:'DM Mono',monospace;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--accent);border:1px solid rgba(74,240,196,0.35);
+  padding:0.35rem 1rem;border-radius:100px;margin-bottom:1.8rem;
+}
+#intro-section h1{
+  font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:800;
+  letter-spacing:-2px;line-height:1.05;margin-bottom:1.2rem;
+}
+#intro-section h1 span{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+#intro-section p{color:var(--muted);line-height:1.7;margin-bottom:2.5rem;font-size:1.02rem;}
+
+.info-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2.5rem;text-align:left;
+}
+.info-item{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:1.2rem 1.4rem;
+}
+.info-item .label{font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;}
+.info-item .value{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text);}
+.info-item .value span{font-size:0.85rem;font-weight:400;color:var(--muted);}
+
+.btn-start{
+  background:var(--accent);color:#05060f;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;
+  padding:1rem 3rem;border-radius:8px;border:none;cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 0 30px rgba(74,240,196,0.3);
+  letter-spacing:-0.3px;
+}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(74,240,196,0.5);}
+
+/* ── QUIZ SECTION ── */
+#quiz-section{display:none;}
+
+/* Question Card */
+.question-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:2.2rem 2.5rem;
+  margin-bottom:1.5rem;
+  position:relative;
+  transition:border-color 0.3s;
+  animation:cardIn 0.4s ease both;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(18px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.question-card:hover{border-color:rgba(100,160,255,0.22);}
+
+.q-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.4rem;}
+.q-number{
+  font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;
+  color:var(--accent);text-transform:uppercase;
+  background:rgba(74,240,196,0.08);border:1px solid rgba(74,240,196,0.2);
+  padding:0.25rem 0.7rem;border-radius:6px;white-space:nowrap;flex-shrink:0;
+}
+.q-marks{
+  font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--warn);
+  background:rgba(255,209,102,0.08);border:1px solid rgba(255,209,102,0.2);
+  padding:0.25rem 0.7rem;border-radius:6px;white-space:nowrap;flex-shrink:0;
+}
+.q-category{
+  font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);
+  letter-spacing:0.08em;margin-top:0.1rem;
+}
+.q-text{
+  font-size:1.02rem;line-height:1.65;font-weight:500;color:var(--text);margin-bottom:1.6rem;
+}
+
+/* Options */
+.options{display:flex;flex-direction:column;gap:0.7rem;}
+.option{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:0.95rem 1.2rem;
+  border:1px solid var(--border);border-radius:10px;
+  background:var(--card2);cursor:pointer;
+  transition:background 0.2s,border-color 0.2s,transform 0.15s;
+  font-size:0.93rem;line-height:1.55;
+  position:relative;overflow:hidden;
+  user-select:none;
+}
+.option:hover{background:rgba(74,240,196,0.05);border-color:rgba(74,240,196,0.3);transform:translateX(3px);}
+.option.selected{background:rgba(91,143,255,0.1);border-color:rgba(91,143,255,0.5);}
+.option.correct{background:rgba(34,197,94,0.1)!important;border-color:rgba(34,197,94,0.5)!important;}
+.option.incorrect{background:rgba(239,68,68,0.1)!important;border-color:rgba(239,68,68,0.5)!important;}
+.option.reveal-correct{background:rgba(34,197,94,0.07)!important;border-color:rgba(34,197,94,0.3)!important;}
+.option.disabled{pointer-events:none;}
+
+.opt-key{
+  flex-shrink:0;
+  width:28px;height:28px;
+  border-radius:6px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--border);
+  font-family:'DM Mono',monospace;font-size:0.75rem;font-weight:500;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);
+  transition:background 0.2s,color 0.2s,border-color 0.2s;
+}
+.option.selected .opt-key{background:rgba(91,143,255,0.2);color:var(--accent2);border-color:rgba(91,143,255,0.5);}
+.option.correct .opt-key{background:rgba(34,197,94,0.25);color:var(--correct);border-color:var(--correct);}
+.option.incorrect .opt-key{background:rgba(239,68,68,0.25);color:var(--incorrect);border-color:var(--incorrect);}
+.option.reveal-correct .opt-key{background:rgba(34,197,94,0.15);color:var(--correct);border-color:rgba(34,197,94,0.4);}
+
+.opt-icon{
+  margin-left:auto;flex-shrink:0;font-size:1rem;opacity:0;
+  transition:opacity 0.2s;
+}
+.option.correct .opt-icon,.option.incorrect .opt-icon,.option.reveal-correct .opt-icon{opacity:1;}
+
+/* Navigation */
+.quiz-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 0 2rem;
+  flex-wrap:wrap;gap:1rem;
+}
+.btn-nav{
+  font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;
+  padding:0.75rem 2rem;border-radius:8px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;
+  transition:background 0.2s,border-color 0.2s,transform 0.15s;
+}
+.btn-nav:hover{border-color:var(--accent);background:var(--glow);transform:translateY(-1px);}
+.btn-nav:disabled{opacity:0.3;pointer-events:none;}
+.btn-nav.primary{background:var(--accent);color:#05060f;border-color:var(--accent);box-shadow:0 0 20px rgba(74,240,196,0.2);}
+.btn-nav.primary:hover{box-shadow:0 0 35px rgba(74,240,196,0.4);}
+.btn-nav.danger{background:rgba(239,68,68,0.1);color:var(--incorrect);border-color:rgba(239,68,68,0.3);}
+.btn-nav.danger:hover{background:rgba(239,68,68,0.2);}
+
+.nav-center{font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);}
+
+/* Question Palette */
+.palette-wrap{margin-bottom:2rem;}
+.palette-title{font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;margin-bottom:0.8rem;}
+.palette{display:flex;flex-wrap:wrap;gap:0.45rem;}
+.pal-btn{
+  width:34px;height:34px;border-radius:7px;border:1px solid var(--border);
+  background:var(--card);color:var(--muted);cursor:pointer;
+  font-family:'DM Mono',monospace;font-size:0.72rem;
+  transition:all 0.15s;display:flex;align-items:center;justify-content:center;
+}
+.pal-btn:hover{border-color:var(--accent);color:var(--accent);}
+.pal-btn.answered{background:rgba(74,240,196,0.12);border-color:rgba(74,240,196,0.4);color:var(--accent);}
+.pal-btn.active{background:var(--accent);color:#05060f;border-color:var(--accent);font-weight:700;}
+
+/* ── RESULT SECTION ── */
+#result-section{display:none;position:relative;z-index:1;padding:3rem 5%;}
+
+.result-hero{
+  text-align:center;
+  padding:3rem 2rem;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  margin-bottom:2.5rem;
+  position:relative;overflow:hidden;
+}
+.result-hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%, rgba(74,240,196,0.08) 0%, transparent 60%);
+  pointer-events:none;
+}
+.result-grade{
+  font-family:'Syne',sans-serif;font-size:5rem;font-weight:800;line-height:1;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:0.5rem;
+}
+.result-label{font-family:'DM Mono',monospace;font-size:0.8rem;letter-spacing:0.15em;color:var(--muted);text-transform:uppercase;margin-bottom:1.5rem;}
+.result-title{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;margin-bottom:0.5rem;}
+.result-sub{color:var(--muted);font-size:0.95rem;}
+
+.result-stats{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:2.5rem;
+}
+.rs-item{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:1.4rem 1rem;text-align:center;
+  transition:transform 0.3s,border-color 0.3s;
+}
+.rs-item:hover{transform:translateY(-3px);border-color:rgba(74,240,196,0.3);}
+.rs-val{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;line-height:1;margin-bottom:0.3rem;}
+.rs-lbl{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;}
+
+/* Answers Review */
+.review-header{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  margin-bottom:1.5rem;
+}
+.review-title{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;}
+.filter-btns{display:flex;gap:0.5rem;flex-wrap:wrap;}
+.filter-btn{
+  font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.06em;
+  padding:0.35rem 0.9rem;border-radius:100px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);cursor:pointer;
+  transition:all 0.2s;
+}
+.filter-btn:hover,.filter-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(74,240,196,0.08);}
+.filter-btn.f-correct.active{border-color:var(--correct);color:var(--correct);background:rgba(34,197,94,0.08);}
+.filter-btn.f-incorrect.active{border-color:var(--incorrect);color:var(--incorrect);background:rgba(239,68,68,0.08);}
+
+.review-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:1.8rem 2rem;margin-bottom:1.2rem;
+  animation:cardIn 0.3s ease both;
+}
+.review-card.r-correct{border-left:3px solid var(--correct);}
+.review-card.r-incorrect{border-left:3px solid var(--incorrect);}
+.review-card.r-skipped{border-left:3px solid var(--muted);}
+.r-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;}
+.r-badge{
+  flex-shrink:0;
+  font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.08em;
+  padding:0.2rem 0.65rem;border-radius:100px;text-transform:uppercase;
+}
+.r-badge.correct{background:rgba(34,197,94,0.12);color:var(--correct);border:1px solid rgba(34,197,94,0.3);}
+.r-badge.incorrect{background:rgba(239,68,68,0.12);color:var(--incorrect);border:1px solid rgba(239,68,68,0.3);}
+.r-badge.skipped{background:rgba(123,143,168,0.12);color:var(--muted);border:1px solid rgba(123,143,168,0.3);}
+.r-qnum{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--muted);}
+.r-cat{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--accent2);}
+.r-marks{margin-left:auto;font-family:'DM Mono',monospace;font-size:0.75rem;font-weight:500;}
+.r-qtext{font-size:0.95rem;line-height:1.6;color:var(--text);margin-bottom:1.2rem;font-weight:500;}
+.r-answers{display:flex;flex-direction:column;gap:0.5rem;}
+.r-option{
+  display:flex;align-items:flex-start;gap:0.7rem;
+  padding:0.7rem 1rem;border-radius:8px;font-size:0.87rem;line-height:1.5;
+  border:1px solid transparent;
+}
+.r-option.ro-correct{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.3);color:var(--text);}
+.r-option.ro-wrong-pick{background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.3);color:var(--text);}
+.r-option.ro-skipped-correct{background:rgba(34,197,94,0.05);border-color:rgba(34,197,94,0.2);color:var(--muted);}
+.r-option.ro-neutral{color:var(--muted);}
+.r-opt-key{
+  flex-shrink:0;width:24px;height:24px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:0.68rem;font-weight:500;
+  background:rgba(255,255,255,0.05);color:var(--muted);
+}
+.ro-correct .r-opt-key{background:rgba(34,197,94,0.2);color:var(--correct);}
+.ro-wrong-pick .r-opt-key{background:rgba(239,68,68,0.2);color:var(--incorrect);}
+.r-explanation{
+  margin-top:1rem;padding:0.9rem 1.1rem;
+  background:rgba(91,143,255,0.06);border:1px solid rgba(91,143,255,0.2);border-radius:8px;
+  font-size:0.85rem;color:var(--muted);line-height:1.6;
+}
+.r-explanation strong{color:var(--accent2);}
+
+.btn-restart{
+  display:block;margin:2.5rem auto 0;
+  background:var(--accent);color:#05060f;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;
+  padding:1rem 3rem;border-radius:8px;border:none;cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 0 30px rgba(74,240,196,0.25);
+}
+.btn-restart:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(74,240,196,0.45);}
+
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:500;}
+
+@media(max-width:700px){
+  .result-stats{grid-template-columns:repeat(3,1fr);}
+  .question-card{padding:1.5rem 1.3rem;}
+  .info-grid{grid-template-columns:1fr;}
+}
+@media(max-width:450px){
+  .result-stats{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+<h3>Apex Chemistry</h3>
+<canvas id="confetti-canvas"></canvas>
+
+<!-- HEADER -->
+<header id="main-header">
+  <div class="logo">Atom<span>IQ</span> <span style="font-size:0.75rem;font-weight:400;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:0.05em">HOTS Quiz</span></div>
+  <div class="quiz-meta">
+    <div class="meta-chip" id="timer-chip">⏱ 00:00</div>
+    <div class="meta-chip" id="score-chip">Score: 0 / 180</div>
+    <div class="meta-chip">45 Questions · 4 Marks each</div>
+  </div>
+</header>
+
+<!-- PROGRESS -->
+<div class="progress-wrap" id="progress-wrap" style="display:none">
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-fill"></div></div>
+  <div class="progress-label" id="progress-label">0 / 45 answered</div>
+</div>
+
+<!-- INTRO -->
+<section id="intro-section">
+  <div class="intro-badge">⚗ Chemistry · Class 11–12 Level</div>
+  <h1>HOTS Chemistry<br><span>Quiz Challenge</span></h1>
+  <p>45 Higher Order Thinking Skills questions spanning Physical, Organic &amp; Inorganic Chemistry. Each correct answer earns 4 marks. Test your conceptual depth!</p>
+  <div class="info-grid">
+    <div class="info-item"><div class="label">Total Questions</div><div class="value">45</div></div>
+    <div class="info-item"><div class="label">Marks per Question</div><div class="value">+4 <span>marks</span></div></div>
+    <div class="info-item"><div class="label">Total Marks</div><div class="value">180</div></div>
+    <div class="info-item"><div class="label">Syllabus</div><div class="value" style="font-size:0.9rem">Physical, Organic &amp; Inorganic</div></div>
+  </div>
+  <button class="btn-start" onclick="startQuiz()">Begin Quiz →</button>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz-section">
+  <div class="container">
+    <div class="palette-wrap">
+      <div class="palette-title">Question Navigator</div>
+      <div class="palette" id="palette"></div>
+    </div>
+    <div id="question-area"></div>
+    <div class="quiz-nav">
+      <button class="btn-nav" id="btn-prev" onclick="navigate(-1)" disabled>← Prev</button>
+      <div class="nav-center" id="nav-center">Question 1 of 45</div>
+      <div style="display:flex;gap:0.7rem;flex-wrap:wrap;justify-content:flex-end;">
+        <button class="btn-nav danger" id="btn-submit" onclick="confirmSubmit()">Submit Quiz</button>
+        <button class="btn-nav primary" id="btn-next" onclick="navigate(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section id="result-section">
+  <div style="max-width:900px;margin:0 auto;">
+    <div class="result-hero" id="result-hero">
+      <div class="result-grade" id="result-grade">--</div>
+      <div class="result-label">Your Score</div>
+      <div class="result-title" id="result-title">--</div>
+      <div class="result-sub" id="result-sub">--</div>
+    </div>
+    <div class="result-stats" id="result-stats"></div>
+    <div class="review-header">
+      <div class="review-title">Detailed Answer Review</div>
+      <div class="filter-btns">
+        <button class="filter-btn active" onclick="filterReview('all',this)">All (45)</button>
+        <button class="filter-btn f-correct" onclick="filterReview('correct',this)" id="f-correct-btn">✓ Correct</button>
+        <button class="filter-btn f-incorrect" onclick="filterReview('incorrect',this)" id="f-incorrect-btn">✗ Incorrect</button>
+        <button class="filter-btn" onclick="filterReview('skipped',this)" id="f-skipped-btn">— Skipped</button>
+      </div>
+    </div>
+    <div id="review-list"></div>
+    <button class="btn-restart" onclick="restartQuiz()">↺ Retake Quiz</button>
+  </div>
+</section>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  QUESTION BANK — 45 HOTS Chemistry Questions
+// ═══════════════════════════════════════════════════════
+const QUESTIONS = [
+  // ── PHYSICAL CHEMISTRY (Q1–Q15) ──
+  {
+    cat:"Physical Chemistry",
+    q:"A buffer solution contains 0.1 M CH₃COOH and 0.1 M CH₃COONa. If 0.01 mol HCl is added to 1 L of this buffer, what is the approximate new pH? (pKa = 4.74)",
+    opts:["3.74","4.65","4.74","5.74"],
+    ans:1,
+    exp:"Adding 0.01 mol HCl converts 0.01 mol CH₃COONa to CH₃COOH. New [acid] = 0.11 M, [salt] = 0.09 M. pH = 4.74 + log(0.09/0.11) ≈ 4.74 – 0.087 ≈ 4.65."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"For the reaction 2SO₂(g) + O₂(g) ⇌ 2SO₃(g), if Kp = 0.338 at 1000 K, what is Kc at that temperature? (R = 0.0821 L·atm/mol·K)",
+    opts:["0.338","27.74","0.00411","4.12"],
+    ans:1,
+    exp:"Kp = Kc(RT)^Δn. Δn = 2 – (2+1) = –1. Kc = Kp/(RT)^Δn = Kp × RT = 0.338 × (0.0821 × 1000) ≈ 27.74."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"Which of the following statements is CORRECT about a spontaneous electrochemical cell at equilibrium?",
+    opts:["E°cell = 0 and ΔG° = 0","Ecell = 0 and ΔG = 0","Ecell = E°cell","ΔG° = +nFE°cell"],
+    ans:1,
+    exp:"At equilibrium, the cell EMF (Ecell) drops to zero and ΔG = 0. The standard values E°cell and ΔG° are non-zero; they correspond to standard conditions, not equilibrium."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"The rate of a reaction doubles when temperature increases from 27°C to 37°C. What is the activation energy of the reaction? (R = 8.314 J/mol·K)",
+    opts:["53.6 kJ/mol","43.6 kJ/mol","26.8 kJ/mol","62.4 kJ/mol"],
+    ans:0,
+    exp:"Using Arrhenius: ln(k₂/k₁) = Ea/R × (1/T₁ – 1/T₂). ln2 = Ea/8.314 × (1/300 – 1/310). Ea = 0.693 × 8.314 / (1.075 × 10⁻⁴) ≈ 53,598 J ≈ 53.6 kJ/mol."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"A 0.1 M solution of a weak acid HA has a pH of 3. What is the degree of dissociation and Ka of HA?",
+    opts:["α = 1%, Ka = 10⁻⁵","α = 0.1%, Ka = 10⁻⁷","α = 10%, Ka = 10⁻³","α = 1%, Ka = 10⁻⁴"],
+    ans:0,
+    exp:"pH = 3 → [H⁺] = 10⁻³ M. α = [H⁺]/C = 10⁻³/0.1 = 0.01 = 1%. Ka = Cα² = 0.1 × (0.01)² = 10⁻⁵."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"Which colligative property is MOST sensitive for determining the molar mass of a high-molecular-weight polymer?",
+    opts:["Boiling point elevation","Freezing point depression","Osmotic pressure","Relative lowering of vapour pressure"],
+    ans:2,
+    exp:"Osmotic pressure (π = cRT) gives measurably large values even at very low concentrations because π is proportional to molarity directly, making it the most suitable technique for polymers."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"For the photoelectric effect, if the threshold frequency is ν₀ and the incident frequency is 2ν₀, the kinetic energy of the ejected electron is:",
+    opts:["hν₀","2hν₀","hν₀/2","3hν₀"],
+    ans:0,
+    exp:"KE = h(ν – ν₀) = h(2ν₀ – ν₀) = hν₀."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"At 300 K, the vapour pressure of pure benzene is 100 torr and pure toluene is 40 torr. In a mixture with mole fraction of benzene = 0.6, the total vapour pressure is:",
+    opts:["76 torr","72 torr","64 torr","80 torr"],
+    ans:0,
+    exp:"P_total = x_B·P°_B + x_T·P°_T = 0.6×100 + 0.4×40 = 60 + 16 = 76 torr."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"In a first-order reaction, 75% of the reactant decomposes in 32 min. What is the half-life of the reaction?",
+    opts:["8 min","16 min","24 min","32 min"],
+    ans:1,
+    exp:"75% decomposed means 25% remains. For first order: t = (1/k)ln(100/25) = 2t₁/₂. So 32 = 2t₁/₂ → t₁/₂ = 16 min."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"Which quantum numbers are NOT possible for an electron in a hydrogen atom? (n, l, ml, ms)",
+    opts:["(2, 1, –1, +½)","(3, 2, –2, –½)","(3, 3, 0, +½)","(4, 3, –3, +½)"],
+    ans:2,
+    exp:"When n = 3, l can be 0, 1, or 2 only. l = 3 requires n ≥ 4. So (3, 3, 0, +½) is invalid."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"The cell reaction for the Daniel cell is Zn(s) + Cu²⁺(aq) → Zn²⁺(aq) + Cu(s), E°cell = +1.10 V. If [Cu²⁺] = 0.01 M and [Zn²⁺] = 1 M, the Ecell at 298 K is approximately:",
+    opts:["1.10 V","1.16 V","1.04 V","1.13 V"],
+    ans:2,
+    exp:"Using Nernst: Ecell = 1.10 – (0.0592/2)×log([Zn²⁺]/[Cu²⁺]) = 1.10 – 0.0296×log(100) = 1.10 – 0.0592 ≈ 1.04 V."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"For a van der Waals gas, which correction accounts for the finite size of gas molecules?",
+    opts:["a/V² term","b term","Both a and b","Neither a nor b"],
+    ans:1,
+    exp:"The 'b' term (excluded volume) corrects for the finite size of gas molecules. The 'a' term corrects for intermolecular attractive forces."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"Which of the following has the HIGHEST standard molar entropy (S°)?",
+    opts:["NaCl(s)","H₂O(l)","H₂O(g)","Diamond(s)"],
+    ans:2,
+    exp:"Entropy increases: solid < liquid < gas. H₂O(g) has the highest disorder among these options. Diamond is a highly ordered solid with very low S°."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"The specific conductance of a 0.01 M KCl solution is 0.00141 S/cm. The molar conductance (Λm) is:",
+    opts:["141 S·cm²/mol","14.1 S·cm²/mol","0.0141 S·cm²/mol","1410 S·cm²/mol"],
+    ans:0,
+    exp:"Λm = κ × 1000/M = 0.00141 × 1000/0.01 = 141 S·cm²/mol."
+  },
+  {
+    cat:"Physical Chemistry",
+    q:"Which process is thermodynamically IMPOSSIBLE under standard conditions at all temperatures?",
+    opts:["ΔH < 0, ΔS > 0","ΔH > 0, ΔS < 0","ΔH < 0, ΔS < 0","ΔH > 0, ΔS > 0"],
+    ans:1,
+    exp:"ΔG = ΔH – TΔS. If ΔH > 0 and ΔS < 0, ΔG is positive at all temperatures, making the process non-spontaneous under all conditions."
+  },
+
+  // ── ORGANIC CHEMISTRY (Q16–Q30) ──
+  {
+    cat:"Organic Chemistry",
+    q:"Which of the following compounds will NOT undergo Friedel-Crafts alkylation?",
+    opts:["Benzene","Toluene","Nitrobenzene","Anisole"],
+    ans:2,
+    exp:"The nitro group (–NO₂) is a strong meta-director and ring deactivator. It withdraws electron density via resonance, making the ring too electron-poor for electrophilic Friedel-Crafts alkylation."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"Identify the MAJOR product when 2-methylpropan-2-ol is treated with HBr:",
+    opts:["1-bromo-2-methylpropane","2-bromo-2-methylpropane","1-bromo-2-methylpropene","1-bromopropane"],
+    ans:1,
+    exp:"Tertiary alcohols react with HBr via SN1. The stable 3° carbocation forms and is attacked by Br⁻ to give 2-bromo-2-methylpropane (t-butyl bromide) without rearrangement."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"Which statement best explains why phenol is more acidic than cyclohexanol?",
+    opts:["Phenol has a weaker O–H bond","The phenoxide ion is stabilised by resonance with the aromatic ring","Phenol has higher molecular mass","Cyclohexanol forms stronger hydrogen bonds"],
+    ans:1,
+    exp:"The negative charge on phenoxide ion is delocalized into the aromatic ring through resonance, stabilising the conjugate base. This increased stability makes phenol more willing to donate a proton."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"In the Cannizzaro reaction, which type of aldehyde undergoes disproportionation?",
+    opts:["All aldehydes","Aldehydes with α-hydrogen","Aldehydes without α-hydrogen","Ketones only"],
+    ans:2,
+    exp:"Cannizzaro reaction occurs with aldehydes that lack α-hydrogen (e.g., HCHO, C₆H₅CHO, (CH₃)₃CCHO). Aldehydes with α-H preferentially undergo aldol condensation."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"Which reagent converts an amide to an amine with one less carbon atom?",
+    opts:["LiAlH₄","Hofmann bromamide reaction (Br₂/NaOH)","HNO₂","PCl₅"],
+    ans:1,
+    exp:"Hofmann degradation (Br₂/NaOH) converts RCONH₂ → RNH₂. The carbonyl carbon is lost as CO₂/carbonate, giving a primary amine with one fewer carbon."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"What is the product of ozonolysis (followed by reductive workup with Zn/H₂O) of 2-butene?",
+    opts:["Butanedial","Two molecules of ethanal","One molecule of propanal and one of methanal","Butanoic acid"],
+    ans:1,
+    exp:"Ozonolysis cleaves the C=C double bond. 2-Butene (CH₃–CH=CH–CH₃) gives two molecules of CH₃CHO (ethanal) after reductive workup."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"A compound C₄H₈ decolourises bromine water and reacts with HCl to give a single monohalide product. The compound is:",
+    opts:["1-butene","2-butene","cyclobutane","isobutylene (2-methylpropene)"],
+    ans:1,
+    exp:"2-Butene (CH₃CH=CHCH₃) is symmetric; addition of HCl gives only 2-chlorobutane. 1-Butene would give two possible products. Cyclobutane would not readily decolourise Br₂ water."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"Which of the following shows the HIGHEST boiling point?",
+    opts:["CH₃OH","CH₃OCH₃","CH₃CH₂OH","HCOOH"],
+    ans:3,
+    exp:"HCOOH (formic acid) can form two hydrogen bonds per molecule (as donor and acceptor) and also dimerises. Its boiling point (~100°C) is higher than methanol (~65°C) and ethanol (~78°C)."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"In Gabriel synthesis, phthalimide is used to prepare:",
+    opts:["Secondary amines","Tertiary amines","Primary amines","Aromatic amines"],
+    ans:2,
+    exp:"Gabriel synthesis yields uncontaminated primary aliphatic amines. The N-alkylated phthalimide is hydrolysed to release the primary amine, avoiding formation of secondary or tertiary amines."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"Which reaction mechanism is followed by benzene diazonium chloride when reacted with hypophosphorous acid (H₃PO₂)?",
+    opts:["Electrophilic addition","Nucleophilic substitution","Homolytic (free radical) substitution","Electrophilic substitution"],
+    ans:2,
+    exp:"The replacement of the diazonium group by H using H₃PO₂ proceeds via a radical mechanism (deamination by reduction). The diazonium ion acts as a radical acceptor."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"Which optical isomer of lactic acid will rotate plane-polarised light to the LEFT?",
+    opts:["D-lactic acid","L-lactic acid","(+)-lactic acid","Both enantiomers rotate light equally"],
+    ans:1,
+    exp:"L-lactic acid (or (–)-lactic acid) is the levorotatory enantiomer; it rotates plane-polarised light to the left. The D/L and +/– designations are independent of each other."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"Esterification of carboxylic acid with alcohol is an example of which type of reaction mechanism?",
+    opts:["SN2","Nucleophilic Acyl Substitution","Electrophilic Addition","E2 elimination"],
+    ans:1,
+    exp:"Esterification follows a nucleophilic acyl substitution mechanism where the alcohol oxygen acts as nucleophile and attacks the carbonyl carbon of the acid, ultimately displacing water."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"What is the IUPAC name of the compound formed when CH₃MgBr reacts with CO₂ followed by acid hydrolysis?",
+    opts:["Methanol","Ethanol","Ethanoic acid","Methanal"],
+    ans:2,
+    exp:"CH₃MgBr (Grignard reagent) attacks CO₂ to give CH₃COO⁻MgBr, which on acid hydrolysis yields CH₃COOH — ethanoic acid (acetic acid)."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"Which test distinguishes between ethanal (acetaldehyde) and propanone (acetone)?",
+    opts:["Tollens' reagent","Bromine water","Iodoform test","2,4-DNP test"],
+    ans:0,
+    exp:"Tollens' reagent (ammoniacal silver nitrate) gives a silver mirror with aldehydes (including ethanal) but NOT with ketones like propanone. Both give a positive iodoform test."
+  },
+  {
+    cat:"Organic Chemistry",
+    q:"The product of the reaction of excess CH₃I with aniline (C₆H₅NH₂) in the presence of K₂CO₃ is:",
+    opts:["N-methylaniline","N,N-dimethylaniline","N,N,N-trimethylanilinium iodide","Benzylamine"],
+    ans:2,
+    exp:"Exhaustive methylation of aniline with excess CH₃I gives the quaternary ammonium salt N,N,N-trimethylanilinium iodide (C₆H₅N(CH₃)₃⁺ I⁻) since the nitrogen gets four substituents."
+  },
+
+  // ── INORGANIC CHEMISTRY (Q31–Q45) ──
+  {
+    cat:"Inorganic Chemistry",
+    q:"The hybridisation of xenon in XeF₄ and the geometry of the molecule are:",
+    opts:["sp³d; see-saw","sp³d²; square planar","sp³d; T-shaped","sp³d²; octahedral"],
+    ans:1,
+    exp:"XeF₄ has 4 bond pairs and 2 lone pairs = 6 electron pairs → sp³d² hybridisation. The lone pairs occupy axial positions (octahedral electron geometry), giving a square planar molecular geometry."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"Which of the following pairs of elements shows maximum similarity in properties due to the diagonal relationship?",
+    opts:["Li and Na","Li and Mg","Be and Mg","Na and K"],
+    ans:1,
+    exp:"Li and Mg show a diagonal relationship because they have similar charge/size ratios (ionic radius, charge density). Li behaves more like Mg than like Na."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"[Fe(CN)₆]⁴⁻ is diamagnetic but [Fe(H₂O)₆]²⁺ is paramagnetic. This is because:",
+    opts:["CN⁻ is a weak-field ligand causing maximum spin pairing","H₂O is a strong-field ligand","CN⁻ is a strong-field ligand causing spin pairing of d-electrons","Fe²⁺ changes oxidation state with H₂O"],
+    ans:2,
+    exp:"CN⁻ is a strong-field ligand that causes large crystal field splitting, forcing all 6 d-electrons of Fe²⁺ to pair up (t₂g⁶) → diamagnetic. H₂O is weak-field, giving high-spin Fe²⁺ with 4 unpaired electrons → paramagnetic."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"Which property is responsible for the inability of fluorine to show positive oxidation states?",
+    opts:["High electron affinity","Absence of d-orbitals in the valence shell","Small atomic size","High electronegativity"],
+    ans:1,
+    exp:"Fluorine has no d-orbitals in its second shell (n=2). Other halogens (Cl, Br, I) can use d-orbitals to expand their valence shell and show positive oxidation states. F cannot do this."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"Identify the correct order of the first ionisation energy:",
+    opts:["Na > Mg > Al","Mg > Na > Al","Al > Mg > Na","Na > Al > Mg"],
+    ans:1,
+    exp:"First IE values: Na (496) < Al (577) < Mg (738) kJ/mol. Mg has a complete 3s² subshell giving extra stability. Correct order: Mg(738) > Al(577) > Na(496)."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"Which of the following is the correct IUPAC name for K₂[PtCl₄]?",
+    opts:["Dipotassium tetrachloroplatinate(II)","Potassium tetrachloroplatinate(IV)","Dipotassium chloroplatinum(II)","Potassium tetrachloroplatinum(IV)"],
+    ans:0,
+    exp:"K₂[PtCl₄]: the cation is K⁺ (dipotassium), the complex anion is [PtCl₄]²⁻. Pt has 4 Cl⁻ ligands (–4 total) and overall charge –2, so Pt is +2. IUPAC: dipotassium tetrachloroplatinate(II)."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"Which type of isomerism is shown by [Co(NH₃)₄Cl₂]⁺?",
+    opts:["Optical isomerism","Geometrical isomerism","Linkage isomerism","Ionisation isomerism"],
+    ans:1,
+    exp:"[Co(NH₃)₄Cl₂]⁺ has two Cl⁻ ligands around the central Co. These can be in cis (adjacent) or trans (opposite) positions, exhibiting geometrical (cis-trans) isomerism."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"The CORRECT statement about the lanthanide contraction is:",
+    opts:["It is due to poor shielding by 4f electrons","It causes 4d and 5d elements to be very different in size","It results in lanthanides being larger than actinides","It only affects atomic radii, not ionic radii"],
+    ans:0,
+    exp:"Lanthanide contraction arises because 4f electrons shield the nuclear charge poorly. As f electrons are added across the lanthanide series, the increasing nuclear charge causes steady decrease in ionic and atomic radii."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"On passing excess CO₂ through lime water, the milky precipitate disappears because:",
+    opts:["CaCO₃ dissolves in water","CaCO₃ reacts with CO₂ and water to form soluble Ca(HCO₃)₂","CO₂ reduces CaCO₃","Ca(OH)₂ is regenerated"],
+    ans:1,
+    exp:"Excess CO₂: CaCO₃(s) + CO₂(g) + H₂O(l) → Ca(HCO₃)₂(aq). Calcium bicarbonate is soluble, so the milky precipitate clears."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"Which oxide shows both acidic and basic character (amphoteric)?",
+    opts:["Na₂O","SO₃","Al₂O₃","P₄O₁₀"],
+    ans:2,
+    exp:"Al₂O₃ is amphoteric: it reacts with acids (Al₂O₃ + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂O) and with bases (Al₂O₃ + 2NaOH → 2NaAlO₂ + H₂O)."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"The geometry of SO₂ molecule and the hybridisation of S in it are:",
+    opts:["Linear, sp","V-shaped (bent), sp²","V-shaped (bent), sp³","Trigonal planar, sp²"],
+    ans:1,
+    exp:"SO₂ has 2 bonding pairs and 1 lone pair on S = 3 electron pairs → sp² hybridisation. The lone pair gives a V-shaped (angular/bent) molecular geometry with bond angle ~119°."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"In the contact process for H₂SO₄ manufacture, SO₃ is absorbed in 98% H₂SO₄ rather than water because:",
+    opts:["Water is cheaper","Direct absorption in water forms an unmanageable acid mist (fog)","SO₃ does not react with water","It forms pyrosulfuric acid directly"],
+    ans:1,
+    exp:"Dissolving SO₃ directly in water produces a dense, stable acid mist (fine droplets) that is very difficult to handle and collect. Absorption in concentrated H₂SO₄ avoids this, forming oleum (H₂S₂O₇)."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"Which of the following correctly represents Frenkel defect?",
+    opts:["Cation missing from its lattice site, present in interstitial site","Anion missing from lattice; electron trapped in its place","Both cation and anion missing from lattice","Extra cation present in interstitial site"],
+    ans:0,
+    exp:"Frenkel defect: a smaller cation leaves its lattice position and occupies an interstitial site, creating a vacancy and interstitial pair. The overall formula and electrical neutrality remain unchanged."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"The hybridisation and bond angle in PCl₅ are respectively:",
+    opts:["sp³d; 120° and 90°","sp³d²; 90°","sp³; 109.5°","sp²d; 120°"],
+    ans:0,
+    exp:"PCl₅ has 5 bond pairs → sp³d hybridisation → trigonal bipyramidal geometry. Axial P–Cl bonds are at 90° to the equatorial plane; equatorial P–Cl bonds are at 120° to each other."
+  },
+  {
+    cat:"Inorganic Chemistry",
+    q:"Hydrogen peroxide acts as BOTH oxidising and reducing agent. In which role does it act when it reacts with acidified KMnO₄?",
+    opts:["Oxidising agent","Reducing agent","Neither; it acts as a catalyst","It depends on concentration"],
+    ans:1,
+    exp:"H₂O₂ reduces MnO₄⁻ (Mn goes from +7 to +2); simultaneously H₂O₂ itself is oxidised (O from –1 → 0 in O₂). So H₂O₂ acts as a reducing agent with acidified KMnO₄."
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
+let userAnswers = Array(QUESTIONS.length).fill(null);
+let current = 0;
+let timerInterval = null;
+let secondsElapsed = 0;
+let quizSubmitted = false;
+
+// ═══════════════════════════════════════════════════════
+//  TIMER
+// ═══════════════════════════════════════════════════════
+function startTimer(){
+  timerInterval = setInterval(()=>{
+    secondsElapsed++;
+    const m = String(Math.floor(secondsElapsed/60)).padStart(2,'0');
+    const s = String(secondsElapsed%60).padStart(2,'0');
+    document.getElementById('timer-chip').textContent = `⏱ ${m}:${s}`;
+  },1000);
+}
+function stopTimer(){ clearInterval(timerInterval); }
+
+// ═══════════════════════════════════════════════════════
+//  START
+// ═══════════════════════════════════════════════════════
+function startQuiz(){
+  document.getElementById('intro-section').style.display='none';
+  document.getElementById('quiz-section').style.display='block';
+  document.getElementById('progress-wrap').style.display='flex';
+  buildPalette();
+  renderQuestion(0);
+  startTimer();
+}
+
+// ═══════════════════════════════════════════════════════
+//  PALETTE
+// ═══════════════════════════════════════════════════════
+function buildPalette(){
+  const p = document.getElementById('palette');
+  p.innerHTML='';
+  QUESTIONS.forEach((_,i)=>{
+    const btn = document.createElement('button');
+    btn.className='pal-btn'+(i===0?' active':'');
+    btn.textContent=i+1;
+    btn.onclick=()=>renderQuestion(i);
+    btn.id=`pal-${i}`;
+    p.appendChild(btn);
+  });
+}
+function updatePalette(){
+  QUESTIONS.forEach((_,i)=>{
+    const btn = document.getElementById(`pal-${i}`);
+    btn.className='pal-btn'+(i===current?' active':'')+(userAnswers[i]!==null?' answered':'');
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+//  RENDER QUESTION
+// ═══════════════════════════════════════════════════════
+function renderQuestion(idx){
+  current=idx;
+  const q=QUESTIONS[idx];
+  const area=document.getElementById('question-area');
+  const keys=['A','B','C','D'];
+  area.innerHTML=`
+    <div class="question-card">
+      <div class="q-header">
+        <div>
+          <div class="q-number">Q ${idx+1} of ${QUESTIONS.length}</div>
+          <div class="q-category">${q.cat}</div>
+        </div>
+        <div class="q-marks">+4 Marks</div>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="options" id="opts-${idx}">
+        ${q.opts.map((o,i)=>`
+          <div class="option${userAnswers[idx]===i?' selected':''}" data-i="${i}" onclick="selectOption(${idx},${i})">
+            <div class="opt-key">${keys[i]}</div>
+            <div>${o}</div>
+            <div class="opt-icon"></div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  updatePalette();
+  updateProgress();
+  document.getElementById('nav-center').textContent=`Question ${idx+1} of ${QUESTIONS.length}`;
+  document.getElementById('btn-prev').disabled = idx===0;
+  document.getElementById('btn-next').disabled = idx===QUESTIONS.length-1;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══════════════════════════════════════════════════════
+//  SELECT OPTION
+// ═══════════════════════════════════════════════════════
+function selectOption(qIdx, oIdx){
+  if(quizSubmitted) return;
+  userAnswers[qIdx]=oIdx;
+  const opts=document.querySelectorAll(`#opts-${qIdx} .option`);
+  opts.forEach(o=>o.classList.remove('selected'));
+  opts[oIdx].classList.add('selected');
+  updatePalette();
+  updateProgress();
+  updateScoreChip();
+}
+
+function updateProgress(){
+  const answered=userAnswers.filter(a=>a!==null).length;
+  const pct=(answered/QUESTIONS.length)*100;
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('progress-label').textContent=`${answered} / ${QUESTIONS.length} answered`;
+}
+
+function updateScoreChip(){
+  let score=0;
+  userAnswers.forEach((a,i)=>{if(a===QUESTIONS[i].ans) score+=4;});
+  document.getElementById('score-chip').textContent=`Score: ${score} / 180`;
+}
+
+// ═══════════════════════════════════════════════════════
+//  NAVIGATE
+// ═══════════════════════════════════════════════════════
+function navigate(dir){
+  const next=current+dir;
+  if(next>=0&&next<QUESTIONS.length) renderQuestion(next);
+}
+
+// ═══════════════════════════════════════════════════════
+//  SUBMIT
+// ═══════════════════════════════════════════════════════
+function confirmSubmit(){
+  const unanswered=userAnswers.filter(a=>a===null).length;
+  const msg = unanswered>0
+    ? `You have ${unanswered} unanswered question(s). Are you sure you want to submit?`
+    : 'Submit the quiz now?';
+  if(confirm(msg)) submitQuiz();
+}
+
+function submitQuiz(){
+  quizSubmitted=true;
+  stopTimer();
+  calculateAndShowResult();
+}
+
+// ═══════════════════════════════════════════════════════
+//  RESULT
+// ═══════════════════════════════════════════════════════
+function calculateAndShowResult(){
+  let correct=0, incorrect=0, skipped=0;
+  userAnswers.forEach((a,i)=>{
+    if(a===null) skipped++;
+    else if(a===QUESTIONS[i].ans) correct++;
+    else incorrect++;
+  });
+  const score=correct*4;
+  const total=QUESTIONS.length*4;
+  const pct=Math.round((score/total)*100);
+
+  let grade,title,sub,gradeColor;
+  if(pct>=90){grade='A+';title='Outstanding Performance!';sub='You\'re a Chemistry master. Exceptional conceptual depth!';gradeColor='var(--correct)';}
+  else if(pct>=75){grade='A';title='Excellent Work!';sub='Strong understanding across all topics. Keep pushing!';gradeColor='var(--accent)';}
+  else if(pct>=60){grade='B';title='Good Effort!';sub='Solid foundation. Focus on the topics you missed.';gradeColor='var(--accent2)';}
+  else if(pct>=45){grade='C';title='Average Performance';sub='You\'re on the right track. Revise weak areas thoroughly.';gradeColor='var(--warn)';}
+  else{grade='D';title='Needs Improvement';sub='Don\'t give up! Review the concepts and retake the quiz.';gradeColor='var(--incorrect)';}
+
+  document.getElementById('result-grade').textContent=`${pct}%`;
+  document.getElementById('result-grade').style.background=`linear-gradient(135deg, ${gradeColor}, var(--accent2))`;
+  document.getElementById('result-grade').style.webkitBackgroundClip='text';
+  document.getElementById('result-title').textContent=`${title} (Grade: ${grade})`;
+  document.getElementById('result-sub').textContent=sub;
+
+  const m=String(Math.floor(secondsElapsed/60)).padStart(2,'0');
+  const s=String(secondsElapsed%60).padStart(2,'0');
+  document.getElementById('result-stats').innerHTML=`
+    <div class="rs-item"><div class="rs-val" style="color:var(--accent)">${score}</div><div class="rs-lbl">Score / 180</div></div>
+    <div class="rs-item"><div class="rs-val" style="color:var(--correct)">${correct}</div><div class="rs-lbl">Correct</div></div>
+    <div class="rs-item"><div class="rs-val" style="color:var(--incorrect)">${incorrect}</div><div class="rs-lbl">Incorrect</div></div>
+    <div class="rs-item"><div class="rs-val" style="color:var(--muted)">${skipped}</div><div class="rs-lbl">Skipped</div></div>
+    <div class="rs-item"><div class="rs-val" style="color:var(--accent2)">${m}:${s}</div><div class="rs-lbl">Time Taken</div></div>`;
+
+  document.getElementById('f-correct-btn').textContent=`✓ Correct (${correct})`;
+  document.getElementById('f-incorrect-btn').textContent=`✗ Incorrect (${incorrect})`;
+  document.getElementById('f-skipped-btn').textContent=`— Skipped (${skipped})`;
+
+  buildReview('all');
+
+  document.getElementById('quiz-section').style.display='none';
+  document.getElementById('progress-wrap').style.display='none';
+  document.getElementById('result-section').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  if(pct>=60) launchConfetti();
+}
+
+function buildReview(filter){
+  const keys=['A','B','C','D'];
+  const list=document.getElementById('review-list');
+  list.innerHTML='';
+  QUESTIONS.forEach((q,i)=>{
+    const ua=userAnswers[i];
+    const isCorrect=(ua!==null && ua===q.ans);
+    const isSkipped=(ua===null);
+    const status=isCorrect?'correct':isSkipped?'skipped':'incorrect';
+    if(filter!=='all' && filter!==status) return;
+
+    const card=document.createElement('div');
+    card.className=`review-card r-${status}`;
+
+    const optsHtml=q.opts.map((o,j)=>{
+      let cls='ro-neutral', icon='';
+      if(j===q.ans){cls='ro-correct';icon='✓';}
+      if(ua!==null && j===ua && ua!==q.ans){cls='ro-wrong-pick';icon='✗';}
+      return `<div class="r-option ${cls}">
+        <div class="r-opt-key">${keys[j]}</div>
+        <div style="flex:1">${o}</div>
+        <div style="font-size:0.9rem;color:${cls==='ro-correct'?'var(--correct)':'var(--incorrect)'};opacity:${icon?1:0}">${icon}</div>
+      </div>`;
+    }).join('');
+
+    card.innerHTML=`
+      <div class="r-top">
+        <span class="r-badge ${status}">${status==='correct'?'✓ Correct':status==='incorrect'?'✗ Incorrect':'— Skipped'}</span>
+        <span class="r-qnum">Q${i+1}</span>
+        <span class="r-cat">${q.cat}</span>
+        <span class="r-marks" style="color:${isCorrect?'var(--correct)':isSkipped?'var(--muted)':'var(--incorrect)'}">${isCorrect?'+4':isSkipped?'0':'-0'} marks</span>
+      </div>
+      <div class="r-qtext">${q.q}</div>
+      <div class="r-answers">${optsHtml}</div>
+      <div class="r-explanation"><strong>💡 Explanation:</strong> ${q.exp}</div>`;
+    list.appendChild(card);
+  });
+}
+
+function filterReview(type, btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildReview(type);
+}
+
+// ═══════════════════════════════════════════════════════
+//  RESTART
+// ═══════════════════════════════════════════════════════
+function restartQuiz(){
+  userAnswers=Array(QUESTIONS.length).fill(null);
+  current=0;
+  secondsElapsed=0;
+  quizSubmitted=false;
+  document.getElementById('timer-chip').textContent='⏱ 00:00';
+  document.getElementById('score-chip').textContent='Score: 0 / 180';
+  document.getElementById('result-section').style.display='none';
+  document.getElementById('intro-section').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ═══════════════════════════════════════════════════════
+//  CONFETTI
+// ═══════════════════════════════════════════════════════
+function launchConfetti(){
+  const canvas=document.getElementById('confetti-canvas');
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  const ctx=canvas.getContext('2d');
+  const particles=[];
+  const colors=['#4af0c4','#5b8fff','#ff6b9d','#ffd166','#ffffff'];
+  for(let i=0;i<180;i++){
+    particles.push({
+      x:Math.random()*canvas.width, y:Math.random()*canvas.height-canvas.height,
+      vx:(Math.random()-0.5)*4, vy:Math.random()*4+2,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      size:Math.random()*8+3, rotation:Math.random()*360,
+      rotV:(Math.random()-0.5)*5, alpha:1
+    });
+  }
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.rotation+=p.rotV;
+      if(frame>100) p.alpha-=0.012;
+      ctx.save();
+      ctx.globalAlpha=Math.max(0,p.alpha);
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rotation*Math.PI/180);
+      ctx.fillStyle=p.color;
+      ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+      ctx.restore();
+    });
+    frame++;
+    if(frame<220) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  draw();
+}
+</script>
+</body>
+</html>
