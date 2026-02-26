@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NEET 2026 — Chemistry HOTS Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#030711;
+  --surface:#060d1f;
+  --card:#0a1128;
+  --card2:#0e1535;
+  --border:rgba(99,179,237,0.1);
+  --accent:#38bdf8;
+  --accent2:#818cf8;
+  --accent3:#f472b6;
+  --gold:#fbbf24;
+  --text:#e2e8f0;
+  --muted:#64748b;
+  --correct:#10b981;
+  --incorrect:#f43f5e;
+  --glow:rgba(56,189,248,0.1);
+  --r:16px;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── ANIMATED BG ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 10%, rgba(56,189,248,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 90%, rgba(129,140,248,0.04) 0%, transparent 60%);
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(56,189,248,0.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;z-index:0;
+}
+
+/* ── HEADER ── */
+header{
+  position:sticky;top:0;z-index:300;
+  background:rgba(3,7,17,0.9);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  padding:0.85rem 5%;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.7rem;
+}
+.logo{
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:1.35rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.logo-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+}
+.logo-text span{color:var(--accent);}
+.logo-sub{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;font-weight:400;}
+.hdr-chips{display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center;}
+.chip{
+  font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.06em;
+  padding:0.28rem 0.75rem;border-radius:100px;
+  border:1px solid var(--border);color:var(--muted);white-space:nowrap;
+}
+#chip-timer{border-color:rgba(251,191,36,0.4);color:var(--gold);}
+#chip-score{border-color:rgba(56,189,248,0.4);color:var(--accent);}
+
+/* ── PROGRESS ── */
+.prog-bar-wrap{
+  position:sticky;top:60px;z-index:290;
+  background:rgba(3,7,17,0.8);backdrop-filter:blur(12px);
+  padding:0.45rem 5%;
+  display:flex;align-items:center;gap:1rem;
+  border-bottom:1px solid var(--border);
+}
+.prog-track{flex:1;height:4px;background:rgba(255,255,255,0.05);border-radius:100px;overflow:hidden;}
+.prog-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:100px;transition:width 0.4s ease;}
+.prog-txt{font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--muted);white-space:nowrap;}
+
+/* ── CONTAINER ── */
+.wrap{max-width:860px;margin:0 auto;padding:2.5rem 5%;position:relative;z-index:1;}
+
+/* ══════════════════════════════
+   INTRO SCREEN
+══════════════════════════════ */
+#intro{
+  min-height:calc(100vh - 65px);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;padding:4rem 5%;
+}
+.intro-inner{max-width:680px;margin:0 auto;text-align:center;}
+
+.neet-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(251,191,36,0.35);
+  background:rgba(251,191,36,0.06);
+  padding:0.4rem 1.1rem;border-radius:100px;margin-bottom:2rem;
+}
+
+.intro-title{
+  font-family:'Outfit',sans-serif;font-weight:800;
+  font-size:clamp(2.8rem,6vw,5rem);letter-spacing:-2px;line-height:1;
+  margin-bottom:1rem;
+}
+.intro-title .g1{background:linear-gradient(135deg,#38bdf8,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.intro-title .g2{background:linear-gradient(135deg,#f472b6,#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+.intro-sub{color:var(--muted);font-size:1rem;line-height:1.7;max-width:520px;margin:0 auto 2.5rem;}
+
+.info-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2.8rem;text-align:left;}
+.ic{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:1.1rem 1.4rem;
+  transition:border-color 0.3s;
+}
+.ic:hover{border-color:rgba(56,189,248,0.3);}
+.ic-label{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.35rem;}
+.ic-val{font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:700;color:var(--text);}
+.ic-val small{font-size:0.8rem;color:var(--muted);font-weight:400;}
+
+.syllabus-pills{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-bottom:2.5rem;}
+.pill{
+  font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.06em;
+  padding:0.3rem 0.85rem;border-radius:100px;
+}
+.pill-blue{background:rgba(56,189,248,0.1);color:var(--accent);border:1px solid rgba(56,189,248,0.25);}
+.pill-purple{background:rgba(129,140,248,0.1);color:var(--accent2);border:1px solid rgba(129,140,248,0.25);}
+.pill-pink{background:rgba(244,114,182,0.1);color:var(--accent3);border:1px solid rgba(244,114,182,0.25);}
+.pill-gold{background:rgba(251,191,36,0.1);color:var(--gold);border:1px solid rgba(251,191,36,0.25);}
+
+.btn-begin{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#030711;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.05rem;
+  padding:1rem 3.5rem;border-radius:10px;border:none;cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 0 40px rgba(56,189,248,0.25);letter-spacing:-0.3px;
+}
+.btn-begin:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(56,189,248,0.45);}
+
+/* ══════════════════════════════
+   QUIZ SCREEN
+══════════════════════════════ */
+#quiz{display:none;}
+
+/* Palette */
+.pal-section{margin-bottom:1.8rem;}
+.pal-head{
+  font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;
+  color:var(--muted);text-transform:uppercase;margin-bottom:0.7rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.pal-legend{display:flex;gap:0.8rem;margin-left:auto;}
+.pal-leg{display:flex;align-items:center;gap:0.3rem;font-size:0.6rem;color:var(--muted);}
+.pal-leg-dot{width:8px;height:8px;border-radius:2px;}
+.palette{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.pb{
+  width:33px;height:33px;border-radius:6px;
+  border:1px solid var(--border);background:var(--card);
+  color:var(--muted);cursor:pointer;
+  font-family:'Space Mono',monospace;font-size:0.68rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;
+}
+.pb:hover{border-color:var(--accent);color:var(--accent);}
+.pb.pb-ans{background:rgba(56,189,248,0.12);border-color:rgba(56,189,248,0.45);color:var(--accent);}
+.pb.pb-cur{background:var(--accent2);color:#fff;border-color:var(--accent2);font-weight:700;}
+
+/* Question Card */
+.qcard{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:2rem 2.4rem;margin-bottom:1.4rem;
+  animation:slideUp 0.35s ease both;
+  position:relative;overflow:hidden;
+}
+.qcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.qcard:hover::before{opacity:0.6;}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+.qcard-top{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  margin-bottom:1.2rem;
+}
+.qtags{display:flex;flex-direction:column;gap:0.3rem;}
+.qtag-num{
+  font-family:'Space Mono',monospace;font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--accent);background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.2);
+  padding:0.22rem 0.65rem;border-radius:5px;display:inline-block;
+}
+.qtag-cat{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:0.06em;}
+.qtag-topic{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--accent2);letter-spacing:0.05em;margin-top:0.1rem;}
+.qmarks{
+  font-family:'Space Mono',monospace;font-size:0.63rem;color:var(--gold);
+  background:rgba(251,191,36,0.07);border:1px solid rgba(251,191,36,0.2);
+  padding:0.22rem 0.65rem;border-radius:5px;white-space:nowrap;flex-shrink:0;
+}
+.qtext{font-size:1rem;line-height:1.7;font-weight:500;color:var(--text);margin-bottom:1.5rem;}
+
+/* Options */
+.opts{display:flex;flex-direction:column;gap:0.6rem;}
+.opt{
+  display:flex;align-items:flex-start;gap:0.9rem;
+  padding:0.9rem 1.15rem;
+  border:1px solid var(--border);border-radius:10px;
+  background:var(--card2);cursor:pointer;
+  transition:all 0.18s;font-size:0.92rem;line-height:1.55;
+  user-select:none;position:relative;overflow:hidden;
+}
+.opt::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(56,189,248,0.03),transparent);
+  opacity:0;transition:opacity 0.2s;
+}
+.opt:hover{border-color:rgba(56,189,248,0.35);background:rgba(56,189,248,0.04);transform:translateX(4px);}
+.opt:hover::after{opacity:1;}
+.opt.sel{background:rgba(129,140,248,0.1);border-color:rgba(129,140,248,0.5);}
+.opt.correct{background:rgba(16,185,129,0.1)!important;border-color:rgba(16,185,129,0.5)!important;}
+.opt.wrong{background:rgba(244,63,94,0.1)!important;border-color:rgba(244,63,94,0.5)!important;}
+.opt.show-ans{background:rgba(16,185,129,0.06)!important;border-color:rgba(16,185,129,0.25)!important;}
+.opt.disabled{pointer-events:none;}
+
+.okey{
+  flex-shrink:0;width:27px;height:27px;border-radius:6px;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;color:var(--muted);
+  transition:all 0.18s;
+}
+.opt.sel .okey{background:rgba(129,140,248,0.2);color:var(--accent2);border-color:rgba(129,140,248,0.5);}
+.opt.correct .okey{background:rgba(16,185,129,0.25);color:var(--correct);border-color:var(--correct);}
+.opt.wrong .okey{background:rgba(244,63,94,0.25);color:var(--incorrect);border-color:var(--incorrect);}
+.opt.show-ans .okey{background:rgba(16,185,129,0.15);color:var(--correct);border-color:rgba(16,185,129,0.4);}
+
+/* Quiz Nav */
+.qnav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 0 2rem;flex-wrap:wrap;gap:0.8rem;
+}
+.qnav-center{font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--muted);}
+.btn{
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:0.88rem;
+  padding:0.72rem 1.8rem;border-radius:8px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);cursor:pointer;
+  transition:all 0.18s;
+}
+.btn:hover{border-color:var(--accent);background:var(--glow);transform:translateY(-1px);}
+.btn:disabled{opacity:0.28;pointer-events:none;}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#030711;border:none;box-shadow:0 0 20px rgba(56,189,248,0.2);}
+.btn-primary:hover{box-shadow:0 0 40px rgba(56,189,248,0.4);border:none;}
+.btn-danger{background:rgba(244,63,94,0.08);color:var(--incorrect);border-color:rgba(244,63,94,0.3);}
+.btn-danger:hover{background:rgba(244,63,94,0.15);}
+
+/* ══════════════════════════════
+   RESULT SCREEN
+══════════════════════════════ */
+#result{display:none;position:relative;z-index:1;padding:3rem 5% 4rem;}
+.res-wrap{max-width:900px;margin:0 auto;}
+
+.res-hero{
+  text-align:center;padding:3.5rem 2rem;
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  margin-bottom:2rem;position:relative;overflow:hidden;
+}
+.res-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% -10%,rgba(56,189,248,0.09) 0%,transparent 55%);
+  pointer-events:none;
+}
+.res-hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 110%,rgba(129,140,248,0.07) 0%,transparent 55%);
+  pointer-events:none;
+}
+.res-pct{
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:5.5rem;line-height:1;
+  margin-bottom:0.3rem;position:relative;z-index:1;
+}
+.res-rank-label{
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;
+  color:var(--muted);text-transform:uppercase;margin-bottom:1.2rem;
+}
+.res-grade-badge{
+  display:inline-block;
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:1.1rem;
+  padding:0.4rem 1.8rem;border-radius:100px;margin-bottom:0.8rem;
+}
+.res-title{font-family:'Outfit',sans-serif;font-size:1.7rem;font-weight:700;margin-bottom:0.4rem;}
+.res-sub{color:var(--muted);font-size:0.93rem;max-width:440px;margin:0 auto;}
+
+.res-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:0.9rem;margin-bottom:2rem;}
+.rst{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:1.3rem 0.8rem;text-align:center;
+  transition:transform 0.3s,border-color 0.3s;
+}
+.rst:hover{transform:translateY(-3px);border-color:rgba(56,189,248,0.3);}
+.rst-val{font-family:'Outfit',sans-serif;font-size:1.9rem;font-weight:800;line-height:1;margin-bottom:0.25rem;}
+.rst-lbl{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:0.07em;text-transform:uppercase;}
+
+/* Review */
+.rev-hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;}
+.rev-title{font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:800;}
+.rev-filters{display:flex;gap:0.45rem;flex-wrap:wrap;}
+.rfbtn{
+  font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.05em;
+  padding:0.3rem 0.85rem;border-radius:100px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);cursor:pointer;transition:all 0.2s;
+}
+.rfbtn:hover,.rfbtn.on{border-color:var(--accent);color:var(--accent);background:rgba(56,189,248,0.08);}
+.rfbtn.rc.on{border-color:var(--correct);color:var(--correct);background:rgba(16,185,129,0.08);}
+.rfbtn.rw.on{border-color:var(--incorrect);color:var(--incorrect);background:rgba(244,63,94,0.08);}
+
+.rev-card{
+  background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:1.7rem 1.9rem;margin-bottom:1.1rem;
+  animation:slideUp 0.3s ease both;
+}
+.rev-card.rc{border-left:3px solid var(--correct);}
+.rev-card.rw{border-left:3px solid var(--incorrect);}
+.rev-card.rs{border-left:3px solid var(--muted);}
+
+.rev-top{display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:0.9rem;flex-wrap:wrap;}
+.rbadge{
+  font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;
+  padding:0.18rem 0.6rem;border-radius:100px;text-transform:uppercase;flex-shrink:0;
+}
+.rbadge.rc{background:rgba(16,185,129,0.12);color:var(--correct);border:1px solid rgba(16,185,129,0.3);}
+.rbadge.rw{background:rgba(244,63,94,0.12);color:var(--incorrect);border:1px solid rgba(244,63,94,0.3);}
+.rbadge.rs{background:rgba(100,116,139,0.12);color:var(--muted);border:1px solid rgba(100,116,139,0.3);}
+.rev-qn{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--muted);}
+.rev-cat{font-family:'Space Mono',monospace;font-size:0.6rem;color:var(--accent2);}
+.rev-topic{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--muted);}
+.rev-marks{margin-left:auto;font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;}
+
+.rev-qtext{font-size:0.93rem;line-height:1.65;color:var(--text);margin-bottom:1.1rem;font-weight:500;}
+.rev-opts{display:flex;flex-direction:column;gap:0.45rem;}
+.ropt{
+  display:flex;align-items:flex-start;gap:0.65rem;
+  padding:0.65rem 0.95rem;border-radius:8px;font-size:0.85rem;line-height:1.5;
+  border:1px solid transparent;
+}
+.ropt.ro-c{background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.28);color:var(--text);}
+.ropt.ro-w{background:rgba(244,63,94,0.08);border-color:rgba(244,63,94,0.28);color:var(--text);}
+.ropt.ro-n{color:var(--muted);}
+.rok{
+  flex-shrink:0;width:22px;height:22px;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:0.62rem;font-weight:700;
+  background:rgba(255,255,255,0.04);color:var(--muted);
+}
+.ro-c .rok{background:rgba(16,185,129,0.2);color:var(--correct);}
+.ro-w .rok{background:rgba(244,63,94,0.2);color:var(--incorrect);}
+
+.rev-exp{
+  margin-top:0.9rem;padding:0.85rem 1rem;
+  background:rgba(129,140,248,0.05);border:1px solid rgba(129,140,248,0.18);border-radius:8px;
+  font-size:0.83rem;color:var(--muted);line-height:1.65;
+}
+.rev-exp strong{color:var(--accent2);}
+
+.btn-retry{
+  display:block;margin:2.5rem auto 0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#030711;font-family:'Outfit',sans-serif;font-weight:800;font-size:1rem;
+  padding:1rem 3.5rem;border-radius:10px;border:none;cursor:pointer;
+  transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 0 30px rgba(56,189,248,0.2);
+}
+.btn-retry:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(56,189,248,0.45);}
+
+/* Confetti */
+#ccanvas{position:fixed;inset:0;pointer-events:none;z-index:600;}
+
+@media(max-width:720px){
+  .res-stats{grid-template-columns:repeat(3,1fr);}
+  .qcard{padding:1.4rem 1.2rem;}
+  .info-cards{grid-template-columns:1fr;}
+  .intro-title{font-size:2.8rem;}
+}
+@media(max-width:460px){
+  .res-stats{grid-template-columns:repeat(2,1fr);}
+  .res-pct{font-size:4rem;}
+}
+</style>
+</head>
+<body>
+  <h3>Apex Chemistry</h3>
+<canvas id="ccanvas"></canvas>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">⚕</div>
+    <div>
+      <div class="logo-text"><span>NEET</span>2026</div>
+      <div class="logo-sub">Chemistry · HOTS Quiz</div>
+    </div>
+  </div>
+  <div class="hdr-chips">
+    <div class="chip" id="chip-timer">⏱ 00:00</div>
+    <div class="chip" id="chip-score">Score: 0 / 180</div>
+    <div class="chip">45 Qs · 4 Marks Each</div>
+  </div>
+</header>
+
+<!-- ── PROGRESS ── -->
+<div class="prog-bar-wrap" id="prog-wrap" style="display:none">
+  <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+  <div class="prog-txt" id="prog-txt">0 / 45 answered</div>
+</div>
+
+<!-- ══════════════════════════════
+     INTRO
+══════════════════════════════ -->
+<section id="intro">
+  <div class="intro-inner">
+    <div class="neet-badge">🎯 NEET 2026 Revised Syllabus</div>
+    <h1 class="intro-title">
+      <span class="g1">Chemistry</span><br>
+      <span class="g2">HOTS Quiz</span>
+    </h1>
+    <p class="intro-sub">45 Higher Order Thinking Skills questions strictly mapped to the NEET 2026 Chemistry syllabus — Physical, Organic &amp; Inorganic. Simulate real exam depth &amp; pressure.</p>
+
+    <div class="syllabus-pills">
+      <span class="pill pill-blue">Atomic Structure</span>
+      <span class="pill pill-purple">Chemical Bonding</span>
+      <span class="pill pill-pink">Thermodynamics</span>
+      <span class="pill pill-gold">Equilibrium</span>
+      <span class="pill pill-blue">Electrochemistry</span>
+      <span class="pill pill-purple">Kinetics</span>
+      <span class="pill pill-pink">Organic Mechanisms</span>
+      <span class="pill pill-gold">Coordination</span>
+      <span class="pill pill-blue">Biomolecules</span>
+      <span class="pill pill-purple">p-Block Elements</span>
+    </div>
+
+    <div class="info-cards">
+      <div class="ic"><div class="ic-label">Questions</div><div class="ic-val">45</div></div>
+      <div class="ic"><div class="ic-label">Marks per Q</div><div class="ic-val">+4 <small>marks</small></div></div>
+      <div class="ic"><div class="ic-label">Total Marks</div><div class="ic-val">180</div></div>
+      <div class="ic"><div class="ic-label">Exam Level</div><div class="ic-val" style="font-size:1rem">NEET 2026 HOTS</div></div>
+    </div>
+
+    <button class="btn-begin" onclick="startQuiz()">Start Quiz →</button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     QUIZ
+══════════════════════════════ -->
+<section id="quiz">
+  <div class="wrap">
+    <div class="pal-section">
+      <div class="pal-head">
+        Question Navigator
+        <div class="pal-legend">
+          <div class="pal-leg"><div class="pal-leg-dot" style="background:var(--accent);border-radius:2px;"></div>Answered</div>
+          <div class="pal-leg"><div class="pal-leg-dot" style="background:var(--accent2);border-radius:2px;"></div>Current</div>
+        </div>
+      </div>
+      <div class="palette" id="palette"></div>
+    </div>
+    <div id="qarea"></div>
+    <div class="qnav">
+      <button class="btn" id="btn-prev" onclick="nav(-1)" disabled>← Prev</button>
+      <div class="qnav-center" id="qnav-lbl">Q1 of 45</div>
+      <div style="display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:flex-end;">
+        <button class="btn btn-danger" onclick="confirmSubmit()">Submit Quiz</button>
+        <button class="btn btn-primary" id="btn-next" onclick="nav(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     RESULT
+══════════════════════════════ -->
+<section id="result">
+  <div class="res-wrap">
+    <div class="res-hero">
+      <div class="res-pct" id="res-pct">0%</div>
+      <div class="res-rank-label">Your Score</div>
+      <div class="res-grade-badge" id="res-grade">—</div>
+      <div class="res-title" id="res-title">—</div>
+      <div class="res-sub" id="res-sub">—</div>
+    </div>
+    <div class="res-stats" id="res-stats"></div>
+    <div class="rev-hdr">
+      <div class="rev-title">Detailed Answer Review</div>
+      <div class="rev-filters">
+        <button class="rfbtn on" onclick="filterRev('all',this)">All (45)</button>
+        <button class="rfbtn rc" onclick="filterRev('c',this)" id="rb-c">✓ Correct</button>
+        <button class="rfbtn rw" onclick="filterRev('w',this)" id="rb-w">✗ Incorrect</button>
+        <button class="rfbtn"    onclick="filterRev('s',this)" id="rb-s">— Skipped</button>
+      </div>
+    </div>
+    <div id="rev-list"></div>
+    <button class="btn-retry" onclick="restartQuiz()">↺ Retake Quiz</button>
+  </div>
+</section>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   45 HOTS QUESTIONS — NEET 2026 CHEMISTRY SYLLABUS
+══════════════════════════════════════════════════════ */
+const Q = [
+
+  /* ─── PHYSICAL CHEMISTRY (Q1–Q15) ─── */
+  {
+    cat:"Physical Chemistry", topic:"Some Basic Concepts",
+    q:"In a reaction, 10.6 g of Na₂CO₃ reacts with excess HCl. How many moles of CO₂ are produced? (Na=23, C=12, O=16)",
+    opts:["0.1 mol","0.2 mol","0.05 mol","1.0 mol"],
+    ans:0,
+    exp:"Molar mass of Na₂CO₃ = 106 g/mol. Moles = 10.6/106 = 0.1 mol. Na₂CO₃ + 2HCl → 2NaCl + H₂O + CO₂. 1 mol Na₂CO₃ produces 1 mol CO₂. So 0.1 mol CO₂ is produced."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Atomic Structure",
+    q:"An electron in a hydrogen atom is in the n = 3 state. How many different spectral lines are possible when it transitions to lower energy states?",
+    opts:["1","2","3","4"],
+    ans:2,
+    exp:"From n=3, possible transitions: 3→2, 3→1, and 2→1. That gives 3 spectral lines. Formula: n(n–1)/2 = 3×2/2 = 3."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Atomic Structure",
+    q:"Which set of quantum numbers is possible for the last electron of chlorine (Z=17)?",
+    opts:["n=3, l=1, ml=0, ms=+½","n=3, l=2, ml=0, ms=+½","n=2, l=1, ml=2, ms=–½","n=3, l=1, ml=2, ms=+½"],
+    ans:0,
+    exp:"Cl has configuration [Ne]3s²3p⁵. The last electron enters 3p orbital. l=1 for p; valid ml values: –1,0,+1. n=3, l=1, ml=0, ms=+½ is valid. ml=2 is not allowed for l=1."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Chemical Bonding",
+    q:"Among NH₃, H₂O, BF₃ and CH₄, which molecule has the smallest bond angle?",
+    opts:["NH₃","H₂O","BF₃","CH₄"],
+    ans:1,
+    exp:"H₂O has 2 lone pairs on O, creating maximum lone pair–lone pair repulsion. Its bond angle (~104.5°) is less than NH₃ (~107°), CH₄ (109.5°) and BF₃ (120°)."
+  },
+  {
+    cat:"Physical Chemistry", topic:"States of Matter",
+    q:"At a given temperature, the rms speed of O₂ molecules is v. The rms speed of SO₂ molecules at the same temperature is: (M of O₂=32, SO₂=64)",
+    opts:["v/√2","v√2","v/2","2v"],
+    ans:0,
+    exp:"v_rms ∝ 1/√M. v(SO₂)/v(O₂) = √(M_O₂/M_SO₂) = √(32/64) = 1/√2. So v(SO₂) = v/√2."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Thermodynamics",
+    q:"For a reaction with ΔH = –40 kJ/mol and ΔS = –0.1 kJ/mol·K, at what minimum temperature does the reaction become non-spontaneous?",
+    opts:["100 K","200 K","300 K","400 K"],
+    ans:3,
+    exp:"ΔG = ΔH – TΔS. Reaction becomes non-spontaneous when ΔG > 0: –40 – T(–0.1) > 0 → 0.1T > 40 → T > 400 K. So non-spontaneous above 400 K."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Equilibrium",
+    q:"For the reaction PCl₅(g) ⇌ PCl₃(g) + Cl₂(g), if degree of dissociation is α and initial moles = 1, total moles at equilibrium and Kp are:",
+    opts:["1+α; Kp = α²P/(1–α²)","1–α; Kp = α²P","1+α; Kp = αP/(1–α)","1–α; Kp = αP/(1+α)"],
+    ans:0,
+    exp:"Total moles at equilibrium = 1 + α. Kp = [α/(1+α)]×[α/(1+α)] / [(1–α)/(1+α)] × P = α²P/(1–α²). This is the standard result for this dissociation."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Redox Reactions",
+    q:"In MnO₄⁻ + C₂O₄²⁻ + H⁺ → Mn²⁺ + CO₂ + H₂O, the ratio of moles of MnO₄⁻ to C₂O₄²⁻ in the balanced equation is:",
+    opts:["2:5","5:2","1:5","5:1"],
+    ans:0,
+    exp:"Mn: +7→+2 (gain 5e⁻). C in C₂O₄²⁻: +3→+4 (lose 1e⁻ per C; 2e⁻ per ion). To balance: 2 MnO₄⁻ gain 10e⁻ = 5 C₂O₄²⁻ lose 10e⁻. Ratio = 2:5."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Electrochemistry",
+    q:"How many Faradays of electricity are required to deposit 1 mol of Al from Al³⁺ ions?",
+    opts:["1 F","2 F","3 F","4 F"],
+    ans:2,
+    exp:"Al³⁺ + 3e⁻ → Al. Depositing 1 mol of Al requires 3 mol of electrons = 3 Faradays (1 F = charge of 1 mol of electrons = 96500 C)."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Chemical Kinetics",
+    q:"A reaction is second order with respect to reactant A. If [A] is tripled, the rate of reaction becomes:",
+    opts:["3 times","6 times","9 times","27 times"],
+    ans:2,
+    exp:"For second-order reaction, Rate = k[A]². When [A] is tripled: new Rate = k(3[A])² = 9k[A]². The rate becomes 9 times the original."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Surface Chemistry",
+    q:"Which of the following is an example of a lyophilic colloid?",
+    opts:["Gold sol","Sulphur sol","Starch sol","AgCl sol"],
+    ans:2,
+    exp:"Lyophilic colloids (solvent-loving) are formed by substances like starch, gelatin, proteins. Gold, sulphur and AgCl sols are lyophobic colloids."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Solid State",
+    q:"In a face-centred cubic (FCC) unit cell, the number of atoms per unit cell is:",
+    opts:["1","2","3","4"],
+    ans:3,
+    exp:"FCC: 8 corner atoms × (1/8) + 6 face atoms × (1/2) = 1 + 3 = 4 atoms per unit cell."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Solutions",
+    q:"The van't Hoff factor (i) for 0.1 M K₂SO₄ solution, assuming complete dissociation, is:",
+    opts:["1","2","3","4"],
+    ans:2,
+    exp:"K₂SO₄ → 2K⁺ + SO₄²⁻. Complete dissociation gives 3 particles per formula unit. Therefore i = 3."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Thermodynamics",
+    q:"For an ideal gas undergoing isothermal reversible expansion, which of the following is TRUE?",
+    opts:["ΔU > 0","ΔU = 0","ΔH < 0","q = 0"],
+    ans:1,
+    exp:"For an ideal gas, internal energy depends only on temperature. In an isothermal process, T is constant → ΔU = 0. Also ΔH = 0. Work is done by the gas, so q = –w ≠ 0."
+  },
+  {
+    cat:"Physical Chemistry", topic:"Equilibrium",
+    q:"A weak acid HX has Ka = 4×10⁻⁵. The pH of its 0.2 M solution is approximately:",
+    opts:["2.5","3.0","4.0","4.5"],
+    ans:1,
+    exp:"[H⁺] = √(Ka×C) = √(4×10⁻⁵×0.2) = √(8×10⁻⁶) ≈ 2.83×10⁻³ M. pH = –log(2.83×10⁻³) ≈ 2.55 ≈ 3.0 (nearest option)."
+  },
+
+  /* ─── ORGANIC CHEMISTRY (Q16–Q30) ─── */
+  {
+    cat:"Organic Chemistry", topic:"General Organic Chemistry",
+    q:"Among the following, which carbocation is MOST stable?",
+    opts:["CH₃⁺","(CH₃)₂CH⁺","(CH₃)₃C⁺","CH₃CH₂⁺"],
+    ans:2,
+    exp:"Stability order: 3° > 2° > 1° > methyl. (CH₃)₃C⁺ is a tertiary carbocation stabilised by hyperconjugation and inductive effect of three methyl groups."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Hydrocarbons",
+    q:"Propyne reacts with excess HBr to give the final product:",
+    opts:["1,2-dibromopropane","2,2-dibromopropane","1,1-dibromopropane","1-bromopropene"],
+    ans:1,
+    exp:"First addition of HBr to CH≡CCH₃ (Markovnikov) → CH₂=CBrCH₃. Second addition (Markovnikov) → CH₃CBr₂CH₃ (2,2-dibromopropane)."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Haloalkanes & Haloarenes",
+    q:"Which of the following undergoes SN1 reaction most readily?",
+    opts:["CH₃Cl","CH₃CH₂Cl","(CH₃)₂CHCl","(CH₃)₃CCl"],
+    ans:3,
+    exp:"SN1 favours the most stable carbocation intermediate. (CH₃)₃CCl gives the most stable 3° carbocation, making it most reactive in SN1."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Alcohols, Phenols & Ethers",
+    q:"Lucas test (conc. HCl + anhydrous ZnCl₂) gives immediate turbidity with:",
+    opts:["Primary alcohols","Secondary alcohols","Tertiary alcohols","All alcohols equally"],
+    ans:2,
+    exp:"Tertiary alcohols react immediately with Lucas reagent at room temperature via SN1, giving immediate turbidity. Secondary alcohols take ~5 min; primary don't react at RT."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Aldehydes, Ketones & Carboxylic Acids",
+    q:"Which of the following gives a positive Fehling's test?",
+    opts:["Acetone","Benzaldehyde","Formaldehyde","Acetophenone"],
+    ans:2,
+    exp:"Fehling's test is positive for aliphatic aldehydes. Formaldehyde (HCHO) gives a positive result. Benzaldehyde is aromatic and does not reduce Fehling's. Acetone and acetophenone are ketones."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Aldehydes, Ketones & Carboxylic Acids",
+    q:"The reaction of acetaldehyde with excess ethanol in the presence of dry HCl gives:",
+    opts:["Acetal","Hemiacetal","Aldol","Ester"],
+    ans:0,
+    exp:"Excess ethanol + aldehyde (dry HCl catalyst) forms acetal (diethyl acetal: CH₃CH(OC₂H₅)₂). Hemiacetal is the intermediate formed with one equivalent of alcohol."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Amines",
+    q:"Arrange in DECREASING order of basicity in aqueous solution: C₂H₅NH₂, (C₂H₅)₂NH, C₆H₅NH₂, NH₃",
+    opts:["(C₂H₅)₂NH > C₂H₅NH₂ > NH₃ > C₆H₅NH₂","C₂H₅NH₂ > (C₂H₅)₂NH > NH₃ > C₆H₅NH₂","C₆H₅NH₂ > NH₃ > C₂H₅NH₂ > (C₂H₅)₂NH","NH₃ > C₂H₅NH₂ > (C₂H₅)₂NH > C₆H₅NH₂"],
+    ans:0,
+    exp:"In aqueous solution: (C₂H₅)₂NH > C₂H₅NH₂ > NH₃ >> C₆H₅NH₂. Aniline is least basic — lone pair delocalised into benzene ring. Secondary alkylamines > primary > ammonia in water."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Biomolecules",
+    q:"Which of the following is a non-reducing sugar?",
+    opts:["Glucose","Maltose","Lactose","Sucrose"],
+    ans:3,
+    exp:"Sucrose is non-reducing because both anomeric carbons (C1 of glucose and C2 of fructose) are involved in the glycosidic bond — no free aldehyde/ketone group is available."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Biomolecules",
+    q:"The α-helix structure of proteins is stabilised by:",
+    opts:["Peptide bonds","Disulfide bridges","Hydrogen bonds between C=O and N–H groups","van der Waals forces"],
+    ans:2,
+    exp:"The α-helix is maintained by intramolecular hydrogen bonds between the C=O of one peptide bond and the N–H of the peptide bond 4 residues ahead in the same chain."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Polymers",
+    q:"Nylon-6,6 is a condensation polymer formed by polymerisation of:",
+    opts:["Caprolactam alone","Adipic acid and hexamethylenediamine","Glycol and terephthalic acid","Vinyl chloride"],
+    ans:1,
+    exp:"Nylon-6,6 is formed by condensation of adipic acid (6 carbons) and hexamethylenediamine (6 carbons), with elimination of water to form amide bonds."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Chemistry in Everyday Life",
+    q:"Which of the following is a broad-spectrum antibiotic?",
+    opts:["Aspirin","Chloramphenicol","Streptomycin","Paracetamol"],
+    ans:1,
+    exp:"Chloramphenicol is a broad-spectrum antibiotic effective against gram-positive and gram-negative bacteria. Aspirin and paracetamol are analgesics/antipyretics."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Haloalkanes & Haloarenes",
+    q:"Which of the following reactions does NOT proceed via a carbocation intermediate?",
+    opts:["SN1 reaction of t-butyl bromide","E1 elimination of t-butanol","SN2 reaction of methyl bromide with OH⁻","Rearrangement of neopentyl cation"],
+    ans:2,
+    exp:"SN2 is a concerted bimolecular mechanism — nucleophile attacks as leaving group departs simultaneously. No carbocation formed. SN1, E1, and rearrangements all involve carbocation intermediates."
+  },
+  {
+    cat:"Organic Chemistry", topic:"General Organic Chemistry",
+    q:"Which of the following pairs are resonance structures of each other?",
+    opts:["CH₃–OH and CH₂=OH⁺","ortho and para nitrophenol","Two Kekulé structures of benzene","CH₃Cl and CH₂=CHCl"],
+    ans:2,
+    exp:"The two Kekulé structures of benzene differ only in the position of electrons, not atoms — these are classic resonance (canonical) structures."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Aldehydes, Ketones & Carboxylic Acids",
+    q:"Which reaction converts a carboxylic acid to its next lower homologue (one fewer carbon)?",
+    opts:["Hell-Volhard-Zelinsky reaction","Kolbe electrolysis","Decarboxylation with soda lime","Hunsdiecker reaction"],
+    ans:2,
+    exp:"Decarboxylation with soda lime (NaOH+CaO, heat): RCOONa → RH + Na₂CO₃, reducing carbon count by 1. E.g., CH₃COONa + NaOH → CH₄ + Na₂CO₃."
+  },
+  {
+    cat:"Organic Chemistry", topic:"Amines",
+    q:"Diazotisation of aniline followed by coupling with phenol in alkaline medium gives:",
+    opts:["Diphenylamine","Azobenzene","p-Hydroxyazobenzene","Benzene"],
+    ans:2,
+    exp:"Aniline → diazonium salt → couples with phenol in alkaline medium (electrophilic attack at para position) → p-hydroxyazobenzene (orange-red azo dye)."
+  },
+
+  /* ─── INORGANIC CHEMISTRY (Q31–Q45) ─── */
+  {
+    cat:"Inorganic Chemistry", topic:"Periodic Classification",
+    q:"Which of the following has the HIGHEST electron gain enthalpy (most negative)?",
+    opts:["F","Cl","Br","I"],
+    ans:1,
+    exp:"Cl has the highest electron gain enthalpy (–349 kJ/mol). F (–328 kJ/mol) is less despite higher electronegativity because its compact 2p orbital has greater electron–electron repulsion."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"s-Block Elements",
+    q:"Which alkaline earth metal compound is used as an antacid to neutralise excess stomach acid?",
+    opts:["CaCO₃","BaSO₄","MgSO₄","CaC₂"],
+    ans:0,
+    exp:"CaCO₃ neutralises excess HCl: CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂. Used in antacid tablets. BaSO₄ is a barium meal; MgSO₄ is a laxative."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"p-Block Elements (Group 13–14)",
+    q:"Which correctly explains why B(OH)₃ is a Lewis acid?",
+    opts:["It donates a proton","It accepts an electron pair due to empty p-orbital on B","It has a lone pair to donate","It ionises in water to give H⁺"],
+    ans:1,
+    exp:"Boron in B(OH)₃ has only 6 electrons (sp² hybridised, empty p orbital). It acts as Lewis acid by accepting an electron pair from water or Lewis bases into its vacant p orbital."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"p-Block Elements (Group 15–16)",
+    q:"Which correctly explains why N₂ is less reactive than white phosphorus (P₄)?",
+    opts:["N₂ has a longer bond","N₂ has a triple bond with very high bond enthalpy (~945 kJ/mol)","N₂ has fewer electrons","N₂ has a higher molecular mass"],
+    ans:1,
+    exp:"N≡N has bond dissociation enthalpy ~945 kJ/mol — extremely inert. White phosphorus has strained P–P single bonds (~200 kJ/mol) that break easily, making it very reactive."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"p-Block Elements (Group 17–18)",
+    q:"Which is the CORRECT decreasing order of bond dissociation enthalpy of halogens?",
+    opts:["F₂ > Cl₂ > Br₂ > I₂","Cl₂ > F₂ > Br₂ > I₂","Cl₂ > Br₂ > F₂ > I₂","I₂ > Br₂ > Cl₂ > F₂"],
+    ans:1,
+    exp:"BDE (kJ/mol): F₂(158), Cl₂(242), Br₂(193), I₂(151). Cl₂ has the highest BDE. F₂ is weakened by lone pair–lone pair repulsion in the very short F–F bond."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"d-Block Elements",
+    q:"Which of the following transition metals has the HIGHEST number of unpaired electrons in its ground state?",
+    opts:["Ti (Z=22)","Cr (Z=24)","Mn (Z=25)","Fe (Z=26)"],
+    ans:1,
+    exp:"Cr: [Ar]3d⁵4s¹ → 6 unpaired e⁻. Mn: [Ar]3d⁵4s² → 5 unpaired. Fe: [Ar]3d⁶4s² → 4 unpaired. Ti: [Ar]3d²4s² → 2 unpaired. Cr has the most (6) due to half-filled d + filled s stability."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"Coordination Compounds",
+    q:"The CFSE for a d⁶ low-spin octahedral complex is:",
+    opts:["–2.4 Δo","–2.0 Δo","–2.4 Δo + 2P","–2.0 Δo + P"],
+    ans:0,
+    exp:"For low-spin d⁶ octahedral: all 6 electrons in t₂g level. CFSE = 6 × (–0.4Δo) = –2.4Δo."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"Coordination Compounds",
+    q:"[Co(NH₃)₆]³⁺ is diamagnetic. This is because:",
+    opts:["Co³⁺ has no d electrons","NH₃ is a strong-field ligand that forces all d electrons to pair","NH₃ is a weak-field ligand","Co³⁺ has a d¹⁰ configuration"],
+    ans:1,
+    exp:"Co³⁺ is d⁶. NH₃ is a strong-field ligand causing large Δo. All 6 electrons fill the t₂g level (t₂g⁶, eg⁰) — no unpaired electrons → diamagnetic."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"Hydrogen",
+    q:"Heavy water (D₂O) is used as a moderator in nuclear reactors because:",
+    opts:["It absorbs neutrons efficiently","It slows down fast neutrons without absorbing them","It increases the rate of fission","It is a better coolant than H₂O"],
+    ans:1,
+    exp:"A moderator slows fast neutrons to thermal neutrons needed for sustained fission. D₂O is excellent because deuterium absorbs very few neutrons while slowing them through elastic collisions."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"p-Block — Oxoacids",
+    q:"Among H₃PO₂, H₃PO₃ and H₃PO₄, which one is monobasic?",
+    opts:["H₃PO₂ only","H₃PO₃ only","H₃PO₄ only","Both H₃PO₂ and H₃PO₃"],
+    ans:0,
+    exp:"H₃PO₂ has 2 P–H bonds (non-ionisable) and only 1 P–OH bond → monobasic. H₃PO₃ has 1 P–H + 2 P–OH → dibasic. H₃PO₄ has 3 P–OH → tribasic."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"Metallurgy",
+    q:"The role of silica (SiO₂) added to the ore during copper smelting is:",
+    opts:["To reduce Cu₂S","To form slag by reacting with FeO impurity","To increase the melting point","To provide oxygen for roasting"],
+    ans:1,
+    exp:"FeO (from partial oxidation of FeS) is an impurity. SiO₂ reacts: FeO + SiO₂ → FeSiO₃ (slag), which is immiscible with molten copper and removed separately."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"Environmental Chemistry",
+    q:"The main cause of photochemical smog is:",
+    opts:["CO₂ and H₂O vapour","NO₂ and unburnt hydrocarbons under UV light","SO₂ and particulate matter","O₃ from industrial processes"],
+    ans:1,
+    exp:"Photochemical smog forms when NO₂ and unburnt hydrocarbons (vehicle exhaust) react under UV to produce O₃, PAN, and other oxidants — creating brown haze."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"d-Block Elements",
+    q:"Cu²⁺ is more stable than Cu⁺ in aqueous solution because:",
+    opts:["Cu⁺ has higher ionisation energy","Cu²⁺ has higher hydration enthalpy that more than compensates its higher ionisation energy","Cu⁺ is a better oxidising agent","Cu²⁺ has a completely filled d orbital"],
+    ans:1,
+    exp:"Although Cu⁺→Cu²⁺ requires high 2nd IE, the much higher hydration enthalpy of Cu²⁺ (smaller size, higher charge) more than compensates, making Cu²⁺ thermodynamically more stable in water."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"p-Block Elements (Group 16)",
+    q:"The structure of H₂SO₄ contains:",
+    opts:["Two S=O and two S–OH bonds only","Two S=O (pπ–dπ) and two S–OH bonds","Four equivalent S–O bonds","One S–S bond and four S–O bonds"],
+    ans:1,
+    exp:"H₂SO₄: S is sp³. It has 2 S=O bonds (pπ–dπ overlap, shorter) and 2 S–OH bonds (ionisable). The two OH bonds release H⁺; the S=O bonds are non-ionisable."
+  },
+  {
+    cat:"Inorganic Chemistry", topic:"Coordination Compounds",
+    q:"Which of the following shows optical isomerism?",
+    opts:["[Pt(NH₃)₂Cl₂] (square planar)","[Co(en)₃]³⁺ (en = ethylenediamine)","[Co(NH₃)₄Cl₂]⁺ (trans)","[Ni(CO)₄] (tetrahedral)"],
+    ans:1,
+    exp:"[Co(en)₃]³⁺ is octahedral with three bidentate ligands. It has no plane of symmetry and exists as non-superimposable mirror images (Δ and Λ forms) — true optical isomers (enantiomers)."
+  }
+];
+
+/* ══════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════ */
+let UA   = Array(Q.length).fill(null);
+let cur  = 0;
+let tID  = null;
+let secs = 0;
+let done = false;
+
+/* ── TIMER ── */
+function startTimer(){
+  tID = setInterval(()=>{
+    secs++;
+    const m=String(Math.floor(secs/60)).padStart(2,'0');
+    const s=String(secs%60).padStart(2,'0');
+    document.getElementById('chip-timer').textContent=`⏱ ${m}:${s}`;
+  },1000);
+}
+function stopTimer(){ clearInterval(tID); }
+
+/* ── START ── */
+function startQuiz(){
+  document.getElementById('intro').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  document.getElementById('prog-wrap').style.display='flex';
+  buildPalette();
+  renderQ(0);
+  startTimer();
+}
+
+/* ── PALETTE ── */
+function buildPalette(){
+  const p=document.getElementById('palette');
+  p.innerHTML='';
+  Q.forEach((_,i)=>{
+    const b=document.createElement('button');
+    b.className='pb'+(i===0?' pb-cur':'');
+    b.textContent=i+1;
+    b.onclick=()=>renderQ(i);
+    b.id=`pb-${i}`;
+    p.appendChild(b);
+  });
+}
+function updPalette(){
+  Q.forEach((_,i)=>{
+    const b=document.getElementById(`pb-${i}`);
+    b.className='pb'+(i===cur?' pb-cur':UA[i]!==null?' pb-ans':'');
+  });
+}
+
+/* ── RENDER QUESTION ── */
+function renderQ(idx){
+  cur=idx;
+  const q=Q[idx];
+  const area=document.getElementById('qarea');
+  const K=['A','B','C','D'];
+  area.innerHTML=`
+    <div class="qcard">
+      <div class="qcard-top">
+        <div class="qtags">
+          <span class="qtag-num">Q ${idx+1} / ${Q.length}</span>
+          <span class="qtag-cat">${q.cat}</span>
+          <span class="qtag-topic">${q.topic}</span>
+        </div>
+        <div class="qmarks">+4 Marks</div>
+      </div>
+      <div class="qtext">${q.q}</div>
+      <div class="opts" id="opts-${idx}">
+        ${q.opts.map((o,i)=>`
+          <div class="opt${UA[idx]===i?' sel':''}" onclick="pick(${idx},${i})">
+            <div class="okey">${K[i]}</div>
+            <div>${o}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  updPalette();
+  updProg();
+  document.getElementById('qnav-lbl').textContent=`Q${idx+1} of ${Q.length}`;
+  document.getElementById('btn-prev').disabled=idx===0;
+  document.getElementById('btn-next').disabled=idx===Q.length-1;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── PICK OPTION ── */
+function pick(qi,oi){
+  if(done) return;
+  UA[qi]=oi;
+  const opts=document.querySelectorAll(`#opts-${qi} .opt`);
+  opts.forEach(o=>o.classList.remove('sel'));
+  opts[oi].classList.add('sel');
+  updPalette();
+  updProg();
+  updScoreChip();
+}
+
+function updProg(){
+  const n=UA.filter(a=>a!==null).length;
+  document.getElementById('prog-fill').style.width=(n/Q.length*100)+'%';
+  document.getElementById('prog-txt').textContent=`${n} / ${Q.length} answered`;
+}
+function updScoreChip(){
+  let sc=0; UA.forEach((a,i)=>{if(a===Q[i].ans)sc+=4;});
+  document.getElementById('chip-score').textContent=`Score: ${sc} / 180`;
+}
+
+/* ── NAVIGATE ── */
+function nav(d){
+  const nx=cur+d;
+  if(nx>=0&&nx<Q.length) renderQ(nx);
+}
+
+/* ── SUBMIT ── */
+function confirmSubmit(){
+  const un=UA.filter(a=>a===null).length;
+  if(confirm(un>0?`${un} question(s) unanswered. Submit anyway?`:`Submit the quiz now?`))
+    submitQuiz();
+}
+function submitQuiz(){ done=true; stopTimer(); showResult(); }
+
+/* ── RESULT ── */
+function showResult(){
+  let correct=0,wrong=0,skipped=0;
+  UA.forEach((a,i)=>{
+    if(a===null) skipped++;
+    else if(a===Q[i].ans) correct++;
+    else wrong++;
+  });
+  const score=correct*4;
+  const pct=Math.round((score/180)*100);
+  let grade,title,sub,gc,gc2;
+  if(pct>=90){grade='A+';title='Outstanding! NEET Ready!';sub='Exceptional performance. You have mastered NEET 2026 Chemistry!';gc='#10b981';gc2='#38bdf8';}
+  else if(pct>=75){grade='A';title='Excellent Work!';sub='Strong grasp. Fine-tune remaining weak areas.';gc='#38bdf8';gc2='#818cf8';}
+  else if(pct>=60){grade='B+';title='Good Performance!';sub='Above average. Revise a few topics for a higher NEET rank.';gc='#818cf8';gc2='#f472b6';}
+  else if(pct>=45){grade='B';title='Average — Keep Pushing!';sub='You\'re on track. Dedicate more time to conceptual clarity.';gc='#fbbf24';gc2='#f97316';}
+  else if(pct>=30){grade='C';title='Needs More Revision';sub='Focus on NCERT thoroughly and revisit all three branches.';gc='#f97316';gc2='#f43f5e';}
+  else{grade='D';title='Needs Significant Improvement';sub='Start from basics. NCERT mastery is the foundation.';gc='#f43f5e';gc2='#be185d';}
+
+  const rp=document.getElementById('res-pct');
+  rp.textContent=`${pct}%`;
+  rp.style.background=`linear-gradient(135deg,${gc},${gc2})`;
+  rp.style.webkitBackgroundClip='text';
+  rp.style.webkitTextFillColor='transparent';
+
+  const gb=document.getElementById('res-grade');
+  gb.textContent=`Grade: ${grade}`;
+  gb.style.background=`linear-gradient(135deg,${gc},${gc2})`;
+  gb.style.webkitBackgroundClip='text';
+  gb.style.webkitTextFillColor='transparent';
+
+  document.getElementById('res-title').textContent=title;
+  document.getElementById('res-sub').textContent=sub;
+
+  const m=String(Math.floor(secs/60)).padStart(2,'0');
+  const s=String(secs%60).padStart(2,'0');
+  document.getElementById('res-stats').innerHTML=`
+    <div class="rst"><div class="rst-val" style="color:var(--accent)">${score}</div><div class="rst-lbl">Score / 180</div></div>
+    <div class="rst"><div class="rst-val" style="color:var(--correct)">${correct}</div><div class="rst-lbl">Correct</div></div>
+    <div class="rst"><div class="rst-val" style="color:var(--incorrect)">${wrong}</div><div class="rst-lbl">Incorrect</div></div>
+    <div class="rst"><div class="rst-val" style="color:var(--muted)">${skipped}</div><div class="rst-lbl">Skipped</div></div>
+    <div class="rst"><div class="rst-val" style="color:var(--accent2)">${m}:${s}</div><div class="rst-lbl">Time Taken</div></div>`;
+
+  document.getElementById('rb-c').textContent=`✓ Correct (${correct})`;
+  document.getElementById('rb-w').textContent=`✗ Incorrect (${wrong})`;
+  document.getElementById('rb-s').textContent=`— Skipped (${skipped})`;
+
+  buildReview('all');
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('prog-wrap').style.display='none';
+  document.getElementById('result').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(pct>=60) confetti();
+}
+
+/* ── REVIEW ── */
+function buildReview(filter){
+  const K=['A','B','C','D'];
+  const list=document.getElementById('rev-list');
+  list.innerHTML='';
+  Q.forEach((q,i)=>{
+    const ua=UA[i];
+    const isC=(ua!==null&&ua===q.ans);
+    const isS=(ua===null);
+    const st=isC?'c':isS?'s':'w';
+    if(filter!=='all'&&filter!==st) return;
+    const card=document.createElement('div');
+    card.className=`rev-card r${st}`;
+    const opHtml=q.opts.map((o,j)=>{
+      let cls='ro-n',ic='';
+      if(j===q.ans){cls='ro-c';ic='✓';}
+      if(ua!==null&&j===ua&&ua!==q.ans){cls='ro-w';ic='✗';}
+      return `<div class="ropt ${cls}">
+        <div class="rok">${K[j]}</div>
+        <div style="flex:1">${o}</div>
+        <div style="font-size:0.85rem;color:${cls==='ro-c'?'var(--correct)':'var(--incorrect)'};opacity:${ic?1:0}">${ic}</div>
+      </div>`;
+    }).join('');
+    const mk=isC?`<span style="color:var(--correct)">+4</span>`:`<span style="color:${isS?'var(--muted)':'var(--incorrect)'}">0</span>`;
+    card.innerHTML=`
+      <div class="rev-top">
+        <span class="rbadge r${st}">${st==='c'?'✓ Correct':st==='w'?'✗ Incorrect':'— Skipped'}</span>
+        <span class="rev-qn">Q${i+1}</span>
+        <span class="rev-cat">${q.cat}</span>
+        <span class="rev-topic">· ${q.topic}</span>
+        <span class="rev-marks" style="margin-left:auto">${mk} marks</span>
+      </div>
+      <div class="rev-qtext">${q.q}</div>
+      <div class="rev-opts">${opHtml}</div>
+      <div class="rev-exp"><strong>💡 Explanation:</strong> ${q.exp}</div>`;
+    list.appendChild(card);
+  });
+}
+function filterRev(type,btn){
+  document.querySelectorAll('.rfbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  buildReview(type);
+}
+
+/* ── RESTART ── */
+function restartQuiz(){
+  UA=Array(Q.length).fill(null);
+  cur=0; secs=0; done=false;
+  document.getElementById('chip-timer').textContent='⏱ 00:00';
+  document.getElementById('chip-score').textContent='Score: 0 / 180';
+  document.getElementById('result').style.display='none';
+  document.getElementById('intro').style.display='flex';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── CONFETTI ── */
+function confetti(){
+  const cv=document.getElementById('ccanvas');
+  cv.width=innerWidth; cv.height=innerHeight;
+  const ctx=cv.getContext('2d');
+  const cols=['#38bdf8','#818cf8','#f472b6','#fbbf24','#10b981','#ffffff'];
+  const pts=Array.from({length:200},()=>({
+    x:Math.random()*cv.width, y:Math.random()*cv.height-cv.height,
+    vx:(Math.random()-.5)*3.5, vy:Math.random()*4+1.5,
+    c:cols[Math.floor(Math.random()*cols.length)],
+    sz:Math.random()*7+3, rot:Math.random()*360,
+    rv:(Math.random()-.5)*5, al:1,
+    shape:Math.random()<0.5?'rect':'circle'
+  }));
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.rv;
+      if(frame>110) p.al-=0.01;
+      if(p.al<=0) return;
+      ctx.save();
+      ctx.globalAlpha=p.al;
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle=p.c;
+      if(p.shape==='circle'){
+        ctx.beginPath(); ctx.arc(0,0,p.sz/2,0,Math.PI*2); ctx.fill();
+      } else {
+        ctx.fillRect(-p.sz/2,-p.sz/2,p.sz,p.sz);
+      }
+      ctx.restore();
+    });
+    frame++;
+    if(frame<240) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,cv.width,cv.height);
+  }
+  draw();
+}
+</script>
+</body>
+</html>
