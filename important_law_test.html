@@ -1,41 +1,118 @@
-<html>
-	<head>
-	<title>SD Classes/ChemOnly</title>
-	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="bootstrap.css">
-	<script src="jquery.js"></script> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Chemistry</title>
+
+<link rel="stylesheet" href="bootstrap.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> 
-		<style>
-	a{
-		font-weight:bold;
-		text-decoration:none;
-		font-size:130%;
-	
-        	}
-		</style>
-		
-				
-	</head>
-<body >
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col" style="background:teal; color:white;">
-				<h1><i><font size="30px">A to Z : Chemistry Only </font></i></h1>
-			</div>
-		</div>
-  <h3>Important Laws and Tests:</h3>
-<ul>
-		<li><a href="important/imp.html#biur" target="_blank" >Biurate Test</a></li>
-		<li><a href="important/imp.html#lambee" target="_blank"  >Lamber Beer's Law</a></li>
-		<li><a href="important/imp.html#drago" target="_blank">Drago's Rule</a></li>
-		<li><a href="important/imp.html#bent" target="_blank">Bent's Rule</a></li>
-		<li><a href="misc/intermediates.pdf" target="_blank">Reaction Intermediates</a></li>
-		<li><a href="misc/Aromaticity.pdf" target="_blank">Aromaticity</a></li>
-		
-	</ul>
-		
 
+<style>
+body{
+    margin:0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:#333;
+}
 
-    </body>
+header{
+    background: rgba(0,0,0,0.7);
+    color:white;
+    text-align:center;
+    padding:25px 10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.4);
+}
+
+header h1{
+    margin:0;
+    font-size:2.5rem;
+    letter-spacing:2px;
+}
+
+header h3{
+    margin:5px 0 0;
+    font-weight:300;
+}
+
+.main-card{
+    background:white;
+    width:90%;
+    max-width:900px;
+    margin:40px auto;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:25px;
+    font-weight:600;
+    color:#2c5364;
+}
+
+ul{
+    list-style:none;
+    padding:0;
+}
+
+ul li{
+    margin:15px 0;
+}
+
+ul li a{
+    display:block;
+    padding:12px 18px;
+    background:#f0f4f8;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:1.1rem;
+    color:#203a43;
+    transition:0.3s ease;
+    border-left:6px solid #2c5364;
+}
+
+ul li a:hover{
+    background:#2c5364;
+    color:white;
+    transform:translateX(5px);
+}
+
+.footer{
+    text-align:center;
+    color:white;
+    padding:15px;
+    font-size:0.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+       <h3>Apex Chemistry</h3>
+	<h2 class="section-title">Important Laws and Tests</h2>
+</header>
+
+<div class="main-card">
+    
+
+    <ul>
+        <li><a href="important/imp.html#biur" target="_blank">Biurate Test</a></li>
+        <li><a href="important/imp.html#lambee" target="_blank">Lamber Beer's Law</a></li>
+        <li><a href="important/imp.html#drago" target="_blank">Drago's Rule</a></li>
+        <li><a href="important/imp.html#bent" target="_blank">Bent's Rule</a></li>
+        <li><a href="misc/intermediates.pdf" target="_blank">Reaction Intermediates</a></li>
+        <li><a href="misc/Aromaticity.pdf" target="_blank">Aromaticity</a></li>
+    </ul>
+</div>
+
+<div class="footer">
+    © 2026 Apex Chemistry | Designed for Concept Clarity
+</div>
+
+</body>
 </html>
