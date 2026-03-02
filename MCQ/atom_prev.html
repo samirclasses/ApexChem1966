@@ -1,3 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atomic Structure MCQ Quiz</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  margin:0;
+  background:#f4f6fb;
+}
+
+header{
+  background:#1e293b;
+  color:white;
+  padding:15px;
+  text-align:center;
+}
+
+.stats{
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
+  background:white;
+  font-weight:bold;
+  flex-wrap:wrap;
+}
+
+.progress-container{
+  width:100%;
+  background:#ddd;
+  height:8px;
+}
+
+#progress-bar{
+  height:8px;
+  width:0%;
+  background:#22c55e;
+  transition:0.3s;
+}
+
+.container{
+  padding:20px;
+  max-width:1000px;
+  margin:auto;
+}
+
+.card{
+  background:white;
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+.card-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+  font-size:14px;
+  color:#555;
+}
+
+.q-text{
+  margin-bottom:10px;
+  font-weight:500;
+}
+
+.option{
+  padding:8px 10px;
+  margin-bottom:8px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  cursor:pointer;
+  display:flex;
+  gap:8px;
+}
+
+.option:hover{
+  background:#f1f5f9;
+}
+
+.option.disabled{
+  pointer-events:none;
+  opacity:0.9;
+}
+
+.correct{
+  background:#d1fae5;
+  border-color:#22c55e;
+}
+
+.wrong{
+  background:#fee2e2;
+  border-color:#ef4444;
+}
+
+.answered-correct{
+  border-left:5px solid #22c55e;
+}
+
+.answered-wrong{
+  border-left:5px solid #ef4444;
+}
+
+.feedback{
+  margin-top:8px;
+  font-weight:bold;
+  display:none;
+}
+
+.feedback.show{
+  display:block;
+}
+
+.correct-msg{
+  color:#16a34a;
+}
+
+.wrong-msg{
+  color:#dc2626;
+}
+
+button{
+  padding:10px 15px;
+  margin:10px 5px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  background:#2563eb;
+  color:white;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  visibility:hidden;
+}
+
+.modal.show{
+  visibility:visible;
+}
+
+.modal-content{
+  background:white;
+  padding:25px;
+  border-radius:10px;
+  text-align:center;
+  max-width:400px;
+  width:90%;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <h2>Atomic Structure MCQ Practice (2000–2018)</h2>
+</header>
+
+<div class="stats">
+  <div>Attempted: <span id="stat-attempted">0</span></div>
+  <div>Correct: <span id="stat-correct">0</span></div>
+  <div>Wrong: <span id="stat-wrong">0</span></div>
+  <div>Score: <span id="stat-score">0%</span></div>
+</div>
+
+<div class="progress-container">
+  <div id="progress-bar"></div>
+</div>
+
+<div class="container">
+  <div id="questions-container"></div>
+
+  <div style="text-align:center;">
+    <button onclick="showResults()">Show Results</button>
+    <button onclick="resetAll()">Reset Quiz</button>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2 id="modal-title"></h2>
+    <h3 id="modal-score"></h3>
+    <p id="modal-sub"></p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+
+// =======================
+//  YOUR JS CODE
+// =======================
+
 const QS = [
   {
     n: 1, year: "2000",
@@ -467,3 +672,125 @@ function resetAll() {
 initState();
 renderQuestions();
 updateStats();
+
+
+// ─────────────────────────────────────────────
+let state = {};
+
+function initState() {
+  state = {};
+  QS.forEach(q => { state[q.n] = null; });
+}
+
+function updateStats() {
+  const attempted = Object.values(state).filter(v => v !== null).length;
+  const correct   = QS.filter(q => state[q.n] === q.ans).length;
+  const wrong     = attempted - correct;
+  const score     = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
+  document.getElementById('stat-attempted').textContent = attempted;
+  document.getElementById('stat-correct').textContent   = correct;
+  document.getElementById('stat-wrong').textContent     = wrong;
+  document.getElementById('stat-score').textContent     = score + '%';
+
+  document.getElementById('progress-bar').style.width =
+    (attempted / QS.length * 100) + '%';
+}
+
+function handleAnswer(qn, optIdx) {
+  if (state[qn] !== null) return;
+  state[qn] = optIdx;
+
+  const card      = document.getElementById(`card-${qn}`);
+  const opts      = card.querySelectorAll('.option');
+  const q         = QS.find(x => x.n === qn);
+  const isCorrect = (optIdx === q.ans);
+
+  opts.forEach((el, i) => {
+    el.classList.add('disabled');
+    if (i === q.ans) el.classList.add('correct');
+    else if (i === optIdx && !isCorrect) el.classList.add('wrong');
+  });
+
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+  const fb = card.querySelector('.feedback');
+  fb.classList.add('show');
+  if (isCorrect) {
+    fb.classList.add('correct-msg');
+    fb.innerHTML = '✓ Correct!';
+  } else {
+    fb.classList.add('wrong-msg');
+    fb.innerHTML = `✗ Wrong. Correct answer: <strong>(${String.fromCharCode(97 + q.ans)})</strong>`;
+  }
+
+  updateStats();
+}
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+
+  QS.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = `card-${q.n}`;
+
+    const optionsHTML = q.options.map((opt, i) => `
+      <div class="option" onclick="handleAnswer(${q.n}, ${i})">
+        <strong>${String.fromCharCode(97 + i)}.</strong> ${opt}
+      </div>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="card-header">
+        <span>Q ${q.n}</span>
+        <span>${q.year}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div>${optionsHTML}</div>
+      <div class="feedback"></div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function showResults() {
+  const attempted = Object.values(state).filter(v => v !== null).length;
+  const correct   = QS.filter(q => state[q.n] === q.ans).length;
+  const score     = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
+  document.getElementById('modal-score').textContent = score + '%';
+
+  document.getElementById('modal-title').textContent =
+    score >= 80 ? '🏆 Excellent Work!' :
+    score >= 60 ? '👍 Good Effort!' :
+    score >= 40 ? '📚 Keep Practicing!' : '💪 Keep Going!';
+
+  document.getElementById('modal-sub').textContent =
+    `You answered ${attempted} of ${QS.length} questions.
+     ${correct} correct, ${attempted - correct} wrong.`;
+
+  document.getElementById('modal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+function resetAll() {
+  initState();
+  updateStats();
+  renderQuestions();
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+initState();
+renderQuestions();
+updateStats();
+
+</script>
+
+</body>
+</html>
