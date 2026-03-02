@@ -1,0 +1,469 @@
+const QS = [
+  {
+    n: 1, year: "2000",
+    q: "Set of isoelectronic species is:",
+    options: [
+      "H<sub>2</sub>, CO<sub>2</sub>, CN<sup>−</sup>, O",
+      "N, H<sub>2</sub>S, CO",
+      "N<sub>2</sub>, CO, CN<sup>−</sup>, O<sub>2</sub><sup>2+</sup>",
+      "Ca, Mg, Cl"
+    ],
+    ans: 2
+  },
+  {
+    n: 2, year: "2000",
+    q: "Electron energy of a photon is given as: ΔE/atom = 3.03 × 10<sup>−19</sup> J atom<sup>−1</sup>. The wavelength of the photon is: <br><small>(h = 6.63 × 10<sup>−34</sup> J/s; c = 3.00 × 10<sup>8</sup> ms<sup>−1</sup>)</small>",
+    options: ["6.56 nm", "65.6 nm", "656 nm", "0.656 nm"],
+    ans: 2
+  },
+  {
+    n: 3, year: "2000",
+    q: "Which one of the following forms a <em>colourless solution</em> in aqueous medium? <br><small>(At. no. Sc = 21, Ti = 22, V = 23, Cr = 24)</small>",
+    options: ["V<sup>3+</sup>", "Cr<sup>3+</sup>", "Ti<sup>3+</sup>", "Sc<sup>3+</sup>"],
+    ans: 3
+  },
+  {
+    n: 4, year: "2001",
+    q: "The following quantum numbers are possible for how many orbitals? &nbsp;<code>n = 3, l = 2, m = +2</code>",
+    options: ["1", "2", "3", "4"],
+    ans: 0
+  },
+  {
+    n: 5, year: "2002",
+    q: "Which of the following is isoelectronic?",
+    options: [
+      "CO<sub>2</sub>, NO<sub>2</sub>",
+      "NO<sub>2</sub><sup>−</sup>, CO<sub>2</sub>",
+      "CN<sup>−</sup>, CO",
+      "SO<sub>2</sub>, CO<sub>2</sub>"
+    ],
+    ans: 2
+  },
+  {
+    n: 6, year: "2002",
+    q: "In the hydrogen atom, energy of the first excited state is −3.4 eV. Then kinetic energy of the same orbit is:",
+    options: ["+3.4 eV", "+6.8 eV", "−13.6 eV", "+13.6 eV"],
+    ans: 0
+  },
+  {
+    n: 7, year: "2003",
+    q: "The ions O<sup>2−</sup>, F<sup>−</sup>, Na<sup>+</sup>, Mg<sup>2+</sup> and Al<sup>3+</sup> are isoelectronic. Their ionic radii show:",
+    options: [
+      "Increase from O<sup>2−</sup> to F<sup>−</sup>, then decrease from Na<sup>+</sup> to Al<sup>3+</sup>",
+      "Decrease from O<sup>2−</sup> to F<sup>−</sup>, then increase from Na<sup>+</sup> to Al<sup>3+</sup>",
+      "A significant increase from O<sup>2−</sup> to Al<sup>3+</sup>",
+      "A significant decrease from O<sup>2−</sup> to Al<sup>3+</sup>"
+    ],
+    ans: 3
+  },
+  {
+    n: 8, year: "2003",
+    q: "h = 6.63 × 10<sup>−34</sup> Js, c = 3.0 × 10<sup>8</sup> ms<sup>−1</sup>. Closest wavelength (nm) for frequency 8 × 10<sup>15</sup> s<sup>−1</sup>?",
+    options: ["4 × 10<sup>1</sup>", "3 × 10<sup>7</sup>", "2 × 10<sup>−25</sup>", "5 × 10<sup>−18</sup>"],
+    ans: 0
+  },
+  {
+    n: 9, year: "2004",
+    q: "Which set of transition metal ions all have <strong>3d<sup>2</sup></strong> configuration? <br><small>(At. no. Ti = 22, V = 23, Cr = 24, Mn = 25)</small>",
+    options: [
+      "Ti<sup>3+</sup>, V<sup>2+</sup>, Cr<sup>3+</sup>, Mn<sup>4+</sup>",
+      "Ti<sup>+</sup>, V<sup>4+</sup>, Cr<sup>6+</sup>, Mn<sup>7+</sup>",
+      "Ti<sup>4+</sup>, V<sup>3+</sup>, Cr<sup>2+</sup>, Mn<sup>3+</sup>",
+      "Ti<sup>2+</sup>, V<sup>3+</sup>, Cr<sup>4+</sup>, Mn<sup>5+</sup>"
+    ],
+    ans: 3
+  },
+  {
+    n: 10, year: "2004",
+    q: "Frequency of radiation emitted when electron falls from n = 4 to n = 1 in hydrogen: <br><small>(IE of H = 2.18 × 10<sup>−18</sup> J atom<sup>−1</sup>; h = 6.625 × 10<sup>−34</sup> Js)</small>",
+    options: [
+      "1.54 × 10<sup>15</sup> s<sup>−1</sup>",
+      "1.03 × 10<sup>15</sup> s<sup>−1</sup>",
+      "3.08 × 10<sup>15</sup> s<sup>−1</sup>",
+      "2.00 × 10<sup>15</sup> s<sup>−1</sup>"
+    ],
+    ans: 0
+  },
+  {
+    n: 11, year: "2005",
+    q: "Energy of second Bohr orbit = −328 kJ mol<sup>−1</sup>. Energy of the fourth Bohr orbit is:",
+    options: ["−164 kJ mol<sup>−1</sup>", "−41 kJ mol<sup>−1</sup>", "−82 kJ mol<sup>−1</sup>", "−1312 kJ mol<sup>−1</sup>"],
+    ans: 1
+  },
+  {
+    n: 12, year: "2006",
+    q: "The <em>orientation</em> of an atomic orbital is governed by:",
+    options: ["Magnetic quantum number", "Principal quantum number", "Azimuthal quantum number", "Spin quantum number"],
+    ans: 0
+  },
+  {
+    n: 13, year: "2006",
+    q: "m<sub>e</sub> = 9.11 × 10<sup>−31</sup> kg, h = 6.626 × 10<sup>−34</sup> Js. Uncertainty in velocity within a distance of 0.1 Å:",
+    options: [
+      "5.79 × 10<sup>8</sup> ms<sup>−1</sup>",
+      "5.79 × 10<sup>5</sup> ms<sup>−1</sup>",
+      "5.79 × 10<sup>6</sup> ms<sup>−1</sup>",
+      "5.79 × 10<sup>7</sup> ms<sup>−1</sup>"
+    ],
+    ans: 0
+  },
+  {
+    n: 14, year: "2006",
+    q: "In which pair are <em>both</em> ions coloured in aqueous solution? <br><small>(At. no. Sc=21, Ti=22, Ni=28, Cu=29, Co=27)</small>",
+    options: ["Sc<sup>3+</sup>, Co<sup>2+</sup>", "Ni<sup>2+</sup>, Cu<sup>+</sup>", "Ni<sup>2+</sup>, Ti<sup>3+</sup>", "Sc<sup>3+</sup>, Ti<sup>3+</sup>"],
+    ans: 2
+  },
+  {
+    n: 15, year: "2007",
+    q: `Consider the following quantum number sets. Which is/are <em>not possible</em>?
+    <table class="q-table">
+      <thead><tr><th>Set</th><th>n</th><th>l</th><th>m</th><th>s</th></tr></thead>
+      <tbody>
+        <tr><td>(1)</td><td>3</td><td>0</td><td>0</td><td>+½</td></tr>
+        <tr><td>(2)</td><td>2</td><td>2</td><td>1</td><td>+½</td></tr>
+        <tr><td>(3)</td><td>4</td><td>3</td><td>−2</td><td>−½</td></tr>
+        <tr><td>(4)</td><td>1</td><td>0</td><td>−1</td><td>−½</td></tr>
+        <tr><td>(5)</td><td>3</td><td>2</td><td>3</td><td>+½</td></tr>
+      </tbody>
+    </table>`,
+    options: ["2, 3 and 4", "1, 2, 3 and 4", "2, 4 and 5", "1 and 3"],
+    ans: 2
+  },
+  {
+    n: 16, year: "2008",
+    q: "If uncertainty in position and momentum are equal, then uncertainty in velocity is:",
+    options: ["1/m &sdot; √(h/π)", "√(h/π)", "1/2m &sdot; √(h/π)", "√(h/2π)"],
+    ans: 2
+  },
+  {
+    n: 17, year: "2008",
+    q: "Uncertainty in momentum = 1 × 10<sup>−18</sup> g cm s<sup>−1</sup>. Uncertainty in velocity (m<sub>e</sub> = 9 × 10<sup>−28</sup> g):",
+    options: [
+      "1 × 10<sup>9</sup> cm s<sup>−1</sup>",
+      "1 × 10<sup>11</sup> cm s<sup>−1</sup>",
+      "1 × 10<sup>5</sup> cm s<sup>−1</sup>",
+      "1 × 10<sup>6</sup> cm s<sup>−1</sup>"
+    ],
+    ans: 0
+  },
+  {
+    n: 18, year: "2009",
+    q: "Maximum number of electrons in a sub-shell is determined by:",
+    options: ["2l + 1", "4l + 2", "2n²", "4l"],
+    ans: 1
+  },
+  {
+    n: 19, year: "2009",
+    q: "Which is <em>NOT</em> a permissible arrangement of electrons?",
+    options: ["n=5, l=3, m=0, s=+½", "n=3, l=2, m=−2, s=−½", "n=3, l=2, m=−3, s=−½", "n=4, l=0, m=0, s=−½"],
+    ans: 2
+  },
+  {
+    n: 20, year: "2009",
+    q: "Energy absorbed by A<sub>2</sub> = 4.4 × 10<sup>−19</sup> J; Bond energy = 4 × 10<sup>−19</sup> J. KE per <em>atom</em>:",
+    options: ["2.2 × 10<sup>−19</sup> J", "2 × 10<sup>−19</sup> J", "2 × 10<sup>−20</sup> J", "4 × 10<sup>−20</sup> J"],
+    ans: 2
+  },
+  {
+    n: 21, year: "2010",
+    q: "Which ion has configuration [Ar]3d<sup>6</sup>? <br><small>(At. no. Mn=25, Fe=26, Co=27, Ni=28)</small>",
+    options: ["Co<sup>3+</sup>", "Ni<sup>3+</sup>", "Mn<sup>3+</sup>", "Fe<sup>3+</sup>"],
+    ans: 0
+  },
+  {
+    n: 22, year: "2011",
+    q: "If n = 6, correct sequence for filling electrons:",
+    options: [
+      "ns → np → (n−1)d → (n−2)f",
+      "ns → (n−2)f → (n−1)d → np",
+      "ns → (n−1)d → (n−2)f → np",
+      "ns → (n−2)f → np → (n−1)d"
+    ],
+    ans: 1
+  },
+  {
+    n: 23, year: "2011",
+    q: "E<sub>1</sub> = 2.5 eV, E<sub>2</sub> = 5.0 eV. Relation between λ<sub>1</sub> and λ<sub>2</sub>:",
+    options: ["λ<sub>1</sub> = λ<sub>2</sub>", "λ<sub>1</sub> = 2λ<sub>2</sub>", "λ<sub>1</sub> = 4λ<sub>2</sub>", "λ<sub>1</sub> = ½λ<sub>2</sub>"],
+    ans: 1
+  },
+  {
+    n: 24, year: "2012",
+    q: "Max electrons in sub-shell with <code>l = 3</code> and <code>n = 4</code>:",
+    options: ["10", "12", "14", "16"],
+    ans: 2
+  },
+  {
+    n: 25, year: "2012",
+    q: "Correct quantum numbers for valence electron of Rubidium (Z = 37):",
+    options: ["5, 0, 0, +½", "5, 1, 0, +½", "5, 1, 1, +½", "6, 0, 0, +½"],
+    ans: 0
+  },
+  {
+    n: 26, year: "2012",
+    q: "Orbital angular momentum of a p-electron:",
+    options: ["√3 &sdot; h/2π", "√(3/2) &sdot; h/π", "√6 &sdot; h/2π", "h / (√2 &sdot; π)"],
+    ans: 0
+  },
+  {
+    n: 27, year: "2013",
+    q: "h = 6.63 × 10<sup>−34</sup> Js, c = 3 × 10<sup>17</sup> nm s<sup>−1</sup>. Closest wavelength (nm) for ν = 6 × 10<sup>15</sup> s<sup>−1</sup>:",
+    options: ["25", "50", "75", "10"],
+    ans: 1
+  },
+  {
+    n: 28, year: "2013",
+    q: "Max electrons for <code>n = 3, l = 1, m = −1</code>:",
+    options: ["6", "4", "2", "10"],
+    ans: 2
+  },
+  {
+    n: 29, year: "2014",
+    q: "Max <em>orbitals</em> for <code>n = 3, l = 1, m = 0</code>:",
+    options: ["1", "2", "3", "4"],
+    ans: 0
+  },
+  {
+    n: 30, year: "2014",
+    q: "Energy (J) for light of wavelength 45 nm: <br><small>(h = 6.63 × 10<sup>−34</sup> Js, c = 3 × 10<sup>8</sup> m/s)</small>",
+    options: ["4.42 × 10<sup>−15</sup>", "4.42 × 10<sup>−18</sup>", "6.67 × 10<sup>11</sup>", "6.67 × 10<sup>15</sup>"],
+    ans: 1
+  },
+  {
+    n: 31, year: "2015",
+    q: "Magnetic moment <strong>2.84 B.M.</strong> is given by: <br><small>(At. no. Ni=28, Ti=22, Cr=24, Co=27)</small>",
+    options: ["Ni<sup>2+</sup>", "Ti<sup>3+</sup>", "Cr<sup>3+</sup>", "Co<sup>2+</sup>"],
+    ans: 0
+  },
+  {
+    n: 32, year: "2015",
+    q: "Angular momentum of electrons in <em>d</em> orbital equals:",
+    options: ["Zero", "√2 ℏ", "√6 ℏ", "2√3 ℏ"],
+    ans: 2
+  },
+  {
+    n: 33, year: "2016",
+    q: "Two electrons in the <em>same orbital</em> are distinguished by:",
+    options: ["Principal quantum number", "Azimuthal quantum number", "Magnetic quantum number", "Spin quantum number"],
+    ans: 3
+  },
+  {
+    n: 34, year: "2016",
+    q: "How many electrons fit in orbital with <code>n = 3</code> and <code>l = 1</code>?",
+    options: ["2", "6", "10", "14"],
+    ans: 1
+  },
+  {
+    n: 35, year: "2016",
+    q: "Which pair of orbitals has electron density <em>along the axes</em>?",
+    options: ["d<sub>z²</sub>, d<sub>x²−y²</sub>", "d<sub>z²</sub>, d<sub>xz</sub>", "d<sub>xz</sub>, d<sub>yz</sub>", "d<sub>xy</sub>, d<sub>x²−y²</sub>"],
+    ans: 0
+  },
+  {
+    n: 36, year: "2017",
+    q: "Which one is the <em>WRONG</em> statement?",
+    options: [
+      "Uncertainty principle: ΔE × Δt ≥ h/4π",
+      "Half-filled and fully-filled orbitals are more stable (exchange energy, symmetry, balance).",
+      "Energy of 2s orbital is less than 2p in hydrogen-like atoms.",
+      "De Broglie's wavelength: λ = h/mv"
+    ],
+    ans: 2
+  },
+  {
+    n: 37, year: "2018",
+    q: "Which one is a <em>WRONG</em> statement?",
+    options: [
+      "Electronic config of N is 1s² 2s² 2p<sub>x</sub>¹ 2p<sub>y</sub>¹ 2p<sub>z</sub>¹ (Hund's rule satisfied).",
+      "An orbital needs 3 quantum numbers; an electron needs 4.",
+      "Total orbital angular momentum of electron in 's' orbital = 0.",
+      "The value of m for d<sub>z²</sub> is zero."
+    ],
+    ans: 0
+  }
+];
+
+
+// ─────────────────────────────────────────────
+//  SECTION 2 — STATE MANAGEMENT
+// ─────────────────────────────────────────────
+
+// state = { questionNumber: selectedOptionIndex | null }
+let state = {};
+
+/**
+ * Initialise (or reset) all question states to null (unanswered).
+ */
+function initState() {
+  state = {};
+  QS.forEach(q => { state[q.n] = null; });
+}
+
+
+// ─────────────────────────────────────────────
+//  SECTION 3 — STATS & PROGRESS BAR
+// ─────────────────────────────────────────────
+
+/**
+ * Recalculate attempted / correct / wrong / score
+ * and push values into the DOM stat elements.
+ */
+function updateStats() {
+  const attempted = Object.values(state).filter(v => v !== null).length;
+  const correct   = QS.filter(q => state[q.n] === q.ans).length;
+  const wrong     = attempted - correct;
+  const score     = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
+  document.getElementById('stat-attempted').textContent = attempted;
+  document.getElementById('stat-correct').textContent   = correct;
+  document.getElementById('stat-wrong').textContent     = wrong;
+  document.getElementById('stat-score').textContent     = score + '%';
+
+  // Progress bar width as % of total questions answered
+  document.getElementById('progress-bar').style.width =
+    (attempted / QS.length * 100) + '%';
+}
+
+
+// ─────────────────────────────────────────────
+//  SECTION 4 — ANSWER HANDLER
+// ─────────────────────────────────────────────
+
+/**
+ * Called when the user clicks an option button.
+ * @param {number} qn      - Question number (1-indexed)
+ * @param {number} optIdx  - Chosen option index (0-indexed)
+ */
+function handleAnswer(qn, optIdx) {
+  // Ignore clicks on already-answered questions
+  if (state[qn] !== null) return;
+
+  // Record answer
+  state[qn] = optIdx;
+
+  const card      = document.getElementById(`card-${qn}`);
+  const opts      = card.querySelectorAll('.option');
+  const q         = QS.find(x => x.n === qn);
+  const isCorrect = (optIdx === q.ans);
+
+  // Mark all options: correct one goes green, chosen-wrong goes red
+  opts.forEach((el, i) => {
+    el.classList.add('disabled');                         // lock all options
+    if (i === q.ans)                  el.classList.add('correct');
+    else if (i === optIdx && !isCorrect) el.classList.add('wrong');
+  });
+
+  // Tint the card background
+  card.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+  // Show inline feedback message
+  const fb = card.querySelector('.feedback');
+  fb.classList.add('show');
+  if (isCorrect) {
+    fb.classList.add('correct-msg');
+    fb.innerHTML = '<span class="feedback-icon">✓</span> Correct!';
+  } else {
+    fb.classList.add('wrong-msg');
+    fb.innerHTML = `<span class="feedback-icon">✗</span> Wrong. 
+      Correct answer: <strong>(${String.fromCharCode(97 + q.ans)})</strong>`;
+  }
+
+  updateStats();
+}
+
+
+// ─────────────────────────────────────────────
+//  SECTION 5 — RENDER QUESTIONS
+// ─────────────────────────────────────────────
+
+/**
+ * Dynamically build and inject all question cards into #questions-container.
+ * Called on init and on reset.
+ */
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';   // clear any previous cards
+
+  QS.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.id = `card-${q.n}`;
+    card.style.animationDelay = (idx * 0.025) + 's';   // staggered fade-in
+
+    // Build option buttons HTML
+    const optionsHTML = q.options.map((opt, i) => `
+      <div class="option" onclick="handleAnswer(${q.n}, ${i})">
+        <span class="option-key">${String.fromCharCode(97 + i)}</span>
+        <span>${opt}</span>
+      </div>
+    `).join('');
+
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="q-number">Q ${String(q.n).padStart(2, '0')}</span>
+        <span class="q-year">${q.year}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optionsHTML}</div>
+      <div class="feedback"></div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+
+// ─────────────────────────────────────────────
+//  SECTION 6 — RESULTS MODAL
+// ─────────────────────────────────────────────
+
+/**
+ * Calculate final score and display the results modal.
+ */
+function showResults() {
+  const attempted = Object.values(state).filter(v => v !== null).length;
+  const correct   = QS.filter(q => state[q.n] === q.ans).length;
+  const score     = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+
+  document.getElementById('modal-score').textContent = score + '%';
+
+  // Motivational message based on score
+  document.getElementById('modal-title').textContent =
+    score >= 80 ? '🏆 Excellent Work!'    :
+    score >= 60 ? '👍 Good Effort!'       :
+    score >= 40 ? '📚 Keep Practicing!'   : '💪 Keep Going!';
+
+  document.getElementById('modal-sub').textContent =
+    `You answered ${attempted} of ${QS.length} questions. ` +
+    `${correct} correct, ${attempted - correct} wrong.`;
+
+  document.getElementById('modal').classList.add('show');
+}
+
+/** Close the results modal. */
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+
+// ─────────────────────────────────────────────
+//  SECTION 7 — RESET
+// ─────────────────────────────────────────────
+
+/**
+ * Wipe all answers, re-render questions, and reset stats + progress bar.
+ */
+function resetAll() {
+  initState();
+  updateStats();
+  renderQuestions();
+  document.getElementById('progress-bar').style.width = '0%';
+}
+
+
+// ─────────────────────────────────────────────
+//  SECTION 8 — INITIALISE ON PAGE LOAD
+// ─────────────────────────────────────────────
+initState();
+renderQuestions();
+updateStats();
