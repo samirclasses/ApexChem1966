@@ -292,25 +292,42 @@ form.appendChild(div);
 
 function submitQuiz(){
 let score = 0;
+let answerKeyHTML = "<h3>Answer Key</h3><ol>";
 
 questions.forEach((item, index) => {
 let selected = document.querySelector(`input[name=q${index}]:checked`);
 let div = document.getElementById("q"+index);
 
+// Skip unanswered key questions
 if(!item.answer) return;
 
-if(selected && selected.value === item.answer){
-div.classList.add("correct");
-score += 4;
-}else{
-div.classList.add("wrong");
+// Highlight correct option always
+let options = div.querySelectorAll("input");
+options.forEach(opt => {
+if(opt.value === item.answer){
+opt.parentElement.style.backgroundColor = "#c8f7c5"; // green
 }
 });
 
-document.getElementById("result").innerText =
-"Your Score: " + score + " / 180";
+// Check selected answer
+if(selected){
+if(selected.value === item.answer){
+score += 4;
+} else {
+selected.parentElement.style.backgroundColor = "#f7c5c5"; // red
+}
 }
 
+// Add to answer key
+answerKeyHTML += `<li>Q${index+1}: ${item.answer.toUpperCase()}</li>`;
+
+});
+
+answerKeyHTML += "</ol>";
+
+document.getElementById("result").innerHTML =
+`Your Score: ${score} / 180 <br><br> ${answerKeyHTML}`;
+}
 </script>
 
 </body>
