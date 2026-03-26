@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemistry MCQ Test</title>
+<style>
+body { font-family: Arial; margin: 20px; }
+.question { margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; }
+.correct { background-color: #c8f7c5; }
+.wrong { background-color: #f7c5c5; }
+#result { font-size: 20px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<h2>Chemistry MCQ Test (45 Questions)</h2>
+<p>Each question carries 4 marks</p>
+<form id="quizForm"></form>
+<button onclick="submitQuiz()">Submit</button>
+<div id="result"></div>
+
+<script>
+const questions = [
+// 45 placeholders
+{q:"Question 1", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 2", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 3", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 4", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 5", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 6", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 7", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 8", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 9", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 10", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 11", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 12", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 13", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 14", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 15", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 16", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 17", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 18", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 19", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 20", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 21", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 22", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 23", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 24", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 25", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 26", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 27", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 28", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 29", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 30", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 31", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 32", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 33", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 34", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 35", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 36", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 37", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 38", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 39", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 40", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 41", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 42", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 43", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 44", options:["Option A","Option B","Option C","Option D"], answer:""},
+{q:"Question 45", options:["Option A","Option B","Option C","Option D"], answer:""}
+];
+
+const form = document.getElementById("quizForm");
+questions.forEach((item, index) => {
+let div = document.createElement("div");
+div.className = "question";
+div.id = "q"+index;
+
+let html = `<p>${index+1}. ${item.q}</p>`;
+item.options.forEach((opt, i) => {
+let val = ["a","b","c","d"][i];
+html += `<label><input type="radio" name="q${index}" value="${val}"> ${opt}</label><br>`;
+});
+
+div.innerHTML = html;
+form.appendChild(div);
+});
+
+function submitQuiz(){
+let score = 0;
+questions.forEach((item, index) => {
+let selected = document.querySelector(`input[name=q${index}]:checked`);
+let div = document.getElementById("q"+index);
+
+if(!item.answer) return;
+
+if(selected && selected.value === item.answer){
+div.classList.add("correct");
+score += 4;
+}else{
+div.classList.add("wrong");
+}
+});
+
+document.getElementById("result").innerText = "Your Score: " + score + " / 180";
+}
+</script>
+</body>
+</html>
