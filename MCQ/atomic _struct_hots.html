@@ -8,25 +8,28 @@
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 
   :root {
-    --bg: #0a0a0a;
-    --surface: #111111;
-    --border: #2a2a2a;
-    --border-light: #1e1e1e;
-    --text: #e8e8e8;
-    --text-dim: #888888;
-    --text-muted: #555555;
-    --accent: #ffffff;
-    --tag-bg: #1a1a1a;
-    --correct: #4ade80;
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
-  }
+  --bg: #ffffff;
+  --surface: #f9f9f9;
+  --border: #cccccc;
+  --border-light: #e5e5e5;
+  --text: #000000;
+  --text-dim: #555555;
+  --text-muted: #888888;
+  --accent: #000000;
+  --tag-bg: #eeeeee;
+}
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: white;
-    color: black;
+     body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
     font-family: var(--sans);
     font-size: 14px;
     line-height: 1.7;
