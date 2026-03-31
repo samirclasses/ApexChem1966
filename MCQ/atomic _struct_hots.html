@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atomic Structure — Question Bank</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: #2a2a2a;
+    --border-light: #1e1e1e;
+    --text: #e8e8e8;
+    --text-dim: #888888;
+    --text-muted: #555555;
+    --accent: #ffffff;
+    --tag-bg: #1a1a1a;
+    --correct: #4ade80;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 40px 48px 32px;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  header h1 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+  }
+
+  header .subtitle {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .stat-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    background: var(--bg);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+
+  .tab-btn:hover { color: var(--text-dim); }
+  .tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 48px 80px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .section-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .section-title {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .section-count {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  /* ── QUESTION CARD ── */
+  .question-card {
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+    margin-bottom: 24px;
+    background: var(--surface);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .question-card:hover { border-color: var(--border); }
+
+  .question-card.answered { border-color: #2a3a2a; }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-light);
+    background: var(--bg);
+  }
+
+  .q-number {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    padding: 3px 9px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .q-text {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.75;
+    flex: 1;
+  }
+
+  .q-text sup { font-size: 10px; vertical-align: super; }
+  .q-text sub { font-size: 10px; vertical-align: sub; }
+
+  /* ── OPTIONS ── */
+  .options-grid {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-light);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    background: var(--bg);
+  }
+
+  .option:hover {
+    background: #161616;
+    border-color: var(--border);
+  }
+
+  .option.selected {
+    background: #161e16;
+    border-color: #2d4a2d;
+  }
+
+  .option.correct-reveal {
+    background: #0d1f0d;
+    border-color: #3a7a3a;
+  }
+
+  .option.wrong-reveal {
+    background: #1f0d0d;
+    border-color: #7a3a3a;
+  }
+
+  .opt-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    min-width: 18px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .option.selected .opt-label { color: #4ade80; }
+  .option.correct-reveal .opt-label { color: #4ade80; }
+  .option.wrong-reveal .opt-label { color: #f87171; }
+
+  .opt-text {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* ── ACTIONS ── */
+  .q-actions {
+    display: flex;
+    gap: 12px;
+    padding: 0 24px 20px;
+    align-items: center;
+  }
+
+  .btn-show-answer {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 6px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-show-answer:hover {
+    border-color: var(--text-dim);
+    color: var(--text);
+  }
+
+  .answer-badge {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #4ade80;
+    display: none;
+    align-items: center;
+    gap: 6px;
+  }
+  .answer-badge.visible { display: flex; }
+  .answer-badge::before {
+    content: '✓';
+    font-size: 11px;
+  }
+
+  /* ── ANSWER KEY SECTION ── */
+  .answer-key-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .ak-item {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ak-num { color: var(--text-muted); }
+  .ak-ans { color: var(--accent); font-weight: 600; }
+
+  /* ── PASSAGE BOX ── */
+  .passage-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--text-muted);
+    border-radius: 2px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    font-family: var(--sans);
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.75;
+  }
+
+  .passage-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  /* ── INTEGER TYPE ── */
+  .integer-input-wrap {
+    padding: 0 24px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .integer-input {
+    font-family: var(--mono);
+    font-size: 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 2px;
+    width: 120px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .integer-input:focus { border-color: var(--text-dim); }
+
+  /* ── ASSERTION TYPE ── */
+  .assertion-box {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .assertion-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--border);
+    z-index: 200;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  /* ── SECTION PANEL ── */
+  .section-panel { display: none; }
+  .section-panel.active { display: block; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: 32px 0;
+  }
+
+  /* ── ORBITAL DIAGRAM ── */
+  .orbital-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+    margin: 6px 0;
+  }
+  .orbital-box {
+    width: 32px;
+    height: 24px;
+    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--bg);
+  }
+  .orbital-label {
+    color: var(--text-muted);
+    font-size: 10px;
+    margin-top: 2px;
+    text-align: center;
+  }
+  .orbital-group { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    header { padding: 24px 20px 20px; flex-direction: column; align-items: flex-start; }
+    .nav-tabs { padding: 0 20px; }
+    main { padding: 28px 20px 60px; }
+    .q-header { padding: 16px 16px; }
+    .options-grid { padding: 14px 16px; }
+    .q-actions { padding: 0 16px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Atomic Structure</h1>
+    <div class="subtitle">Question Bank &nbsp;·&nbsp; IIT-JEE / NEET Level</div>
+  </div>
+  <div class="header-meta">
+    <div class="stat-pill" id="total-stat">Loading…</div>
+    <div class="stat-pill" id="answered-stat">0 Answered</div>
+  </div>
+</header>
+
+<div class="nav-tabs" id="nav-tabs">
+  <button class="tab-btn active" data-section="scq">Single Correct</button>
+  <button class="tab-btn" data-section="mcq">Multi Correct</button>
+  <button class="tab-btn" data-section="comp">Comprehension</button>
+  <button class="tab-btn" data-section="ar">Assertion–Reason</button>
+  <button class="tab-btn" data-section="int">Integer Type</button>
+  <button class="tab-btn" data-section="mat">Matrix Match</button>
+  <button class="tab-btn" data-section="ans">Answer Key</button>
+</div>
+
+<main>
+
+<!-- ════════════════════════════════════════════════════
+     SINGLE CORRECT CHOICE
+════════════════════════════════════════════════════ -->
+<div class="section-panel active" id="panel-scq">
+  <div class="section-header">
+    <span class="section-badge">SCQ</span>
+    <span class="section-title">Single Correct Choice Type</span>
+    <span class="section-count">33 Questions</span>
+  </div>
+  <div id="scq-container"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     MULTIPLE CORRECT CHOICE
+════════════════════════════════════════════════════ -->
+<div class="section-panel" id="panel-mcq">
+  <div class="section-header">
+    <span class="section-badge">MCQ</span>
+    <span class="section-title">Multiple Correct Choice Type</span>
+    <span class="section-count">17 Questions</span>
+  </div>
+  <div id="mcq-container"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     COMPREHENSION TYPE
+════════════════════════════════════════════════════ -->
+<div class="section-panel" id="panel-comp">
+  <div class="section-header">
+    <span class="section-badge">COMP</span>
+    <span class="section-title">Comprehension / Passage Type</span>
+    <span class="section-count">18 Questions</span>
+  </div>
+  <div id="comp-container"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     ASSERTION – REASONING
+════════════════════════════════════════════════════ -->
+<div class="section-panel" id="panel-ar">
+  <div class="section-header">
+    <span class="section-badge">A–R</span>
+    <span class="section-title">Assertion – Reasoning Type</span>
+    <span class="section-count">9 Questions</span>
+  </div>
+  <div id="ar-container"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     INTEGER TYPE
+════════════════════════════════════════════════════ -->
+<div class="section-panel" id="panel-int">
+  <div class="section-header">
+    <span class="section-badge">INT</span>
+    <span class="section-title">Integer Answer Type</span>
+    <span class="section-count">31 Questions</span>
+  </div>
+  <div id="int-container"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     MATRIX MATCH
+════════════════════════════════════════════════════ -->
+<div class="section-panel" id="panel-mat">
+  <div class="section-header">
+    <span class="section-badge">MAT</span>
+    <span class="section-title">Matrix Match Type</span>
+    <span class="section-count">4 Matches</span>
+  </div>
+  <div id="mat-container"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     ANSWER KEY
+════════════════════════════════════════════════════ -->
+<div class="section-panel" id="panel-ans">
+  <div class="section-header">
+    <span class="section-badge">KEY</span>
+    <span class="section-title">Complete Answer Key</span>
+  </div>
+  <div id="ans-container"></div>
+</div>
+
+</main>
+
+<div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════
+
+const SCQ = [
+  {
+    q: "The electrons, identified by quantum number <i>n</i> and <i>l</i>:<br>(I) n=3; l=0 &nbsp;&nbsp;&nbsp; (II) n=5; l=2 &nbsp;&nbsp;&nbsp; (III) n=2; l=1 &nbsp;&nbsp;&nbsp; (IV) n=4; l=3<br>can be placed in order of increasing energy from the lowest to highest as:",
+    opts: ["III &lt; I &lt; IV &lt; II","I &lt; III &lt; IV &lt; II","II &lt; III &lt; IV &lt; I","II &lt; IV &lt; I &lt; III"],
+    ans: "A"
+  },
+  {
+    q: "An electron has a spin quantum number +1/2 and magnetic quantum number −1. It cannot be present in:",
+    opts: ["d-orbital","f-orbital","p-orbital","s-orbital"],
+    ans: "D"
+  },
+  {
+    q: "Consider the following electronic configuration of 2s: ↑↓ | 2p<sub>x</sub>: ↑↓ | 2p<sub>y</sub>: ↑ | 2p<sub>z</sub>: ↓<br>If one electron is added into the given electronic arrangement, then the upcoming electron will have:",
+    opts: ["Similar spin with that of electron of 2p<sub>z</sub>.","Similar value of magnetic quantum number with that of 2p<sub>x</sub>.","Similar value of (n + l) with that of 2s orbital.","Accommodation in either 2p<sub>x</sub>, 2p<sub>y</sub> or 2p<sub>z</sub> orbital."],
+    ans: "D"
+  },
+  {
+    q: "Given that Z<sub>eff</sub> value of an element N (Z = 7) is Y. Then which of the following statements is correct?",
+    opts: ["σ value for N will be 7 + Y.","σ value for oxygen will be 7.35 − Y.","σ value for oxygen will be 7 − Y.","Given information is not sufficient."],
+    ans: "B"
+  },
+  {
+    q: "The orbital diagram in which the Aufbau principle is violated — choose the correct option (option B shows 2s: ↑ | 2p: ↑↓ | ↑ | ↑):",
+    opts: ["2s: ↑↓ | 2p: ↑↓ | ↑ | (empty) — Hund's rule violated","2s: ↑ | 2p: ↑↓ | ↑ | ↑ — Aufbau violated","2s: ↑↓ | 2p: ↑ | ↑ | ↑ — Correct Hund's","2s: ↑↓ | 2p: ↑↓ | ↑ | ↑ — Correct"],
+    ans: "B"
+  },
+  {
+    q: "For which of the following orbitals, the electron finding probability is zero, if we move along the z-axis?<br>(I) p<sub>x</sub> &nbsp; (II) p<sub>y</sub> &nbsp; (III) d<sub>z²</sub> &nbsp; (IV) d<sub>x²−y²</sub>",
+    opts: ["I and II","III","I, II and IV","I, II and III"],
+    ans: "C"
+  },
+  {
+    q: "The degeneracy of H-atom in a shell is 9. The value of principal quantum number (n) for the shell is",
+    opts: ["3","9","1","None of these"],
+    ans: "A"
+  },
+  {
+    q: "Process I: X(g) →<sup>+3e−</sup> X<sup>3−</sup>(g)<br>Process II: X(g) →<sup>−3e−</sup> X<sup>3+</sup>(g)<br>Which of the following is not changed during both the processes?",
+    opts: ["Total number of protons","Number of neutrons","Both (A) and (B)","Total number of electrons"],
+    ans: "C"
+  },
+  {
+    q: "Find the maximum number of electrons that can be filled in P shell.",
+    opts: ["6","2","72","50"],
+    ans: "C"
+  },
+  {
+    q: "In a hypothetical atom, the number of electrons in shell and subshell are x and y, respectively, where each electron has three possible spin states represented as s = +1/2, −1/2 and 0. Then the value of x + y is",
+    opts: ["2n² + 4l + 2","3n² + 3l + 1","3n² + 6l + 3","6n² + 3l + 3"],
+    ans: "C"
+  },
+  {
+    q: "The correct order of spin multiplicity of various ions of manganese including its neutral state is",
+    opts: ["Mn<sup>7+</sup> > Mn<sup>6+</sup> > Mn<sup>4+</sup> > Mn<sup>2+</sup> > Mn","Mn > Mn<sup>2+</sup> > Mn<sup>4+</sup> > Mn<sup>6+</sup> > Mn<sup>7+</sup>","Mn<sup>7+</sup> &lt; Mn<sup>6+</sup> &lt; Mn<sup>4+</sup> &lt; Mn<sup>2+</sup> = Mn","All have equal spin multiplicity"],
+    ans: "C"
+  },
+  {
+    q: "Match the electronic configuration with the rule that it is violating.<br>Codes — P: 1, Q: 2, R: 3, S: 4 (A); P: 3, Q: 4, R: 2, S: 1 (B); P: 2, Q: 4, R: 1, S: 3 (C); P: 2, Q: 1, R: 4, S: 3 (D)",
+    opts: ["P→1, Q→2, R→3, S→4","P→3, Q→4, R→2, S→1","P→2, Q→4, R→1, S→3","P→2, Q→1, R→4, S→3"],
+    ans: "C"
+  },
+  {
+    q: "In which block will copper be placed if the Aufbau principle is not followed and the filling of electron takes place in the following sequence: 1s, 2s, 2p, 3s, 3p, 3d, 4s, 4p, 4d, 4f …?",
+    opts: ["s","p","d","f"],
+    ans: "A"
+  },
+  {
+    q: "Which of the following is correct about Z<sub>eff</sub> for an element?",
+    opts: ["Z<sub>eff</sub> is same for (ns, np) electron.","Z<sub>eff</sub> is same for (nd, nf) electron.","σ is not same for (ns, np) electron.","σ is same for (nd, nf) electron."],
+    ans: "A"
+  },
+  {
+    q: "The number of possible orientations of d orbitals in space is",
+    opts: ["2","3","4","5"],
+    ans: "D"
+  },
+  {
+    q: "Spin only magnetic moment of dipositive ion of Mn is:",
+    opts: ["0","√8 BM","√24 BM","√35 BM"],
+    ans: "D"
+  },
+  {
+    q: "The zero probability of finding the electron in d<sub>x²−y²</sub> orbital is",
+    opts: ["on two opposite sides of nucleus along x-axis.","in the nucleus.","same on all the sides around the nucleus.","None of these"],
+    ans: "D"
+  },
+  {
+    q: "If Z<sub>eff</sub> of F (Z=9) is X and Z<sub>eff</sub> of Li (Z=3) is Y then find the value of |X − Y|",
+    opts: ["4.90","3.90","2.90","1.90"],
+    ans: "B"
+  },
+  {
+    q: "Which electronic configuration does not follow the Aufbau rule?",
+    opts: ["1s², 2s², 2p⁶","1s², 2s², 2p⁴, 3s²","1s²","1s², 2s², 2p⁶, 3s³"],
+    ans: "B"
+  },
+  {
+    q: "Which of the following may have same set of quantum numbers?",
+    opts: ["Last electron of Sc and last electron of Fe.","Unpaired electron of C and entered electron in C⁻.","Last electron of Sc and last electron of Y.","Unpaired electron in 2p orbital of N and unpaired electron in 2p orbital of B."],
+    ans: "D"
+  },
+  {
+    q: "Which out of Co(II) salts and Cd(II) salts, is attracted or repelled by the magnetic field?",
+    opts: ["Co(II) salts are attracted and Cd(II) salts are repelled.","Co(II) salts are repelled and Cd(II) salts are attracted.","Co(II) salts are attracted, while Cd(II) salts are not affected by the magnetic field.","Both Co(II) and Cd(II) salts are repelled."],
+    ans: "A"
+  },
+  {
+    q: "An electron present in which of the following orbitals has the minimum value for (n + l + m + s)? Consider the minimum possible value for m and s (where ever applicable).",
+    opts: ["3p","5p","4d","5s"],
+    ans: "A"
+  },
+  {
+    q: "Choose the correct statement among the following:",
+    opts: ["Number of orbitals in n<sup>th</sup> shell is n².","Number of orbitals in a subshell is (2l − 1).","Number of subshells in n<sup>th</sup> shell is (n − 1).","Number of electrons in an orbital of a subshell is 2(2l + 1)."],
+    ans: "A"
+  },
+  {
+    q: "In boron atom shielding of the last electron is due to",
+    opts: ["electrons of K shell only.","all the electrons of K and L shells.","two electrons of 1s and 2s each.","all the electrons of L shell only."],
+    ans: "C"
+  },
+  {
+    q: "Which of the following statements is correct?",
+    opts: ["Total number of electrons in a subshell is 2l + 1.","p<sub>z</sub>, d<sub>x²−y²</sub> and d<sub>z²</sub> orbitals are non-axial.","Only s orbital has directional orientation while p<sub>z</sub>, d and f orbitals have non-directional properties.","Spin multiplicity of nitrogen atom is 4."],
+    ans: "D"
+  },
+  {
+    q: "Imagine a Universe in which the four quantum numbers can have the same possible value as in our Universe except that the magnetic quantum number (m) can have integral values from 0 to ±(l + 1). Find the electronic configuration of atomic number 20.",
+    opts: ["1s⁶ 2s⁶ 2p⁸","1s² 2s² 2p⁶ 3s² 3p⁶ 4s²","1s⁴ 2s⁴ 2p⁶ 3s⁴ 3p²","1s² 1p⁶ 2s² 1d¹⁰"],
+    ans: "A"
+  },
+  {
+    q: "The subshells which are filled just before and just after the filling of 5p subshell are respectively:",
+    opts: ["5s, 5d","4d, 6s","4d, 4f","6s, 4f"],
+    ans: "B"
+  },
+  {
+    q: "Which of following species has the magnetic moment value of 3.87 BM?",
+    opts: ["Fe³⁺","Cr²⁺","Co²⁺","Au³⁺"],
+    ans: "C"
+  },
+  {
+    q: "Give the correct order of initials True (T) or False (F) for following statements:<br>(I) Number of electrons having l = 0 is 10 in Pd.<br>(II) The value of Z<sub>eff</sub> for 3d electron of Cr and 3d electron of Mn is same as number of electron in d sub shell of Cr and Mn are the same.<br>(III) Multiplicity of Fe is equal to that of Ni²⁺.<br>(IV) Value of l/n for last electron of element having atomic number 57 is 0.4.",
+    opts: ["T T T T","F T T T","T F T F","F F F T"],
+    ans: "D"
+  },
+  {
+    q: "According to Slater rule, the set of elements that show incorrect order of Z<sub>eff</sub> are:",
+    opts: ["Al > Mg","Na > Li","K > Na","None of these"],
+    ans: "C"
+  },
+  {
+    q: "The magnetic moment and nature for isolated gaseous ion Au³⁺ is",
+    opts: ["zero and diamagnetic.","2.82 BM and diamagnetic.","2.82 BM and paramagnetic.","None of these."],
+    ans: "C"
+  },
+  {
+    q: "The correct set of quantum numbers for the last electron of Na⁺ is",
+    opts: ["3, 0, 0, −1/2","3, 1, 0, +1/2","3, 1, 1, +1/2","2, 1, 0, −1/2"],
+    ans: "D"
+  },
+  {
+    q: "Select the correct statement for Ne.",
+    opts: ["It is not isoelectronic with H₂O.","Its last electron enters in S orbital.","The value of m must be zero for the last electron.","The value of l must be 1 for the last electron."],
+    ans: "D"
+  }
+];
+
+const MCQ = [
+  {
+    q: "Hund's rule is violated in which of the following electronic configurations? (d-orbitals: d<sub>xy</sub>, d<sub>yz</sub>, d<sub>xz</sub>, d<sub>x²−y²</sub>, d<sub>z²</sub>)",
+    opts: [
+      "A: ↑|↑|↑| |↑ — 4 electrons spread (ok)",
+      "B: ↑|↑| | |↓ — spin pairing without filling (violated)",
+      "C: ↑↓|↑|↑| | — pairing before filling all (violated)",
+      "D: ↑|↑|↑|↑↓|↑ — pairing in d<sub>x²−y²</sub> before filling d<sub>z²</sub> (violated)"
+    ],
+    ans: "B, C"
+  },
+  {
+    q: "Which of the following set(s) consist of only isoelectronic species?",
+    opts: [
+      "N³⁻, O³⁻, Ne, Na⁺",
+      "NO₃⁻, SiO₄⁴⁻, CO₃²⁻",
+      "Hg²⁺, Pb⁴⁺",
+      "H, He⁺, Li²⁺, Be³⁺"
+    ],
+    ans: "A, C, D"
+  },
+  {
+    q: "If two subshells have equal value of (n + l) and one of them has n = 4, l = 3, while second subshell has dumbbell shape. Then which of the following statement is/are correct?",
+    opts: [
+      "Second subshell has value of n = 6.",
+      "Second subshell has one nodal plane.",
+      "Second subshell is d-subshell.",
+      "First subshell is f-subshell."
+    ],
+    ans: "A, B, D"
+  },
+  {
+    q: "Select the correct statement(s) among the following.",
+    opts: [
+      "The maximum value of principal quantum number is 7.",
+      "For n = 2, there may be four subshells and these may contain a maximum of 8 electrons.",
+      "M shell can accommodate a maximum of 18 electrons.",
+      "The energy of 5p-orbitals is more than that of 4d-orbitals."
+    ],
+    ans: "C, D"
+  },
+  {
+    q: "Which of the following statements are not true for d<sub>xy</sub> orbital?",
+    opts: [
+      "It is double dumbbell shaped.",
+      "The lobes lie in between x- and z-axes.",
+      "P<sub>z</sub> orbital is perpendicular to d<sub>xy</sub> orbital.",
+      "The lobes of P<sub>x</sub> orbital are collinear with those of d<sub>xy</sub> orbital."
+    ],
+    ans: "B, D"
+  },
+  {
+    q: "Which are the orbitals represented in Figure 1.7? (4-lobed orbital lying in the xz plane, labelled d<sub>xz</sub>)",
+    opts: [
+      "d<sub>xy</sub>",
+      "d<sub>x²−y²</sub>",
+      "d<sub>xz</sub>",
+      "d<sub>yz</sub>"
+    ],
+    ans: "A, C, D"
+  },
+  {
+    q: "Which of the following orbitals are represented by n = 4 and l = 1?",
+    opts: [
+      "4p<sub>y</sub>",
+      "4p<sub>x</sub>",
+      "4d<sub>xy</sub>",
+      "4d<sub>x²−y²</sub>"
+    ],
+    ans: "A, B"
+  },
+  {
+    q: "Which of the following electronic configurations are incorrect for a d⁶ system for an isolated gaseous ion?",
+    opts: [
+      "A: ↑|↑|↑↓|↑|↑",
+      "B: ↑↓|↑|↑|↑|↑",
+      "C: ↑↓|↑↓|↑|↑| ",
+      "D: ↑↓|↑↓|↑↓| | "
+    ],
+    ans: "C, D"
+  },
+  {
+    q: "Using the Slater's rule, choose the correct statements among the following.",
+    opts: [
+      "Value of σ (shielding constant) for d-electrons of penultimate shell of Sc, Y, La are equal.",
+      "Z<sub>eff</sub> for d-electrons of penultimate shell of Sc, Y, La are equal.",
+      "Value of σ increases by a factor of 0.3 in the first period from left to right.",
+      "Value of Z<sub>eff</sub> increases by a factor of 0.35 in the second period from left to right."
+    ],
+    ans: "B, C"
+  },
+  {
+    q: "Which of the following quantum numbers may be the same for an electron present in 3p and 5p orbitals?",
+    opts: [
+      "Principal quantum number",
+      "Azimuthal quantum number",
+      "Magnetic quantum number",
+      "Spin quantum number"
+    ],
+    ans: "B, C, D"
+  },
+  {
+    q: "Choose the correct options from the following:",
+    opts: [
+      "Cr and S have the same number of valence shell electrons.",
+      "Cr and S have different number of unpaired electrons in their ground state.",
+      "Cr and S are the elements of the same period.",
+      "In the long form of the periodic table, the Group number of Cr and S is 6 and 16, respectively."
+    ],
+    ans: "A, B, D"
+  },
+  {
+    q: "Which of the following set of quantum numbers are valid for electrons of ground state electronic configuration of elements having atomic number up to 25?<br>(A) n=3, l=2, m=0, s=+1/2 &nbsp; (B) n=4, l=0, m=0, s=+1/2 &nbsp; (C) n=4, l=1, m=0, s=−1/2 &nbsp; (D) n=2, l=2, m=+1, s=+1/2",
+    opts: ["n=3, l=2, m=0, s=+½","n=4, l=0, m=0, s=+½","n=4, l=1, m=0, s=−½","n=2, l=2, m=+1, s=+½"],
+    ans: "A, B"
+  },
+  {
+    q: "Select the incorrect statements among the following.",
+    opts: [
+      "In d<sub>x²−y²</sub> orbital, two nodal planes are present in xz- and yz-plane.",
+      "d<sub>xy</sub> and d<sub>x²−y²</sub> have one common nodal plane.",
+      "One 4d orbital contains only two electrons of the same spin.",
+      "One 3d orbital contains a total of 10 electrons."
+    ],
+    ans: "A, B, C, D"
+  },
+  {
+    q: "Which of the following can be a stable ground state electronic configuration (only valence shell) of carbon atom?",
+    opts: [
+      "2s²: ↑↓ | 2p²: ↓ | ↓ | (empty)",
+      "2s²: ↑↓ | 2p²: ↑ | (empty) | ↓",
+      "2s²: ↑↓ | 2p²: (empty) | ↑ | ↑",
+      "2s²: ↑↓ | 2p²: (empty) | ↓ | ↓"
+    ],
+    ans: "A, C, D"
+  },
+  {
+    q: "Which of the following species is isoelectronic with Ne?",
+    opts: [
+      "H₂O",
+      "C⁴⁻",
+      "Na⁻",
+      "NH₂⁻"
+    ],
+    ans: "A, B, D"
+  },
+  {
+    q: "Choose the correct option regarding energy of empty orbitals.<br>(I) n=4, l=0, m=0, s=+½ &nbsp; (II) n=3, l=2, m=0, s=−½ &nbsp; (III) n=3, l=1, m=1, s=+½ &nbsp; (IV) n=3, l=0, m=0, s=−½",
+    opts: [
+      "I > IV",
+      "II > I",
+      "II > III",
+      "I = III"
+    ],
+    ans: "A, B, C"
+  },
+  {
+    q: "Which of the following may represent the possible quantum numbers for the last electron of Ga?<br>(A) 3, 1, +1, +½ &nbsp; (B) 4, 0, +1, +½ &nbsp; (C) 4, 1, 0, −½ &nbsp; (D) 4, 1, +1, +½",
+    opts: [
+      "n=3, l=1, m=+1, s=+½",
+      "n=4, l=0, m=+1, s=+½",
+      "n=4, l=1, m=0, s=−½",
+      "n=4, l=1, m=+1, s=+½"
+    ],
+    ans: "C, D"
+  }
+];
+
+const COMP = [
+  {
+    passage: "Passage 1 (Q1–2): Nodal plane of an orbital is the region around the nucleus where probability of finding electrons of that orbital is zero. Number of nodal planes of an orbital = l.",
+    questions: [
+      {
+        q: "Nodal plane of s-orbital is",
+        opts: ["xy-plane","yz-plane","xz-plane","None of these"],
+        ans: "D"
+      },
+      {
+        q: "Which of the following contains at least one common nodal plane?",
+        opts: ["p<sub>x</sub> and d<sub>xz</sub>","d<sub>xy</sub> and d<sub>x²−y²</sub>","d<sub>x²−y²</sub> and d<sub>z²</sub>","p<sub>z</sub> and d<sub>z²</sub>"],
+        ans: "A"
+      }
+    ]
+  },
+  {
+    passage: "Passage 2 (Q3–4): In a hypothetical system, all the known concepts of shell, subshell, orbitals, etc., exist in the same way as in our system except that the (n+1) rule is modified to (n−1) rule for deciding the subshell energy. In case of equal value of (n−1), the higher value of n gives the higher energy.",
+    questions: [
+      {
+        q: "In this hypothetical system S (Z = 16) will be a",
+        opts: ["p-block element","s-block element","d-block element","f-block element"],
+        ans: "C"
+      },
+      {
+        q: "For n ≤ 3, the subshell having maximum energy for the above hypothetical system will be",
+        opts: ["2s","3d","3p","3s"],
+        ans: "D"
+      }
+    ]
+  },
+  {
+    passage: "Passage 3 (Q5–6): The effective nuclear charge (Z<sub>eff</sub>) takes into account the interelectronic repulsion in multielectron atoms. Slater's rule helps us in evaluating Z<sub>eff</sub> for various species.",
+    questions: [
+      {
+        q: "Z<sub>eff</sub> for 3d electron of Zn = x; Z<sub>eff</sub> for 3d electron of Zn²⁺ = y; Z<sub>eff</sub> for 4s electron of Zn = z. Choose the correct option(s)",
+        opts: ["x > z","y > z","x = y","All of these"],
+        ans: "D"
+      },
+      {
+        q: "Z<sub>eff</sub> for valence electron of Ga = a; Z<sub>eff</sub> for valence electron of Al = b; Z<sub>eff</sub> for valence electron of Ca = c. Choose the correct option(s)",
+        opts: ["a > c","a > b","b > c","Both (A) and (B)"],
+        ans: "D"
+      }
+    ]
+  },
+  {
+    passage: "Passage 4 (Q7–9): Consider a hypothetical atom where p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub> and d<sub>xy</sub>, d<sub>xz</sub>, d<sub>yz</sub>, d<sub>x²−y²</sub> orbitals are present for principal quantum number n = 3.",
+    questions: [
+      {
+        q: "In the nodal plane of p<sub>x</sub> orbital, the number of other orbital lobes that are fully present is",
+        opts: ["2","3","4","5"],
+        ans: "A"
+      },
+      {
+        q: "In the nodal plane of p<sub>z</sub> orbital, the number of other orbital lobes that are fully present is",
+        opts: ["2","3","4","5"],
+        ans: "C"
+      },
+      {
+        q: "(Q9 — part of this passage)",
+        opts: ["2","3","4","5"],
+        ans: "A"
+      }
+    ]
+  },
+  {
+    passage: "Passage 5 (Q10–12): The general electronic configuration of outer most and penultimate shell is given as (n−1)s²(n−1)p⁶(n−1)d^x ns². Then for an element with n = 4 and x = 7.",
+    questions: [
+      {
+        q: "The number of protons present in the divalent cation of the element of above configuration is",
+        opts: ["25","26","27","28"],
+        ans: "C"
+      },
+      {
+        q: "The element is isoelectronic with which of the following species?",
+        opts: ["Fe⁻","Ni⁺","Cu²⁺","All of these."],
+        ans: "D"
+      },
+      {
+        q: "The number of unpaired electrons in the divalent cation of the element in isolated gaseous state is",
+        opts: ["0","3","4","1"],
+        ans: "B"
+      }
+    ]
+  },
+  {
+    passage: "Passage 6 (Q13–15): Three quantum numbers are required to define an orbital while four quantum numbers are required to describe an electron.",
+    questions: [
+      {
+        q: "Which of the following statement is correct?",
+        opts: [
+          "The quantum numbers of the electron in H atom are exactly identical with that of one electron of He atom.",
+          "The maxima of the radial distribution of s orbital decreases as the principal quantum number increases.",
+          "According to Pauli's exclusion principle, the lower energetic orbital will be filled first.",
+          "The N atom has the electronic configuration of 1s² 2s² 2p³ which is represented as ↑↓|↑↓|↑↓|↑|"
+        ],
+        ans: "A"
+      },
+      {
+        q: "(n + l) is maximum and minimum for which of the following orbitals: 6s, 5p, 6d, 4d, 2p, 3s, 2s?",
+        opts: ["6f and 1s","6d and 2s","5p and 3s","6s and 2p"],
+        ans: "B"
+      },
+      {
+        q: "Which of the following statements is correct for H atom?",
+        opts: [
+          "H atom can be placed both in Group 1 and Group 18.",
+          "H atom can be placed both in Group 1 and Group 17.",
+          "H atom produces smallest anion in reality.",
+          "2s, 2p, 3s orbitals are not available in H atom."
+        ],
+        ans: "B"
+      }
+    ]
+  },
+  {
+    passage: "Passage 7 (Q16–18): The electronic configuration of an element is written as follows: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁸ 4s²",
+    questions: [
+      {
+        q: "On removal of one electron, the electronic configuration will become",
+        opts: [
+          "1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁷ 4s²",
+          "1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁸ 4s¹",
+          "1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁹ 4s",
+          "None of these."
+        ],
+        ans: "B"
+      },
+      {
+        q: "The screening constant value for an electron in 3s is identical with that of an electron present in",
+        opts: ["3p orbital.","3d orbital.","4s orbital.","4p orbital."],
+        ans: "A"
+      },
+      {
+        q: "Which of the following statements is incorrect?",
+        opts: [
+          "In calculation of σ value for an electron in 4s orbital, the contribution of 1s electron is 0.3.",
+          "In calculation of σ value for of an electron in 3d orbital, the contribution of 4s electron is zero.",
+          "In calculation of σ value for an electron in 3d orbital, the contribution of electron present in 3p orbital is 1.0.",
+          "In calculation of σ value for an electron in 4s orbital, the contribution of electron present in 3p orbital is 0.85."
+        ],
+        ans: "A"
+      }
+    ]
+  }
+];
+
+const AR = [
+  {
+    stmt1: "Each f-block series contains 14 elements.",
+    stmt2: "The f orbitals can have seven possible orientations in space and can accommodate maximum of 14 electrons in the f-subshell.",
+    ans: "A"
+  },
+  {
+    stmt1: "The 3p orbitals are higher in energy as compared to 3s orbital.",
+    stmt2: "(n + l) for 3p orbitals is lower than that of 3d orbitals.",
+    ans: "B"
+  },
+  {
+    stmt1: "Cu⁺ is repelled by magnetic field.",
+    stmt2: "All electrons are paired up in Cu⁺ ion.",
+    ans: "A"
+  },
+  {
+    stmt1: "The fully filled configuration is more stable as compared to half-filled configuration.",
+    stmt2: "More exchange energy causes greater stability.",
+    ans: "A"
+  },
+  {
+    stmt1: "Mn can show maximum oxidation state of +7.",
+    stmt2: "Total number of valence shell electrons present in Mn is 5.",
+    ans: "C"
+  },
+  {
+    stmt1: "The p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub> orbitals are called degenerate orbitals.",
+    stmt2: "p<sub>x</sub>, p<sub>y</sub>, and p<sub>z</sub> orbitals have almost the same energy.",
+    ans: "C"
+  },
+  {
+    stmt1: "Pairing of electrons in degenerate orbitals decreases the energy of the system.",
+    stmt2: "Spinning directions of the two paired electrons are different.",
+    ans: "D"
+  },
+  {
+    stmt1: "The electronic configuration for d⁵ system is wrongly represented as ↑↓|↑|↑|↑| (Hund's rule violated).",
+    stmt2: "Hund's rule is violated in the above representation.",
+    ans: "A"
+  },
+  {
+    stmt1: "In writing the electronic configuration of an atom, the 5s orbital will be filled before 4p orbital.",
+    stmt2: "The (n + l) values for 5s orbital and 4p orbital are identical.",
+    ans: "D"
+  }
+];
+
+const INT = [
+  { q: "Among the given elements, number of species which are isodiaphers of each other are ____. <sub>92</sub>U²³⁸, <sub>88</sub>Ra²³⁰, <sub>89</sub>Ac²³², <sub>90</sub>Th²³⁴", ans: "4" },
+  { q: "Total number of orbitals that are to be filled completely before entering into the 6s subshell for filling of electrons is ____. (Add the digits till you get single digit answer.)", ans: "9" },
+  { q: "Find the maximum value of n + l + m for the last electron present in an element which belongs to fifth period and group number 15.", ans: "7" },
+  { q: "Find the total number of elements out of the given elements which will need two more electrons to achieve 8 electrons in the outermost shell: Na, C, N, P, F, O", ans: "1" },
+  { q: "If unknown element X has Z<sub>eff</sub> value of 3.5 and only two electrons of valence shell contribute towards sigma (σ) calculation, then what is the atomic number of element? (Consider elements up to atomic number 20.) (Add the digits till you get single digit answer.)", ans: "4" },
+  { q: "Find the total number of possible exchanges for d⁴ configuration in an element.", ans: "6" },
+  { q: "If Z<sub>eff</sub> of Mg is 2.85, then what will be the value of y for magnesium, where y = (σ + 0.85)/2?", ans: "5" },
+  { q: "How many elements amongst the following have at least 4 electrons in p-subshells? B, N, Al, Si, P, Cl", ans: "4" },
+  { q: "If Aufbau's rule is not followed and electron filling is done shell after shell, then number of unpaired electrons present in copper will be ____.", ans: "1" },
+  { q: "The first excited state of Cl⁻ ion will have degeneracy of ____.", ans: "5" },
+  { q: "Maximum number of degenerate orbitals in M shell of Li²⁺ is", ans: "9" },
+  { q: "Number of groups incorrectly mentioned according to their relationship given in brackets: (A) ⁸₁₆O, ¹⁷₈O (isotopes) | (B) CaO, KF (isosteres) | (C) ¹⁵₇N, ¹⁹₉F (isobars) | (D) Na⁺, Mg²⁺ Al³⁺ (isoelectronic) | (E) ¹₁H, ⁴₂He (isodiaphers) | (F) H₂O, NH₃ (isosteres) | (G) ⁴⁰₁₉K, ⁴⁰₂₀Ca (isobars) | (H) ³⁹₁₉K, ⁴⁰₂₀Ca (isotones)", ans: "3" },
+  { q: "The number of chemical species among the following which can produce spin magnetic moment greater than zero is ____. Sc³⁺, V³⁺, Cr⁶⁺, Mn²⁺, Zn, Pd, Ag⁺, Cu²⁺, Hg, Cu⁺, Cu", ans: "4" },
+  { q: "The ratio of unpaired electrons present in d orbitals of Co²⁺ and Cr³⁺ is ____.", ans: "1" },
+  { q: "In Mn, the maximum number of electrons having m<sub>s</sub> = +1/2 is", ans: "15" },
+  { q: "In Mn, the minimum number of electrons having m<sub>s</sub> = −1/2 is", ans: "10" },
+  { q: "In the following species, the number of them having same magnetic moment value is ____. Fe³⁺, Co³⁺, Ni²⁺, Mn³⁺, Cu⁺, Zn²⁺, Cd²⁺, Cu²⁺, Ag⁺.", ans: "4" },
+  { q: "The total value of m for all electrons in N atom is ____.", ans: "0" },
+  { q: "Find maximum number of electrons in Al for which (l × m)/n = 0. (Atomic number of Al = 13).", ans: "9" },
+  { q: "Find total number of orbitals in S atom, for which |m| ≤ 1 and which contains at least one electron. (Atomic number of S = 16).", ans: "9" },
+  { q: "Find total number of orbitals in which electron density is observed along any of the axis (x, y or z). Orbitals: s, p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub>, d<sub>xy</sub>, d<sub>xz</sub>, d<sub>yz</sub>, d<sub>z²</sub>, d<sub>x²−y²</sub>", ans: "6" },
+  { q: "Calculate maximum number of electrons in <sub>25</sub>Mn which have n = 3, m = 0 and s = +1/2.", ans: "3" },
+  { q: "Find the maximum number of electrons in Cr atom which have m = −1 and s = +1/2 but n ≠ 2.", ans: "2" },
+  { q: "Find the number of electrons having (n × l + m) = 3 for Kr atom (Atomic number = 36)", ans: "6" },
+  { q: "The shielding constant for the last electron in Sc is ____.", ans: "18" },
+  { q: "The Z<sub>eff</sub> on the last electron in Sc is ____.", ans: "3" },
+  { q: "The number of species among the following, having magnetic moment value of 2.84 BM is ____. Fe²⁺, Cr, Cr³⁻, Ti²⁺, Mn²⁺, V³⁺", ans: "2" },
+  { q: "The number of electrons for Cd²⁺ that have the value of azimuthal quantum number l = 1 is ____.", ans: "18" },
+  { q: "The number of electrons present in the Br⁻ ion that have the value of magnetic quantum number m = +1 is ____.", ans: "8" },
+  { q: "The Z<sub>eff</sub> on the last electron of Zr³⁺ ion is ____.", ans: "4" },
+  { q: "The Z<sub>eff</sub> on the electron present in 5d orbital of Gd (atomic number = 64) is ____.", ans: "3" }
+];
+
+const MATRIX = [
+  {
+    title: "Match the orbitals with their spatial arrangement.",
+    colA: ["(A) p<sub>z</sub>","(B) d<sub>xz</sub>","(C) d<sub>yz</sub>","(D) d<sub>xy</sub>"],
+    colB: ["(P) xy plane is the nodal plane.","(Q) yz plane is the nodal plane.","(R) xz plane is the nodal plane.","(S) Has a common nodal plane with p<sub>x</sub>.","(T) Has a common nodal plane with d<sub>xy</sub>."],
+    ans: ["A→P","B→P,Q,S,T","C→P,R,T","D→Q,R,S"]
+  },
+  {
+    title: "Match the shell with the property.",
+    colA: ["(A) K","(B) L","(C) M","(D) N"],
+    colB: ["(P) Maximum number of electrons present is 18.","(Q) If the shell is fully occupied, some electrons must have value of m = 0.","(R) There are no electrons with l value of 2, if the shell is fully occupied.","(S) p subshell is present."],
+    ans: ["A→Q,R","B→Q,R,S","C→P,Q,S","D→Q,S"]
+  },
+  {
+    title: "Match the electronic configuration with the nature/property of the element.",
+    colA: ["(A) [Ar] 3d¹⁰ 4s² 4p⁶ 5s¹","(B) [Ne] 3s² 3p⁶ 4s² 3d⁶","(C) 1s² 2s² 2p⁶ 3s² 3p⁶","(D) [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³"],
+    colB: ["(P) p-block element.","(Q) Zero group element.","(R) d-block element.","(S) 4th period element.","(T) Paramagnetic element."],
+    ans: ["A→T","B→R,S,T","C→P,Q","D→P,T"]
+  },
+  {
+    title: "Match the ion with the property.",
+    colA: ["(A) Fe²⁺","(B) Mn⁴⁺","(C) Zn²⁺","(D) Na⁺"],
+    colB: ["(P) Set of quantum number for the last electron: n=2, l=1, m=1, s=+½","(Q) Magnetic moment (μ) = Zero.","(R) Spin multiplicity (SM) = 4","(S) Paramagnetic"],
+    ans: ["A→S","B→R,S","C→Q","D→P,Q"]
+  }
+];
+
+const ANSWER_KEY = {
+  scq: [
+    {n:1,a:"A"},{n:2,a:"D"},{n:3,a:"D"},{n:4,a:"B"},{n:5,a:"B"},
+    {n:6,a:"C"},{n:7,a:"A"},{n:8,a:"C"},{n:9,a:"C"},{n:10,a:"C"},
+    {n:11,a:"C"},{n:12,a:"C"},{n:13,a:"A"},{n:14,a:"A"},{n:15,a:"D"},
+    {n:16,a:"D"},{n:17,a:"D"},{n:18,a:"B"},{n:19,a:"B"},{n:20,a:"D"},
+    {n:21,a:"A"},{n:22,a:"A"},{n:23,a:"A"},{n:24,a:"C"},{n:25,a:"D"},
+    {n:26,a:"A"},{n:27,a:"B"},{n:28,a:"C"},{n:29,a:"D"},{n:30,a:"C"},
+    {n:31,a:"C"},{n:32,a:"D"},{n:33,a:"D"}
+  ],
+  mcq: [
+    {n:1,a:"B,C"},{n:2,a:"A,C,D"},{n:3,a:"A,B,D"},{n:4,a:"C,D"},{n:5,a:"B,D"},
+    {n:6,a:"A,C,D"},{n:7,a:"A,B"},{n:8,a:"C,D"},{n:9,a:"B,C"},{n:10,a:"B,C,D"},
+    {n:11,a:"A,B,D"},{n:12,a:"A,B"},{n:13,a:"A,B,C,D"},{n:14,a:"A,C,D"},{n:15,a:"A,B,D"},
+    {n:16,a:"A,B,C"},{n:17,a:"C,D"}
+  ],
+  comp: [
+    {n:1,a:"D"},{n:2,a:"A"},{n:3,a:"C"},{n:4,a:"D"},{n:5,a:"D"},
+    {n:6,a:"D"},{n:7,a:"B"},{n:8,a:"C"},{n:9,a:"A"},{n:10,a:"C"},
+    {n:11,a:"D"},{n:12,a:"B"},{n:13,a:"A"},{n:14,a:"B"},{n:15,a:"B"},
+    {n:16,a:"B"},{n:17,a:"A"},{n:18,a:"A"}
+  ],
+  ar: [
+    {n:1,a:"A"},{n:2,a:"B"},{n:3,a:"A"},{n:4,a:"A"},{n:5,a:"C"},
+    {n:6,a:"C"},{n:7,a:"D"},{n:8,a:"A"},{n:9,a:"D"}
+  ],
+  int: [
+    {n:1,a:"4"},{n:2,a:"9"},{n:3,a:"7"},{n:4,a:"1"},{n:5,a:"4"},
+    {n:6,a:"6"},{n:7,a:"5"},{n:8,a:"4"},{n:9,a:"1"},{n:10,a:"5"},
+    {n:11,a:"9"},{n:12,a:"3"},{n:13,a:"4"},{n:14,a:"1"},{n:15,a:"15"},
+    {n:16,a:"10"},{n:17,a:"4"},{n:18,a:"0"},{n:19,a:"9"},{n:20,a:"9"},
+    {n:21,a:"6"},{n:22,a:"3"},{n:23,a:"2"},{n:24,a:"6"},{n:25,a:"18"},
+    {n:26,a:"3"},{n:27,a:"2"},{n:28,a:"18"},{n:29,a:"8"},{n:30,a:"4"},{n:31,a:"3"}
+  ]
+};
+
+// ═══════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════
+
+let totalQ = 0;
+let answeredCount = 0;
+
+function makeOptionLetter(i) {
+  return ['A','B','C','D'][i];
+}
+
+function renderSCQ() {
+  const container = document.getElementById('scq-container');
+  SCQ.forEach((q, idx) => {
+    totalQ++;
+    const qn = idx + 1;
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `scq-${qn}`;
+
+    const opts = q.opts.map((o, i) => `
+      <div class="option" data-qid="scq-${qn}" data-opt="${makeOptionLetter(i)}" data-correct="${q.ans}" onclick="selectSCQ(this)">
+        <span class="opt-label">${makeOptionLetter(i)}</span>
+        <span class="opt-text">${o}</span>
+      </div>`).join('');
+
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-number">Q${qn}</span>
+        <div class="q-text">${q.q}</div>
+      </div>
+      <div class="options-grid">${opts}</div>
+      <div class="q-actions">
+        <button class="btn-show-answer" onclick="revealSCQ('scq-${qn}', '${q.ans}')">Show Answer</button>
+        <div class="answer-badge" id="badge-scq-${qn}">Answer: ${q.ans}</div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function selectSCQ(el) {
+  const qid = el.dataset.qid;
+  const card = document.getElementById(qid);
+  card.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  updateProgress();
+}
+
+function revealSCQ(qid, ans) {
+  const card = document.getElementById(qid);
+  card.querySelectorAll('.option').forEach(o => {
+    if (o.dataset.opt === ans) o.classList.add('correct-reveal');
+    else if (o.classList.contains('selected')) o.classList.add('wrong-reveal');
+  });
+  document.getElementById('badge-' + qid).classList.add('visible');
+  card.classList.add('answered');
+  updateProgress();
+}
+
+function renderMCQ() {
+  const container = document.getElementById('mcq-container');
+  MCQ.forEach((q, idx) => {
+    totalQ++;
+    const qn = idx + 1;
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `mcq-${qn}`;
+
+    const opts = q.opts.map((o, i) => `
+      <div class="option" data-qid="mcq-${qn}" data-opt="${makeOptionLetter(i)}" onclick="toggleMCQ(this)">
+        <span class="opt-label">${makeOptionLetter(i)}</span>
+        <span class="opt-text">${o}</span>
+      </div>`).join('');
+
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-number">Q${qn}</span>
+        <div class="q-text">${q.q}</div>
+      </div>
+      <div class="options-grid">${opts}</div>
+      <div class="q-actions">
+        <button class="btn-show-answer" onclick="revealMCQ('mcq-${qn}', '${q.ans}')">Show Answer</button>
+        <div class="answer-badge" id="badge-mcq-${qn}">Answer: ${q.ans}</div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function toggleMCQ(el) {
+  el.classList.toggle('selected');
+}
+
+function revealMCQ(qid, ans) {
+  const card = document.getElementById(qid);
+  const correct = ans.split(',').map(a => a.trim());
+  card.querySelectorAll('.option').forEach(o => {
+    if (correct.includes(o.dataset.opt)) o.classList.add('correct-reveal');
+    else if (o.classList.contains('selected')) o.classList.add('wrong-reveal');
+  });
+  document.getElementById('badge-' + qid).classList.add('visible');
+  card.classList.add('answered');
+}
+
+function renderCOMP() {
+  const container = document.getElementById('comp-container');
+  let globalQn = 0;
+  COMP.forEach((section, si) => {
+    const passDiv = document.createElement('div');
+    passDiv.className = 'passage-box';
+    passDiv.innerHTML = `<div class="passage-title">Passage ${si+1}</div>${section.passage}`;
+    container.appendChild(passDiv);
+
+    section.questions.forEach((q, qi) => {
+      totalQ++;
+      globalQn++;
+      const qn = globalQn;
+      const card = document.createElement('div');
+      card.className = 'question-card';
+      card.id = `comp-${qn}`;
+
+      const opts = q.opts.map((o, i) => `
+        <div class="option" data-qid="comp-${qn}" data-opt="${makeOptionLetter(i)}" onclick="selectSCQ(this)">
+          <span class="opt-label">${makeOptionLetter(i)}</span>
+          <span class="opt-text">${o}</span>
+        </div>`).join('');
+
+      card.innerHTML = `
+        <div class="q-header">
+          <span class="q-number">Q${qn}</span>
+          <div class="q-text">${q.q}</div>
+        </div>
+        <div class="options-grid">${opts}</div>
+        <div class="q-actions">
+          <button class="btn-show-answer" onclick="revealSCQ('comp-${qn}', '${q.ans}')">Show Answer</button>
+          <div class="answer-badge" id="badge-comp-${qn}">Answer: ${q.ans}</div>
+        </div>`;
+      container.appendChild(card);
+    });
+  });
+}
+
+function renderAR() {
+  const container = document.getElementById('ar-container');
+  const instructions = `<div class="passage-box">
+    <div class="passage-title">Instructions</div>
+    Mark the correct answer as:<br>
+    <b>(A)</b> Both Statement I and II are true and Statement II is the correct explanation of Statement I.<br>
+    <b>(B)</b> Both Statement I and II are true but Statement II is not the correct explanation for Statement I.<br>
+    <b>(C)</b> If Statement I is true but Statement II is false.<br>
+    <b>(D)</b> If Statement I is false but Statement II is true.
+  </div>`;
+  container.insertAdjacentHTML('beforeend', instructions);
+
+  AR.forEach((q, idx) => {
+    totalQ++;
+    const qn = idx + 1;
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `ar-${qn}`;
+
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-number">Q${qn}</span>
+        <div class="q-text">Assertion–Reasoning</div>
+      </div>
+      <div class="assertion-box">
+        <div class="assertion-label">Statement I (Assertion)</div>
+        <div class="q-text">${q.stmt1}</div>
+      </div>
+      <div class="assertion-box">
+        <div class="assertion-label">Statement II (Reason)</div>
+        <div class="q-text">${q.stmt2}</div>
+      </div>
+      <div class="options-grid">
+        ${['A','B','C','D'].map(l => `
+          <div class="option" data-qid="ar-${qn}" data-opt="${l}" onclick="selectSCQ(this)">
+            <span class="opt-label">${l}</span>
+            <span class="opt-text">${['Both true, II explains I','Both true, II does not explain I','I true, II false','I false, II true'][['A','B','C','D'].indexOf(l)]}</span>
+          </div>`).join('')}
+      </div>
+      <div class="q-actions">
+        <button class="btn-show-answer" onclick="revealSCQ('ar-${qn}', '${q.ans}')">Show Answer</button>
+        <div class="answer-badge" id="badge-ar-${qn}">Answer: ${q.ans}</div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function renderINT() {
+  const container = document.getElementById('int-container');
+  INT.forEach((q, idx) => {
+    totalQ++;
+    const qn = idx + 1;
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `int-${qn}`;
+
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-number">Q${qn}</span>
+        <div class="q-text">${q.q}</div>
+      </div>
+      <div class="integer-input-wrap">
+        <input type="number" class="integer-input" placeholder="Enter answer" id="int-input-${qn}">
+        <button class="btn-show-answer" onclick="revealINT('int-${qn}', '${q.ans}', ${qn})">Check</button>
+        <div class="answer-badge" id="badge-int-${qn}">Answer: ${q.ans}</div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function revealINT(qid, ans, qn) {
+  const input = document.getElementById('int-input-' + qn);
+  const badge = document.getElementById('badge-' + qid);
+  badge.classList.add('visible');
+  const card = document.getElementById(qid);
+  card.classList.add('answered');
+  if (input.value.trim() === String(ans)) {
+    input.style.borderColor = '#4ade80';
+  } else {
+    input.style.borderColor = '#f87171';
+  }
+}
+
+function renderMAT() {
+  const container = document.getElementById('mat-container');
+  MATRIX.forEach((m, idx) => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-number">M${idx+1}</span>
+        <div class="q-text">${m.title}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border-light)">
+        <div style="padding:16px 20px;border-right:1px solid var(--border-light)">
+          <div class="assertion-label" style="margin-bottom:10px">Column I</div>
+          ${m.colA.map(a => `<div class="q-text" style="margin-bottom:8px;font-size:13px">${a}</div>`).join('')}
+        </div>
+        <div style="padding:16px 20px">
+          <div class="assertion-label" style="margin-bottom:10px">Column II</div>
+          ${m.colB.map(b => `<div class="q-text" style="margin-bottom:8px;font-size:13px">${b}</div>`).join('')}
+        </div>
+      </div>
+      <div class="q-actions" style="padding-top:16px">
+        <button class="btn-show-answer" onclick="revealMAT(this, ${idx})">Show Answer</button>
+        <div class="answer-badge" id="badge-mat-${idx}" style="display:none">
+          ${m.ans.map(a => `<span style="margin-right:12px">${a}</span>`).join('')}
+        </div>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function revealMAT(btn, idx) {
+  const badge = document.getElementById('badge-mat-' + idx);
+  badge.style.display = 'flex';
+  badge.style.flexWrap = 'wrap';
+  badge.style.gap = '8px';
+  badge.classList.add('visible');
+}
+
+function renderAnswerKey() {
+  const container = document.getElementById('ans-container');
+  const sections = [
+    { label: 'Single Correct Choice', key: 'scq', data: ANSWER_KEY.scq },
+    { label: 'Multiple Correct Choice', key: 'mcq', data: ANSWER_KEY.mcq },
+    { label: 'Comprehension Type', key: 'comp', data: ANSWER_KEY.comp },
+    { label: 'Assertion–Reasoning', key: 'ar', data: ANSWER_KEY.ar },
+    { label: 'Integer Type', key: 'int', data: ANSWER_KEY.int }
+  ];
+
+  sections.forEach(s => {
+    const wrapper = document.createElement('div');
+    wrapper.style.marginBottom = '40px';
+    wrapper.innerHTML = `<div class="section-header" style="margin-bottom:16px">
+      <span class="section-title" style="font-size:12px">${s.label}</span>
+    </div>
+    <div class="answer-key-grid">
+      ${s.data.map(item => `<div class="ak-item"><span class="ak-num">Q${item.n}</span><span class="ak-ans">${item.a}</span></div>`).join('')}
+    </div>`;
+    container.appendChild(wrapper);
+  });
+}
+
+function updateProgress() {
+  const all = document.querySelectorAll('.question-card');
+  const answered = document.querySelectorAll('.question-card.answered, .option.selected').length;
+  const unique = new Set([...document.querySelectorAll('.question-card.answered')].map(c => c.id)).size;
+  document.getElementById('answered-stat').textContent = unique + ' Answered';
+  const pct = Math.round(unique / totalQ * 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+}
+
+// ═══════════════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════════════
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.section).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+renderSCQ();
+renderMCQ();
+renderCOMP();
+renderAR();
+renderINT();
+renderMAT();
+renderAnswerKey();
+
+const total = SCQ.length + MCQ.length + INT.length + AR.length;
+document.getElementById('total-stat').textContent = (SCQ.length + MCQ.length + COMP.reduce((a, c) => a + c.questions.length, 0) + AR.length + INT.length) + ' Total Questions';
+</script>
+</body>
+</html>
