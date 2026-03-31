@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Some Basic Concepts of Chemistry – MCQ Bank</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --border: #d0d0d0;
+    --accent: #1a1a1a;
+    --accent2: #444444;
+    --red: #c0392b;
+    --green: #1e7e34;
+    --text: #1a1a1a;
+    --muted: #666666;
+    --heading: #000000;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;line-height:1.6;}
+
+  /* Header */
+  header{background:#ffffff;border-bottom:2px solid #1a1a1a;padding:24px 40px 20px;position:sticky;top:0;z-index:100;}
+  header h1{font-family:'EB Garamond',serif;font-size:1.8rem;color:#000;letter-spacing:.01em;}
+  header p{color:var(--muted);font-size:.84rem;margin-top:3px;}
+  .header-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+  .stats-bar{display:flex;gap:10px;flex-wrap:wrap;}
+  .stat{background:#f0f0f0;border:1px solid #c0c0c0;border-radius:6px;padding:5px 12px;font-size:.75rem;color:#333;font-family:'JetBrains Mono',monospace;}
+
+  /* Tabs */
+  .tab-strip{display:flex;gap:0;overflow-x:auto;background:#fff;border-bottom:2px solid #1a1a1a;}
+  .tab-btn{background:none;border:none;border-right:1px solid #d0d0d0;color:#666;cursor:pointer;padding:11px 20px;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;white-space:nowrap;transition:.15s;}
+  .tab-btn:hover{background:#f0f0f0;color:#000;}
+  .tab-btn.active{background:#1a1a1a;color:#fff;}
+
+  /* Main */
+  main{max-width:960px;margin:0 auto;padding:30px 24px 80px;}
+  .section-title{font-family:'EB Garamond',serif;font-size:1.3rem;color:#000;margin-bottom:6px;border-left:4px solid #1a1a1a;padding-left:12px;}
+  .section-desc{color:var(--muted);font-size:.8rem;margin-bottom:22px;padding-left:16px;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  /* Question Card */
+  .q-card{background:#fff;border:1px solid #c8c8c8;border-radius:8px;padding:20px 22px;margin-bottom:14px;transition:.15s;}
+  .q-card:hover{border-color:#888;}
+  .q-num{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#888;font-weight:500;margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em;}
+  .q-text{font-family:'EB Garamond',serif;font-size:1.05rem;color:#000;margin-bottom:14px;line-height:1.75;}
+  .options{display:flex;flex-direction:column;gap:7px;}
+  .opt{display:flex;align-items:flex-start;gap:10px;padding:9px 14px;border-radius:6px;border:1px solid #d0d0d0;cursor:pointer;transition:.12s;font-size:.9rem;background:#fafafa;}
+  .opt:hover{border-color:#333;background:#f0f0f0;}
+  .opt.selected{border-color:#333;background:#ebebeb;}
+  .opt.correct{border-color:var(--green)!important;background:#eafbee!important;}
+  .opt.wrong{border-color:var(--red)!important;background:#fdecea!important;}
+  .opt-label{font-family:'JetBrains Mono',monospace;font-size:.73rem;font-weight:600;color:#333;min-width:18px;}
+  .opt-text{flex:1;font-family:'EB Garamond',serif;font-size:1rem;line-height:1.55;color:#1a1a1a;}
+  .multi-hint{font-size:.72rem;color:#888;margin-bottom:8px;font-style:italic;}
+
+  /* Answer reveal */
+  .ans-row{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap;}
+  .reveal-btn{background:#fff;border:1px solid #aaa;color:#333;padding:6px 15px;border-radius:5px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.77rem;font-weight:500;transition:.12s;}
+  .reveal-btn:hover{background:#1a1a1a;color:#fff;border-color:#1a1a1a;}
+  .ans-badge{display:none;background:#eafbee;border:1px solid var(--green);color:var(--green);padding:5px 14px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.77rem;font-weight:500;}
+  .ans-badge.show{display:inline-block;}
+
+  /* Integer */
+  .int-input-row{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap;}
+  .int-input{background:#fff;border:1px solid #bbb;color:#1a1a1a;border-radius:5px;padding:8px 13px;font-family:'JetBrains Mono',monospace;font-size:.9rem;width:100px;outline:none;transition:.12s;}
+  .int-input:focus{border-color:#1a1a1a;}
+  .check-btn{background:#1a1a1a;border:none;color:#fff;padding:8px 18px;border-radius:5px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:500;transition:.12s;}
+  .check-btn:hover{background:#333;}
+  .int-result{font-family:'JetBrains Mono',monospace;font-size:.8rem;padding:5px 12px;border-radius:5px;display:none;}
+  .int-result.correct{background:#eafbee;border:1px solid var(--green);color:var(--green);}
+  .int-result.wrong{background:#fdecea;border:1px solid var(--red);color:var(--red);}
+
+  /* Comprehension */
+  .para-box{background:#f7f7f7;border:1px solid #c8c8c8;border-left:4px solid #555;border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:18px;}
+  .para-title{font-family:'EB Garamond',serif;font-size:1rem;color:#000;margin-bottom:8px;font-weight:600;}
+  .para-text{font-family:'EB Garamond',serif;font-size:.97rem;line-height:1.75;color:#222;}
+
+  /* Matrix */
+  .matrix-table{width:100%;border-collapse:collapse;margin:12px 0;}
+  .matrix-table th,.matrix-table td{border:1px solid #ccc;padding:9px 14px;text-align:left;font-family:'EB Garamond',serif;font-size:.95rem;}
+  .matrix-table th{background:#f0f0f0;color:#333;font-weight:600;font-family:'Outfit',sans-serif;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;}
+
+  /* Assertion-Reasoning */
+  .ar-box{background:#f7f7f7;border-left:3px solid #888;padding:12px 16px;margin-bottom:10px;border-radius:0 6px 6px 0;}
+  .ar-label{font-size:.7rem;color:#555;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;font-family:'Outfit',sans-serif;}
+  .ar-text{font-family:'EB Garamond',serif;font-size:1rem;line-height:1.6;color:#111;}
+  .ar-guide{background:#f0f0f0;border:1px solid #ccc;border-radius:7px;padding:12px 16px;margin-bottom:16px;font-size:.81rem;color:#555;}
+  .ar-guide span{display:block;margin-bottom:3px;}
+
+  /* Score panel */
+  .score-panel{background:#fff;border:2px solid #1a1a1a;border-radius:8px;padding:14px 20px;margin-bottom:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+  .score-item{font-size:.82rem;color:#555;}
+  .score-item strong{color:#000;}
+  .score-item .green{color:var(--green);}
+  .score-item .red{color:var(--red);}
+  .reset-btn{margin-left:auto;background:#fff;border:1px solid #bbb;color:#666;padding:6px 14px;border-radius:5px;cursor:pointer;font-size:.75rem;font-family:'Outfit',sans-serif;transition:.12s;}
+  .reset-btn:hover{border-color:#c0392b;color:#c0392b;}
+
+  @media(max-width:600px){header{padding:16px;}.tab-strip{padding:0;}.main{padding:16px 10px;}.q-text{font-size:.97rem;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div>
+      <h1>⚗️ Some Basic Concepts of Chemistry</h1>
+      <p>Redox Reactions — MCQ Question Bank &nbsp;|&nbsp; JEE / NEET Level</p>
+    </div>
+    <div class="stats-bar">
+      <div class="stat">54 SCQ</div>
+      <div class="stat">20 MCQ</div>
+      <div class="stat">15 A-R</div>
+      <div class="stat">Comprehension</div>
+      <div class="stat">10 Integer</div>
+      <div class="stat">Matrix-Match</div>
+    </div>
+  </div>
+</header>
+
+<div class="tab-strip">
+  <button class="tab-btn active" onclick="switchTab('scq',this)">Single Correct</button>
+  <button class="tab-btn" onclick="switchTab('mcq',this)">Multiple Correct</button>
+  <button class="tab-btn" onclick="switchTab('ar',this)">Assertion-Reasoning</button>
+  <button class="tab-btn" onclick="switchTab('comp',this)">Comprehension</button>
+  <button class="tab-btn" onclick="switchTab('int',this)">Integer Answer</button>
+  <button class="tab-btn" onclick="switchTab('matrix',this)">Matrix-Match</button>
+</div>
+
+<main>
+
+<div class="score-panel" id="scorePanel">
+  <div class="score-item">Attempted: <strong id="sAttempted">0</strong></div>
+  <div class="score-item"><span class="green">Correct: <strong id="sCorrect">0</strong></span></div>
+  <div class="score-item"><span class="red">Wrong: <strong id="sWrong">0</strong></span></div>
+  <div class="score-item">Accuracy: <strong id="sAcc">—</strong></div>
+  <button class="reset-btn" onclick="resetAll()">↺ Reset All</button>
+</div>
+
+<!-- SCQ -->
+<div class="tab-panel active" id="tab-scq">
+  <div class="section-title">Single Correct Choice Type</div>
+  <div class="section-desc">Each question has exactly one correct answer. Select your choice.</div>
+  <div id="scq-container"></div>
+</div>
+
+<!-- MCQ -->
+<div class="tab-panel" id="tab-mcq">
+  <div class="section-title">Multiple Correct Choice Type</div>
+  <div class="section-desc">One or more options may be correct. Select all that apply.</div>
+  <div id="mcq-container"></div>
+</div>
+
+<!-- AR -->
+<div class="tab-panel" id="tab-ar">
+  <div class="section-title">Assertion – Reasoning Type</div>
+  <div class="section-desc">Choose the correct option based on Statement 1 and Statement 2.</div>
+  <div class="ar-guide">
+    <span><strong>(A)</strong> Statement 1 is True, Statement 2 is True; Statement 2 is a correct explanation for Statement 1.</span>
+    <span><strong>(B)</strong> Statement 1 is True, Statement 2 is True; Statement 2 is NOT a correct explanation for Statement 1.</span>
+    <span><strong>(C)</strong> Statement 1 is True, Statement 2 is False.</span>
+    <span><strong>(D)</strong> Statement 1 is False, Statement 2 is True.</span>
+  </div>
+  <div id="ar-container"></div>
+</div>
+
+<!-- Comprehension -->
+<div class="tab-panel" id="tab-comp">
+  <div class="section-title">Comprehension Type</div>
+  <div class="section-desc">Read each paragraph carefully, then answer the questions that follow.</div>
+  <div id="comp-container"></div>
+</div>
+
+<!-- Integer -->
+<div class="tab-panel" id="tab-int">
+  <div class="section-title">Integer Answer Type</div>
+  <div class="section-desc">The answer is a non-negative integer. Type your answer and click Check.</div>
+  <div id="int-container"></div>
+</div>
+
+<!-- Matrix -->
+<div class="tab-panel" id="tab-matrix">
+  <div class="section-title">Matrix – Match Type</div>
+  <div class="section-desc">Match each entry in Column I with the correct entry/entries in Column II.</div>
+  <div id="matrix-container"></div>
+</div>
+
+</main>
+
+<script>
+const SCQ = [
+  {n:1,q:"In the reaction Na₂S₂O₃ + I₂ → Na₂S₄O₆ + NaI (not balanced), which of the following is/are true?\n(I) Na₂S₂O₃ is a reducing agent.\n(II) Iodine is an oxidizing agent.\n(III) It is an example of intermolecular redox reaction.\n(IV) In Na₂S₄O₆ the average oxidation state of S is (+5/2)",opts:["I, II, IV","I, II","I, II, III","I, II, III, IV"],ans:"D"},
+  {n:2,q:"The number of electrons involved in the reduction of nitrate ion (NO₃⁻) to hydrazine (N₂H₄) is",opts:["8","7","5","3"],ans:"B"},
+  {n:3,q:"SO₂ under atmospheric condition changes to SO₄²⁻. If oxidation number of S is +6, what is the value of x in SOₓ²⁻?",opts:["1","2","3","4"],ans:"D"},
+  {n:4,q:"NaIO₃ reacts with NaHSO₃ according to equation:\nIO₃⁻ + 3HSO₃⁻ → I⁻ + 3H⁺ + 3SO₄²⁻\nThe weight of NaHSO₃ required to react with 100 mL of solution containing 0.66 g of NaIO₃ is",opts:["5.2 g","4.57 g","2.3 g","10.4 g"],ans:"C"},
+  {n:5,q:"In the reaction 4I⁻ + Hg²⁺ → HgI₄²⁻, 1 mol each of Hg²⁺ and I⁻ will form",opts:["1 mol","0.5 mol","0.25 mol","2 mol"],ans:"C"},
+  {n:6,q:"A 0.46 g sample of As₂O₃ required 25.0 mL of KMnO₄ solution for its titration. The molarity of KMnO₄ solution is",opts:["0.016","0.064","0.032","0.128"],ans:"B"},
+  {n:7,q:"Number of moles of K₂Cr₂O₇ reduced by 1 mole of Sn²⁺ is",opts:["1/3","1/6","2/3","1"],ans:"A"},
+  {n:8,q:"Equivalent weight of H₃PO₃ (mol. wt. = M) when it disproportionates into PH₃ and H₃PO₄ is",opts:["M","M/2","M/4","3M/4"],ans:"D"},
+  {n:9,q:"Amongst the following, identify the species with an atom in +6 oxidation state.",opts:["MnO₄⁻","Cr(CN)₆⁴⁻","NiF₆²⁻","CrO₂Cl₂"],ans:"D"},
+  {n:10,q:"What is the equivalent weight of C₁₂H₂₂O₁₁ in the following reaction?\nC₁₂H₂₂O₁₁ + 36HNO₃ → 6H₂C₂O₄ + 36NO₂ + 23H₂O",opts:["342/36","342/12","342/22","342/3"],ans:"A"},
+  {n:11,q:"Which oxyacid of Cl cannot undergo disproportionation?",opts:["HClO","HClO₂","HClO₃","HClO₄"],ans:"D"},
+  {n:12,q:"Which of the following oxides is most basic?",opts:["MnO","Mn₂O₃","MnO₂","Mn₂O₇"],ans:"A"},
+  {n:13,q:"In the compound HN₃ (hydrazoic acid), oxidation state of N¹, N² and N³ are (N³ bonded to H):",opts:["0, 0, 3","0, 0, −1","1, 1, −3","−3, −3, −3"],ans:"B"},
+  {n:14,q:"Which of the following agents is the most oxidizing?",opts:["O₃","KMnO₄","H₂O₂","K₂Cr₂O₇"],ans:"B"},
+  {n:15,q:"When 1 mol of KClO₃ takes 4 mol of electrons, the expected product is",opts:["ClO₂⁻","ClO₄⁻","OCl⁻","Cl⁻"],ans:"C"},
+  {n:16,q:"On the basis of structure, the oxidation states of two Cl atoms in CaOCl₂, respectively, are",opts:["−1 and +1","+2 and −2","−2 and +2","−1 and +3"],ans:"A"},
+  {n:17,q:"A blue color appears on addition of aqueous ammonia to aqueous CuSO₄:\nCuSO₄ + 4NH₃ → [Cu(NH₃)₄]SO₄\nIn this reaction,",opts:["copper is oxidized.","copper is reduced.","ammonia is reduced.","None of these."],ans:"D"},
+  {n:18,q:"Among the following molecules, in which does bromine show the maximum oxidation number?",opts:["Hg₂(BrO₃)₂","Br-Cl","KBrO₄","Br₂"],ans:"C"},
+  {n:19,q:"When copper is treated with a certain concentration of nitric acid, nitric oxide and nitrogen dioxide are liberated in equal volumes:\nxCu + yHNO₃ → Cu(NO₃)₂ + NO + NO₂ + H₂O\nThe coefficients of x and y are",opts:["2 and 3","2 and 6","1 and 3","3 and 8"],ans:"B"},
+  {n:20,q:"What is the oxidation number of carbon in product A?\nCH₃(COOH)₂ → A  (via P₄O₁₀)",opts:["+4","+3/4","+4/3","+2/3"],ans:"C"},
+  {n:21,q:"When iodine is passed through sodium thiosulphate, it is decolorized and sodium tetrathionate is formed. What is the change in the oxidation number of a sulphur atom in the reaction?",opts:["1/2","3/2","2","1"],ans:"A"},
+  {n:22,q:"In alkaline medium, the color of potassium dichromate changes from orange to yellow due to formation of potassium chromate. What is the change in oxidation state of chromium?",opts:["1","2","3","0"],ans:"D"},
+  {n:23,q:"The oxidation number of carbon in CH₂Cl₂ is",opts:["−4","+4","0","−2"],ans:"C"},
+  {n:24,q:"SO₂ is passed through an acidified solution of potassium dichromate; the oxidation state of S changes from",opts:["+4 to 0","+4 to +2","+4 to +6","+6 to +4"],ans:"C"},
+  {n:25,q:"The oxidation states of sulphur in the anions SO₃²⁻, S₂O₄²⁻ and S₂O₆²⁻ follow the order:",opts:["S₂O₄²⁻ < SO₃²⁻ < S₂O₆²⁻","SO₃²⁻ < S₂O₄²⁻ < S₂O₆²⁻","S₂O₄²⁻ < S₂O₆²⁻ < SO₃²⁻","S₂O₆²⁻ < S₂O₄²⁻ < SO₃²⁻"],ans:"A"},
+  {n:26,q:"Which of the following compounds contain the metal atom in its highest possible oxidation state?",opts:["KSCN","MnO₂","Cr₂O₃","H₂SnCl₆"],ans:"A"},
+  {n:27,q:"A compound of Xe and F is found to have 53.5% Xe. What is the oxidation number of Xe in this compound?",opts:["−4","0","+4","+6"],ans:"D"},
+  {n:28,q:"Which reaction involves neither oxidation nor reduction?",opts:["CrO₄²⁻ → Cr₂O₇²⁻","Cr → CrCl₃","Na → Na⁺","2S₂O₃²⁻ → S₄O₆²⁻"],ans:"A"},
+  {n:29,q:"Which one of the following is an example of disproportionation?",opts:["NH₃ + 3CuO → 3Cu + 3H₂O + N₂","5HI + HIO₃ → 3H₂O + 3I₂","I₂ + 2Na₂S₂O₃ → 2NaI + Na₂S₄O₆","P₄ + 3NaOH + 3H₂O → 3NaH₂PO₂ + PH₃"],ans:"D"},
+  {n:30,q:"H₂O₂ acts as a reducing agent in:",opts:["2FeCl₂ + HCl + H₂O₂ → FeCl₃ + H₂O","Cl₂ + H₂O₂ → 2HCl + O₂","2HI + H₂O₂ → I₂ + H₂O","H₂SO₃ + H₂O₂ → H₂SO₄ + H₂O"],ans:"B"},
+  {n:31,q:"Which of the following has been arranged in order of increasing oxidation number of nitrogen?",opts:["NH₃ < N₂O₃ < NO < N₂","NO₄⁻ < NO₂⁻ < NO₂ < N₂","NH₄⁺ < N₂H₄ < NH₂OH < N₂O","NO₃⁻ < NaN₃ < NH₄⁺ < N₂O"],ans:"C"},
+  {n:32,q:"Which of the following agents is the most reducing?",opts:["Mg","Na","K","Br₂"],ans:"C"},
+  {n:33,q:"No disproportionation is possible for",opts:["AsH₃","SF₆","H₂IO₆","PCl₅"],ans:"C"},
+  {n:34,q:"In the reaction 3Br₂ + 6CO₃²⁻ + 3H₂O → 5Br⁻ + BrO₃⁻ + 6HCO₃⁻",opts:["bromine is oxidized and carbonate is reduced.","bromine is reduced and water is oxidized.","bromine is neither reduced nor oxidized.","bromine is both reduced and oxidized."],ans:"D"},
+  {n:35,q:"When the ion Cr₂O₇²⁻ acts as an oxidant in acidic solution, Cr³⁺ is formed. How many moles of Sn²⁺ would be oxidized to Sn⁴⁺ by one mol of Cr₂O₇²⁻?",opts:["1","2","4","3"],ans:"D"},
+  {n:36,q:"A sample of 2.5 mol of hydrazine (N₂H₄) loses 25 mol of electrons on being converted to a new compound X. Assuming no loss of nitrogen, what is the oxidation number of nitrogen in compound X?",opts:["−1","−2","+3","+4"],ans:"C"},
+  {n:37,q:"An element which never has a positive oxidation state in any of its compounds is",opts:["boron","oxygen","chlorine","fluorine"],ans:"D"},
+  {n:38,q:"The average oxidation number of sulphur in Na₂S₄O₆ is",opts:["1.5","2.5","3","2"],ans:"B"},
+  {n:39,q:"Oxidation number of fluorine in F₂O is",opts:["+1","+2","−1","−2"],ans:"C"},
+  {n:40,q:"How many moles of KMnO₄ are required in acidic medium for complete oxidation of 15 mol of FeSO₄?",opts:["2","3","4","5"],ans:"B"},
+  {n:41,q:"Equivalent weight of MnO₄⁻ in acidic, basic, and neutral media is in the ratio",opts:["3:5:15","5:3:1","5:1:3","3:15:5"],ans:"C"},
+  {n:42,q:"Sulphur has highest oxidation state in",opts:["H₂SO₄","SO₂","Na₂S₂O₃","Na₂S₂O₈"],ans:"A"},
+  {n:43,q:"In which of the following compounds does the transition metal have zero oxidation state?",opts:["CrO₂","NH₂·NH₂","NOClO₄","[Fe(CO)₅]"],ans:"D"},
+  {n:44,q:"Consider the reactions:\n(I) C₂O₄²⁻ → CO₂  (II) SO₄²⁻ → SO₃²⁻  (III) MnO₄²⁻ → MnO₄⁻  (IV) Fe³⁺ → Fe²⁺\nChoose the correct answer:",opts:["(I) and (II) show oxidation.","(III) and (IV) shows reduction.","(I) and (III) show oxidation.","(III) and (IV) shows oxidation."],ans:"C"},
+  {n:45,q:"In the reaction Cl₂ + OH⁻ → Cl⁻ + ClO₃⁻ + H₂O, chlorine is",opts:["oxidized.","reduced.","oxidized as well as reduced.","neither oxidized nor reduced."],ans:"C"},
+  {n:46,q:"How many moles of electrons are needed for the reduction of each mole of Cr in:\nCrO₃ + H₂SO₄ → Cr₂(SO₄)₃ + H₂O + O₂",opts:["4","3","5","7"],ans:"B"},
+  {n:47,q:"Hydroxylamine reduces iron(III):\nNH₂OH + Fe₂(SO₄)₃ → N₂(g) + H₂O + FeSO₄ + H₂SO₄\nWhich statement is correct?",opts:["n-factor for hydroxylamine is 1.","Equivalent weight of Fe₂(SO₄)₃ is M/2.","6 Milliequiv. of Fe₂(SO₄)₃ is contained in 3 millimoles of ferric sulphate.","All of these."],ans:"D"},
+  {n:48,q:"Equal volumes of 1M each of KMnO₄ and K₂Cr₂O₇ are used to oxidize Fe(II) in acidic medium. The amount of Fe oxidized will be",opts:["more with KMnO₄.","more with K₂Cr₂O₇.","equal with both oxidizing agents.","cannot be determined."],ans:"A"},
+  {n:49,q:"What volume of 1M FeC₂O₄ (ferrous oxalate) solution is required for complete oxidation of 100 mL of 1M Fe(SCN)₃ solution into Fe³⁺, SO₄²⁻, CO₂²⁻ and nitrate?",opts:["0.7 L","1 L","0.8 L","1.1 L"],ans:"D"},
+  {n:50,q:"A solution contains Cu²⁺ and C₂O₄²⁻ ions which on titration with 1M KMnO₄ consumes 10 mL of the oxidizing agent. The resulting solution is neutralized, acidified with CH₃COOH and treated with excess KI. The liberated iodine requires 25 mL of 1M hypo solution. The molar ratio of Cu²⁺ to C₂O₄²⁻ ions in solution is",opts:["5:2","1:2","2:1","1:1"],ans:"D"},
+  {n:51,q:'The labeling on a bottle of H₂O₂ solution is 20 "vol." Then the concentration of H₂O₂ in percentage strength will be:',opts:["3.03%","5%","4.55%","6.06%"],ans:"D"},
+  {n:52,q:"A 100 mL solution of 0.1 N HCl was titrated with 0.2 N NaOH. The titration was discontinued after adding 30 mL of NaOH. The remaining titration was completed by adding 0.25 N KOH. The volume of KOH required is",opts:["70 mL","32 mL","35 mL","16 mL"],ans:"D"},
+  {n:53,q:"40% w/V NaCl solution (specific gravity = 1.12) is equivalent to",opts:["3.57 × 10³ ppm","3.57 × 10⁵ ppm","1 × 10⁶ ppm","4 × 10⁵ ppm"],ans:"A"},
+  {n:54,q:"Oxalic acid (H₂C₂O₄) forms two series of salts HC₂O₄⁻ and C₂O₄²⁻. If 0.9 g of oxalic acid is in 100 mL solution, HC₂O₄⁻ and C₂O₄²⁻ have normality, respectively,",opts:["0.1 N, 0.1 N","0.1 N, 0.2 N","0.2 N, 0.2 N","0.2 N, 0.1 N"],ans:"B"},
+];
+
+const MCQ = [
+  {n:1,q:"H₂C₂O₄ and NaHC₂O₄ behave as acids as well as reducing agents. Which are correct statements?",opts:["Equivalent weight of H₂C₂O₄ and NaHC₂O₄ are equal to their molecular weights when acting as reducing agents","Equivalent weight of H₂C₂O₄ and NaHC₂O₄ are equal to half their molecular weights when acting as reducing agents","100 mL of 1 M solution of each is neutralized by equal volumes of 1 N Ca(OH)₂","100 mL of 1 M solution of each is oxidized by equal volumes of 1 M KMnO₄"],ans:["B","C","D"]},
+  {n:2,q:"For the balanced redox reaction:\n2MnO₄⁻ + 4H⁺ + Br₂ ⇌ 2Mn²⁺ + 2BrO₃⁻ + 2H₂O\nIf mol. wt. of MnO₄⁻ and Br₂ be M₁ and M₂ respectively, then",opts:["equivalent weight of MnO₄⁻ is M₁/5","equivalent weight of Br₂ is M₂/10","the n-factor ratio of Mn²⁺ to BrO₃⁻ is 1:1","none of these"],ans:["A","B","C"]},
+  {n:3,q:"Which of the following statements about the reaction 2Cu₂O(s) + Cu₂S(s) → 6Cu(s) + SO₂(g) are wrong?",opts:["Both Cu₂O and Cu₂S are reduced.","Only Cu₂S is reduced.","Cu₂S is the oxidant.","Only Cu₂O is reduced."],ans:["B","C","D"]},
+  {n:4,q:"Which of the following substances undergo disproportionation reactions under basic medium?",opts:["F₂","P₄","S₈","Br₂"],ans:["B","C","D"]},
+  {n:5,q:"A reducing agent in a redox reaction undergoes",opts:["a decrease in oxidation number.","an increase in oxidation number.","loss of electrons.","gain of electrons."],ans:["B","C"]},
+  {n:6,q:"Which of the following statements are correct?",opts:["All reactions are oxidation and reduction reactions.","Oxidizing agent is itself reduced.","Oxidation and reduction always go side by side.","Oxidation number during reduction decreases."],ans:["B","C","D"]},
+  {n:7,q:"The metals undergoing disproportionation are",opts:["Sn","Na","Cu","Ca"],ans:["A","C"]},
+  {n:8,q:"Which of the following is correct about acidic nature?",opts:["H₃PO₄ > H₃PO₃","H₃AsO₄ > H₃AsO₃","HClO₄ > HClO₃","HNO₃ > HNO₂"],ans:["B","C","D"]},
+  {n:9,q:"In which of the following is the oxidation number of oxygen fractional?",opts:["B₄O₁₀","B₂H₆","CsO₂","KO₂"],ans:["A","C","D"]},
+  {n:10,q:"The reaction KI + I₂ → KI₃ is",opts:["oxidation.","reduction.","complex formation.","None of these."],ans:["A","B","C"]},
+  {n:11,q:"Activity series: Au < Ag < Cu < Sn < Cd < Zn < Al < Mg < Na < Cs\nWhich reaction does NOT occur spontaneously upon mixing the reagents?",opts:["Cd(s) + Al³⁺(aq) → Cd²⁺(aq) + Al(s)","Cd(s) + Cu²⁺(aq) → Cd²⁺(aq) + Cu(s)","Zn(s) + Cu²⁺(aq) → Zn²⁺(aq) + Cu(s)","Al(s) + Ag⁺(aq) → Al³⁺(aq) + Ag(s)"],ans:["A","D"]},
+  {n:12,q:"Which of the following represent redox reactions?",opts:["Cr₂O₇²⁻ + 2OH⁻ → 2CrO₄²⁻ + H₂O","2CrO₄²⁻ + 2H⁺ → Cr₂O₇²⁻ + H₂O","2MnO₄⁻ + 3Mn²⁺ + 4OH⁻ → 5MnO₂ + 2H₂O","IO₃⁻ + I⁻ + H⁺ → I₂ + H₂O"],ans:["C","D"]},
+  {n:13,q:"For the balanced redox reaction:\n2MnO₄⁻ + 4H⁺ + Br₂ ⇌ 2Mn²⁺ + 2BrO₃⁻ + 2H₂O\nIf mol. wt. of MnO₄⁻ and Br₂ be M_B1 and M_B2 respectively, then",opts:["equivalent weight of MnO₄⁻ is M_B1/5","equivalent weight of Br₂ is M_B2/10","the n-factor ratio of Mn²⁺ to BrO₃⁻ is 1:1","none of these"],ans:["A","B","C"]},
+  {n:14,q:"When non-stoichiometric compound Fe₀.₉₅O is heated in presence of oxygen, it converts into Fe₂O₃. Which of the following statements are correct?",opts:["Equivalent weight of Fe₀.₉₅O is M_R/0.5 where M_R is molecular weight of Fe₀.₉₅O","The number of moles of Fe³⁺ and Fe²⁺ in 1 mol Fe₀.₉₅O are 0.1 and 0.85, respectively.","The number of moles of Fe³⁺ and Fe²⁺ in 1 mol Fe₀.₉₅O are 0.85 and 0.1, respectively.","The % composition of Fe²⁺ and Fe³⁺ in the non-stoichiometric compound is 89.47% and 10.53%, respectively."],ans:["B","D"]},
+  {n:15,q:"A group of students estimated Fe²⁺ concentration by titrating with KMnO₄. One student used 0.2 cm³ more. Which are possible explanations?",opts:["The titration flask was rinsed with Fe²⁺ solution instead of water before titration.","The last drop of Fe²⁺ solution was blown from the pipette into the flask.","The burette was rinsed with water instead of KMnO₄ solution before titration.","One student rinsed with Fe²⁺ and other rinsed with KMnO₄ before titration."],ans:["A","B","C"]},
+  {n:16,q:"40g NaOH, 106g Na₂CO₃ and 84g NaHCO₃ dissolved in water, made to 1 L. 20 mL of stock solution is titrated with 1 N HCl. Which statements are correct?",opts:["The liter reading of HCl will be 40 mL, if phenolphthalein is used from the very beginning.","The liter reading of HCl will be 60 mL, if phenolphthalein is used from the very beginning.","The liter reading of HCl will be 40 mL, if methyl orange is used after the first end point.","The liter reading of HCl will be 80 mL, if methyl orange is used from the very beginning."],ans:["A","C","D"]},
+  {n:17,q:"150 mL of M/10 Ba(MnO₄)₂, in acidic medium can oxidize completely:",opts:["150 mL of 1 M Fe²⁺ solution.","50 mL of 1 M FeC₂O₄ solution.","75 mL of 1 M C₂O₄²⁻ solution.","25 mL of 1 M K₂Cr₂O₇ solution."],ans:["A","B","C","D"]},
+  {n:18,q:"COOH and COOK behave as acids as well as reducing agents. Which are correct statements?",opts:["When they behave as reducing agents, equivalent weights are equal to half of their molecular weights.","1000 mL of 1 N solution of each is neutralized by 1000 mL 1 N Ca(OH)₂.","1000 mL of 1 M solution of each is neutralized by 1000 mL of 1 M Ca(OH)₂.","1000 mL of 1 M solution of each is neutralized by 200 mL 2 M KMnO₄ in acidic medium."],ans:["A","B","D"]},
+  {n:19,q:"0.1 mol of MnO₄⁻ (in acidic medium) can",opts:["oxidize 0.5 mol of Fe²⁺","oxidize 0.166 mol of FeC₂O₄","oxidize 0.25 mol of C₂O₄²⁻","oxidize 0.6 mol of Cr₂O₇²⁻"],ans:["A","B","C"]},
+  {n:20,q:"The reaction 3ClO⁻(aq) → ClO₃⁻(aq) + 2Cl⁻(aq) is an example of",opts:["oxidation reaction.","reduction reaction.","disproportionation reaction.","decomposition reaction."],ans:["A","B","C"]},
+];
+
+const AR = [
+  {n:1,s1:"The equivalent weight of reducing agent, Fe²⁺, is 56 (atomic mass of Fe = 56).",s2:"Fe loses 2e⁻ to be converted into Fe³⁺.",ans:"D"},
+  {n:2,s1:"In the roasting of FeS₂ ore, it is converted into ferric oxide and SO₂ gas. The equivalent mass of FeS₂ is equal to molecular weight/11.",s2:"The n-factor for reducing agent is total net change in oxidation number per formula unit.",ans:"A"},
+  {n:3,s1:"In CrO₅, there must be peroxide linkage.",s2:"The maximum oxidation number of an element cannot exceed its number of valence electrons.",ans:"A"},
+  {n:4,s1:"CaCO₃ + 2HCl → CaCl₂ + H₂O + CO₂ is a redox reaction.",s2:"Equivalent weight of CaCO₃ in this reaction is 50.",ans:"D"},
+  {n:5,s1:"Fe reacts with HCl to produce H₂ gas.",s2:"Fe is a better reducing agent than H₂.",ans:"A"},
+  {n:6,s1:"Hydrogen peroxide acts only as oxidizing agent.",s2:"All peroxides can undergo disproportionation.",ans:"D"},
+  {n:7,s1:"Oxidation number of carbon in HCN is +2.",s2:"Carbon always shows an oxidation state of +4.",ans:"C"},
+  {n:8,s1:"When SnCl₂ solution is added to HgCl₂ solution, a milky white precipitate is obtained and on adding excess SnCl₂ a black precipitate is formed.",s2:"The disproportionation of Hg(II) is easier than its reduction only.",ans:"A"},
+  {n:9,s1:"Iodine shows oxidation state of +1 and +3 in the compounds ICl and ICl₃, respectively.",s2:"Iodine coming below the halogens F, Cl, Br in the halogen group of elements in the periodic table shows a higher degree of electropositive nature.",ans:"A"},
+  {n:10,s1:"In aqueous solution, SO₂ reacts with H₂S liberating sulphur.",s2:"SO₂ is an effective reducing agent.",ans:"C"},
+  {n:11,s1:"In the titrations of Na₂CO₃ with HCl using methyl orange indicator, the volume required at the equivalence point is twice that of acid required using phenolphthalein indicator.",s2:"Two moles of HCl are required for complete neutralization of one mole of Na₂CO₃.",ans:"B"},
+  {n:12,s1:"The equivalent weight of reducing agent, Fe²⁺, is 56 (atomic mass of Fe = 56).",s2:"Fe loses 2e⁻ to be converted into Fe³⁺.",ans:"C"},
+  {n:13,s1:"Equivalent weight of a species can be written as molecular weight of the species divided by valence factor.",s2:"Valence factor represents valence in element, acidity in bases, basicity in acids and total charge on cation or anion in an ionic compound.",ans:"B"},
+  {n:14,s1:"In solution A (200 mL of 0.1 N HCl) and solution B (100 mL of 0.2 N HCl), the equivalents of H⁺ are the same.",s2:"Number of equivalents = Normality × Volume (in litres).",ans:"A"},
+  {n:15,s1:"Addition of water to a solution containing solute and solvent changes its normality or molarity.",s2:"The milliequivalents and millimoles of the solute are not changed on dilution.",ans:"B"},
+];
+
+const COMP_PARAS = [
+  {title:"Paragraph I",text:"Aqueous solution of sodium hypochlorite (NaOCl) is a household bleach and a strong oxidizing agent that reacts with chromite ion [Cr(OH)₄]⁻ in basic solution to yield chromate (CrO₄²⁻) and chloride ion.",qs:[
+    {n:1,q:"Select the correct statement(s)",opts:["OCl⁻ has been oxidized and [Cr(OH)₄]⁻ has been reduced.","OCl⁻ has been reduced and [Cr(OH)₄]⁻ has been oxidized.","It is simply a neutralization reaction.","It is simply a displacement reaction."],ans:"B"},
+    {n:2,q:"Balanced equation (only redox species) is",opts:["ClO⁻ + [Cr(OH)₄]⁻ → CrO₄²⁻ + Cl⁻","3ClO⁻ + [Cr(OH)₄]⁻ → CrO₄²⁻ + 3Cl⁻","3ClO⁻ + 2[Cr(OH)₄]⁻ → 2CrO₄²⁻ + 3Cl⁻","ClO⁻ + 2[Cr(OH)₄]⁻ → 2CrO₄²⁻ + Cl⁻"],ans:"C"},
+  ]},
+  {title:"Paragraph II",text:"For the unbalanced reaction AX + BY + H₂O → HA + OY + X₂B. Let the oxidation number of X be −2 and X, H₂O are not involved in redox reaction.",qs:[
+    {n:3,q:"The element(s) undergoing oxidation is",opts:["A","B","Y","Both B and Y"],ans:"D"},
+    {n:4,q:"The possible oxidation states of B and Y in BY are, respectively:\n(I) +1, −1  (II) +2, −2  (III) +3, −3",opts:["I","II","III","I, II, III"],ans:"D"},
+    {n:5,q:"If the above reaction is balanced in acid medium, the sum of smallest whole number stoichiometric coefficients of all the compounds will be",opts:["9","8","7","6"],ans:"B"},
+  ]},
+  {title:"Paragraph III",text:"Electron transfer or redox reactions involve simultaneous reduction and oxidation reactions. A substance is reduced when it gains electrons, and if it loses electrons it is said to be oxidized. A substance that brings out reduction of other substances is called reducing agent, and the one which brings out oxidation of other substances is called oxidizing agent. In disproportionation, the same substance undergoes both oxidation and reduction. In comproportionation, two identical components undergo oxidation and reduction to give a common product.",qs:[
+    {n:6,q:"2MnO₄²⁻ + 2H₂O → MnO₂ + 2MnO₄⁻ + 4OH⁻ is an example of",opts:["intermolecular redox reaction.","intramolecular redox reaction.","disproportionation reaction.","comproportionation reaction."],ans:"C"},
+    {n:7,q:"Which among the following is not a disproportionation reaction?",opts:["P₄ + OH⁻ → H₂PO₄⁻ + PH₃","S₂O₃²⁻ → SO₄²⁻ + S","H₂O₂ → H₂O + O₂","AgCl + NH₃ → [Ag(NH₃)₂]Cl"],ans:"D"},
+    {n:8,q:"In the reaction MnO₄²⁻ + 2H₂O + 2e⁻ → MnO₂ + 4OH⁻, MnO₂ will act as",opts:["an oxidizing agent.","reducing agent.","both as an oxidizing and reducing agent.","precipitating agent."],ans:"B"},
+  ]},
+  {title:"Paragraph IV",text:"A sample of iron(II) sulphate crystals, FeSO₄·7H₂O has been left open to the air and some iron(II) ions have been converted to iron(III). 4.2 g of the impure crystals were dissolved in 250 cm³ water and dilute sulphuric acid. 25 cm³ portion was titrated with potassium dichromate(VI). Concentration of dichromate(VI) = 0.1 mol dm⁻³. Average volume used = 23.5 cm³.",qs:[
+    {n:9,q:"How many moles of Fe³⁺ ions would there have been in the 250 cm³ of stock solution?",opts:["7.05 × 10⁻⁴ mol","2.35 × 10⁻⁴ mol","1.41 × 10⁻² mol","7.05 × 10⁻⁴ mol"],ans:"C"},
+    {n:10,q:"What mass of Fe²⁺ ions should have been present in the 4.2 g of crystals?",opts:["0.84 g","0.90 g","0.77 g","0.62 g"],ans:"A"},
+    {n:11,q:"The percentage purity of the crystal is",opts:["69%","72%","88%","94%"],ans:"D"},
+  ]},
+  {title:"Paragraph V",text:"1.00 g of a mixture having equal number of moles of carbonates of two alkali metals required 44.4 mL of 0.5 N HCl for complete reaction. Atomic weight of one of the metals is 7.00.",qs:[
+    {n:12,q:"The number of moles of each metal carbonate is",opts:["0.1","0.0111","0.0055","0.00275"],ans:"B"},
+    {n:13,q:"The number of equivalents of HCl used is",opts:["0.222","2.22","22.22","0.0222"],ans:"D"},
+  ]},
+  {title:"Paragraph VI — Iodine Titrations",text:"Iodine titrations can be iodometric or iodimetric depending on using iodine directly or indirectly as an oxidizing agent in the redox titration.\n(a) Iodimetric: 2CuSO₄ + 4KI → Cu₂I₂ + 2K₂SO₄ + I₂\n(b) Iodometric: 2Na₂S₂O₃ + I₂ → Na₂S₄O₆ + 2NaI\nStarch is used as indicator near the end point — blue color with I₃⁻; disappears when free I₂ is absent.",qs:[
+    {n:14,q:"In the reaction 2CuSO₄ + 4KI → Cu₂I₂ + 2K₂SO₄ + I₂, the equivalent weight of CuSO₄ is (Mᴍ: molecular weight)",opts:["Mᴍ/8","Mᴍ/4","Mᴍ/2","Mᴍ"],ans:"C"},
+    {n:15,q:"The volume of KI solution used for CuSO₄ will be",opts:["100 mL","40 mL","400 mL","200 mL"],ans:"B"},
+    {n:16,q:"When 319.0 g of CuSO₄ in solution is reacted with excess 0.5 M KI, the liberated iodine required 100 mL of 1.0 M Na₂S₂O₃. The percentage purity of CuSO₄ in the sample is",opts:["10%","20%","5%","none of these"],ans:"C"},
+  ]},
+  {title:"Paragraph VII — Oleum",text:"Oleum is a mixture of H₂SO₄ and SO₃ (i.e., H₂S₂O₇). Free SO₃ in oleum is dissolved by dilution. Reactions:\nH₂SO₄ + SO₃ + H₂O → 2H₂SO₄ (pure)\nSO₃ + H₂O → H₂SO₄ (pure)\nFor '109% H₂SO₄' labeling: 100 g of oleum diluted with 9 g H₂O gives 109 g pure H₂SO₄.",qs:[
+    {n:17,q:"For 109% labeled oleum, if the number of moles of H₂SO₄ and free SO₃ be x and y, then what will be the value of x² + y²?",opts:["0.15","0.42","0.62","0.80"],ans:"C"},
+    {n:18,q:"The percentage of combined SO₃ in the given oleum sample is",opts:["20%","30%","48.98%","51%"],ans:"C"},
+    {n:19,q:"The percentage composition of free SO₃ and H₂SO₄ in the oleum sample, respectively, are",opts:["60%, 40%","30%, 70%","85%, 15%","40%, 60%"],ans:"D"},
+    {n:20,q:"What volume of 1 M NaOH (in mL) will be required to react completely with H₂SO₄ and SO₃?",opts:["250 mL","2224 mL","750 mL","1800 mL"],ans:"B"},
+  ]},
+];
+
+const INT_Q = [
+  {n:1,q:"The number of electrons involved in the conversion of MnO₄⁻ to MnO₂ is ___.",ans:3},
+  {n:2,q:"In Ba(H₂PO₂)₂, the oxidation number of phosphorus is ___.",ans:1},
+  {n:3,q:"In bleaching powder (CaOCl₂), the oxidation states of chlorine are x and y. The value of x + y is ___.",ans:0},
+  {n:4,q:"Given balanced equation:\naP₂S₃ + bH⁺ + cNO₃⁻ → dNO + eH₃PO₄ + fSO₂ + gH₂O\nWhat is the value of (a + g)?",ans:7},
+  {n:5,q:"In the redox reaction:\nxNO₃⁻ + yAs₂S₃ + zH₂O → AsO₄³⁻ + NO⁺ + SO₄²⁻ + H⁺\nWhat is the value of (x/z)?",ans:14},
+  {n:6,q:"Oxidation state of Cr in CrO₅ is ___.",ans:6},
+  {n:7,q:"0.01 mol of FeS_n required 0.06 mol of AO₄³⁻ for complete oxidation. Species formed are FeO, SO₂ and A²⁺. The value of n is ___.",ans:7},
+  {n:8,q:"1575 g of oxalic acid (COOH)₂·xH₂O dissolved in water, volume made to 250 mL. On titration, 16.68 mL requires 25 mL of N/15 NaOH for complete neutralization. The value of x is ___.",ans:2},
+  {n:9,q:"The equivalent weight of a metal carbonate 0.84 g of which reacts exactly with 40 mL of N/2 H₂SO₄ is ___.",ans:42},
+  {n:10,q:"5 g of K₂SO₄ were dissolved in 250 mL of solution. The volume of this solution that should be used so that 1.2 g of BaSO₄ may be precipitated from BaCl₂ is ___ mL. (K₂SO₄ = 174 g mol⁻¹, BaSO₄ = 233 g mol⁻¹)",ans:45},
+];
+
+const MATRIX = [
+  {n:1,q:"Match the compound with the average oxidation state of Fe.",colI:["Fe₄[Fe(CN)₆]₃","[Fe(NO)(H₂O)₅]SO₄","Fe₃[Fe(CN)₆]₂","Na₂[Fe(CN)₅NO]"],colII:["12/5","2","18/7","1"],colILabels:["A","B","C","D"],colIILabels:["p","q","r","s"],ans:"A→r; B→s; C→p; D→q"},
+  {n:2,q:"Match the reaction with its type.",colI:["V₂O₅ + 5Ca → 2V + 5CaO","2NaH → 2Na + H₂","P₄ + 3OH⁻ + 3H₂O → PH₃ + 3H₂PO₂⁻","Ca + 2H₂O → Ca(OH)₂ + H₂"],colII:["Non-metal displacement reaction","Disproportionation reaction","Decomposition reaction","Redox reaction"],colILabels:["A","B","C","D"],colIILabels:["p","q","r","s"],ans:"A→s; B→r, s; C→p, s; D→q, s"},
+  {n:3,q:"Match the characteristic properties with the elements.",colI:["Metal which reacts with dilute acids to give H₂ gas.","Metal whose container can be used to store conc. HNO₃.","Metal which is used as an electrode in Daniell cell.","Metal which does not react with dilute acids to give H₂ gas."],colII:["Zinc","Silver","Aluminium","Copper"],colILabels:["A","B","C","D"],colIILabels:["p","q","r","s"],ans:"A→p, r; B→r; C→p, s; D→q, s"},
+  {n:4,q:"Match the bold atoms in compounds with their oxidation numbers.",colI:["H₂O₂","MnSO₄","AlCl₃","S₂Cl₂"],colII:["−1","+3","+2","+6"],colILabels:["A","B","C","D"],colIILabels:["p","q","r","s"],ans:"A→r; B→s; C→q; D→p, r"},
+  {n:5,q:"Match the reactions with equivalent weights of their oxidizing/reducing agents.",colI:["NH₃ → NO₃⁻","FeC₂O₄ → Fe³⁺ + 2CO₃²⁻","H₂SO₄ → S₈","KMnO₄ → Mn²⁺"],colII:["M/3","M/6","M/8","M/5"],colILabels:["A","B","C","D"],colIILabels:["p","q","r","s"],ans:"A→r, t; B→p; C→q; D→s"},
+];
+
+// ===== STATE =====
+let state = {attempted:0,correct:0,wrong:0};
+let answered = {};
+const mcqSelected = {};
+
+function updateScore(){
+  document.getElementById('sAttempted').textContent=state.attempted;
+  document.getElementById('sCorrect').textContent=state.correct;
+  document.getElementById('sWrong').textContent=state.wrong;
+  document.getElementById('sAcc').textContent=state.attempted>0?Math.round(state.correct/state.attempted*100)+'%':'—';
+}
+
+function resetAll(){
+  if(!confirm('Reset all answers?')) return;
+  state={attempted:0,correct:0,wrong:0};
+  answered={};
+  updateScore();
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected','correct','wrong'));
+  document.querySelectorAll('.ans-badge').forEach(b=>b.classList.remove('show'));
+  document.querySelectorAll('.int-input').forEach(i=>{i.value='';i.disabled=false;});
+  document.querySelectorAll('.int-result').forEach(r=>r.style.display='none');
+}
+
+// ===== SCQ =====
+function renderSCQ(){
+  const c=document.getElementById('scq-container');
+  const L=['A','B','C','D'];
+  c.innerHTML=SCQ.map(q=>`<div class="q-card">
+    <div class="q-num">Q${q.n} / ${SCQ.length}</div>
+    <div class="q-text">${q.q.replace(/\n/g,'<br>')}</div>
+    <div class="options">${q.opts.map((o,i)=>`<div class="opt" id="scq-${q.n}-${L[i]}" onclick="selectSCQ(${q.n},'${L[i]}','${q.ans}',this)"><span class="opt-label">${L[i]}</span><span class="opt-text">${o}</span></div>`).join('')}</div>
+    <div class="ans-row">
+      <button class="reveal-btn" onclick="revealSCQ(${q.n},'${q.ans}')">Reveal Answer</button>
+      <span class="ans-badge" id="scq-ans-${q.n}">Answer: ${q.ans}</span>
+    </div></div>`).join('');
+}
+function selectSCQ(n,chosen,ans){
+  if(answered[`scq-${n}`]) return;
+  answered[`scq-${n}`]=true;
+  ['A','B','C','D'].forEach(o=>{
+    const el=document.getElementById(`scq-${n}-${o}`);
+    if(o===ans) el.classList.add('correct');
+    else if(o===chosen) el.classList.add('wrong');
+  });
+  state.attempted++;chosen===ans?state.correct++:state.wrong++;
+  updateScore();document.getElementById(`scq-ans-${n}`).classList.add('show');
+}
+function revealSCQ(n,ans){
+  if(!answered[`scq-${n}`]){answered[`scq-${n}`]='r';document.getElementById(`scq-${n}-${ans}`).classList.add('correct');}
+  document.getElementById(`scq-ans-${n}`).classList.add('show');
+}
+
+// ===== MCQ =====
+function renderMCQ(){
+  const c=document.getElementById('mcq-container');
+  const L=['A','B','C','D'];
+  c.innerHTML=MCQ.map(q=>`<div class="q-card">
+    <div class="q-num">Q${q.n} / ${MCQ.length}</div>
+    <div class="q-text">${q.q.replace(/\n/g,'<br>')}</div>
+    <div class="multi-hint">⚑ Select all correct options</div>
+    <div class="options">${q.opts.map((o,i)=>`<div class="opt" id="mcq-${q.n}-${L[i]}" onclick="toggleMCQ(${q.n},'${L[i]}',this)"><span class="opt-label">${L[i]}</span><span class="opt-text">${o}</span></div>`).join('')}</div>
+    <div class="ans-row">
+      <button class="reveal-btn" onclick="submitMCQ(${q.n})">Submit</button>
+      <button class="reveal-btn" onclick="revealMCQ(${q.n},${JSON.stringify(q.ans)})">Reveal</button>
+      <span class="ans-badge" id="mcq-ans-${q.n}">Answer: ${q.ans.join(', ')}</span>
+    </div></div>`).join('');
+}
+function toggleMCQ(n,opt,el){
+  if(answered[`mcq-${n}`]) return;
+  if(!mcqSelected[n]) mcqSelected[n]=[];
+  const idx=mcqSelected[n].indexOf(opt);
+  if(idx>-1){mcqSelected[n].splice(idx,1);el.classList.remove('selected');}
+  else{mcqSelected[n].push(opt);el.classList.add('selected');}
+}
+function submitMCQ(n){
+  const q=MCQ.find(q=>q.n===n);
+  if(answered[`mcq-${n}`]) return;
+  answered[`mcq-${n}`]=true;
+  const sel=mcqSelected[n]||[];
+  ['A','B','C','D'].forEach(o=>{
+    const el=document.getElementById(`mcq-${n}-${o}`);
+    el.classList.remove('selected');
+    if(q.ans.includes(o)) el.classList.add('correct');
+    else if(sel.includes(o)) el.classList.add('wrong');
+  });
+  state.attempted++;
+  const ok=sel.length===q.ans.length&&q.ans.every(a=>sel.includes(a));
+  ok?state.correct++:state.wrong++;
+  updateScore();document.getElementById(`mcq-ans-${n}`).classList.add('show');
+}
+function revealMCQ(n,ans){
+  if(!answered[`mcq-${n}`]){answered[`mcq-${n}`]='r';['A','B','C','D'].forEach(o=>{const el=document.getElementById(`mcq-${n}-${o}`);el.classList.remove('selected');if(ans.includes(o))el.classList.add('correct');});}
+  document.getElementById(`mcq-ans-${n}`).classList.add('show');
+}
+
+// ===== AR =====
+function renderAR(){
+  const c=document.getElementById('ar-container');
+  const LABELS=['Statement 1 is True, Statement 2 is True; S2 is a correct explanation for S1.','Statement 1 is True, Statement 2 is True; S2 is NOT a correct explanation for S1.','Statement 1 is True, Statement 2 is False.','Statement 1 is False, Statement 2 is True.'];
+  const L=['A','B','C','D'];
+  c.innerHTML=AR.map(q=>`<div class="q-card">
+    <div class="q-num">Q${q.n} / ${AR.length}</div>
+    <div class="ar-box"><div class="ar-label">Statement 1</div><div class="ar-text">${q.s1}</div></div>
+    <div class="ar-box"><div class="ar-label">Statement 2</div><div class="ar-text">${q.s2}</div></div>
+    <div class="options" style="margin-top:12px">${L.map((l,i)=>`<div class="opt" id="ar-${q.n}-${l}" onclick="selectGen('ar',${q.n},'${l}','${q.ans}',this)"><span class="opt-label">${l}</span><span class="opt-text">${LABELS[i]}</span></div>`).join('')}</div>
+    <div class="ans-row">
+      <button class="reveal-btn" onclick="revealGen('ar',${q.n},'${q.ans}')">Reveal Answer</button>
+      <span class="ans-badge" id="ar-ans-${q.n}">Answer: ${q.ans}</span>
+    </div></div>`).join('');
+}
+function selectGen(pfx,n,chosen,ans){
+  if(answered[`${pfx}-${n}`]) return;
+  answered[`${pfx}-${n}`]=true;
+  ['A','B','C','D'].forEach(o=>{
+    const el=document.getElementById(`${pfx}-${n}-${o}`);
+    if(el){if(o===ans)el.classList.add('correct');else if(o===chosen)el.classList.add('wrong');}
+  });
+  state.attempted++;chosen===ans?state.correct++:state.wrong++;
+  updateScore();document.getElementById(`${pfx}-ans-${n}`).classList.add('show');
+}
+function revealGen(pfx,n,ans){
+  if(!answered[`${pfx}-${n}`]){answered[`${pfx}-${n}`]='r';const el=document.getElementById(`${pfx}-${n}-${ans}`);if(el)el.classList.add('correct');}
+  document.getElementById(`${pfx}-ans-${n}`).classList.add('show');
+}
+
+// ===== COMPREHENSION =====
+function renderComp(){
+  const c=document.getElementById('comp-container');
+  const L=['A','B','C','D'];
+  c.innerHTML=COMP_PARAS.map((para,pi)=>`<div style="margin-bottom:32px">
+    <div class="para-box"><div class="para-title">${para.title}</div><div class="para-text">${para.text.replace(/\n/g,'<br>')}</div></div>
+    ${para.qs.map(q=>`<div class="q-card">
+      <div class="q-num">Question ${q.n}</div>
+      <div class="q-text">${q.q.replace(/\n/g,'<br>')}</div>
+      <div class="options">${q.opts.map((o,i)=>`<div class="opt" id="comp-${pi}-${q.n}-${L[i]}" onclick="selectComp(${pi},${q.n},'${L[i]}','${q.ans}',this)"><span class="opt-label">${L[i]}</span><span class="opt-text">${o}</span></div>`).join('')}</div>
+      <div class="ans-row">
+        <button class="reveal-btn" onclick="revealComp(${pi},${q.n},'${q.ans}')">Reveal</button>
+        <span class="ans-badge" id="comp-ans-${pi}-${q.n}">Answer: ${q.ans}</span>
+      </div></div>`).join('')}
+  </div>`).join('');
+}
+function selectComp(pi,n,chosen,ans){
+  const k=`comp-${pi}-${n}`;if(answered[k]) return;answered[k]=true;
+  ['A','B','C','D'].forEach(o=>{const el=document.getElementById(`comp-${pi}-${n}-${o}`);if(el){if(o===ans)el.classList.add('correct');else if(o===chosen)el.classList.add('wrong');}});
+  state.attempted++;chosen===ans?state.correct++:state.wrong++;
+  updateScore();document.getElementById(`comp-ans-${pi}-${n}`).classList.add('show');
+}
+function revealComp(pi,n,ans){
+  const k=`comp-${pi}-${n}`;if(!answered[k]){answered[k]='r';const el=document.getElementById(`comp-${pi}-${n}-${ans}`);if(el)el.classList.add('correct');}
+  document.getElementById(`comp-ans-${pi}-${n}`).classList.add('show');
+}
+
+// ===== INTEGER =====
+function renderInt(){
+  const c=document.getElementById('int-container');
+  c.innerHTML=INT_Q.map(q=>`<div class="q-card">
+    <div class="q-num">Q${q.n} / ${INT_Q.length}</div>
+    <div class="q-text">${q.q.replace(/\n/g,'<br>')}</div>
+    <div class="int-input-row">
+      <input class="int-input" type="number" id="int-input-${q.n}" placeholder="Answer…" min="0"/>
+      <button class="check-btn" onclick="checkInt(${q.n},${q.ans})">Check</button>
+      <button class="reveal-btn" onclick="revealInt(${q.n},${q.ans})">Reveal</button>
+    </div>
+    <div class="int-result" id="int-result-${q.n}"></div>
+  </div>`).join('');
+}
+function checkInt(n,ans){
+  if(answered[`int-${n}`]) return;
+  const inp=document.getElementById(`int-input-${n}`);
+  const val=parseInt(inp.value);
+  if(isNaN(val)){alert('Please enter a number.');return;}
+  answered[`int-${n}`]=true;inp.disabled=true;
+  state.attempted++;
+  const res=document.getElementById(`int-result-${n}`);
+  if(val===ans){state.correct++;res.textContent=`✓ Correct! Answer = ${ans}`;res.className='int-result correct';}
+  else{state.wrong++;res.textContent=`✗ Wrong. Correct answer = ${ans}`;res.className='int-result wrong';}
+  res.style.display='inline-block';updateScore();
+}
+function revealInt(n,ans){
+  if(!answered[`int-${n}`]) answered[`int-${n}`]='r';
+  document.getElementById(`int-input-${n}`).disabled=true;
+  const res=document.getElementById(`int-result-${n}`);
+  res.textContent=`Answer = ${ans}`;res.className='int-result correct';res.style.display='inline-block';
+}
+
+// ===== MATRIX =====
+function renderMatrix(){
+  const c=document.getElementById('matrix-container');
+  c.innerHTML=MATRIX.map(q=>`<div class="q-card">
+    <div class="q-num">Q${q.n} / ${MATRIX.length}</div>
+    <div class="q-text">${q.q}</div>
+    <table class="matrix-table">
+      <thead><tr><th>Column I</th><th>Column II</th></tr></thead>
+      <tbody>${q.colI.map((ci,i)=>`<tr><td><strong>${q.colILabels[i]}</strong>) ${ci}</td><td><strong>${q.colIILabels[i]}</strong>) ${q.colII[i]}</td></tr>`).join('')}</tbody>
+    </table>
+    <div class="ans-row">
+      <button class="reveal-btn" onclick="revealMatrix(${q.n})">Reveal Answer</button>
+      <span class="ans-badge" id="matrix-ans-${q.n}">${q.ans}</span>
+    </div></div>`).join('');
+}
+function revealMatrix(n){document.getElementById(`matrix-ans-${n}`).classList.add('show');}
+
+// ===== TABS =====
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(`tab-${id}`).classList.add('active');btn.classList.add('active');
+}
+
+// ===== INIT =====
+renderSCQ();renderMCQ();renderAR();renderComp();renderInt();renderMatrix();updateScore();
+</script>
+</body>
+</html>
