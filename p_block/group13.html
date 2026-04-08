@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 13 Elements</title>
+
+    <!-- CSS Placeholder -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header, section {
+            margin: 20px;
+            padding: 15px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>Group 13 Elements (Boron Family)</h1>
+        <p id="intro-text">[Write introduction here]</p>
+    </header>
+
+    <!-- ELEMENT LIST -->
+    <section id="elements">
+        <h2>Elements</h2>
+
+        <div class="card" onclick="showDetails('boron')">
+            <h3>Boron (B)</h3>
+            <p>[Short info]</p>
+        </div>
+
+        <div class="card" onclick="showDetails('aluminium')">
+            <h3>Aluminium (Al)</h3>
+            <p>[Short info]</p>
+        </div>
+
+        <div class="card" onclick="showDetails('gallium')">
+            <h3>Gallium (Ga)</h3>
+            <p>[Short info]</p>
+        </div>
+
+        <div class="card" onclick="showDetails('indium')">
+            <h3>Indium (In)</h3>
+            <p>[Short info]</p>
+        </div>
+
+        <div class="card" onclick="showDetails('thallium')">
+            <h3>Thallium (Tl)</h3>
+            <p>[Short info]</p>
+        </div>
+    </section>
+
+    <!-- DETAILS SECTION -->
+    <section id="details">
+        <h2>Element Details</h2>
+        <div id="details-content">
+            <p>Select an element to view details.</p>
+        </div>
+    </section>
+
+    <!-- PROPERTIES -->
+    <section id="properties">
+        <h2>General Properties</h2>
+
+        <button onclick="showProperty('physical')">Physical</button>
+        <button onclick="showProperty('chemical')">Chemical</button>
+
+        <div id="property-content">
+            <p>[Property content will appear here]</p>
+        </div>
+    </section>
+
+    <!-- TRENDS -->
+    <section id="trends">
+        <h2>Periodic Trends</h2>
+        <ul>
+            <li>[Atomic size]</li>
+            <li>[Ionization energy]</li>
+            <li>[Electronegativity]</li>
+        </ul>
+    </section>
+
+    <!-- REACTIONS -->
+    <section id="reactions">
+        <h2>Important Reactions</h2>
+        <div id="reaction-list">
+            <p>[Add reactions here]</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© Group 13 Chemistry Page</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function showDetails(element) {
+            const content = document.getElementById("details-content");
+
+            // Placeholder logic
+            content.innerHTML = "<h3>" + element + "</h3><p>[Detailed info here]</p>";
+        }
+
+        function showProperty(type) {
+            const content = document.getElementById("property-content");
+
+            if (type === "physical") {
+                content.innerHTML = "<p>[Physical properties here]</p>";
+            } else if (type === "chemical") {
+                content.innerHTML = "<p>[Chemical properties here]</p>";
+            }
+        }
+    </script>
+
+</body>
+</html>
