@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group 13 – Boron Family | HOTS MCQ Test</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --primary: #2a52be;
+    --primary-dark: #1a3a9a;
+    --accent: #e8eeff;
+    --text: #1a1a2e;
+    --muted: #5a607a;
+    --border: #d0d6e8;
+    --correct: #1b7a3e;
+    --correct-bg: #e8f7ee;
+    --correct-border: #6fcf97;
+    --wrong: #b91c1c;
+    --wrong-bg: #fff0f0;
+    --wrong-border: #f87171;
+    --highlight: #fffbeb;
+    --highlight-border: #fcd34d;
+    --radius: 12px;
+    --shadow: 0 2px 16px rgba(42,82,190,0.08);
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #1a3a9a 0%, #2a52be 50%, #4a72de 100%);
+    color: #fff;
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 6px; }
+  .header p { font-size: 1rem; opacity: 0.85; margin-bottom: 1.5rem; }
+  .header-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-item { text-align: center; }
+  .stat-num { font-size: 1.6rem; font-weight: 700; }
+  .stat-label { font-size: 11px; opacity: 0.75; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ── PROGRESS ── */
+  .progress-bar-wrap {
+    background: var(--card);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .progress-track {
+    background: #e2e8f0;
+    border-radius: 99px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    background: linear-gradient(90deg, #2a52be, #4a72de);
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ── MAIN ── */
+  .container { max-width: 820px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  /* ── QUESTION CARD ── */
+  .question-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.5rem;
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .question-card.active { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+  .q-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+  .q-num {
+    background: var(--primary);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .q-tag {
+    background: var(--accent);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 99px;
+    letter-spacing: 0.5px;
+  }
+  .q-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 16px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    background: #fafbff;
+  }
+  .option:hover:not(.disabled) {
+    border-color: var(--primary);
+    background: var(--accent);
+    transform: translateX(3px);
+  }
+  .option-letter {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.18s;
+  }
+  .option-text { font-size: 0.95rem; line-height: 1.5; padding-top: 3px; }
+
+  /* selected */
+  .option.selected { border-color: var(--primary); background: var(--accent); }
+  .option.selected .option-letter { background: var(--primary); color: #fff; }
+
+  /* correct */
+  .option.correct {
+    border-color: var(--correct-border);
+    background: var(--correct-bg);
+  }
+  .option.correct .option-letter { background: var(--correct); color: #fff; }
+  .option.correct .option-text { color: var(--correct); font-weight: 600; }
+
+  /* wrong */
+  .option.wrong {
+    border-color: var(--wrong-border);
+    background: var(--wrong-bg);
+  }
+  .option.wrong .option-letter { background: var(--wrong); color: #fff; }
+  .option.wrong .option-text { color: var(--wrong); font-weight: 600; }
+
+  .option.disabled { cursor: default; }
+
+  /* ── EXPLANATION ── */
+  .explanation {
+    display: none;
+    margin-top: 1.25rem;
+    padding: 14px 16px;
+    background: var(--highlight);
+    border-left: 4px solid #f59e0b;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: #78350f;
+  }
+  .explanation.show { display: block; animation: fadeIn 0.3s ease; }
+  .explanation strong { font-weight: 700; color: #92400e; }
+
+  /* ── NAV BUTTONS ── */
+  .q-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    letter-spacing: 0.3px;
+  }
+  .btn-primary {
+    background: var(--primary);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+  }
+  .btn-secondary:hover { background: var(--accent); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+
+  /* ── QUESTION PALETTE ── */
+  .palette-wrap {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+  }
+  .palette-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .p-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: #fafbff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--muted);
+  }
+  .p-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .p-btn.current { border-color: var(--primary); background: var(--primary); color: #fff; }
+  .p-btn.answered-correct { background: var(--correct-bg); border-color: var(--correct-border); color: var(--correct); }
+  .p-btn.answered-wrong { background: var(--wrong-bg); border-color: var(--wrong-border); color: var(--wrong); }
+
+  /* ── RESULTS ── */
+  #results-screen { display: none; }
+  .results-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .score-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 6px solid;
+    position: relative;
+  }
+  .score-circle .score-num { font-size: 2.5rem; font-weight: 800; line-height: 1; }
+  .score-circle .score-denom { font-size: 1rem; color: var(--muted); }
+  .grade-label { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+  .grade-msg { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 2rem;
+  }
+  .rs-box {
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .rs-box .rs-num { font-size: 1.6rem; font-weight: 700; }
+  .rs-box .rs-lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .btn-restart {
+    background: var(--primary);
+    color: #fff;
+    padding: 13px 36px;
+    border-radius: 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-restart:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(42,82,190,0.3); }
+
+  /* ── REVIEW ── */
+  .review-wrap { margin-top: 1rem; }
+  .review-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  }
+  .review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .review-status {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+  .status-correct { background: var(--correct-bg); color: var(--correct); }
+  .status-wrong { background: var(--wrong-bg); color: var(--wrong); }
+  .review-q { font-size: 0.95rem; font-weight: 500; line-height: 1.6; margin-bottom: 10px; }
+  .review-ans { font-size: 0.88rem; margin-bottom: 6px; }
+  .review-exp { font-size: 0.88rem; background: var(--highlight); border-left: 3px solid #f59e0b; padding: 8px 12px; border-radius: 0 6px 6px 0; color: #78350f; line-height: 1.6; margin-top: 8px; }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 1.5rem; }
+    .question-card { padding: 1.25rem 1rem; }
+    .result-stats { grid-template-columns: 1fr; }
+    .q-footer { flex-direction: column; }
+    .q-footer .btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">Chemistry · Group 13</div>
+  <h1>Boron Family MCQ Test</h1>
+  <p>Higher Order Thinking Skills (HOTS) · 25 Questions</p>
+  <div class="header-stats">
+    <div class="stat-item"><div class="stat-num">25</div><div class="stat-label">Questions</div></div>
+    <div class="stat-item"><div class="stat-num">HOTS</div><div class="stat-label">Difficulty</div></div>
+    <div class="stat-item"><div class="stat-num">B·Al·Ga·In·Tl</div><div class="stat-label">Elements</div></div>
+  </div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-info">
+    <span id="prog-text">Question 1 of 25</span>
+    <span id="prog-pct">0% Complete</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+</div>
+
+<div class="container">
+
+  <div id="quiz-screen">
+    <div class="palette-wrap">
+      <div class="palette-title">Question Navigator</div>
+      <div class="palette" id="palette"></div>
+    </div>
+
+    <div id="questions-container"></div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; flex-wrap:wrap; gap:12px;">
+      <button class="btn btn-secondary" id="prev-btn" onclick="navigate(-1)" disabled>← Previous</button>
+      <button class="btn btn-primary" id="next-btn" onclick="navigate(1)">Next →</button>
+      <button class="btn" id="submit-btn" onclick="submitQuiz()" style="background:#0f6e56;color:#fff;display:none;">Submit Test</button>
+    </div>
+  </div>
+
+  <div id="results-screen">
+    <div class="results-card">
+      <div class="score-circle" id="score-circle">
+        <div class="score-num" id="score-num">0</div>
+        <div class="score-denom">/ 25</div>
+      </div>
+      <div class="grade-label" id="grade-label"></div>
+      <div class="grade-msg" id="grade-msg"></div>
+      <div class="result-stats">
+        <div class="rs-box" style="background:var(--correct-bg);">
+          <div class="rs-num" id="r-correct" style="color:var(--correct);">0</div>
+          <div class="rs-lbl" style="color:var(--correct);">Correct</div>
+        </div>
+        <div class="rs-box" style="background:var(--wrong-bg);">
+          <div class="rs-num" id="r-wrong" style="color:var(--wrong);">0</div>
+          <div class="rs-lbl" style="color:var(--wrong);">Wrong</div>
+        </div>
+        <div class="rs-box" style="background:#f0f4ff;">
+          <div class="rs-num" id="r-skipped" style="color:var(--primary);">0</div>
+          <div class="rs-lbl" style="color:var(--primary);">Skipped</div>
+        </div>
+      </div>
+      <button class="btn-restart" onclick="restartQuiz()">↺ Restart Test</button>
+    </div>
+
+    <div class="review-wrap" id="review-wrap"></div>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    q: "Boron is classified as a metalloid rather than a metal. Which combination of properties best justifies this classification?",
+    opts: [
+      "High electrical conductivity and lustrous appearance",
+      "Semiconductor behavior, high melting point, and covalent bonding tendency",
+      "Formation of ionic compounds and metallic luster",
+      "Low electronegativity and tendency to lose electrons easily"
+    ],
+    ans: 1,
+    tag: "Periodic Trends",
+    exp: "Boron exhibits semiconductor behavior (unlike typical metals), has an extremely high melting point (~2076°C), and primarily forms covalent bonds due to its high electronegativity. These mixed characteristics place it as a metalloid."
+  },
+  {
+    q: "The boiling points of Group 13 hydrides (BH₃ → InH₃) do NOT follow a simple increasing trend. Why does AlH₃ show anomalously different physical behavior compared to BH₃?",
+    opts: [
+      "AlH₃ is an ionic compound while BH₃ is covalent",
+      "AlH₃ forms a polymeric solid due to Al bridging via hydrogen, while BH₃ dimerizes to B₂H₆",
+      "BH₃ has stronger van der Waals forces",
+      "AlH₃ has a lower molar mass and thus lower boiling point"
+    ],
+    ans: 1,
+    tag: "Hydrides",
+    exp: "BH₃ dimerizes to diborane (B₂H₆) due to 3-center 2-electron bonds. AlH₃ forms a polymeric network solid where Al is octahedrally coordinated via bridging hydrides, giving it a high melting point and very different physical properties."
+  },
+  {
+    q: "In diborane (B₂H₆), the B–H–B bridging bonds are described as 3-centre 2-electron (3c2e) bonds. Which statement BEST explains why normal 2-centre 2-electron bonds cannot form the same structure?",
+    opts: [
+      "Boron lacks d-orbitals for additional bonding",
+      "Boron has only 3 valence electrons, making electron-deficient bridging energetically necessary",
+      "Hydrogen cannot form more than one bond at a time",
+      "The small atomic radius of boron prevents overlap with terminal hydrogens"
+    ],
+    ans: 1,
+    tag: "Chemical Bonding",
+    exp: "Boron has only 3 valence electrons. In B₂H₆, if all bonds were normal 2c2e bonds, 12 electrons would be needed for 6 bonds to 6 H atoms, but only 12 electrons are available (3+3+6×1). The 3c2e bridging bonds allow delocalization of electron density with fewer electrons—an elegant solution to electron deficiency."
+  },
+  {
+    q: "Aluminium reacts with both dilute HCl and dilute NaOH, but not with dilute HNO₃. What is the MOST accurate explanation?",
+    opts: [
+      "Al is too noble to react with HNO₃",
+      "Al gets passivated by a dense, impermeable Al₂O₃ layer when exposed to concentrated HNO₃, and dilute HNO₃ mimics this effect",
+      "Al reacts only with concentrated HNO₃",
+      "HNO₃ oxidizes Al to Al³⁺ which then forms a stable complex"
+    ],
+    ans: 1,
+    tag: "Reactivity",
+    exp: "Concentrated HNO₃ passivates Al by forming a tenacious, tightly adherent Al₂O₃ film. This passivation effect is strong enough that even dilute HNO₃ does not dissolve Al appreciably, as the oxide layer reforms faster than acid can dissolve it."
+  },
+  {
+    q: "BF₃ acts as a Lewis acid, yet NF₃ does not. Identify the FUNDAMENTAL reason for this difference.",
+    opts: [
+      "F atoms are more electronegative bonded to B than to N",
+      "B in BF₃ has an incomplete octet (empty p orbital) available to accept electron pairs, while N in NF₃ has a lone pair and a complete octet",
+      "BF₃ has a trigonal planar geometry that aids Lewis acidity",
+      "N–F bonds are stronger than B–F bonds, preventing orbital overlap"
+    ],
+    ans: 1,
+    tag: "Lewis Acid/Base",
+    exp: "B in BF₃ has only 6 electrons in its valence shell—an empty unhybridized p orbital available for electron-pair acceptance. N in NF₃ already has an octet (plus a lone pair); it is a Lewis BASE, not an acid. Geometry and bond polarity are consequences, not the root cause."
+  },
+  {
+    q: "Down the group from B to Tl, the +1 oxidation state becomes increasingly stable while +3 becomes less stable. This is attributed to the 'inert pair effect.' Which quantum-mechanical argument BEST underpins this observation?",
+    opts: [
+      "The 6s electrons in Tl have low energy and poor shielding due to relativistic contraction, making them reluctant to participate in bonding",
+      "The atomic radius increases, weakening all bonds equally",
+      "The electronegativity decreases, destabilizing the +3 state",
+      "The ionization energy of the third electron increases anomalously for heavier atoms"
+    ],
+    ans: 0,
+    tag: "Inert Pair Effect",
+    exp: "Relativistic effects cause the 6s orbital in Tl to contract and decrease in energy, increasing its penetration to the nucleus. The high effective nuclear charge makes the 6s pair energetically reluctant to be used for bonding, stabilizing the Tl⁺ state over Tl³⁺."
+  },
+  {
+    q: "Thallium(I) compounds show chemical behavior resembling which group of elements, and why?",
+    opts: [
+      "Group 2 (alkaline earth metals), because Tl²⁺ is the dominant ion",
+      "Group 1 (alkali metals) — Tl⁺ has a similar ionic radius and charge to Rb⁺/Cs⁺, and forms insoluble TlCl analogous to AgCl",
+      "Group 17 (halogens), due to its high electron affinity in the +1 state",
+      "Transition metals, because Tl has partially filled d-orbitals"
+    ],
+    ans: 1,
+    tag: "Inert Pair Effect",
+    exp: "Tl⁺ (ionic radius ≈ 150 pm) closely resembles Rb⁺/Cs⁺ in size and charge. Tl⁺ forms a sparingly soluble chloride (TlCl, Ksp ≈ 1.8 × 10⁻⁴), analogous to AgCl. Its sulfate, carbonate, and hydroxide also resemble alkali metal salts."
+  },
+  {
+    q: "Why is the Al–O bond in Al₂O₃ stronger than expected from simple ionic or covalent bond energy considerations, giving corundum its exceptional hardness?",
+    opts: [
+      "Al₂O₃ contains metallic bonds",
+      "The structure involves both significant ionic character and covalent π-bond contributions, and each Al³⁺ is coordinated by six oxide ions in a close-packed array",
+      "The Al–O bond has significant hydrogen-bonding character",
+      "Al₂O₃ is stabilized by van der Waals forces between layers"
+    ],
+    ans: 1,
+    tag: "Oxides",
+    exp: "Corundum (α-Al₂O₃) has each Al³⁺ octahedrally surrounded by six O²⁻ in a hexagonally close-packed oxide lattice. The high charge density of Al³⁺ leads to strong ionic interactions, supplemented by covalent character from orbital overlap. This combination, plus the 3D network structure, produces the extreme hardness (Mohs 9)."
+  },
+  {
+    q: "Boric acid (H₃BO₃) is a weak acid with Ka ≈ 6×10⁻¹⁰. It does NOT donate a proton directly. Instead, it acts as a Lewis acid. Write the correct reaction with water and identify which of the following equations is CORRECT.",
+    opts: [
+      "H₃BO₃ ⇌ H₂BO₃⁻ + H⁺",
+      "H₃BO₃ + 2H₂O ⇌ B(OH)₄⁻ + H₃O⁺",
+      "H₃BO₃ + H₂O ⇌ HBO₂ + 2H₂O",
+      "H₃BO₃ + OH⁻ ⇌ B(OH)₂⁺ + H₂O"
+    ],
+    ans: 1,
+    tag: "Boric Acid",
+    exp: "Boric acid accepts an OH⁻ from water (Lewis acid behavior), forming the tetrahedral tetrahydroxoborate anion [B(OH)₄]⁻ and releasing H₃O⁺. The reaction is: B(OH)₃ + 2H₂O ⇌ [B(OH)₄]⁻ + H₃O⁺."
+  },
+  {
+    q: "Boron forms a remarkable range of borides (e.g., CaB₆, TiB₂, LaB₆). The LaB₆ is used as a thermionic emitter. What structural feature of B₆ in LaB₆ explains its unusual electronic properties?",
+    opts: [
+      "B₆ forms chain polymers inside the crystal",
+      "LaB₆ contains B₆ octahedral clusters held together by a 3D covalent framework, creating partially filled delocalized bands that give metallic conductivity",
+      "Boron in LaB₆ exists as isolated B⁶⁻ ions",
+      "B₆ forms planar hexagonal rings similar to graphene"
+    ],
+    ans: 1,
+    tag: "Borides",
+    exp: "LaB₆ contains a 3D covalent network of B₆ octahedral clusters interconnected at each vertex, providing a rigid, metallic framework. The delocalized band structure gives high conductivity and low work function, ideal for thermionic emission."
+  },
+  {
+    q: "Boron nitride (BN) exists in two major polymorphs: hexagonal BN (h-BN) and cubic BN (c-BN). Which comparison with carbon allotropes is MOST accurate?",
+    opts: [
+      "h-BN is isostructural with diamond; c-BN is isostructural with graphite",
+      "h-BN is isostructural with graphite (layered, lubricating); c-BN is isostructural with diamond (extremely hard)",
+      "Both BN polymorphs are harder than diamond",
+      "h-BN is a semiconductor while c-BN is an electrical conductor"
+    ],
+    ans: 1,
+    tag: "Boron Nitride",
+    exp: "h-BN is often called 'white graphite'—it has a layered hexagonal structure with alternating B and N atoms, making it a lubricant and electrical insulator. c-BN (sphalerite/zinc-blende structure) is the second hardest known material after diamond and is isoelectronic with diamond."
+  },
+  {
+    q: "When excess NaOH is added to Al(OH)₃, it dissolves to form a soluble product. What is this product, and why does Al(OH)₃ dissolve in excess NaOH but Ga(OH)₃ shows the same behaviour while In(OH)₃ does not?",
+    opts: [
+      "All three dissolve equally; the question premise is incorrect",
+      "Al and Ga are more amphoteric (smaller ionic radii with higher charge density promote covalent Al–O and Ga–O bonds), whereas In(OH)₃ is predominantly basic due to lower charge density of In³⁺",
+      "In(OH)₃ dissolves faster than Al(OH)₃ in NaOH",
+      "The product for Al is Al(OH)₂⁺, a cationic species"
+    ],
+    ans: 1,
+    tag: "Amphoterism",
+    exp: "Al³⁺ and Ga³⁺ have high charge density (small radius, +3 charge), giving significant covalent character to their M–O bonds. This makes their hydroxides amphoteric: Al(OH)₃ + OH⁻ → [Al(OH)₄]⁻. In³⁺ is larger with lower charge density, so In(OH)₃ is predominantly ionic and basic—it does NOT dissolve appreciably in NaOH."
+  },
+  {
+    q: "The 'diagonal relationship' between boron and silicon leads to similarities in their chemical properties. Which pair of properties BEST illustrates this relationship?",
+    opts: [
+      "Both form ionic chlorides that hydrolyze readily; both show +4 oxidation state",
+      "Both form covalent, polymeric oxides with 3D network structures (B₂O₃ and SiO₂); both form hydrides that are spontaneously flammable and structurally similar",
+      "Both are metals with high electrical conductivity",
+      "Both dissolve in dilute HCl to give H₂ gas"
+    ],
+    ans: 1,
+    tag: "Diagonal Relationship",
+    exp: "The diagonal relationship (B–Si) shows up in: (1) covalent, network-forming oxides—vitreous B₂O₃ and SiO₂ are both glass-forming oxides; (2) boron hydrides (boranes) and silanes are volatile, electron-deficient, air-sensitive, and flammable; (3) both form tetrahedral oxy-anions (borate and silicate) with complex polyanion chemistry."
+  },
+  {
+    q: "Gallium has an unusually low melting point (29.8°C) despite being a metal in the same period as Ge. The MOST accepted reason involves which structural feature?",
+    opts: [
+      "Gallium has very weak metallic bonding due to its large atomic radius",
+      "The solid gallium structure contains Ga₂ covalent dimers within a distorted metal lattice, reducing overall cohesive energy",
+      "Gallium adopts a face-centred cubic structure with poor packing efficiency",
+      "The inert pair effect removes two electrons from bonding in solid Ga"
+    ],
+    ans: 1,
+    tag: "Anomalous Properties",
+    exp: "Solid gallium (α-Ga) contains Ga₂ covalently bonded pairs (~2.44 Å, similar to a Ga–Ga single bond) arranged in a layered, low-symmetry orthorhombic structure. The directional covalent Ga–Ga bonds compete with metallic cohesion, lowering the cohesive energy and melting point dramatically. Upon melting, these dimers break and Ga becomes a normal metal liquid."
+  },
+  {
+    q: "Indium(I) compounds are stable in aqueous solution only under what conditions, and why is In⁺ not stable in strongly oxidizing environments?",
+    opts: [
+      "In⁺ is always stable in acidic solution",
+      "In⁺ is stable in mildly reducing or neutral conditions; strong oxidizers convert In⁺ → In³⁺ because the In³⁺ state is thermodynamically more stable in the presence of oxidizing agents due to its higher lattice/hydration energy",
+      "In⁺ is only stable in strongly basic solutions",
+      "In⁺ precipitates immediately in any aqueous medium"
+    ],
+    ans: 1,
+    tag: "Oxidation States",
+    exp: "In⁺ can be prepared and exists in dilute aqueous solution under mildly reducing or inert conditions. However, strong oxidants readily oxidize In⁺ to In³⁺ because the extra two electrons bonded in In³⁺ compounds provide large lattice/hydration energy gains, overcoming the ionization energies of the second and third electrons."
+  },
+  {
+    q: "Aluminium trichloride (AlCl₃) exists as Al₂Cl₆ dimer in the vapour phase at moderate temperatures. At very high temperatures, it dissociates into AlCl₃ monomers. What drives dimerization, and why does dissociation occur at higher temperatures?",
+    opts: [
+      "Al₂Cl₆ is stabilized by ionic interactions; heat increases ionic mobility",
+      "Dimerization is driven by Al completing its octet via Cl→Al dative bonds (Lewis acid-base adduct); the dative bonds are weak enough that high thermal energy (T△S term) overcomes the small enthalpy of dimerization",
+      "Dimerization occurs due to London dispersion forces only",
+      "At high temperatures Al metal is released, leaving Cl₂ gas"
+    ],
+    ans: 1,
+    tag: "Aluminium Halides",
+    exp: "AlCl₃ is electron-deficient (Al has 6 valence electrons). Dimerization occurs as a Cl lone pair of one AlCl₃ donates into the empty Al orbital of another, forming two Cl bridges and completing Al's octet. The Al–Cl dative bonds are relatively weak (~50 kJ/mol each bridge), so the –T△S term (entropy favors monomers) wins at high temperatures and Al₂Cl₆ dissociates."
+  },
+  {
+    q: "Orthoboric acid on heating loses water in stages. The product at ~300°C is metaboric acid (HBO₂), and at higher temperatures, boron trioxide (B₂O₃). If a sample shows a mass loss of 23.4% upon strong ignition, starting from pure H₃BO₃, what is the approximate percentage mass loss expected theoretically?",
+    opts: [
+      "19.8%",
+      "43.8%",
+      "31.2%",
+      "56.4%"
+    ],
+    ans: 1,
+    tag: "Boric Acid",
+    exp: "H₃BO₃ → B₂O₃ + 3H₂O. Molar mass H₃BO₃ = 61.83 g/mol; B₂O₃ = 69.62 g/mol. From 2 mol H₃BO₃ (123.66 g), we get 1 mol B₂O₃ (69.62 g) + 3 mol H₂O (54.04 g). Mass loss = 54.04/123.66 = 43.7% ≈ 43.8%."
+  },
+  {
+    q: "Borax (Na₂B₄O₇·10H₂O) is used as a primary standard in titrimetry. Why is it considered a primary standard, and what product does it form in the reaction with HCl?",
+    opts: [
+      "Borax is a strong base with a fixed stoichiometry; it forms NaCl and H₃BO₃",
+      "Borax is a primary standard because it is available in high purity, stable, non-hygroscopic at room temperature, and has a high molar mass reducing weighing error; reaction with HCl: Na₂B₄O₇ + 2HCl + 5H₂O → 2NaCl + 4H₃BO₃",
+      "Borax is a primary standard because it reacts exactly with NaOH in 1:1 ratio",
+      "Borax reacts with HCl to form B₂O₃ and NaCl only"
+    ],
+    ans: 1,
+    tag: "Applications",
+    exp: "A primary standard must be pure, stable, have high molar mass, and have known stoichiometry. Borax satisfies all: MW = 381.37 g/mol (reduces % weighing error), non-hygroscopic in normal lab conditions, and reacts cleanly: Na₂B₄O₇ + 2HCl + 5H₂O → 2NaCl + 4H₃BO₃. The NaOH equivalent is: Na₂B₄O₇·10H₂O + H₂SO₄ → 2NaHSO₄ + 4H₃BO₃ + 5H₂O."
+  },
+  {
+    q: "In the Thermite reaction (2Al + Fe₂O₃ → 2Fe + Al₂O₃), Al displaces Fe. Which thermodynamic argument BEST explains why Al can reduce Fe₂O₃ but Fe cannot reduce Al₂O₃?",
+    opts: [
+      "Al has a higher atomic number than Fe",
+      "The standard Gibbs free energy of formation of Al₂O₃ (ΔGf° = –1582 kJ/mol) is more negative than that of Fe₂O₃ (ΔGf° = –742 kJ/mol), making Al₂O₃ thermodynamically more stable",
+      "The melting point of Al is lower, so it reacts faster",
+      "Fe₂O₃ is an ionic compound while Al₂O₃ is covalent"
+    ],
+    ans: 1,
+    tag: "Thermite Reaction",
+    exp: "The Ellingham diagram principle: the oxide with more negative ΔGf° (per mole O₂) is thermodynamically more stable. Since ΔGf° of Al₂O₃ is far more negative than Fe₂O₃, the reaction 2Al + Fe₂O₃ → Al₂O₃ + 2Fe has a large negative ΔG (≈–840 kJ), making it highly spontaneous and highly exothermic."
+  },
+  {
+    q: "Boron forms a unique class of cage compounds called carboranes (e.g., B₁₀C₂H₁₂). These are isoelectronic with the [B₁₂H₁₂]²⁻ ion. What bonding concept explains the stability of these polyhedral clusters?",
+    opts: [
+      "Ionic bonding between B and C atoms in the cage",
+      "Wade's rules: closed polyhedral clusters (closo type) follow n+1 skeletal electron pairs rule, and the delocalized 3c2e bonding throughout the cage provides exceptional thermodynamic stability",
+      "Classical 2c2e covalent bonding similar to alkanes",
+      "Metallic bonding within the boron cluster"
+    ],
+    ans: 1,
+    tag: "Boron Clusters",
+    exp: "Carboranes and polyhedral boranes are described by Wade's rules. [B₁₂H₁₂]²⁻ and closo-C₂B₁₀H₁₂ are closo clusters with n+1 skeletal electron pairs for n vertices. The stability arises from fully delocalized 3-center 2-electron bonds spread over the entire polyhedral framework, similar to aromatic stabilization in benzene."
+  },
+  {
+    q: "Aluminium forms alums of formula MAl(SO₄)₂·12H₂O. Which of the following ions CANNOT form an alum with Al³⁺?",
+    opts: [
+      "K⁺",
+      "NH₄⁺",
+      "Na⁺",
+      "Ca²⁺"
+    ],
+    ans: 3,
+    tag: "Alums",
+    exp: "Alums require a monovalent cation M⁺ in the formula M⁺M³⁺(SO₄)₂·12H₂O. Ca²⁺ is divalent and cannot substitute for the monovalent M⁺ position in the alum structure. K⁺, NH₄⁺, and Na⁺ are all singly charged and form well-known alums (potash alum, ammonium alum, soda alum)."
+  },
+  {
+    q: "The hydration enthalpy of Al³⁺ (−4665 kJ/mol) is much larger than that of Na⁺ (−406 kJ/mol). What is the primary consequence of Al³⁺'s high hydration enthalpy in aqueous solution?",
+    opts: [
+      "Al³⁺ is insoluble in water",
+      "The hydrated Al³⁺ ion [Al(H₂O)₆]³⁺ undergoes hydrolysis at room temperature, making Al³⁺ solutions acidic (pH 3–4 for 0.1 M AlCl₃)",
+      "Al³⁺ does not form complexes in water",
+      "High hydration enthalpy makes Al³⁺ identical in behavior to Na⁺"
+    ],
+    ans: 1,
+    tag: "Hydration",
+    exp: "The intense charge density of Al³⁺ polarizes the O–H bonds of coordinated water molecules in [Al(H₂O)₆]³⁺, making them more acidic: [Al(H₂O)₆]³⁺ ⇌ [Al(OH)(H₂O)₅]²⁺ + H⁺. This hydrolysis gives Al³⁺ solutions a distinctly acidic pH, a direct consequence of the very high charge-to-radius ratio."
+  },
+  {
+    q: "Among BCl₃, AlCl₃, GaCl₃, InCl₃, and TlCl₃, the Lewis acid strength towards a hard donor (e.g., pyridine) follows the order BCl₃ > AlCl₃ ≈ GaCl₃ > InCl₃. However, GaCl₃ is often a STRONGER Lewis acid than AlCl₃ towards soft donors. What explains this anomaly?",
+    opts: [
+      "Ga has a filled 3d shell that increases its atomic radius more than expected, making it behave softer than Al",
+      "Al has higher electronegativity than Ga",
+      "In is a stronger Lewis acid than Ga",
+      "BCl₃ is the weakest Lewis acid because B is the lightest element"
+    ],
+    ans: 0,
+    tag: "Lewis Acidity",
+    exp: "After filling the 3d subshell, Ga has a larger effective nuclear charge screened by poorly shielding d-electrons, making Ga³⁺ slightly more polarizable (softer) than Al³⁺. This makes GaCl₃ relatively stronger with soft-base donors. The filled d-shell (post-transition contraction) is a subtle but important factor in comparing Al and Ga Lewis acidities."
+  },
+  {
+    q: "Group 13 elements show a trend in M–X bond strength across the halides. For BF₃, the B–F bond is anomalously strong compared to what periodic trends alone would predict. The BEST explanation involves:",
+    opts: [
+      "B–F ionic bonding enhanced by high lattice energy",
+      "Back-donation (π bonding) from filled F 2p orbitals into the empty B 2p orbital, strengthening the B–F bond beyond a single bond",
+      "The small size of B reduces repulsion, inherently strengthening all B–X bonds",
+      "Fluorine's high electronegativity increases B–F bond polarity to near-ionic"
+    ],
+    ans: 1,
+    tag: "Bonding",
+    exp: "In BF₃, the empty unhybridized 2p orbital on B (in the sp² plane) can accept electron density from lone pairs on F via π back-donation (pπ–pπ). This partial double-bond character (B=F) substantially increases the bond order above 1 and hence the bond energy. This also partially quenches the Lewis acidity of BF₃ compared to BCl₃, where back-donation with the larger 3p orbital is less efficient."
+  },
+  {
+    q: "A student attempts to store boron trifluoride (BF₃) gas in a glass container. Over time, the glass etches. Propose the MOST chemically sound explanation for this observation, linking BF₃'s properties to the glass dissolution.",
+    opts: [
+      "BF₃ oxidizes the SiO₂ in glass, releasing O₂",
+      "BF₃ itself does not etch glass; only HF does",
+      "BF₃ reacts with traces of atmospheric moisture (H₂O) to form HF: BF₃ + 3H₂O → B(OH)₃ + 3HF. The HF then attacks SiO₂ in glass: SiO₂ + 4HF → SiF₄ + 2H₂O",
+      "BF₃ directly complexes with Si in glass, forming borosilicates"
+    ],
+    ans: 2,
+    tag: "Applied Chemistry",
+    exp: "BF₃ is a potent Lewis acid that reacts with even trace moisture: BF₃ + 3H₂O → B(OH)₃ + 3HF. The HF generated is what etches the glass: SiO₂ + 4HF → SiF₄↑ + 2H₂O. This is the same chemistry behind HF glass etching. The student should use metal or PTFE (Teflon) containers for BF₃ storage."
+  }
+];
+
+let current = 0;
+let answers = new Array(25).fill(null);
+let submitted = false;
+
+function buildQuiz() {
+  const container = document.getElementById('questions-container');
+  const palette = document.getElementById('palette');
+  container.innerHTML = '';
+  palette.innerHTML = '';
+
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'question-card' + (i === 0 ? ' active' : '');
+    card.id = 'q' + i;
+
+    const optsHTML = q.opts.map((o, j) => `
+      <div class="option" id="opt-${i}-${j}" onclick="selectOption(${i},${j})">
+        <div class="option-letter">${'ABCD'[j]}</div>
+        <div class="option-text">${o}</div>
+      </div>`).join('');
+
+    card.innerHTML = `
+      <div class="q-header">
+        <span class="q-num">Q${i+1}</span>
+        <span class="q-tag">${q.tag}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="options" id="opts-${i}">${optsHTML}</div>
+      <div class="explanation" id="exp-${i}"><strong>Explanation:</strong> ${q.exp}</div>
+    `;
+    container.appendChild(card);
+
+    const pb = document.createElement('button');
+    pb.className = 'p-btn';
+    pb.id = 'pb-' + i;
+    pb.textContent = i + 1;
+    pb.onclick = () => goTo(i);
+    palette.appendChild(pb);
+  });
+
+  updateUI();
+}
+
+function selectOption(qi, oi) {
+  if (submitted) return;
+  answers[qi] = oi;
+
+  document.querySelectorAll(`#opts-${qi} .option`).forEach((el, j) => {
+    el.classList.toggle('selected', j === oi);
+  });
+
+  updateUI();
+}
+
+function goTo(i) {
+  document.getElementById('q' + current)?.classList.remove('active');
+  current = i;
+  document.getElementById('q' + current)?.classList.add('active');
+  updateUI();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function navigate(dir) {
+  const next = current + dir;
+  if (next >= 0 && next < questions.length) goTo(next);
+}
+
+function updateUI() {
+  const answered = answers.filter(a => a !== null).length;
+  document.getElementById('prog-text').textContent = `Question ${current+1} of 25`;
+  document.getElementById('prog-pct').textContent = `${Math.round(answered/25*100)}% Complete`;
+  document.getElementById('progress-fill').style.width = `${answered/25*100}%`;
+
+  document.getElementById('prev-btn').disabled = current === 0;
+  document.getElementById('next-btn').style.display = current < 24 ? 'block' : 'none';
+  document.getElementById('submit-btn').style.display = current === 24 ? 'block' : 'none';
+
+  questions.forEach((_, i) => {
+    const pb = document.getElementById('pb-' + i);
+    pb.className = 'p-btn';
+    if (i === current) pb.classList.add('current');
+    if (!submitted && answers[i] !== null && i !== current) pb.style.background = '#dbeafe';
+    if (submitted && answers[i] !== null) {
+      pb.classList.add(answers[i] === questions[i].ans ? 'answered-correct' : 'answered-wrong');
+    }
+  });
+}
+
+function submitQuiz() {
+  if (!confirm('Submit the test? You cannot change answers after submitting.')) return;
+  submitted = true;
+
+  let correct = 0;
+  questions.forEach((q, i) => {
+    const sel = answers[i];
+    const opts = document.querySelectorAll(`#opts-${i} .option`);
+    opts.forEach(o => o.classList.add('disabled'));
+
+    opts[q.ans].classList.add('correct');
+    if (sel !== null && sel !== q.ans) opts[sel].classList.add('wrong');
+    if (sel === q.ans) correct++;
+
+    document.getElementById('exp-' + i).classList.add('show');
+  });
+
+  const wrong = answers.filter((a,i) => a !== null && a !== questions[i].ans).length;
+  const skipped = answers.filter(a => a === null).length;
+
+  document.getElementById('quiz-screen').style.display = 'none';
+  document.getElementById('results-screen').style.display = 'block';
+
+  document.getElementById('score-num').textContent = correct;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-wrong').textContent = wrong;
+  document.getElementById('r-skipped').textContent = skipped;
+
+  const pct = correct / 25 * 100;
+  const circle = document.getElementById('score-circle');
+  let grade, msg, color;
+
+  if (pct >= 88) { grade = 'Outstanding'; msg = 'Exceptional mastery of Group 13 Chemistry!'; color = '#0f6e56'; }
+  else if (pct >= 72) { grade = 'Excellent'; msg = 'Strong understanding of Boron Family concepts.'; color = '#185fa5'; }
+  else if (pct >= 56) { grade = 'Good'; msg = 'Decent grasp—review the explanations for improvement.'; color = '#ba7517'; }
+  else if (pct >= 40) { grade = 'Average'; msg = 'Revise inert pair effect, bonding, and Lewis acid concepts.'; color = '#d85a30'; }
+  else { grade = 'Needs Work'; msg = 'Focus on fundamentals before attempting HOTS questions.'; color = '#b91c1c'; }
+
+  circle.style.borderColor = color;
+  circle.querySelector('.score-num').style.color = color;
+  document.getElementById('grade-label').textContent = grade;
+  document.getElementById('grade-label').style.color = color;
+  document.getElementById('grade-msg').textContent = msg;
+
+  buildReview();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildReview() {
+  const wrap = document.getElementById('review-wrap');
+  wrap.innerHTML = '<h2 style="font-size:1.2rem;font-weight:700;margin-bottom:1rem;color:var(--text);">Detailed Review</h2>';
+  questions.forEach((q, i) => {
+    const sel = answers[i];
+    const isCorrect = sel === q.ans;
+    const div = document.createElement('div');
+    div.className = 'review-card';
+    div.innerHTML = `
+      <div class="review-header">
+        <span class="q-num">Q${i+1}</span>
+        <span class="review-status ${isCorrect ? 'status-correct' : 'status-wrong'}">${isCorrect ? '✓ Correct' : '✗ Wrong'}</span>
+        <span class="q-tag">${q.tag}</span>
+      </div>
+      <div class="review-q">${q.q}</div>
+      <div class="review-ans" style="color:var(--correct)"><strong>Correct Answer:</strong> ${'ABCD'[q.ans]}. ${q.opts[q.ans]}</div>
+      ${sel !== null && sel !== q.ans ? `<div class="review-ans" style="color:var(--wrong)"><strong>Your Answer:</strong> ${'ABCD'[sel]}. ${q.opts[sel]}</div>` : ''}
+      ${sel === null ? `<div class="review-ans" style="color:var(--muted)"><strong>Your Answer:</strong> Skipped</div>` : ''}
+      <div class="review-exp"><strong>Explanation:</strong> ${q.exp}</div>
+    `;
+    wrap.appendChild(div);
+  });
+}
+
+function restartQuiz() {
+  answers = new Array(25).fill(null);
+  submitted = false;
+  current = 0;
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-screen').style.display = 'block';
+  buildQuiz();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
