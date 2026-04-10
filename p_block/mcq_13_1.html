@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boron Family MCQ Test</title>
+<style>
+body {font-family: Arial, sans-serif; background:#f4f6f8; margin:0; padding:0;}
+.container {max-width:900px; margin:20px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);} 
+h1 {text-align:center;}
+.question {margin-bottom:20px;}
+.options label {display:block; margin:5px 0; cursor:pointer;}
+button {padding:10px 20px; font-size:16px; background:#007bff; color:#fff; border:none; border-radius:5px; cursor:pointer;}
+button:hover {background:#0056b3;}
+#result {font-size:18px; margin-top:20px; text-align:center;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Boron Family (Group 13) - HOTS MCQ Test</h1>
+<form id="quizForm"></form>
+<button onclick="submitQuiz()">Submit</button>
+<div id="result"></div>
+</div>
+
+<script>
+const questions = [
+{q:"Why does boron not form B3+ ions easily?", options:["High ionization energy","Low electronegativity","Large atomic size","Presence of d orbitals"], answer:0},
+{q:"Which element shows diagonal relationship with silicon?", options:["Aluminium","Boron","Gallium","Indium"], answer:1},
+{q:"Why is AlCl3 covalent in nature?", options:["Low charge density","High polarization","Large size","Low electronegativity"], answer:1},
+{q:"Which compound acts as a Lewis acid?", options:["NH3","BF3","H2O","CH4"], answer:1},
+{q:"Why does boron form electron deficient compounds?", options:["Small size","Lack of electrons","High electronegativity","Presence of d orbitals"], answer:1},
+{q:"Which oxide is amphoteric?", options:["B2O3","Al2O3","Ga2O3","In2O3"], answer:1},
+{q:"Why does Ga show +1 oxidation state?", options:["Inert pair effect","High electronegativity","Small size","High ionization"], answer:0},
+{q:"Which hydride is polymeric?", options:["BH3","AlH3","GaH3","InH3"], answer:0},
+{q:"Why is BF3 planar?", options:["sp3 hybridization","sp2 hybridization","sp hybridization","dsp2 hybridization"], answer:1},
+{q:"Which compound forms dimer?", options:["BCl3","AlCl3","BF3","B2H6"], answer:1},
+{q:"Why does boron not form simple cations?", options:["High IE","Low IE","Large size","Low charge"], answer:0},
+{q:"Which element is metalloid?", options:["Boron","Aluminium","Gallium","Indium"], answer:0},
+{q:"Why is BCl3 more reactive than BF3?", options:["Less back bonding","More electronegativity","Small size","Strong bond"], answer:0},
+{q:"Which shows maximum covalency?", options:["B","Al","Ga","In"], answer:1},
+{q:"Why is Al2O3 amphoteric?", options:["Intermediate electronegativity","High IE","Low IE","Small size"], answer:0},
+{q:"Which compound has 3c-2e bonds?", options:["BF3","B2H6","AlCl3","BCl3"], answer:1},
+{q:"Why does boron have high melting point?", options:["Strong lattice","Weak bonds","Large atoms","Low density"], answer:0},
+{q:"Which element shows inert pair effect most?", options:["B","Al","Ga","Tl"], answer:3},
+{q:"Which compound is electron deficient?", options:["CH4","NH3","BF3","H2O"], answer:2},
+{q:"Why does aluminium form complex ions?", options:["Small size & high charge","Large size","Low charge","Low IE"], answer:0},
+{q:"Which halide is strongest Lewis acid?", options:["BF3","BCl3","BBr3","BI3"], answer:3},
+{q:"Why is Tl+ more stable than Tl3+?", options:["Inert pair effect","High IE","Low size","High EN"], answer:0},
+{q:"Which oxide is acidic?", options:["B2O3","Al2O3","Ga2O3","In2O3"], answer:0},
+{q:"Which element forms strongest covalent bond?", options:["B","Al","Ga","In"], answer:0},
+{q:"Why is BF3 less reactive than BCl3?", options:["Back bonding","High EN","Small size","All"], answer:3}
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  const div = document.createElement("div");
+  div.classList.add("question");
+  div.innerHTML = `<p><b>Q${index+1}. ${item.q}</b></p>`;
+
+  const optDiv = document.createElement("div");
+  optDiv.classList.add("options");
+
+  item.options.forEach((opt, i) => {
+    optDiv.innerHTML += `
+    <label>
+      <input type="radio" name="q${index}" value="${i}"> ${opt}
+    </label>`;
+  });
+
+  div.appendChild(optDiv);
+  form.appendChild(div);
+});
+
+function submitQuiz() {
+  let score = 0;
+  questions.forEach((item, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    if(selected && parseInt(selected.value) === item.answer) {
+      score++;
+    }
+  });
+  document.getElementById("result").innerHTML = `You scored ${score} out of ${questions.length}`;
+}
+</script>
+</body>
+</html>
