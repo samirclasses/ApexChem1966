@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Group 14 Elements - Carbon Family</title>
+
+<style>
+/* GLOBAL RESET */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* BODY */
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 10px;
+}
+
+/* STRUCTURE */
+header, section, footer {
+    margin: 15px 0;
+    padding: 15px;
+}
+
+/* CARDS */
+.card {
+    border: 1px solid #ccc;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* MEDIA ELEMENTS */
+img, iframe, table {
+    max-width: 100%;
+    height: auto;
+}
+
+/* BUTTON */
+button {
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+/* FACEBOOK / MOBILE FIX */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    body {
+        margin: 8px;
+        padding: 8px;
+    }
+
+    header, section {
+        margin: 10px 0;
+        padding: 10px;
+    }
+
+    .card {
+        padding: 10px;
+        margin: 10px 0;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    iframe {
+        height: 400px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <h1>Group 14 Elements (Carbon Family)</h1>
+    <p id="intro-text">[Introduction Placeholder]</p>
+</header>
+
+<!-- ELEMENT LIST -->
+<section id="elements">
+
+    <div class="card" onclick="showDetails('carbon')">
+        <h3>Carbon (C)</h3>
+        <div class="content">[Content Placeholder]</div>
+    </div>
+
+    <div class="card" onclick="showDetails('silicon')">
+        <h3>Silicon (Si)</h3>
+        <div class="content">[Content Placeholder]</div>
+    </div>
+
+    <div class="card" onclick="showDetails('germanium')">
+        <h3>Germanium (Ge)</h3>
+        <div class="content">[Content Placeholder]</div>
+    </div>
+
+    <div class="card" onclick="showDetails('tin')">
+        <h3>Tin (Sn)</h3>
+        <div class="content">[Content Placeholder]</div>
+    </div>
+
+    <div class="card" onclick="showDetails('lead')">
+        <h3>Lead (Pb)</h3>
+        <div class="content">[Content Placeholder]</div>
+    </div>
+
+</section>
+
+<!-- GENERAL CHARACTERISTICS -->
+<section id="trends">
+    <h2>General Characteristics</h2>
+    <div id="general-content">[Placeholder]</div>
+</section>
+
+<!-- CHEMICAL PROPERTIES -->
+<section id="chemical">
+    <h2>Chemical Properties</h2>
+    <div id="chemical-content">[Placeholder]</div>
+</section>
+
+<!-- IMPORTANT COMPOUNDS -->
+<section id="compounds">
+    <h2>Important Compounds</h2>
+    <div>[Placeholder]</div>
+</section>
+
+<!-- TEST CORNER -->
+<section id="tests">
+    <h2>Test Corner</h2>
+
+    <h3>Test-1</h3>
+    <iframe src="mcq_14_1.html"></iframe>
+
+    <h3>Test-2</h3>
+    <iframe src="mcq_14_2.html"></iframe>
+
+    <h3>Test-3</h3>
+    <iframe src="mcq_14_3.html"></iframe>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© Group 14 Chemistry Page</p>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+function showDetails(element) {
+    alert("Details for: " + element);
+}
+
+function showProperty(type) {
+    if (type === "physical") {
+        console.log("Physical properties");
+    } else if (type === "chemical") {
+        console.log("Chemical properties");
+    }
+}
+</script>
+
+</body>
+</html>
