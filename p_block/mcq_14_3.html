@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group 13 HOTS Test - Set 2</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#eef2f7;
+    margin:0;
+    padding:20px;
+}
+.container{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 12px rgba(0,0,0,0.1);
+}
+h1{
+    text-align:center;
+}
+.question{
+    margin-bottom:18px;
+}
+.options label{
+    display:block;
+    padding:5px;
+    cursor:pointer;
+}
+button{
+    padding:10px 20px;
+    background:#28a745;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+button:hover{
+    background:#1e7e34;
+}
+.result{
+    margin-top:20px;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Group 13 HOTS MCQ Test (Set 2)</h1>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit</button>
+
+<div class="result" id="result"></div>
+</div>
+
+<script>
+const questions = [
+{
+q:"1. Which element shows diagonal relationship with Silicon?",
+options:["B","Al","Ga","Tl"],
+answer:"B"
+},
+{
+q:"2. The most covalent trichloride among Group 13 is:",
+options:["BCl3","AlCl3","GaCl3","InCl3"],
+answer:"BCl3"
+},
+{
+q:"3. Which compound is electron deficient?",
+options:["AlCl3","NH3","CH4","H2O"],
+answer:"AlCl3"
+},
+{
+q:"4. Which oxide is most acidic?",
+options:["B2O3","Al2O3","Ga2O3","Tl2O3"],
+answer:"B2O3"
+},
+{
+q:"5. Trend of metallic character down the group:",
+options:["Decreases","Increases","Constant","Irregular"],
+answer:"Increases"
+},
+{
+q:"6. Which element forms strongest covalent bonds?",
+options:["B","Al","Ga","In"],
+answer:"B"
+},
+{
+q:"7. Which hydride is polymeric?",
+options:["B2H6","AlH3","GaH3","All"],
+answer:"All"
+},
+{
+q:"8. Which ion is most stable in aqueous solution?",
+options:["B3+","Al3+","Ga3+","Tl+"],
+answer:"Tl+"
+},
+{
+q:"9. Which element has highest ionization enthalpy?",
+options:["B","Al","Ga","Tl"],
+answer:"B"
+},
+{
+q:"10. Which compound shows back bonding?",
+options:["BF3","BCl3","BBr3","BI3"],
+answer:"BF3"
+},
+{
+q:"11. Which element forms amphoteric hydroxide?",
+options:["B","Al","Ga","Both Al and Ga"],
+answer:"Both Al and Ga"
+},
+{
+q:"12. Which is strongest Lewis acid?",
+options:["BF3","BCl3","AlCl3","GaCl3"],
+answer:"AlCl3"
+},
+{
+q:"13. Which element shows maximum electronegativity?",
+options:["B","Al","Ga","In"],
+answer:"B"
+},
+{
+q:"14. Which halide is least stable?",
+options:["BCl3","AlCl3","TlCl3","GaCl3"],
+answer:"TlCl3"
+},
+{
+q:"15. Which compound forms hydrogen bonds?",
+options:["B2H6","H3BO3","BF3","AlCl3"],
+answer:"H3BO3"
+},
+{
+q:"16. Which element is metalloid?",
+options:["B","Al","Ga","In"],
+answer:"B"
+},
+{
+q:"17. Which oxide is amphoteric?",
+options:["B2O3","Al2O3","Ga2O3","Both Al2O3 and Ga2O3"],
+answer:"Both Al2O3 and Ga2O3"
+},
+{
+q:"18. Which compound is planar?",
+options:["BF3","NH3","CH4","H2O"],
+answer:"BF3"
+},
+{
+q:"19. Which element has anomalous properties?",
+options:["B","Al","Ga","Tl"],
+answer:"B"
+},
+{
+q:"20. Which trihalide dimerizes easily?",
+options:["BF3","BCl3","AlCl3","BI3"],
+answer:"AlCl3"
+},
+{
+q:"21. Which element forms strongest oxide lattice?",
+options:["B","Al","Ga","In"],
+answer:"B"
+},
+{
+q:"22. Which has lowest electronegativity?",
+options:["B","Al","Ga","Tl"],
+answer:"Tl"
+},
+{
+q:"23. Which compound is used as semiconductor dopant?",
+options:["B","Al","Ga","In"],
+answer:"B"
+},
+{
+q:"24. Which shows maximum covalent character?",
+options:["BCl3","AlCl3","GaCl3","InCl3"],
+answer:"BCl3"
+},
+{
+q:"25. Which has highest hydration energy?",
+options:["B3+","Al3+","Ga3+","In3+"],
+answer:"B3+"
+}
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item,index)=>{
+    let qDiv = document.createElement("div");
+    qDiv.classList.add("question");
+
+    let qTitle = document.createElement("p");
+    qTitle.innerText = item.q;
+    qDiv.appendChild(qTitle);
+
+    let optionsDiv = document.createElement("div");
+    optionsDiv.classList.add("options");
+
+    item.options.forEach(opt=>{
+        let label = document.createElement("label");
+        label.innerHTML = `<input type="radio" name="q${index}" value="${opt}"> ${opt}`;
+        optionsDiv.appendChild(label);
+    });
+
+    qDiv.appendChild(optionsDiv);
+    form.appendChild(qDiv);
+});
+
+function submitQuiz(){
+    let score = 0;
+
+    questions.forEach((item,index)=>{
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if(selected && selected.value === item.answer){
+            score++;
+        }
+    });
+
+    document.getElementById("result").innerText =
+    `Your Score: ${score} / ${questions.length}`;
+}
+</script>
+
+</body>
+</html>
