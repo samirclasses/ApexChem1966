@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group 13 HOTS MCQ Test</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:20px;
+}
+.container{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+h1{
+    text-align:center;
+}
+.question{
+    margin-bottom:20px;
+}
+.options label{
+    display:block;
+    padding:5px;
+    cursor:pointer;
+}
+button{
+    padding:10px 20px;
+    background:#007bff;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+button:hover{
+    background:#0056b3;
+}
+.result{
+    margin-top:20px;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Group 13 HOTS MCQ Test</h1>
+
+<form id="quizForm"></form>
+
+<button onclick="submitQuiz()">Submit</button>
+
+<div class="result" id="result"></div>
+</div>
+
+<script>
+const questions = [
+{
+q:"1. Which element shows maximum inert pair effect?",
+options:["B","Al","Ga","Tl"],
+answer:"Tl"
+},
+{
+q:"2. Lewis acid strength order:",
+options:["BF3 > BCl3 > BBr3 > BI3","BI3 > BBr3 > BCl3 > BF3","BCl3 > BF3 > BBr3 > BI3","BF3 > BI3 > BCl3 > BBr3"],
+answer:"BI3 > BBr3 > BCl3 > BF3"
+},
+{
+q:"3. Electrons in banana bonds of B2H6:",
+options:["2","4","6","8"],
+answer:"4"
+},
+{
+q:"4. Hybridization of Al in Al2Cl6:",
+options:["sp2","sp3","dsp2","sp3d"],
+answer:"sp3"
+},
+{
+q:"5. Inorganic benzene:",
+options:["B3N3H6","B2H6","B4C","AlN"],
+answer:"B3N3H6"
+},
+{
+q:"6. Density of Ga > Al due to:",
+options:["Nuclear charge","Poor shielding of 3d","Atomic radius","Metallic bonding"],
+answer:"Poor shielding of 3d"
+},
+{
+q:"7. H3BO3 is monobasic because:",
+options:["One replaceable H","Proton donor","Accepts OH-","Forms borax"],
+answer:"Accepts OH-"
+},
+{
+q:"8. Borax hybridization (sp2, sp3):",
+options:["2,2","3,1","1,3","4,0"],
+answer:"2,2"
+},
+{
+q:"9. Widest liquid range element:",
+options:["B","Al","Ga","In"],
+answer:"Ga"
+},
+{
+q:"10. Banana bond type:",
+options:["2c-2e","3c-2e","3c-3e","2c-3e"],
+answer:"3c-2e"
+},
+{
+q:"11. AlCl3 fumes due to:",
+options:["Sublimation","Reduction","Hydrolysis","Al2O3 formation"],
+answer:"Hydrolysis"
+},
+{
+q:"12. Atomic radii order:",
+options:["B < Al < Ga < In < Tl","B < Ga < Al < In < Tl","B < Al < In < Ga < Tl","Ga < B < Al < In < Tl"],
+answer:"B < Ga < Al < In < Tl"
+},
+{
+q:"13. Does not react with water:",
+options:["Al","Ga","B","In"],
+answer:"B"
+},
+{
+q:"14. Heating H3BO3 gives:",
+options:["B2O3","Metaboric acid","Tetraboric acid","Boron"],
+answer:"Metaboric acid"
+},
+{
+q:"15. Stability of +1 state:",
+options:["Al < Ga < In < Tl","Tl < In < Ga < Al","Ga < In < Al < Tl","Al < In < Ga < Tl"],
+answer:"Al < Ga < In < Tl"
+},
+{
+q:"16. Lubricant:",
+options:["BN","Borax","Al carbide","BF3"],
+answer:"BN"
+},
+{
+q:"17. Potash alum is used as:",
+options:["Mordant","Water purifier","Antiseptic","All"],
+answer:"All"
+},
+{
+q:"18. TlCl3 instability due to:",
+options:["Tl3+ reducing","Tl+ stable","Noble metal","Low lattice energy"],
+answer:"Tl+ stable"
+},
+{
+q:"19. Amphoteric oxide:",
+options:["B","Al","Tl","None"],
+answer:"Al"
+},
+{
+q:"20. Borax bead with CoO color:",
+options:["Green","Blue","Red","Colorless"],
+answer:"Blue"
+},
+{
+q:"21. Terminal B-H bonds:",
+options:["Longer stronger","Shorter stronger","Longer weaker","Shorter weaker"],
+answer:"Shorter stronger"
+},
+{
+q:"22. Shape of BF3:",
+options:["Pyramidal","Tetrahedral","Trigonal planar","Linear"],
+answer:"Trigonal planar"
+},
+{
+q:"23. Halide not fully hydrolyzed:",
+options:["BF3","BCl3","BBr3","BI3"],
+answer:"BF3"
+},
+{
+q:"24. Lowest melting point:",
+options:["B","Al","Ga","Tl"],
+answer:"Ga"
+},
+{
+q:"25. [Al(H2O)6]3+ hybridization:",
+options:["sp3","sp3d2","d2sp3","dsp2"],
+answer:"sp3d2"
+}
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item,index)=>{
+    let qDiv = document.createElement("div");
+    qDiv.classList.add("question");
+
+    let qTitle = document.createElement("p");
+    qTitle.innerText = item.q;
+    qDiv.appendChild(qTitle);
+
+    let optionsDiv = document.createElement("div");
+    optionsDiv.classList.add("options");
+
+    item.options.forEach(opt=>{
+        let label = document.createElement("label");
+        label.innerHTML = `<input type="radio" name="q${index}" value="${opt}"> ${opt}`;
+        optionsDiv.appendChild(label);
+    });
+
+    qDiv.appendChild(optionsDiv);
+    form.appendChild(qDiv);
+});
+
+function submitQuiz(){
+    let score = 0;
+
+    questions.forEach((item,index)=>{
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if(selected && selected.value === item.answer){
+            score++;
+        }
+    });
+
+    document.getElementById("result").innerText = 
+    `Your Score: ${score} / ${questions.length}`;
+}
+</script>
+
+</body>
+</html>
