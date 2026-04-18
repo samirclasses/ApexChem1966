@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCQ Test - Carbon & Silicon</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #f4f6f7;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.result {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>MCQ Test (25 Questions)</h1>
+
+<form id="quizForm">
+
+<div id="questions"></div>
+
+<button type="button" onclick="submitQuiz()">Submit</button>
+
+<div class="result" id="result"></div>
+
+</form>
+</div>
+
+<script>
+
+const quiz = [
+
+{
+q:"In borax bead test which compound is formed?",
+o:["Ortho-borate","Meta-borate","Double oxide","Tetra-borate"],
+a:1
+},
+
+{
+q:"Al2O3 can be converted to anhydrous AlCl3 by heating with:",
+o:["AlCl3","Mixture of Al2O3 and carbon in dry Cl2","Cl2 gas","HCl gas"],
+a:1
+},
+
+{
+q:"The tendency of BF3, BCl3 and BBr3 to behave as Lewis acid decreases in:",
+o:["BCl3 > BF3 > BBr3","BBr3 > BCl3 > BF3","BBr3 > BF3 > BCl3","BF3 > BCl3 > BBr3"],
+a:3
+},
+
+{
+q:"Aluminium is extracted from alumina by electrolysis of molten mixture of:",
+o:["Al2O3 + HF + NaAlF4","Al2O3 + CaF2 + NaAlF4","Al2O3 + Na3AlF6 + CaF2","Al2O3 + KF + Na3AlF6"],
+a:2
+},
+
+{
+q:"Which structure is similar to graphite?",
+o:["B","B4C","B2H6","BN"],
+a:3
+},
+
+{
+q:"Alum helps in purifying water by:",
+o:["forming Si complex","removing sulphate","coagulating mud particles","making water soluble"],
+a:2
+},
+
+{
+q:"Aluminium is extracted by electrolysis of:",
+o:["bauxite","alumina","cryolite","kaolin"],
+a:0
+},
+
+{
+q:"Aluminium chloride exists as dimer Al2Cl6. In water it gives:",
+o:["[Al(OH)6]3-","[Al(H2O)6]3+","Al3+","Al2O3"],
+a:1
+},
+
+{
+q:"Heating aqueous AlCl3 to dryness gives:",
+o:["Al(OH)Cl2","Al2O3","Al2Cl6","AlCl3"],
+a:3
+},
+
+{
+q:"Structure of diborane contains:",
+o:["4 two-centre and 4 three-centre bonds","2 two-centre and 3 three-centre","2 two-centre and 4 three-centre","4 two-centre and 2 three-centre"],
+a:2
+},
+
+{
+q:"Which statement is correct?",
+o:["Boric acid is protonic acid","Be shows coordination 6","Chlorides of B and Al are bridged","B2H6 is inorganic benzene"],
+a:2
+},
+
+{
+q:"Hybridization of B in BCl3 is:",
+o:["sp3","sp2","sp","sp3d2"],
+a:1
+},
+
+{
+q:"Hybridization of boron in diborane:",
+o:["sp","sp2","sp3","sp3d2"],
+a:2
+},
+
+{
+q:"Geometry of N and B in BF3 + NH3 complex:",
+o:["tetrahedral,tetrahedral","pyramidal,pyramidal","pyramidal,planar","pyramidal,tetrahedral"],
+a:3
+},
+
+{
+q:"Element with highest melting point:",
+o:["Boron","Aluminium","Gallium","Thallium"],
+a:0
+},
+
+{
+q:"Element with least metallic character:",
+o:["Indium","Boron","Aluminium","Gallium"],
+a:1
+},
+
+{
+q:"Which does not form M3+ ion?",
+o:["Boron","Aluminium","Indium","Gallium"],
+a:0
+},
+
+{
+q:"Which does not react with NaOH?",
+o:["B","Al","Ga","Tl"],
+a:3
+},
+
+{
+q:"B2O3 is:",
+o:["acidic","basic","amphoteric","none"],
+a:0
+},
+
+{
+q:"Boric acid is polymeric due to:",
+o:["acidic nature","hydrogen bonding","monobasic nature","geometry"],
+a:1
+},
+
+{
+q:"B(OH)3 is:",
+o:["monobasic acid","dibasic acid","tribasic acid","triacidic base"],
+a:0
+},
+
+{
+q:"Which hydroxide is acidic?",
+o:["Al(OH)3","Ca(OH)2","Tl(OH)3","B(OH)3"],
+a:3
+},
+
+{
+q:"BF3 acts as acid according to:",
+o:["Lewis","Bronsted","Arrhenius","None"],
+a:0
+},
+
+{
+q:"Which is electron deficient?",
+o:["NH3","BCl3","PCl3","None"],
+a:1
+},
+
+{
+q:"NH3 and BF3 form adduct due to:",
+o:["coordinate bond","hydrogen bond","ionic bond","covalent bond"],
+a:0
+}
+
+];
+
+const container = document.getElementById("questions");
+
+quiz.forEach((q, i) => {
+    let div = document.createElement("div");
+    div.classList.add("question");
+
+    let html = `<p>${i+1}. ${q.q}</p>`;
+
+    q.o.forEach((opt, j) => {
+        html += `
+        <label>
+        <input type="radio" name="q${i}" value="${j}">
+        ${opt}
+        </label><br>`;
+    });
+
+    div.innerHTML = html;
+    container.appendChild(div);
+});
+
+function submitQuiz() {
+    let score = 0;
+
+    quiz.forEach((q, i) => {
+        let ans = document.querySelector(`input[name="q${i}"]:checked`);
+        if(ans && Number(ans.value) === q.a){
+            score++;
+        }
+    });
+
+    document.getElementById("result").innerText =
+        "Your Score: " + score + " / " + quiz.length;
+}
+
+</script>
+
+</body>
+</html>
