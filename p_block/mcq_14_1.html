@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group 14 Elements Quiz</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 20px;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1 { text-align: center; }
+.question { margin-bottom: 20px; }
+.options label { display: block; margin: 5px 0; cursor: pointer; }
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+button:hover { background: #0056b3; }
+#result { text-align: center; font-size: 20px; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Group 14 Elements MCQ TEST-1</h1>
+<form id="quizForm"></form>
+<button onclick="submitQuiz()">Submit</button>
+<div id="result"></div>
+</div>
+
+<script>
+const questions = [
+  {q:"1. Which of the following statements best explains why Lead (IV) chloride is a powerful oxidizing agent while Tin (IV) chloride is not?",
+   options:[
+    "A) Lead has a higher electronegativity than Tin.",
+    "B) The 6s² electrons in Lead experience a strong relativistic contraction (Inert Pair Effect).",
+    "C) Lead (IV) chloride is an ionic compound.",
+    "D) Tin (IV) chloride has a higher lattice energy."], ans:"B"},
+
+  {q:"2. In the structure of Quartz (SiO₂), each Silicon atom is surrounded by:",
+   options:[
+    "A) Two oxygen atoms in a linear geometry.",
+    "B) Four oxygen atoms in a tetrahedral geometry.",
+    "C) Six oxygen atoms in an octahedral geometry.",
+    "D) Three oxygen atoms in a trigonal planar geometry."], ans:"B"},
+
+  {q:"3. Graphite conducts electricity due to the presence of:",
+   options:[
+    "A) Lone pairs on carbon atoms.",
+    "B) Free protons moving through the layers.",
+    "C) Delocalized π-electrons within the hexagonal layers.",
+    "D) Weak van der Waals forces."], ans:"C"},
+
+  {q:"4. Which Group 14 element shows the maximum tendency for catenation and why?",
+   options:[
+    "A) Silicon, due to the availability of d-orbitals.",
+    "B) Carbon, due to high C–C bond enthalpy and small size.",
+    "C) Germanium, due to its semi-metallic nature.",
+    "D) Lead, due to its high atomic mass."], ans:"B"},
+
+  {q:"5. Silicone polymers are chemically inert and water-repellent primarily because:",
+   options:[
+    "A) They contain very strong Si–Si bonds.",
+    "B) They are surrounded by non-polar alkyl/aryl groups.",
+    "C) They have a high degree of crystallinity.",
+    "D) They are strictly inorganic in nature."], ans:"B"},
+
+  {q:"6. Why does SiF₆²⁻ exist, but CCl₆²⁻ (from Carbon) does not?",
+   options:[
+    "A) Carbon is more electronegative than Silicon.",
+    "B) Fluorine cannot bond with Carbon.",
+    "C) Carbon lacks d-orbitals to expand its octet and is too small to accommodate six large ions.",
+    "D) Silicon is a metalloid."], ans:"C"},
+
+  {q:"7. The correct order of Lewis acidic strength for Group 14 tetrahalides is:",
+   options:[
+    "A) SiX₄ > GeX₄ > SnX₄",
+    "B) SiX₄ < GeX₄ < SnX₄",
+    "C) SiX₄ = GeX₄ = SnX₄",
+    "D) GeX₄ > SiX₄ > SnX₄"], ans:"B"},
+
+  {q:"8. White tin changes to grey tin at low temperatures (13.2 °C). This transformation is accompanied by:",
+   options:[
+    "A) An increase in density.",
+    "B) A decrease in volume.",
+    "C) An expansion in volume (decrease in density), leading to 'Tin Pest.'",
+    "D) No change in physical properties."], ans:"C"},
+
+  {q:"9. Which oxide of Group 14 is purely amphoteric?",
+   options:[
+    "A) CO₂",
+    "B) SiO₂",
+    "C) SnO₂",
+    "D) GeO₂"], ans:"C"},
+
+  {q:"10. The bond angle in H–C–H in diamond is:",
+   options:[
+    "A) 120°",
+    "B) 109° 28'",
+    "C) 180°",
+    "D) 90°"], ans:"B"},
+
+  {q:"11. In Zeolites, some Silicon atoms are replaced by Aluminium atoms. This results in a framework that is:",
+   options:[
+    "A) Positively charged.",
+    "B) Negatively charged, balanced by extra cations.",
+    "C) Neutral.",
+    "D) Highly unstable."], ans:"B"},
+
+  {q:"12. Fullerenes (C₆₀) contain:",
+   options:[
+    "A) 20 hexagons and 12 pentagons.",
+    "B) 12 hexagons and 20 pentagons.",
+    "C) Only hexagons.",
+    "D) Only pentagons."], ans:"A"},
+
+  {q:"13. Which of the following is used as a lubricant in high-temperature machinery?",
+   options:[
+    "A) Diamond",
+    "B) Silica gel",
+    "C) Graphite",
+    "D) Silicones"], ans:"C"},
+
+  {q:"14. The most stable oxidation state for Bismuth is +3, while for Lead it is +2. This trend down the p-block is due to:",
+   options:[
+    "A) Shielding effect.",
+    "B) Inert pair effect.",
+    "C) Increase in ionization enthalpy.",
+    "D) Decrease in atomic radius."], ans:"B"},
+
+  {q:"15. Hydrolysis of SiCl₄ gives:",
+   options:[
+    "A) Si(OH)₄ (Silicic acid)",
+    "B) SiO₂",
+    "C) SiH₄",
+    "D) No reaction occurs."], ans:"A"},
+
+  {q:"16. Dry Ice is:",
+   options:[
+    "A) Solid SO₂",
+    "B) Solid CO₂",
+    "C) Liquid CO₂",
+    "D) Solid H₂O"], ans:"B"},
+
+  {q:"17. Which Group 14 hydride is the most thermally stable?",
+   options:[
+    "A) CH₄",
+    "B) SiH₄",
+    "C) GeH₄",
+    "D) SnH₄"], ans:"A"},
+
+  {q:"18. Producer gas is a mixture of:",
+   options:[
+    "A) CO + H₂",
+    "B) CO + N₂",
+    "C) CO₂ + H₂",
+    "D) CH₄ + O₂"], ans:"B"},
+
+  {q:"19. Carbon monoxide is poisonous because it:",
+   options:[
+    "A) Reduces the oxygen-carrying capacity of hemoglobin by forming carboxyhemoglobin.",
+    "B) Is a highly acidic oxide.",
+    "C) Forms a precipitate in the lungs.",
+    "D) Reacts with water to form carbonic acid."], ans:"A"},
+
+  {q:"20. Identify the type of silicate in which two oxygen atoms per tetrahedron are shared:",
+   options:[
+    "A) Orthosilicate",
+    "B) Pyrosilicate",
+    "C) Cyclic/Chain silicate",
+    "D) Sheet silicate"], ans:"C"},
+
+  {q:"21. Glass is a:",
+   options:[
+    "A) Crystalline solid.",
+    "B) Supercooled liquid (Amorphous).",
+    "C) Polymeric metal.",
+    "D) Molecular crystal."], ans:"B"},
+
+  {q:"22. Water gas is produced by passing steam over red-hot coke. The reaction is:",
+   options:[
+    "A) C + H₂O → CO + H₂",
+    "B) C + 2H₂O → CO₂ + 2H₂",
+    "C) CO + H₂O → CO₂ + H₂",
+    "D) 2C + O₂ → 2CO"], ans:"A"},
+
+  {q:"23. The coordination number of Carbon in Diamond and Graphite respectively are:",
+   options:[
+    "A) 4 and 4",
+    "B) 4 and 3",
+    "C) 3 and 4",
+    "D) 6 and 4"], ans:"B"},
+
+  {q:"24. Silicones are prepared starting from:",
+   options:[
+    "A) SiCl₄",
+    "B) RₙSiCl₍₄₋ₙ₎",
+    "C) SiO₂",
+    "D) SiH₄"], ans:"B"},
+
+  {q:"25. The linear shape of CO₂ is due to:",
+   options:[
+    "A) sp³ hybridization of Carbon.",
+    "B) sp hybridization of Carbon.",
+    "C) sp² hybridization of Carbon.",
+    "D) d-orbital involvement."], ans:"B"}
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, index) => {
+  let div = document.createElement("div");
+  div.classList.add("question");
+  div.innerHTML = `<p>${item.q}</p>`;
+
+  item.options.forEach(opt => {
+    div.innerHTML += `
+      <div class="options">
+        <label>
+          <input type="radio" name="q${index}" value="${opt.charAt(0)}"> ${opt}
+        </label>
+      </div>`;
+  });
+
+  form.appendChild(div);
+});
+
+function submitQuiz() {
+  let score = 0;
+  questions.forEach((item, index) => {
+    let selected = document.querySelector(`input[name="q${index}"]:checked`);
+    if (selected && selected.value === item.ans) {
+      score++;
+    }
+  });
+
+  document.getElementById("result").innerText = `Your Score: ${score} / ${questions.length}`;
+}
+</script>
+</body>
+</html>
