@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group 14 Elements Quiz - Set 3</title>
+<style>
+body { font-family: Arial; background:#eef2f7; padding:20px; }
+.container { max-width:900px; margin:auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);} 
+h1 { text-align:center; }
+.question { margin-bottom:20px; }
+.options label { display:block; margin:5px 0; }
+button { display:block; margin:20px auto; padding:10px 20px; font-size:16px; background:#ff5722; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+#result { text-align:center; font-size:20px; font-weight:bold; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Group 14 Elements MCQ Quiz (Set 3)</h1>
+<form id="quizForm"></form>
+<button onclick="submitQuiz()">Submit</button>
+<div id="result"></div>
+</div>
+<script>
+const questions = [
+{q:"1. Which allotrope of carbon has the highest electrical conductivity?",options:["A) Diamond","B) Graphite","C) Fullerene","D) Charcoal"],ans:"B"},
+{q:"2. The hybridization of carbon in benzene is:",options:["A) sp","B) sp2","C) sp3","D) dsp2"],ans:"B"},
+{q:"3. Which compound shows maximum catenation?",options:["A) CH4","B) C2H6","C) C6H6","D) All of these"],ans:"D"},
+{q:"4. Silicon carbide is known for:",options:["A) Softness","B) High hardness","C) Low melting point","D) Conductivity"],ans:"B"},
+{q:"5. Which oxide is acidic?",options:["A) CO","B) CO2","C) PbO","D) SnO"],ans:"B"},
+{q:"6. Which element shows maximum inert pair effect?",options:["A) C","B) Si","C) Sn","D) Pb"],ans:"D"},
+{q:"7. Diamond is hard due to:",options:["A) Ionic bonds","B) Covalent network","C) Metallic bonding","D) Hydrogen bonding"],ans:"B"},
+{q:"8. Which gas is used in fire extinguishers?",options:["A) CO","B) CO2","C) CH4","D) O2"],ans:"B"},
+{q:"9. The shape of CH4 molecule is:",options:["A) Linear","B) Tetrahedral","C) Trigonal planar","D) Bent"],ans:"B"},
+{q:"10. Which compound is amphoteric?",options:["A) CO2","B) SnO2","C) SiO2","D) CO"],ans:"B"},
+{q:"11. The oxidation state of carbon in CO2 is:",options:["A) +2","B) +4","C) 0","D) -4"],ans:"B"},
+{q:"12. Which compound is used as abrasive?",options:["A) SiO2","B) SiC","C) CO2","D) CH4"],ans:"B"},
+{q:"13. Which is most stable hydride?",options:["A) CH4","B) SiH4","C) GeH4","D) SnH4"],ans:"A"},
+{q:"14. Carbon forms multiple bonds due to:",options:["A) Large size","B) Small size","C) Low electronegativity","D) Metallic nature"],ans:"B"},
+{q:"15. Which oxide is basic?",options:["A) CO2","B) SiO2","C) PbO","D) CO"],ans:"C"},
+{q:"16. The bond angle in CO2 is:",options:["A) 109°","B) 120°","C) 180°","D) 90°"],ans:"C"},
+{q:"17. Graphite is soft because:",options:["A) Strong bonds","B) Weak forces between layers","C) Ionic bonding","D) Metallic bonding"],ans:"B"},
+{q:"18. Which element is metalloid?",options:["A) C","B) Si","C) Sn","D) Pb"],ans:"B"},
+{q:"19. Which gas is toxic?",options:["A) CO2","B) CO","C) O2","D) N2"],ans:"B"},
+{q:"20. Silica gel is used as:",options:["A) Catalyst","B) Drying agent","C) Fuel","D) Fertilizer"],ans:"B"},
+{q:"21. Which has layered structure?",options:["A) Diamond","B) Graphite","C) SiO2","D) Sn"],ans:"B"},
+{q:"22. Carbon shows tetravalency due to:",options:["A) 2 valence electrons","B) 4 valence electrons","C) 6 valence electrons","D) 8 valence electrons"],ans:"B"},
+{q:"23. Which compound is used in semiconductors?",options:["A) Si","B) Pb","C) Sn","D) C"],ans:"A"},
+{q:"24. Which oxide forms carbonic acid?",options:["A) CO","B) CO2","C) SiO2","D) SnO2"],ans:"B"},
+{q:"25. Diamond is an example of:",options:["A) Molecular solid","B) Ionic solid","C) Covalent network solid","D) Metallic solid"],ans:"C"}
+];
+
+const form=document.getElementById("quizForm");
+questions.forEach((item,index)=>{
+ let div=document.createElement("div");
+ div.classList.add("question");
+ div.innerHTML=`<p>${item.q}</p>`;
+ item.options.forEach(opt=>{
+   div.innerHTML+=`<label><input type="radio" name="q${index}" value="${opt.charAt(0)}"> ${opt}</label>`;
+ });
+ form.appendChild(div);
+});
+
+function submitQuiz(){
+ let score=0;
+ questions.forEach((item,index)=>{
+   let selected=document.querySelector(`input[name="q${index}"]:checked`);
+   if(selected && selected.value===item.ans) score++;
+ });
+ document.getElementById("result").innerText=`Your Score: ${score} / ${questions.length}`;
+}
+</script>
+</body>
+</html>
