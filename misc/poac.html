@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Principle of Atom Conservation (POAC)</title>
+
 <style>
 body{
   font-family: Arial, sans-serif;
@@ -12,6 +13,7 @@ body{
   padding:20px;
   line-height:1.6;
 }
+
 .container{
   max-width:900px;
   margin:auto;
@@ -20,6 +22,7 @@ body{
   border-radius:10px;
   box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
+
 h1{
   text-align:center;
   background:#2c3e50;
@@ -27,184 +30,193 @@ h1{
   padding:15px;
   border-radius:8px;
 }
+
 h2{
   color:#2c3e50;
   border-bottom:2px solid #ddd;
   padding-bottom:5px;
 }
+
+h3{
+  color:#2c3e50;
+}
+
 .card{
   background:#ecf0f1;
   padding:10px;
   border-radius:6px;
   margin:10px 0;
 }
+
+.center{
+  text-align:center;
+  font-style:italic;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+}
+
+th, td{
+  border:1px solid #ccc;
+  padding:8px;
+}
+
+th{
+  background:#ecf0f1;
+}
+
+button{
+  padding:10px 15px;
+  margin-top:10px;
+  background:#3498db;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#2980b9;
+}
+
+.result{
+  font-weight:bold;
+  margin-top:15px;
+}
 </style>
 </head>
+
 <body>
 
+<div class="container">
 
-
-
-<div style="font-family: Arial, sans-serif; line-height:1.7; color:#333; max-width:800px; margin:auto;"
 <h1>Apex Chemistry<br>Principle of Atom Conservation (POAC)</h1>
-  <p><strong>The Principle of Atom Conservation (POAC)</strong> is a powerful tool in stoichiometry used to solve chemical calculation problems, especially when the complete chemical equation is unknown or too complex to balance.</p>
 
-  <p>It is based on the <strong>Law of Conservation of Mass</strong>, which states that matter can neither be created nor destroyed. In the context of a chemical reaction, this means the total number of atoms of each element remains constant from the beginning to the end of the process.</p>
+<h2>Principle</h2>
 
-  <hr>
+<p><strong>The Principle of Atom Conservation (POAC)</strong> is a powerful tool in stoichiometry used to solve chemical calculation problems, especially when the complete chemical equation is unknown or too complex to balance.</p>
 
-  <h3 style="color:#2c3e50;">Core Concept</h3>
-  <p>In any chemical reaction, atoms of the reactants are rearranged to form products. While molecules change, the atoms themselves do not. Therefore:</p>
+<p>It is based on the <strong>Law of Conservation of Mass</strong>, which states that matter can neither be created nor destroyed. In a chemical reaction, the total number of atoms of each element remains constant.</p>
 
-  <p style="text-align:center; font-style:italic;">
-    Moles of an atom in Reactants = Moles of that same atom in Products
-  </p>
+<h3>Core Concept</h3>
+<p>Atoms are rearranged during reactions but not created or destroyed:</p>
 
-  <h3 style="color:#2c3e50;">The Mathematical Formula</h3>
-  <p>If an element A is present in a compound A<sub>x</sub>B<sub>y</sub>, the moles of atom A can be calculated as:</p>
+<p class="center">
+Moles of an atom in Reactants = Moles of that same atom in Products
+</p>
 
-  <p style="text-align:center; font-style:italic;">
-    Moles of atom A = x × (Moles of compound A<sub>x</sub>B<sub>y</sub>)
-  </p>
+<h3>Mathematical Formula</h3>
+<p>If A is present in A<sub>x</sub>B<sub>y</sub>:</p>
 
-  <hr>
+<p class="center">
+Moles of atom A = x × (Moles of compound A<sub>x</sub>B<sub>y</sub>)
+</p>
 
-  <h3 style="color:#2c3e50;">How to Apply POAC</h3>
-  <p>Unlike the mole method, you do not need a balanced equation. You only need to know the chemical formulas of the starting materials and the final products containing the element you are tracking.</p>
+<h3>How to Apply POAC</h3>
+<ol>
+<li><strong>Identify the element</strong></li>
+<li><strong>Write POAC equation</strong></li>
+<li><strong>Substitute mole values</strong></li>
+<li><strong>Solve</strong></li>
+</ol>
 
-  <h4>Step-by-Step Process:</h4>
-  <ol>
-    <li><strong>Identify the element</strong> that appears in both a specific reactant and a specific product.</li>
-    <li><strong>Write the POAC equation</strong> for that element.</li>
-    <li><strong>Substitute the mole values</strong> (Mass / Molar Mass) into the equation.</li>
-    <li>Solve for the unknown quantity.</li>
-  </ol>
+<h2>Example</h2>
 
+<div class="card">
+<p><strong>Problem:</strong> How many grams of KClO<sub>3</sub> produce 48 g O<sub>2</sub>?</p>
+
+<p class="center">
+3 × (moles of KClO<sub>3</sub>) = 2 × (moles of O<sub>2</sub>)
+</p>
+
+<p class="center">
+3 × (w / 122.5) = 2 × (48 / 32)
+</p>
+
+<p class="center">
+w = 122.5 g
+</p>
 </div>
 
-<h2>Examples</h2>
-<div style="font-family: Arial, sans-serif; line-height:1.7; color:#333; max-width:800px; margin:auto;">
+<h2>POAC vs Balanced Equation</h2>
 
-  <h3 style="color:#2c3e50;">Practical Example</h3>
+<table>
+<tr>
+<th>Feature</th>
+<th>Balanced Equation</th>
+<th>POAC</th>
+</tr>
 
-  <p><strong>Problem:</strong> How many grams of KClO<sub>3</sub> are needed to produce 48 g of O<sub>2</sub> upon decomposition?</p>
+<tr>
+<td><strong>Requirement</strong></td>
+<td>Needs balanced equation</td>
+<td>Only formulas needed</td>
+</tr>
 
-  <p><strong>1. Identify the relationship:</strong><br>
-  All oxygen atoms in KClO<sub>3</sub> will eventually end up in the O<sub>2</sub> gas.</p>
+<tr>
+<td><strong>Complexity</strong></td>
+<td>Difficult</td>
+<td>Easy</td>
+</tr>
 
-  <p><strong>2. Apply POAC for Oxygen (O) atoms:</strong></p>
+<tr>
+<td><strong>Focus</strong></td>
+<td>Whole molecule</td>
+<td>Single atom</td>
+</tr>
 
-  <p style="text-align:center; font-style:italic;">
-    Moles of O in KClO<sub>3</sub> = Moles of O in O<sub>2</sub>
-  </p>
-
-  <p style="text-align:center; font-style:italic;">
-    3 × (moles of KClO<sub>3</sub>) = 2 × (moles of O<sub>2</sub>)
-  </p>
-
-  <p><strong>3. Substitute values:</strong><br>
-  Let the mass of KClO<sub>3</sub> be w. (Molar mass of KClO<sub>3</sub> ≈ 122.5 g/mol; O<sub>2</sub> = 32 g/mol)</p>
-
-  <p style="text-align:center; font-style:italic;">
-    3 × ( w / 122.5 ) = 2 × ( 48 / 32 )
-  </p>
-
-  <p><strong>4. Solve:</strong></p>
-
-  <p style="text-align:center; font-style:italic;">
-    3 × (w / 122.5) = 2 × 1.5
-  </p>
-
-  <p style="text-align:center; font-style:italic;">
-    3 × (w / 122.5) = 3
-  </p>
-
-  <p style="text-align:center; font-style:italic;">
-    w = 122.5 g
-  </p>
-
-  <hr>
-
-  <h3 style="color:#2c3e50;">POAC vs. Balanced Equation Method</h3>
-
-  <table style="width:100%; border-collapse:collapse; margin-top:10px;">
-    <tr style="background:#ecf0f1;">
-      <th style="border:1px solid #ccc; padding:8px;">Feature</th>
-      <th style="border:1px solid #ccc; padding:8px;">Balanced Equation Method</th>
-      <th style="border:1px solid #ccc; padding:8px;">POAC Method</th>
-    </tr>
-
-    <tr>
-      <td style="border:1px solid #ccc; padding:8px;"><strong>Requirement</strong></td>
-      <td style="border:1px solid #ccc; padding:8px;">Needs a fully balanced equation</td>
-      <td style="border:1px solid #ccc; padding:8px;">Only needs formulas of specific compounds</td>
-    </tr>
-
-    <tr>
-      <td style="border:1px solid #ccc; padding:8px;"><strong>Complexity</strong></td>
-      <td style="border:1px solid #ccc; padding:8px;">Difficult for multi-step reactions</td>
-      <td style="border:1px solid #ccc; padding:8px;">Very easy for multi-step reactions</td>
-    </tr>
-
-    <tr>
-      <td style="border:1px solid #ccc; padding:8px;"><strong>Focus</strong></td>
-      <td style="border:1px solid #ccc; padding:8px;">Focuses on the whole molecule</td>
-      <td style="border:1px solid #ccc; padding:8px;">Focuses on a single type of atom</td>
-    </tr>
-
-    <tr>
-      <td style="border:1px solid #ccc; padding:8px;"><strong>Speed</strong></td>
-      <td style="border:1px solid #ccc; padding:8px;">Can be slow if balancing is hard</td>
-      <td style="border:1px solid #ccc; padding:8px;">Usually faster for complex problems</td>
-    </tr>
-
-  </table>
-
-</div>
-
+<tr>
+<td><strong>Speed</strong></td>
+<td>Slower</td>
+<td>Faster</td>
+</tr>
+</table>
 
 <h2>Limitations</h2>
 <ul>
-<li>Does not provide information about reaction mechanism.</li>
-<li>Cannot predict reaction feasibility.</li>
-<li>Does not indicate energy changes in reactions.</li>
-<li>Applies only to chemical reactions, not nuclear reactions.</li>
+<li>No mechanism information</li>
+<li>Cannot predict feasibility</li>
+<li>No energy details</li>
+<li>Not valid for nuclear reactions</li>
 </ul>
 
-
 <h2>MCQ Quiz</h2>
+
 <form id="quizForm">
 
 <div class="card">
-<p>1. The Principle of Atom Conservation states that:</p>
-<input type="radio" name="q1" value="a"> Atoms are created in reactions<br>
-<input type="radio" name="q1" value="b"> Atoms are destroyed in reactions<br>
-<input type="radio" name="q1" value="c"> Atoms are neither created nor destroyed<br>
+<p>1. POAC states:</p>
+<input type="radio" name="q1" value="a"> Atoms are created<br>
+<input type="radio" name="q1" value="b"> Atoms are destroyed<br>
+<input type="radio" name="q1" value="c"> Atoms conserved<br>
 </div>
 
 <div class="card">
-<p>2. POAC is directly related to:</p>
-<input type="radio" name="q2" value="a"> Law of conservation of mass<br>
-<input type="radio" name="q2" value="b"> Boyle's law<br>
-<input type="radio" name="q2" value="c"> Ohm's law<br>
+<p>2. Based on:</p>
+<input type="radio" name="q2" value="a"> Conservation of mass<br>
+<input type="radio" name="q2" value="b"> Boyle’s law<br>
+<input type="radio" name="q2" value="c"> Ohm’s law<br>
 </div>
 
 <div class="card">
-<p>3. Which reaction follows POAC?</p>
-<input type="radio" name="q3" value="a"> Unbalanced reaction<br>
-<input type="radio" name="q3" value="b"> Balanced chemical equation<br>
-<input type="radio" name="q3" value="c"> Nuclear reaction<br>
+<p>3. Valid for:</p>
+<input type="radio" name="q3" value="a"> Unbalanced<br>
+<input type="radio" name="q3" value="b"> Balanced<br>
+<input type="radio" name="q3" value="c"> Nuclear<br>
 </div>
 
 <div class="card">
-<p>4. POAC does NOT apply to:</p>
-<input type="radio" name="q4" value="a"> Chemical reactions<br>
-<input type="radio" name="q4" value="b"> Nuclear reactions<br>
-<input type="radio" name="q4" value="c"> Physical changes<br>
+<p>4. Not valid for:</p>
+<input type="radio" name="q4" value="a"> Chemical<br>
+<input type="radio" name="q4" value="b"> Nuclear<br>
+<input type="radio" name="q4" value="c"> Physical<br>
 </div>
 
 <div class="card">
-<p>5. In a balanced equation, number of atoms on both sides are:</p>
+<p>5. Atoms on both sides are:</p>
 <input type="radio" name="q5" value="a"> Different<br>
 <input type="radio" name="q5" value="b"> Equal<br>
 <input type="radio" name="q5" value="c"> Unknown<br>
@@ -213,46 +225,41 @@ h2{
 <button type="button" onclick="checkAnswers()">Submit</button>
 </form>
 
-<p id="result" style="font-weight:bold; margin-top:15px;"></p>
+<p id="result" class="result"></p>
 
 </div>
 
 <script>
 function checkAnswers(){
   let score=0;
-  const answers = {
-    q1:'c',
-    q2:'a',
-    q3:'b',
-    q4:'b',
-    q5:'b'
-  };
 
+  const answers = {q1:'c', q2:'a', q3:'b', q4:'b', q5:'b'};
   const explanations = {
-    q1:'Atoms are neither created nor destroyed in chemical reactions.',
-    q2:'POAC is a direct consequence of the Law of Conservation of Mass.',
-    q3:'Only balanced chemical equations obey conservation of atoms.',
-    q4:'Nuclear reactions do not strictly follow atom conservation (mass-energy conversion).',
-    q5:'Balanced equations have equal number of atoms on both sides.'
+    q1:'Atoms are conserved.',
+    q2:'It follows conservation of mass.',
+    q3:'Balanced equations obey POAC.',
+    q4:'Nuclear reactions convert mass to energy.',
+    q5:'Atoms must be equal.'
   };
 
   let resultHTML = '';
 
   for(let q in answers){
     let selected = document.querySelector(`input[name="${q}"]:checked`);
+
     if(selected){
       if(selected.value === answers[q]){
         score++;
-        resultHTML += `<p>✔ ${q.toUpperCase()}: Correct — ${explanations[q]}</p>`;
+        resultHTML += `<p style="color:green;">✔ ${q}: ${explanations[q]}</p>`;
       } else {
-        resultHTML += `<p>✘ ${q.toUpperCase()}: Incorrect — ${explanations[q]}</p>`;
+        resultHTML += `<p style="color:red;">✘ ${q}: ${explanations[q]}</p>`;
       }
     } else {
-      resultHTML += `<p>⚠ ${q.toUpperCase()}: Not answered — ${explanations[q]}</p>`;
+      resultHTML += `<p style="color:orange;">⚠ ${q}: Not answered</p>`;
     }
   }
 
-  resultHTML = `<p><strong>Your Score: ${score}/5</strong></p>` + resultHTML;
+  resultHTML = `<p><strong>Score: ${score}/5</strong></p>` + resultHTML;
   document.getElementById('result').innerHTML = resultHTML;
 }
 </script>
