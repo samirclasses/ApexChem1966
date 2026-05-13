@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JEE Advanced Chemistry PYQ Hub</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background: linear-gradient(135deg,#071b2d,#0d2d50,#123d6b);
+      color:white;
+      min-height:100vh;
+    }
+
+    header{
+      padding:40px 20px;
+      text-align:center;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(6px);
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+
+    header h1{
+      font-size:42px;
+      margin-bottom:10px;
+      color:#ffd54f;
+      letter-spacing:1px;
+    }
+
+    header p{
+      font-size:18px;
+      color:#dfefff;
+    }
+
+    .container{
+      width:95%;
+      max-width:1300px;
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    .search-box{
+      display:flex;
+      justify-content:center;
+      margin-bottom:35px;
+    }
+
+    .search-box input{
+      width:100%;
+      max-width:500px;
+      padding:15px 18px;
+      border:none;
+      border-radius:10px;
+      outline:none;
+      font-size:16px;
+      background:#f4f7fb;
+    }
+
+    .papers-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:25px;
+    }
+
+    .paper-card{
+      background: rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:18px;
+      padding:25px;
+      transition:0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow:0 8px 25px rgba(0,0,0,0.25);
+    }
+
+    .paper-card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 12px 30px rgba(0,0,0,0.35);
+    }
+
+    .year{
+      font-size:30px;
+      font-weight:bold;
+      color:#ffd54f;
+      margin-bottom:10px;
+    }
+
+    .paper-title{
+      font-size:18px;
+      margin-bottom:20px;
+      line-height:1.5;
+      color:#f5f5f5;
+    }
+
+    .btn-group{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .btn{
+      text-decoration:none;
+      padding:12px;
+      text-align:center;
+      border-radius:10px;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    .question-btn{
+      background:#00c853;
+      color:white;
+    }
+
+    .question-btn:hover{
+      background:#00a844;
+    }
+
+    .solution-btn{
+      background:#ff9800;
+      color:white;
+    }
+
+    .solution-btn:hover{
+      background:#e68900;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px 15px;
+      margin-top:40px;
+      color:#d9e7ff;
+      font-size:15px;
+      background:rgba(255,255,255,0.05);
+    }
+
+    @media(max-width:600px){
+      header h1{
+        font-size:30px;
+      }
+
+      .paper-title{
+        font-size:16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>JEE Advanced Chemistry PYQ Hub</h1>
+    <p>Previous Year Chemistry Question Papers with Detailed Solutions</p>
+  </header>
+
+  <div class="container">
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search by year...">
+    </div>
+
+    <div class="papers-grid" id="papersGrid">
+
+      <!-- 2025 -->
+      <div class="paper-card">
+        <div class="year">2025</div>
+        <div class="paper-title">
+          JEE Advanced Chemistry Question Paper & Solutions
+        </div>
+
+        <div class="btn-group">
+          <a href="https://jeeadv.ac.in/" target="_blank" class="btn question-btn">
+            View Question Paper
+          </a>
+
+          <a href="https://www.resonance.ac.in/" target="_blank" class="btn solution-btn">
+            View Solutions
+          </a>
+        </div>
+      </div>
+
+      <!-- 2024 -->
+      <div class="paper-card">
+        <div class="year">2024</div>
+        <div class="paper-title">
+          JEE Advanced Chemistry Question Paper & Solutions
+        </div>
+
+        <div class="btn-group">
+          <a href="https://jeeadv.ac.in/" target="_blank" class="btn question-btn">
+            View Question Paper
+          </a>
+
+          <a href="https://www.allen.ac.in/" target="_blank" class="btn solution-btn">
+            View Solutions
+          </a>
+        </div>
+      </div>
+
+      <!-- 2023 -->
+      <div class="paper-card">
+        <div class="year">2023</div>
+        <div class="paper-title">
+          JEE Advanced Chemistry Question Paper & Solutions
+        </div>
+
+        <div class="btn-group">
+          <a href="https://jeeadv.ac.in/" target="_blank" class="btn question-btn">
+            View Question Paper
+          </a>
+
+          <a href="https://fiitjee.com/" target="_blank" class="btn solution-btn">
+            View Solutions
+          </a>
+        </div>
+      </div>
+
+      <!-- 2022 -->
+      <div class="paper-card">
+        <div class="year">2022</div>
+        <div class="paper-title">
+          JEE Advanced Chemistry Question Paper & Solutions
+        </div>
+
+        <div class="btn-group">
+          <a href="https://jeeadv.ac.in/" target="_blank" class="btn question-btn">
+            View Question Paper
+          </a>
+
+          <a href="https://www.aakash.ac.in/" target="_blank" class="btn solution-btn">
+            View Solutions
+          </a>
+        </div>
+      </div>
+
+      <!-- 2021 -->
+      <div class="paper-card">
+        <div class="year">2021</div>
+        <div class="paper-title">
+          JEE Advanced Chemistry Question Paper & Solutions
+        </div>
+
+        <div class="btn-group">
+          <a href="https://jeeadv.ac.in/" target="_blank" class="btn question-btn">
+            View Question Paper
+          </a>
+
+          <a href="https://www.motion.ac.in/" target="_blank" class="btn solution-btn">
+            View Solutions
+          </a>
+        </div>
+      </div>
+
+      <!-- 2020 -->
+      <div class="paper-card">
+        <div class="year">2020</div>
+        <div class="paper-title">
+          JEE Advanced Chemistry Question Paper & Solutions
+        </div>
+
+        <div class="btn-group">
+          <a href="https://jeeadv.ac.in/" target="_blank" class="btn question-btn">
+            View Question Paper
+          </a>
+
+          <a href="https://www.vibrantacademy.com/" target="_blank" class="btn solution-btn">
+            View Solutions
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    Designed for JEE Advanced Aspirants | Chemistry PYQ Portal
+  </footer>
+
+  <script>
+
+    const searchInput = document.getElementById("searchInput");
+    const cards = document.querySelectorAll(".paper-card");
+
+    searchInput.addEventListener("keyup", function(){
+
+      const value = searchInput.value.toLowerCase();
+
+      cards.forEach(card => {
+
+        const year = card.querySelector(".year").textContent.toLowerCase();
+
+        if(year.includes(value)){
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
