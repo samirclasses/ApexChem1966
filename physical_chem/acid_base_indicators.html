@@ -140,6 +140,109 @@
         padding: 20px;
       }
     }
+    .selection-indicators-section{
+    width:100%;
+    display:flex;
+    gap:35px;
+    padding:25px;
+    box-sizing:border-box;
+    background:#ffffff;
+    font-family:"Times New Roman", serif;
+    line-height:1.6;
+    color:#111;
+}
+
+/* LEFT CONTENT */
+.content-left{
+    width:65%;
+}
+
+.content-left h2{
+    font-size:32px;
+    margin-bottom:18px;
+    font-weight:bold;
+}
+
+.content-left h3{
+    font-size:24px;
+    margin-top:28px;
+    margin-bottom:12px;
+    font-weight:bold;
+}
+
+.content-left p{
+    font-size:18px;
+    text-align:justify;
+    margin-bottom:14px;
+}
+
+.content-left ol,
+.content-left ul{
+    padding-left:28px;
+    margin-bottom:18px;
+}
+
+.content-left li{
+    font-size:18px;
+    margin-bottom:10px;
+    text-align:justify;
+}
+
+.topic-block{
+    margin-bottom:22px;
+}
+
+/* RIGHT SIDE */
+.content-right{
+    width:35%;
+    display:flex;
+    flex-direction:column;
+    gap:40px;
+    align-items:center;
+    padding-top:20px;
+}
+
+/* GRAPH PLACEHOLDER */
+.graph-box{
+    width:100%;
+    text-align:center;
+}
+
+.graph-box img{
+    width:100%;
+    max-width:350px;
+    height:260px;
+    border:2px solid #777;
+    object-fit:contain;
+    background:#f8f8f8;
+}
+
+.fig-caption{
+    margin-top:8px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+    .selection-indicators-section{
+        flex-direction:column;
+    }
+
+    .content-left,
+    .content-right{
+        width:100%;
+    }
+
+    .content-right{
+        align-items:flex-start;
+    }
+
+    .graph-box img{
+        max-width:100%;
+    }
+}
   </style>
 </head>
 <body>
@@ -355,7 +458,117 @@
             Indicators help determine the end point in acid-base titrations.
           </p>
         </div>
+<div class="selection-indicators-section">
 
+    <div class="content-left">
+        <h2>Selection of Indicators</h2>
+
+        <p>
+            In the titration of an acid solution versus a base solution,
+            the pH of the solution near the equivalence point changes sharply.
+            The selection of acid-base indicators depends upon the nature of
+            the titration and the pH transition range of the indicator.
+        </p>
+
+        <p>
+            The selection of acid-base indicator to locate the end point of
+            a titration is decided by the following factors:
+        </p>
+
+        <ol>
+            <li>
+                The steep portion of the titration curve at the equivalence
+                point must encompass an interval of pH values at least as
+                large as the pH transition range of an indicator.
+            </li>
+
+            <li>
+                The pH transition range of the indicator must coincide with
+                the steep portion of the titration curve.
+            </li>
+        </ol>
+
+        <p>
+            The following is the description of selection of indicators in
+            different types of titrations.
+        </p>
+
+        <!-- SECTION 1 -->
+        <div class="topic-block">
+            <h3>1. Titration of a Strong Acid Versus Strong Base</h3>
+
+            <p>
+                Figure 1 displays the typical titration curve depicting pH
+                of the solution versus volume of base added. A typical range
+                of pH at the equivalence point lies from pH = 3 to pH = 11.
+            </p>
+
+            <p>The commonly used indicators are:</p>
+
+            <ul>
+                <li>Phenolphthalein (pH range: 8.3 to 11)</li>
+                <li>Methyl orange (pH range: 3.1 to 4.4)</li>
+                <li>Methyl red (pH range: 4.2 to 6.3)</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="topic-block">
+            <h3>2. Titration of a Weak Base Versus a Strong Acid</h3>
+
+            <p>
+                Figure 2 displays the typical titration curve depicting pH
+                of the solution versus volume of acid added. The commonly
+                used indicators are methyl red and methyl orange.
+            </p>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="topic-block">
+            <h3>3. Titration of a Weak Acid Versus a Strong Base</h3>
+
+            <p>
+                Figure 3 displays the typical titration curve depicting pH
+                of the solution versus volume of base added. The commonly
+                used indicators are phenolphthalein and bromothymol blue.
+            </p>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="topic-block">
+            <h3>4. Titration of a Weak Acid Versus a Weak Base</h3>
+
+            <p>
+                In this titration, the steep rise in pH near the equivalence
+                point does not occur distinctly. Hence, no suitable indicator
+                can be chosen accurately to locate the end point of the
+                titration.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE FIGURES -->
+    <div class="content-right">
+
+        <div class="graph-box">
+            <img src="images/fig1.png" alt="Fig 1 Graph">
+            <p class="fig-caption">Fig. 1</p>
+        </div>
+
+        <div class="graph-box">
+            <img src="images/fig2.png" alt="Fig 2 Graph">
+            <p class="fig-caption">Fig. 2</p>
+        </div>
+
+        <div class="graph-box">
+            <img src="images/fig3.png" alt="Fig 3 Graph">
+            <p class="fig-caption">Fig. 3</p>
+        </div>
+
+    </div>
+
+</div>
         <div class="card">
           <h3>Laboratory Analysis</h3>
           <p>
