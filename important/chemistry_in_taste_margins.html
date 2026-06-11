@@ -1,0 +1,192 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .page { font-family: var(--font-sans); color: var(--color-text-primary); max-width: 680px; padding-left: 2rem; }
+
+  .hero { padding: 3rem 0 2rem; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 2.5rem; }
+
+  .hero-eyebrow { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 1rem; }
+
+  .hero-title { font-family: 'Playfair Display', serif; font-size: 58px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; color: var(--color-text-primary); margin-bottom: 0.5rem; }
+
+  .hero-title em { font-style: italic; color: #B85C2A; }
+
+  .hero-sub { font-size: 18px; color: var(--color-text-secondary); line-height: 1.65; max-width: 520px; margin-top: 1rem; }
+
+  .tongue-strip { display: flex; gap: 0; margin: 2rem 0 0; border-radius: var(--border-radius-md); overflow: hidden; height: 8px; }
+  .tongue-strip span { flex: 1; display: block; }
+
+  .section-label { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 1.25rem; }
+
+  .section { margin-bottom: 3rem; }
+
+  .tastants-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+
+  .tastant-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; position: relative; overflow: hidden; transition: border-color 0.2s; cursor: default; }
+  .tastant-card:hover { border-color: var(--color-border-secondary); }
+  .tastant-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .tastant-card.sweet::before { background: #E0965A; }
+  .tastant-card.sour::before  { background: #7DB85A; }
+  .tastant-card.salty::before { background: #5A9EC8; }
+  .tastant-card.bitter::before{ background: #8B5EA8; }
+  .tastant-card.umami::before { background: #C85A5A; }
+
+  .tastant-name { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .tastant-molecule { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-tertiary); margin-bottom: 10px; }
+  .tastant-desc { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; }
+
+  .tastant-badge { display: inline-block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 4px; margin-bottom: 10px; font-weight: 500; }
+  .badge-sweet  { background: #FFF0E0; color: #7A4010; }
+  .badge-sour   { background: #EBF5E0; color: #2E5A10; }
+  .badge-salty  { background: #E0F0FF; color: #1040A0; }
+  .badge-bitter { background: #F0E0FF; color: #5A1090; }
+  .badge-umami  { background: #FFE8E8; color: #901010; }
+
+  .prose { font-size: 16px; color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 1.25rem; }
+  .prose strong { color: var(--color-text-primary); font-weight: 500; }
+
+  .highlight-block { background: var(--color-background-secondary); border-left: 3px solid #B85C2A; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+  .highlight-block p { font-size: 15px; color: var(--color-text-secondary); line-height: 1.75; }
+  .highlight-block strong { color: var(--color-text-primary); font-weight: 500; }
+
+  .receptor-row { display: flex; align-items: flex-start; gap: 16px; padding: 1rem 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .receptor-row:last-child { border-bottom: none; }
+
+  .receptor-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: var(--font-mono); font-weight: 500; font-size: 13px; }
+
+  .receptor-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .receptor-body { font-size: 14px; color: var(--color-text-secondary); line-height: 1.65; }
+
+  .flavor-fact { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem 1.5rem; display: flex; gap: 14px; align-items: flex-start; margin-bottom: 10px; }
+  .fact-num { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: #B85C2A; line-height: 1; flex-shrink: 0; min-width: 40px; }
+  .fact-text { font-size: 15px; color: var(--color-text-secondary); line-height: 1.7; }
+  .fact-text strong { color: var(--color-text-primary); font-weight: 500; }
+
+  .divider { height: 0.5px; background: var(--color-border-tertiary); margin: 2.5rem 0; }
+
+  .footer-note { font-size: 13px; color: var(--color-text-tertiary); line-height: 1.65; padding-top: 1rem; border-top: 0.5px solid var(--color-border-tertiary); }
+</style>
+
+<div class="page">
+  <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Chemistry in Taste: an educational page covering the five basic tastes, taste receptor chemistry, and flavor science</h2>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Food Science · Sensory Chemistry</p>
+    <h1 class="hero-title">Chemistry<br>in <em>Taste</em></h1>
+    <p class="hero-sub">Every flavor you have ever experienced is a molecular event — a chemical signal decoded by specialized proteins on your tongue, translated into the sensation we call taste.</p>
+    <div class="tongue-strip">
+      <span style="background:#E0965A;"></span>
+      <span style="background:#7DB85A;"></span>
+      <span style="background:#5A9EC8;"></span>
+      <span style="background:#8B5EA8;"></span>
+      <span style="background:#C85A5A;"></span>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">The five basic tastes</p>
+    <div class="tastants-grid">
+      <div class="tastant-card sweet">
+        <span class="tastant-badge badge-sweet">Sweet</span>
+        <div class="tastant-name">Sucrose &amp; sugars</div>
+        <div class="tastant-molecule">C₁₂H₂₂O₁₁</div>
+        <div class="tastant-desc">Hydroxyl groups (–OH) bind the T1R2/T1R3 GPCR complex, activating a cAMP cascade that signals energy-rich nutrients.</div>
+      </div>
+      <div class="tastant-card sour">
+        <span class="tastant-badge badge-sour">Sour</span>
+        <div class="tastant-name">H⁺ ions (acids)</div>
+        <div class="tastant-molecule">pH &lt; 4</div>
+        <div class="tastant-desc">Free protons directly block K⁺ channels and activate OTOP1 proton channels in Type III taste cells, detecting fermentation and spoilage.</div>
+      </div>
+      <div class="tastant-card salty">
+        <span class="tastant-badge badge-salty">Salty</span>
+        <div class="tastant-name">Sodium ions</div>
+        <div class="tastant-molecule">Na⁺ (NaCl)</div>
+        <div class="tastant-desc">Na⁺ flows through amiloride-sensitive ENaC ion channels, directly depolarizing taste receptor cells. A hard-wired electrolyte sensor.</div>
+      </div>
+      <div class="tastant-card bitter">
+        <span class="tastant-badge badge-bitter">Bitter</span>
+        <div class="tastant-name">Alkaloids &amp; phenols</div>
+        <div class="tastant-molecule">e.g. C₂₃H₂₆N₂O₄ (quinine)</div>
+        <div class="tastant-desc">~25 TAS2R receptors detect structurally diverse toxins. Bitter sensing is an ancient poison-avoidance system with broad chemical coverage.</div>
+      </div>
+      <div class="tastant-card umami">
+        <span class="tastant-badge badge-umami">Umami</span>
+        <div class="tastant-name">Glutamate &amp; nucleotides</div>
+        <div class="tastant-molecule">C₅H₉NO₄ (Glu)</div>
+        <div class="tastant-desc">L-glutamate activates T1R1/T1R3 heterodimers; IMP and GMP act as positive allosteric modulators, synergistically amplifying the signal up to 30×.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <p class="section-label">How taste receptors work</p>
+    <p class="prose">Taste begins at <strong>taste receptor cells (TRCs)</strong> — specialized epithelial cells clustered into taste buds, each bud housing 50–100 cells embedded in papillae on the tongue. Two fundamentally different molecular mechanisms transduce chemical signals into nerve impulses.</p>
+    <div class="highlight-block">
+      <p><strong>GPCR pathway (sweet, bitter, umami):</strong> A tastant molecule binds to a G-protein-coupled receptor. This activates gustducin (a G-protein), triggering phospholipase C-β2, which generates IP₃. IP₃ releases Ca²⁺ from the endoplasmic reticulum — the Ca²⁺ opens TRPM5 channels, depolarizing the cell and releasing ATP as a neurotransmitter.</p>
+    </div>
+    <div class="receptor-row">
+      <div class="receptor-icon" style="background:#FFF0E0;color:#7A4010;">T1R</div>
+      <div>
+        <div class="receptor-title">T1R family — sweet &amp; umami</div>
+        <div class="receptor-body">T1R2+T1R3 heterodimers detect sweet compounds. T1R1+T1R3 detects umami. These are Class C GPCRs with large venus-flytrap domains that engulf ligands. Their large extracellular domains explain why they can bind molecules as chemically different as fructose, aspartame, and saccharin.</div>
+      </div>
+    </div>
+    <div class="receptor-row">
+      <div class="receptor-icon" style="background:#F0E0FF;color:#5A1090;">T2R</div>
+      <div>
+        <div class="receptor-title">T2R family — bitter detection</div>
+        <div class="receptor-body">The ~25 human TAS2R receptors are shorter Class A GPCRs with narrow binding pockets. Their large number reflects evolutionary pressure: the broader the bitter-compound coverage, the better the protection from toxins. Some TAS2Rs are broadly tuned; others are exquisitely specific.</div>
+      </div>
+    </div>
+    <div class="receptor-row">
+      <div class="receptor-icon" style="background:#E0F0FF;color:#1040A0;">ENaC</div>
+      <div>
+        <div class="receptor-title">ENaC &amp; OTOP1 — salty &amp; sour</div>
+        <div class="receptor-body">Salt taste uses direct ion channel gating — Na⁺ flows through epithelial sodium channels without any second-messenger cascade. Sour taste uses OTOP1 proton channels plus H⁺-induced K⁺ channel blockade, making acid detection particularly fast and direct.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <p class="section-label">Taste vs. flavor — the full picture</p>
+    <p class="prose">Taste is just one input in a multimodal experience we call <strong>flavor</strong>. The brain integrates at least four streams simultaneously.</p>
+    <div class="flavor-fact">
+      <div class="fact-num">80%</div>
+      <div class="fact-text"><strong>Retronasal olfaction</strong> contributes most of what we experience as "flavor." Volatile aroma compounds (terpenes, esters, aldehydes) travel from the mouth to the olfactory epithelium — the reason food tastes bland when you have a blocked nose.</div>
+    </div>
+    <div class="flavor-fact">
+      <div class="fact-num">TRP</div>
+      <div class="fact-text"><strong>Chemesthesis (trigeminal sensation)</strong> — capsaicin (chili heat) activates TRPV1 pain receptors; menthol activates TRPM8 cold receptors; allicin in garlic activates TRPA1. These are not taste receptors at all — they are nociceptors repurposed for chemical sensation.</div>
+    </div>
+    <div class="flavor-fact">
+      <div class="fact-num">~</div>
+      <div class="fact-text"><strong>Fat taste (oleogustus)</strong> — free fatty acids like linoleic acid activate CD36 and GPR120 receptors. This may represent a sixth basic taste, signaling caloric density and triggering a distinct fatty-acid preference separate from texture.</div>
+    </div>
+    <div class="flavor-fact">
+      <div class="fact-num">koku</div>
+      <div class="fact-text"><strong>Kokumi</strong> — a Japanese concept describing richness and continuity. Certain peptides (γ-Glu-Val-Gly) activate the calcium-sensing receptor (CaSR), amplifying and prolonging the other tastes. Not a flavor itself, but a modulator of perceived depth.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <p class="section-label">The chemistry of cooked flavor</p>
+    <p class="prose">Most beloved food flavors don't exist in raw ingredients — they are synthesized during cooking through two critical non-enzymatic reactions.</p>
+    <div class="highlight-block">
+      <p><strong>Maillard reaction</strong> (&gt;140°C): Free amino acids react with reducing sugars in a cascade of condensation, rearrangement (Amadori products), and fragmentation steps — generating hundreds of heterocyclic nitrogen compounds. Pyrazines give roasted coffee and bread their characteristic aroma; furanones create caramel notes; thiols contribute meaty sulfurous character. The precise mixture depends on temperature, pH, water activity, and the specific amino acid–sugar pairs present.</p>
+    </div>
+    <p class="prose"><strong>Caramelization</strong> (&gt;160°C) is a separate, purely sugar-based pyrolysis. Sucrose breaks into glucose and fructose, then dehydrates into furans (HMF), isomerizes into enols, and polymerizes into brown melanoidins — delivering the characteristic sweet-bitter complexity of toffee and crème brûlée.</p>
+    <p class="prose">In contrast, <strong>enzymatic browning</strong> (apple turning brown when cut) uses polyphenol oxidase to convert phenols into quinones — producing undesirable bitterness and astringency rather than pleasant roasted notes.</p>
+  </div>
+
+  <p class="footer-note">Taste science draws on organic chemistry, cell biology, neuroscience, and food science. The five basic tastes represent the core transduction pathways identified so far — research into fat, starch, and carbonation sensing continues to expand our understanding of gustatory perception.</p>
+</div>
