@@ -142,73 +142,105 @@ where
 
 <h2>2. Slater's Rules</h2>
 
+<h3>For ns and np Electrons</h3>
+
 <table>
 
 <tr>
-
-<th>Electron Type</th>
-
+<th>Electron Group</th>
 <th>Shielding Contribution</th>
-
 </tr>
 
 <tr>
-
-<td>Other electrons in same 1s group</td>
-
-<td>0.30 each</td>
-
+<td>Other electrons in the same (ns,np) group</td>
+<td>0.35 each (0.30 for 1s)</td>
 </tr>
 
 <tr>
-
-<td>Other electrons in same ns or np group</td>
-
-<td>0.35 each</td>
-
-</tr>
-
-<tr>
-
-<td>(n−1) shell for ns/np electron</td>
-
+<td>Electrons in the (n−1) shell</td>
 <td>0.85 each</td>
-
 </tr>
 
 <tr>
-
-<td>(n−2) or lower shells</td>
-
+<td>Electrons in the (n−2) or lower shells</td>
 <td>1.00 each</td>
-
 </tr>
 
 <tr>
-
-<td>For nd or nf electron: same nd/nf group</td>
-
-<td>0.35 each</td>
-
-</tr>
-
-<tr>
-
-<td>All electrons to the left</td>
-
-<td>1.00 each</td>
-
-</tr>
-
-<tr>
-
-<td>Electrons to the right</td>
-
-<td>0</td>
-
+<td>Electrons in higher shells</td>
+<td>0.00</td>
 </tr>
 
 </table>
+
+<br>
+
+<h3>For nd and nf Electrons</h3>
+
+<table>
+
+<tr>
+<th>Electron Group</th>
+<th>Shielding Contribution</th>
+</tr>
+
+<tr>
+<td>Other electrons in the same nd or nf subshell</td>
+<td>0.35 each</td>
+</tr>
+
+<tr>
+<td>All electrons in groups to the left</td>
+<td>1.00 each</td>
+</tr>
+
+<tr>
+<td>Electrons in groups to the right</td>
+<td>0.00</td>
+</tr>
+
+</table>
+
+<br>
+
+<h3>Rules for ns and np Electrons</h3>
+
+<ul>
+
+<li>Arrange the electronic configuration into Slater's groups:
+(1s), (2s,2p), (3s,3p), (3d), (4s,4p), (4d), (4f), etc.</li>
+
+<li>Each other electron in the same ns or np group contributes <b>0.35</b> to the shielding constant (except 1s, where it is <b>0.30</b>).</li>
+
+<li>Each electron in the (n−1) shell contributes <b>0.85</b>.</li>
+
+<li>Each electron in the (n−2) or lower shells contributes <b>1.00</b>.</li>
+
+<li>Electrons in higher shells contribute <b>0.00</b>.</li>
+
+<li>Finally calculate:
+<b>Z<sub>eff</sub> = Z − S</b></li>
+
+</ul>
+
+<h3>Rules for nd and nf Electrons</h3>
+
+<ul>
+
+<li>Write the electronic configuration according to Slater's grouping.</li>
+
+<li>Each additional electron in the same nd or nf subshell contributes <b>0.35</b>.</li>
+
+<li>Every electron in all groups to the left contributes <b>1.00</b>.</li>
+
+<li>Electrons in groups to the right contribute <b>0.00</b>.</li>
+
+<li>Unlike ns and np electrons, there is <b>no 0.85 rule</b> for the (n−1) shell. All electrons to the left contribute <b>1.00</b>.</li>
+
+<li>Calculate the effective nuclear charge using:
+<b>Z<sub>eff</sub> = Z − S</b>.</li>
+
+</ul>
 
 </section>
 
