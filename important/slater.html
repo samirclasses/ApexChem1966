@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slater's Rule - Interactive Learning</title>
+
+<style>
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    margin:0;
+    background:#eef3f8;
+    color:#222;
+}
+
+header{
+    background:#005b96;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+section{
+    max-width:1000px;
+    margin:auto;
+    background:white;
+    margin-top:20px;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.15);
+}
+
+h2{
+    color:#005b96;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+th,td{
+    border:1px solid #bbb;
+    padding:10px;
+}
+
+th{
+    background:#005b96;
+    color:white;
+}
+
+.example{
+    background:#f7fbff;
+    border-left:6px solid #005b96;
+    padding:15px;
+    margin:15px 0;
+}
+
+input{
+    padding:8px;
+    width:100px;
+    margin:5px;
+}
+
+button{
+    background:#005b96;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#003d66;
+}
+
+.quiz{
+    background:#fafafa;
+    padding:15px;
+    border-radius:8px;
+    margin-top:15px;
+}
+
+.correct{
+    color:green;
+    font-weight:bold;
+}
+
+.wrong{
+    color:red;
+    font-weight:bold;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Slater's Rule</h1>
+<h3>Interactive Guide to Effective Nuclear Charge (Zeff)</h3>
+</header>
+
+<section>
+
+<h2>1. Effective Nuclear Charge</h2>
+
+<p>
+
+The effective nuclear charge experienced by an electron is
+
+</p>
+
+<h2 style="text-align:center">
+Z<sub>eff</sub> = Z − S
+</h2>
+
+<p>
+
+where
+
+</p>
+
+<ul>
+
+<li><b>Z</b> = Atomic number</li>
+
+<li><b>S</b> = Shielding constant calculated using Slater's Rules</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>2. Slater's Rules</h2>
+
+<table>
+
+<tr>
+
+<th>Electron Type</th>
+
+<th>Shielding Contribution</th>
+
+</tr>
+
+<tr>
+
+<td>Other electrons in same 1s group</td>
+
+<td>0.30 each</td>
+
+</tr>
+
+<tr>
+
+<td>Other electrons in same ns or np group</td>
+
+<td>0.35 each</td>
+
+</tr>
+
+<tr>
+
+<td>(n−1) shell for ns/np electron</td>
+
+<td>0.85 each</td>
+
+</tr>
+
+<tr>
+
+<td>(n−2) or lower shells</td>
+
+<td>1.00 each</td>
+
+</tr>
+
+<tr>
+
+<td>For nd or nf electron: same nd/nf group</td>
+
+<td>0.35 each</td>
+
+</tr>
+
+<tr>
+
+<td>All electrons to the left</td>
+
+<td>1.00 each</td>
+
+</tr>
+
+<tr>
+
+<td>Electrons to the right</td>
+
+<td>0</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>3. Worked Examples</h2>
+
+<div class="example">
+
+<h3>Example 1: 1s electron of Helium (Z=2)</h3>
+
+<p>
+
+Other 1s electron contributes = 0.30
+
+</p>
+
+<p>
+
+S = 0.30
+
+</p>
+
+<p>
+
+Zeff = 2 − 0.30 = <b>1.70</b>
+
+</p>
+
+</div>
+
+<div class="example">
+
+<h3>Example 2: 2p electron of Nitrogen (Z=7)</h3>
+
+<p>
+
+Configuration: 1s² 2s² 2p³
+
+</p>
+
+<p>
+
+Same shell (4 electrons): 4 ×0.35 =1.40
+
+</p>
+
+<p>
+
+1s electrons: 2 ×0.85 =1.70
+
+</p>
+
+<p>
+
+S=3.10
+
+</p>
+
+<p>
+
+Zeff=7−3.10=<b>3.90</b>
+
+</p>
+
+</div>
+
+<div class="example">
+
+<h3>Example 3: 3d electron of Iron (Z=26)</h3>
+
+<p>
+
+Configuration: [Ar]3d⁶4s²
+
+</p>
+
+<p>
+
+Other 3d electrons=5×0.35=1.75
+
+</p>
+
+<p>
+
+All electrons to left=18×1=18
+
+</p>
+
+<p>
+
+4s electrons do NOT shield the 3d electron.
+
+</p>
+
+<p>
+
+S=19.75
+
+</p>
+
+<p>
+
+Zeff=26−19.75=<b>6.25</b>
+
+</p>
+
+</div>
+
+<div class="example">
+
+<h3>Example 4: 4f electron (Lanthanide)</h3>
+
+<p>
+
+Same 4f electrons contribute 0.35 each.
+
+</p>
+
+<p>
+
+All electrons to the left contribute 1.00 each.
+
+</p>
+
+<p>
+
+Electrons outside the 4f orbital contribute zero shielding.
+
+</p>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>4. Interactive Calculator</h2>
+
+<p>Enter Atomic Number (Z) and Shielding Constant (S)</p>
+
+<input type="number" id="z" placeholder="Atomic Number">
+
+<input type="number" id="s" placeholder="Shielding">
+
+<button onclick="calc()">Calculate</button>
+
+<h2 id="result"></h2>
+
+</section>
+
+<section>
+
+<h2>5. MCQ Quiz</h2>
+
+<div class="quiz">
+
+<p><b>1. Formula for effective nuclear charge is</b></p>
+
+<input type="radio" name="q1" value="0"> Z+S<br>
+
+<input type="radio" name="q1" value="1"> Z−S<br>
+
+<input type="radio" name="q1" value="0"> S−Z<br>
+
+</div>
+
+<div class="quiz">
+
+<p><b>2. Same-group electrons for ns/np contribute</b></p>
+
+<input type="radio" name="q2" value="0">1.00<br>
+
+<input type="radio" name="q2" value="1">0.35<br>
+
+<input type="radio" name="q2" value="0">0.85<br>
+
+</div>
+
+<div class="quiz">
+
+<p><b>3. (n−1) shell electrons for ns/np contribute</b></p>
+
+<input type="radio" name="q3" value="0">0.35<br>
+
+<input type="radio" name="q3" value="1">0.85<br>
+
+<input type="radio" name="q3" value="0">1.50<br>
+
+</div>
+
+<div class="quiz">
+
+<p><b>4. Electrons to the right of a d electron contribute</b></p>
+
+<input type="radio" name="q4" value="1">0<br>
+
+<input type="radio" name="q4" value="0">0.35<br>
+
+<input type="radio" name="q4" value="0">1.00<br>
+
+</div>
+
+<div class="quiz">
+
+<p><b>5. For a 3d electron, 4s electrons contribute</b></p>
+
+<input type="radio" name="q5" value="1">0<br>
+
+<input type="radio" name="q5" value="0">0.35<br>
+
+<input type="radio" name="q5" value="0">0.85<br>
+
+</div>
+
+<button onclick="checkQuiz()">Submit Quiz</button>
+
+<h2 id="score"></h2>
+
+</section>
+
+<footer>
+
+Interactive Slater's Rule Learning Page
+
+</footer>
+
+<script>
+
+function calc(){
+
+let z=parseFloat(document.getElementById("z").value);
+
+let s=parseFloat(document.getElementById("s").value);
+
+if(isNaN(z)||isNaN(s)){
+
+document.getElementById("result").innerHTML="Enter both values.";
+
+return;
+
+}
+
+document.getElementById("result").innerHTML=
+
+"Effective Nuclear Charge = "+(z-s).toFixed(2);
+
+}
+
+function checkQuiz(){
+
+let score=0;
+
+for(let i=1;i<=5;i++){
+
+let ans=document.querySelector('input[name="q'+i+'"]:checked');
+
+if(ans && ans.value=="1") score++;
+
+}
+
+document.getElementById("score").innerHTML=
+
+"You scored "+score+" / 5";
+
+}
+
+</script>
+
+</body>
+
+</html>
