@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Jahn–Teller Effect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --surface:#F3F3F3;
+    --surface-2:#E6E6E6;
+    --line: rgba(0,0,0,0.16);
+    --text:#0A0A0A;
+    --muted:#5A5A5A;
+    --violet:#0A0A0A;   /* eg orbital / elongation */
+    --copper:#666666;   /* t2g / compression / ligand */
+    --green:#0A0A0A;    /* correct */
+    --red:#888888;      /* incorrect */
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:20px;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; margin:0; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.95rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--copper);
+    margin-bottom:0.6rem;
+    display:block;
+  }
+  a{color:var(--violet);}
+  .wrap{ max-width:980px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding:14px 28px; }
+  .brand{ font-family:'Fraunces',serif; font-size:1.45rem; font-weight:600; }
+  .brand em{ color:var(--violet); font-style:normal; }
+  nav .links{ display:flex; gap:22px; }
+  nav .links a{
+    color:var(--muted); text-decoration:none; font-size:1.12rem;
+    font-family:'JetBrains Mono', monospace;
+  }
+  nav .links a:hover{ color:var(--text); }
+
+  /* ---------- HERO ---------- */
+  header.hero{ padding:84px 0 60px; border-bottom:1px solid var(--line); }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:center; }
+  .hero h1{ font-size:3.8rem; line-height:1.1; }
+  .hero h1 .accent{ color:var(--violet); }
+  .hero p.lede{ color:var(--muted); font-size:1.4rem; max-width:520px; margin-top:18px; }
+  .hero-controls{ margin-top:28px; display:flex; gap:10px; flex-wrap:wrap; }
+  .toggle-btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:1.05rem;
+    background:var(--surface);
+    border:1px solid var(--line);
+    color:var(--muted);
+    padding:10px 16px;
+    border-radius:7px;
+    cursor:pointer;
+    transition:all .25s;
+  }
+  .toggle-btn:hover{ border-color:var(--violet); color:var(--text); }
+  .toggle-btn.active{ background:var(--violet); color:#FFFFFF; border-color:var(--violet); font-weight:600;}
+  .toggle-btn.active.copper{ background:var(--copper); border-color:var(--copper);}
+
+  .octa-stage{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .octa-stage svg{ width:100%; height:auto; }
+  .octa-caption{
+    font-family:'JetBrains Mono', monospace;
+    font-size:1rem;
+    color:var(--muted);
+    margin-top:6px;
+    text-align:center;
+  }
+  .bond-label{ font-size:11px; fill:var(--muted); font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{ padding:64px 0; border-bottom:1px solid var(--line); }
+  section h2{ font-size:2.5rem; margin-bottom:14px; }
+  section > .wrap > p{ color:var(--muted); max-width:680px; }
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; margin-top:30px;}
+  @media (max-width:760px){ .hero-grid, .two-col{ grid-template-columns:1fr; } }
+
+  /* Mechanism diagram (orbital splitting) */
+  .splitting-card{ background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:24px; }
+  .level{ display:flex; align-items:center; gap:10px; margin:8px 0; }
+  .level-line{ width:46px; height:3px; background:var(--violet); border-radius:2px; }
+  .level-line.copper{ background:var(--copper); }
+  .level-text{ font-family:'JetBrains Mono', monospace; font-size:1.08rem; color:var(--muted); }
+
+  /* Examples */
+  .examples-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:30px; }
+  @media (max-width:760px){ .examples-grid{ grid-template-columns:1fr; } }
+  .ex-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:20px; transition:border-color .2s, transform .2s;
+  }
+  .ex-card:hover{ border-color:var(--violet); transform:translateY(-3px); }
+  .ex-card .formula{ font-family:'JetBrains Mono', monospace; font-size:1.35rem; color:var(--violet); }
+  .ex-card .config{ font-size:1.08rem; color:var(--copper); margin:6px 0 12px; font-family:'JetBrains Mono', monospace; }
+  .ex-card p{ font-size:1.15rem; color:var(--muted); margin:0; }
+  .strength-bar{ height:5px; border-radius:3px; background:var(--surface-2); margin-top:14px; overflow:hidden; }
+  .strength-fill{ height:100%; background:linear-gradient(90deg,var(--violet),var(--copper)); }
+
+  /* Quiz */
+  .quiz-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:26px; margin-top:22px;
+  }
+  .quiz-q{ font-weight:500; margin-bottom:16px; }
+  .quiz-q .qnum{ color:var(--copper); font-family:'JetBrains Mono',monospace; margin-right:8px; }
+  .opt{
+    display:block; width:100%; text-align:left;
+    background:var(--surface-2); border:1px solid var(--line); color:var(--text);
+    padding:12px 14px; border-radius:9px; margin-bottom:9px; cursor:pointer;
+    font-family:'Inter',sans-serif; font-size:1.18rem; transition:all .18s;
+  }
+  .opt:hover{ border-color:var(--violet); }
+  .opt.correct{ background:rgba(0,0,0,0.08); border-color:var(--green); color:var(--green); font-weight:600; }
+  .opt.incorrect{ background:rgba(0,0,0,0.02); border-color:var(--red); color:var(--red); opacity:0.7; }
+  .opt:disabled{ cursor:default; }
+  .explain{
+    font-size:1.12rem; color:var(--muted); margin-top:8px; display:none;
+    border-left:2px solid var(--violet); padding-left:12px;
+  }
+  .explain.show{ display:block; }
+
+  .score-bar{
+    position:sticky; bottom:0; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px);
+    border-top:1px solid var(--line); padding:14px 0; margin-top:10px;
+  }
+  .score-bar .wrap{ display:flex; justify-content:space-between; align-items:center; }
+  .score-bar .label{ font-family:'JetBrains Mono',monospace; font-size:1.05rem; color:var(--muted); }
+  .score-bar .value{ font-family:'Fraunces',serif; font-size:1.9rem; color:var(--violet); }
+  .reset-btn{
+    font-family:'JetBrains Mono',monospace; font-size:0.98rem; background:none;
+    border:1px solid var(--line); color:var(--muted); padding:7px 12px; border-radius:7px; cursor:pointer;
+  }
+  .reset-btn:hover{ color:var(--text); border-color:var(--copper); }
+
+  footer{ padding:36px 0; text-align:center; color:var(--muted); font-size:1.05rem; }
+  footer .wrap{ font-family:'JetBrains Mono', monospace; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Jahn–<em>Teller</em></div>
+    <div class="links">
+      <a href="#mechanism">Mechanism</a>
+      <a href="#examples">Examples</a>
+      <a href="#quiz">Quiz</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Crystal Field Theory · Distortion</span>
+      <h1>A symmetric octahedron <span class="accent">cannot</span> stay symmetric.</h1>
+      <p class="lede">When the d-orbitals of a transition metal ion are unevenly filled, the surrounding ligands shift to relieve the imbalance — stretching two bonds long, or squeezing them short. That's the Jahn–Teller effect.</p>
+      <div class="hero-controls">
+        <button class="toggle-btn active" id="btn-elongate" data-mode="elongate">↕ Elongation (z-out)</button>
+        <button class="toggle-btn copper" id="btn-compress" data-mode="compress">↔ Compression (z-in)</button>
+        <button class="toggle-btn" id="btn-none" data-mode="none">⬡ Undistorted</button>
+      </div>
+    </div>
+    <div class="octa-stage">
+      <svg id="octa-svg" viewBox="0 0 320 320">
+        <!-- bonds drawn dynamically labelled, body filled by JS -->
+      </svg>
+      <div class="octa-caption" id="octa-caption">Axial bonds stretch; equatorial bonds stay short.</div>
+    </div>
+  </div>
+</header>
+
+<section id="mechanism">
+  <div class="wrap">
+    <span class="eyebrow">Why it happens</span>
+    <h2>Unequal electron occupancy breaks the symmetry</h2>
+    <p>In an octahedral field, the five d-orbitals split into two sets: the lower t₂g (three orbitals) and the higher eg (two orbitals). If the eg set is occupied unevenly — one orbital with more electrons than the other — the ligand-electron repulsion along one axis differs from the others. The molecule distorts to lower its total energy.</p>
+    <div class="two-col">
+      <div class="splitting-card">
+        <span class="level-text" style="display:block;margin-bottom:10px;">Octahedral, undistorted</span>
+        <div class="level"><div class="level-line"></div><div class="level-line" style="margin-left:-36px;"></div><div class="level-text">eg (dz², dx²−y²) — degenerate</div></div>
+        <div style="height:34px;"></div>
+        <div class="level"><div class="level-line copper"></div><div class="level-line copper" style="margin-left:-36px;"></div><div class="level-line copper" style="margin-left:-36px;"></div><div class="level-text">t₂g (dxy, dxz, dyz) — degenerate</div></div>
+      </div>
+      <div class="splitting-card">
+        <span class="level-text" style="display:block;margin-bottom:10px;">Jahn–Teller distorted (e.g. Cu²⁺, d⁹)</span>
+        <div class="level"><div class="level-line"></div><div class="level-text">dx²−y² — higher, more occupied</div></div>
+        <div style="height:10px;"></div>
+        <div class="level"><div class="level-line"></div><div class="level-text">dz² — lower, less occupied</div></div>
+        <div style="height:24px;"></div>
+        <div class="level"><div class="level-line copper"></div><div class="level-text">dxz, dyz — pair</div></div>
+        <div class="level"><div class="level-line copper"></div><div class="level-text">dxy — singlet</div></div>
+      </div>
+    </div>
+    <p style="margin-top:18px;">The eg set splitting is what matters most, since these orbitals point directly at the ligands. Splitting the t₂g set gives a much smaller energy gain because those orbitals point between ligands, not at them — that's why Jahn–Teller distortions are strongest when the eg set is asymmetrically filled (high-spin d⁴, d⁷, and especially d⁹).</p>
+  </div>
+</section>
+
+<section id="examples">
+  <div class="wrap">
+    <span class="eyebrow">Worked examples</span>
+    <h2>Which ions distort, and how strongly</h2>
+    <p>The strength of the effect depends on which d-orbital set is unevenly filled. eg-asymmetry (strong) bends bond lengths far more than t₂g-asymmetry (weak).</p>
+    <div class="examples-grid">
+      <div class="ex-card">
+        <div class="formula">[Cu(H₂O)₆]²⁺</div>
+        <div class="config">d⁹ — eg unevenly filled</div>
+        <p>The textbook case. Two axial Cu–O bonds stretch to about 2.38 Å while the four equatorial bonds stay near 1.95 Å — a strong tetragonal elongation.</p>
+        <div class="strength-bar"><div class="strength-fill" style="width:95%;"></div></div>
+      </div>
+      <div class="ex-card">
+        <div class="formula">[Mn(H₂O)₆]³⁺</div>
+        <div class="config">high-spin d⁴ — eg unevenly filled</div>
+        <p>One electron sits alone in the eg set, giving a strong elongation similar in magnitude to the d⁹ case — this is why Mn³⁺ complexes are often unstable and disproportionate.</p>
+        <div class="strength-bar"><div class="strength-fill" style="width:90%;"></div></div>
+      </div>
+      <div class="ex-card">
+        <div class="formula">[Ti(H₂O)₆]³⁺</div>
+        <div class="config">d¹ — t₂g unevenly filled</div>
+        <p>The single electron sits in the lower t₂g set, which points between ligands. The resulting distortion is real but weak, and barely detectable in bond lengths.</p>
+        <div class="strength-bar"><div class="strength-fill" style="width:25%;"></div></div>
+      </div>
+      <div class="ex-card">
+        <div class="formula">[Ni(H₂O)₆]²⁺</div>
+        <div class="config">d⁸ — eg evenly filled</div>
+        <p>Both eg orbitals hold one electron each (or both are filled) — perfectly symmetric occupancy, so no Jahn–Teller distortion is expected or observed.</p>
+        <div class="strength-bar"><div class="strength-fill" style="width:4%;"></div></div>
+      </div>
+      <div class="ex-card">
+        <div class="formula">[Fe(H₂O)₆]²⁺</div>
+        <div class="config">high-spin d⁶ — t₂g unevenly filled</div>
+        <p>Occupancy is uneven only within t₂g. As with Ti³⁺, this gives a weak, often hard-to-resolve distortion.</p>
+        <div class="strength-bar"><div class="strength-fill" style="width:20%;"></div></div>
+      </div>
+      <div class="ex-card">
+        <div class="formula">[CrF₆]³⁻</div>
+        <div class="config">d³ — both sets evenly filled</div>
+        <p>One electron in each t₂g orbital and an empty eg set — fully symmetric. No distortion: Cr³⁺ octahedra are famously regular.</p>
+        <div class="strength-bar"><div class="strength-fill" style="width:3%;"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="wrap">
+    <span class="eyebrow">Check yourself</span>
+    <h2>Five questions on the Jahn–Teller effect</h2>
+    <p>Pick an answer — it locks in and explains itself immediately.</p>
+    <div id="quiz-container"></div>
+  </div>
+</section>
+
+<div class="score-bar">
+  <div class="wrap">
+    <span class="label">SCORE</span>
+    <span class="value" id="score-display">0 / 5</span>
+    <button class="reset-btn" id="reset-quiz">Reset quiz</button>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">d-orbitals split, bonds bend, symmetry loses — every time.</div>
+</footer>
+
+<script>
+/* ---------------- OCTAHEDRON VISUAL ---------------- */
+const svg = document.getElementById('octa-svg');
+const caption = document.getElementById('octa-caption');
+const cx = 160, cy = 160;
+
+const modes = {
+  elongate: { axial: 110, equatorial: 70, capText: "Axial bonds stretch (≈2.38 Å); equatorial bonds stay short (≈1.95 Å). Typical of Cu²⁺ (d⁹)." , axialColor:'var(--violet)'},
+  compress: { axial: 50,  equatorial: 90, capText: "Axial bonds compress; equatorial bonds stretch slightly. Rarer, but seen in some d⁹/d⁴ systems.", axialColor:'var(--copper)'},
+  none:     { axial: 80,  equatorial: 80, capText: "All six M–L bonds equal — the symmetric, undistorted octahedron (e.g. Cr³⁺, d³).", axialColor:'var(--muted)'}
+};
+
+function drawOctahedron(mode){
+  const m = modes[mode];
+  const ax = m.axial;
+  const eq = m.equatorial;
+  // ligand positions: top/bottom axial, 4 equatorial in a diamond (isometric-ish)
+  const top    = {x:cx, y:cy-ax};
+  const bottom = {x:cx, y:cy+ax};
+  const left   = {x:cx-eq, y:cy+eq*0.4};
+  const right  = {x:cx+eq, y:cy+eq*0.4};
+  const front  = {x:cx-eq*0.55, y:cy-eq*0.55};
+  const back   = {x:cx+eq*0.55, y:cy-eq*0.55};
+
+  const bonds = [
+    [top,left],[top,right],[top,front],[top,back],
+    [bottom,left],[bottom,right],[bottom,front],[bottom,back],
+    [left,front],[front,right],[right,back],[back,left]
+  ];
+
+  let bondLines = bonds.map(([a,b]) => {
+    const isAxial = (a===top||a===bottom||b===top||b===bottom);
+    const strokeColor = isAxial ? (mode==='compress' ? '#666666' : (mode==='none' ? '#999999' : '#0A0A0A')) : 'rgba(0,0,0,0.20)';
+    return `<line x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}" stroke="${strokeColor}" stroke-width="${isAxial?2.6:1.3}" />`;
+  }).join('');
+
+  const ligandDots = [top,bottom,left,right,front,back].map(p =>
+    `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="7" fill="#666666" stroke="#FFFFFF" stroke-width="2"/>`
+  ).join('');
+
+  const labels = `
+    <text x="${top.x+12}" y="${top.y}" class="bond-label">L</text>
+    <text x="${bottom.x+12}" y="${bottom.y+4}" class="bond-label">L</text>
+  `;
+
+  svg.innerHTML = `
+    ${bondLines}
+    <circle cx="${cx}" cy="${cy}" r="14" fill="#0A0A0A" stroke="#FFFFFF" stroke-width="2"/>
+    ${ligandDots}
+    ${labels}
+  `;
+  caption.textContent = m.capText;
+}
+
+function setActiveButton(mode){
+  document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('btn-'+(mode==='none'?'none':mode)).classList.add('active');
+}
+
+['elongate','compress','none'].forEach(mode=>{
+  document.getElementById('btn-'+mode).addEventListener('click', ()=>{
+    drawOctahedron(mode);
+    setActiveButton(mode);
+  });
+});
+drawOctahedron('elongate');
+
+/* ---------------- QUIZ ---------------- */
+const questions = [
+  {
+    q: "Which electron configuration produces the strongest Jahn–Teller distortion?",
+    options: ["High-spin d⁴", "d³", "d⁸", "d⁶ low-spin"],
+    correct: 0,
+    explain: "High-spin d⁴ (like Mn³⁺) leaves the eg set unevenly filled — the orbitals pointing straight at the ligands — giving a strong elongation, much like the classic d⁹ case."
+  },
+  {
+    q: "Why does uneven filling of t₂g cause only a weak distortion compared to uneven eg filling?",
+    options: [
+      "t₂g orbitals are higher in energy",
+      "t₂g orbitals point between the ligands, not directly at them",
+      "t₂g electrons are always paired",
+      "t₂g orbitals don't exist in octahedral fields"
+    ],
+    correct: 1,
+    explain: "t₂g orbitals (dxy, dxz, dyz) lie between the ligand positions, so uneven occupancy there barely changes the ligand–electron repulsion along any one bond axis."
+  },
+  {
+    q: "Which ion is the textbook example of a strong tetragonal elongation?",
+    options: ["[Cr(H₂O)₆]³⁺", "[Cu(H₂O)₆]²⁺", "[Ni(H₂O)₆]²⁺", "[Zn(H₂O)₆]²⁺"],
+    correct: 1,
+    explain: "Cu²⁺ is d⁹: one eg orbital holds 2 electrons, the other holds 1. This uneven eg occupancy gives the strongest, most commonly cited Jahn–Teller elongation."
+  },
+  {
+    q: "A d³ ion such as Cr³⁺ shows essentially no Jahn–Teller distortion. Why?",
+    options: [
+      "d³ ions don't form octahedral complexes",
+      "Both t₂g and eg sets are filled symmetrically (eg is empty, t₂g has one electron each)",
+      "Cr³⁺ has too many electrons to distort",
+      "Jahn–Teller only applies to 4d and 5d metals"
+    ],
+    correct: 1,
+    explain: "With one electron in each t₂g orbital and an empty eg set, there's no asymmetry to relieve — the octahedron stays regular, which is why Cr³⁺ complexes are famously robust and symmetric."
+  },
+  {
+    q: "In a tetragonally elongated octahedron, what happens to the equatorial M–L bonds?",
+    options: [
+      "They lengthen along with the axial bonds",
+      "They stay roughly the same length or shorten slightly",
+      "They break completely",
+      "They become double bonds"
+    ],
+    correct: 1,
+    explain: "Elongation pulls the two axial ligands further out while the four equatorial ligands stay close to their original distance (sometimes drawing in marginally) — that asymmetry is the geometric signature of the effect."
+  }
+];
+
+const quizContainer = document.getElementById('quiz-container');
+const scoreDisplay = document.getElementById('score-display');
+let score = 0;
+let answered = new Array(questions.length).fill(false);
+
+function renderQuiz(){
+  quizContainer.innerHTML = '';
+  questions.forEach((item, qi) => {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.innerHTML = `
+      <div class="quiz-q"><span class="qnum">Q${qi+1}</span>${item.q}</div>
+      ${item.options.map((opt,oi)=>`<button class="opt" data-q="${qi}" data-o="${oi}">${opt}</button>`).join('')}
+      <div class="explain" id="explain-${qi}">${item.explain}</div>
+    `;
+    quizContainer.appendChild(card);
+  });
+
+  quizContainer.querySelectorAll('.opt').forEach(btn=>{
+    btn.addEventListener('click', handleAnswer);
+  });
+}
+
+function handleAnswer(e){
+  const qi = parseInt(e.target.dataset.q);
+  const oi = parseInt(e.target.dataset.o);
+  if(answered[qi]) return;
+  answered[qi] = true;
+  const item = questions[qi];
+  const card = e.target.closest('.quiz-card');
+  const opts = card.querySelectorAll('.opt');
+  opts.forEach((b,i)=>{
+    b.disabled = true;
+    if(i === item.correct) b.innerHTML = '✓ ' + b.innerHTML;
+    if(i === item.correct) b.classList.add('correct');
+    else if(i === oi) { b.innerHTML = '✗ ' + b.innerHTML; b.classList.add('incorrect'); }
+  });
+  if(oi === item.correct) score++;
+  scoreDisplay.textContent = `${score} / ${questions.length}`;
+  document.getElementById(`explain-${qi}`).classList.add('show');
+}
+
+document.getElementById('reset-quiz').addEventListener('click', ()=>{
+  score = 0;
+  answered = new Array(questions.length).fill(false);
+  scoreDisplay.textContent = `0 / ${questions.length}`;
+  renderQuiz();
+});
+
+renderQuiz();
+</script>
+
+</body>
+</html>
