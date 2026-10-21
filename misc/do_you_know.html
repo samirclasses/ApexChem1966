@@ -1,626 +1,175 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Social Media Posts</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    :root {
-      --bg: #f5f7fa;
-      --surface: #ffffff;
-      --text: #202938;
-      --muted: #64748b;
-      --accent: #176b5b;
-      --accent-light: #e2f3ed;
-      --border: #e3e8ee;
-    }
+    <title>My Social Media Posts</title>
 
-    * {
-      box-sizing: border-box;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f6;
+            color: #263238;
+        }
 
-    html {
-      scroll-behavior: smooth;
-    }
+        header {
+            background: linear-gradient(135deg, #176b5b, #48a999);
+            color: white;
+            text-align: center;
+            padding: 35px 15px;
+        }
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
 
-    a {
-      color: var(--accent);
-    }
+        header p {
+            margin: 0;
+            font-size: 16px;
+        }
 
-    .hero {
-      padding: 50px 20px;
-      background: linear-gradient(135deg, #e6f5ef, #f8fbff);
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
 
-    .hero-inner,
-    main,
-    footer {
-      width: min(1100px, calc(100% - 32px));
-      margin: auto;
-    }
+        .post {
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000015;
+            transition: transform 0.25s;
+        }
 
-    .eyebrow {
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
+        .post:hover {
+            transform: translateY(-5px);
+        }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(30px, 5vw, 50px);
-      line-height: 1.2;
-    }
+        .post img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            cursor: pointer;
+        }
 
-    .intro {
-      max-width: 680px;
-      margin: 16px auto;
-      color: var(--muted);
-      font-size: 17px;
-    }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #e4eeeb;
+            color: #52645f;
+        }
 
-    .hero-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 24px;
-    }
+        /* Full-screen image viewer */
+        #viewer {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: #000000eF;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    .button {
-      display: inline-block;
-      padding: 10px 18px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
+        #viewer img {
+            max-width: 95%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
 
-    .button-primary {
-      background: var(--accent);
-      color: white;
-    }
+        #close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: white;
+            font-size: 38px;
+            cursor: pointer;
+        }
 
-    .button-secondary {
-      background: white;
-      border: 1px solid #b9d8cf;
-      color: var(--accent);
-    }
+        @media (max-width: 500px) {
+            header h1 {
+                font-size: 24px;
+            }
 
-    main {
-      padding: 35px 0 55px;
-    }
-
-    h2 {
-      margin: 0;
-      font-size: 25px;
-    }
-
-    .small-note {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 20px 0 25px;
-    }
-
-    .tools input,
-    .tools select {
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: white;
-      font-size: 15px;
-    }
-
-    .tools input {
-      flex: 1 1 230px;
-    }
-
-    .tools select {
-      flex: 0 1 190px;
-    }
-
-    .post-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .post-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(23, 42, 58, 0.07);
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Replace these image paths with your own images */
-    .post-card img {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      display: block;
-      background: #e8edf1;
-    }
-
-    .post-content {
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .tag {
-      align-self: flex-start;
-      padding: 4px 10px;
-      border-radius: 20px;
-      background: var(--accent-light);
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .post-card h3 {
-      margin: 12px 0 8px;
-      font-size: 19px;
-      line-height: 1.35;
-    }
-
-    .post-card p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .post-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: auto;
-    }
-
-    .text-button {
-      padding: 8px 11px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: white;
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: bold;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .empty-state {
-      display: none;
-      padding: 25px;
-      text-align: center;
-      color: var(--muted);
-      background: white;
-      border: 1px dashed var(--border);
-      border-radius: 12px;
-    }
-
-    .about {
-      margin-top: 40px;
-      padding: 25px;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-    }
-
-    .about p {
-      color: var(--muted);
-    }
-
-    footer {
-      padding: 0 0 25px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    @media (max-width: 850px) {
-      .post-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 560px) {
-      .post-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .post-card img {
-        aspect-ratio: 16 / 10;
-      }
-    }
-  </style>
+            .gallery {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <header class="hero">
-    <div class="hero-inner">
+    <header>
+        <h1>My Social Media Posts</h1>
+        <p>Chemistry • Science • Thoughts • Creativity</p>
+    </header>
 
-      <p class="eyebrow">
-        Ideas • Learning • Everyday observations
-      </p>
+    <main class="gallery">
 
-      <h1>My Social Media Posts</h1>
+        <div class="post">
+            <img src="" alt="Post 1" onclick="openImage(this)">
+        </div>
 
-      <p class="intro">
-        A collection of my regular posts, educational notes,
-        reflections and creative ideas.
-      </p>
+        <div class="post">
+            <img src="" alt="Post 2" onclick="openImage(this)">
+        </div>
 
-      <div class="hero-links">
+        <div class="post">
+            <img src="" alt="Post 3" onclick="openImage(this)">
+        </div>
 
-        <!-- Insert your Facebook page/profile URL -->
-        <a class="button button-primary"
-           href="#"
-           target="_blank"
-           rel="noopener">
-          Visit my Facebook
-        </a>
+        <div class="post">
+            <img src="" alt="Post 4" onclick="openImage(this)">
+        </div>
 
-        <a class="button button-secondary" href="#posts">
-          Browse posts
-        </a>
+        <div class="post">
+            <img src="" alt="Post 5" onclick="openImage(this)">
+        </div>
 
-      </div>
+        <div class="post">
+            <img src="" alt="Post 6" onclick="openImage(this)">
+        </div>
+
+    </main>
+
+    <div id="viewer" onclick="closeImage()">
+        <span id="close">&times;</span>
+        <img id="largeImage" src="" alt="Enlarged post">
     </div>
-  </header>
 
-  <main>
+    <footer>
+        <p>My Posts | Sharing Knowledge and Ideas</p>
+    </footer>
 
-    <section id="posts">
+    <script>
+        function openImage(img) {
+            if (!img.src || !img.getAttribute("src")) return;
 
-      <h2>Recent Posts</h2>
-
-      <p class="small-note">
-        Browse and search your educational and creative posts.
-      </p>
-
-      <div class="tools">
-
-        <input
-          type="search"
-          id="searchInput"
-          placeholder="Search posts..."
-          aria-label="Search posts">
-
-        <select id="categoryFilter"
-                aria-label="Filter by category">
-
-          <option value="all">All categories</option>
-          <option value="chemistry">Chemistry</option>
-          <option value="science">Science</option>
-          <option value="reflection">Reflection</option>
-          <option value="other">Other</option>
-
-        </select>
-      </div>
-
-      <div class="post-grid" id="postGrid">
-
-        <!-- POST 1 -->
-        <article class="post-card" data-category="chemistry">
-
-          <img src="Kinetic vs Thermodynamic Control Infographic.png"
-               alt="Chemistry educational post"
-               loading="lazy">
-
-          <div class="post-content">
-
-            <span class="tag">Chemistry</span>
-
-            <h3>Concepts Made Simple</h3>
-
-            <p>
-              Understand important chemistry concepts
-              through simple explanations and examples.
-            </p>
-
-            <div class="post-actions">
-
-              <!-- Replace # with your actual post URL -->
-              <a class="text-button"
-                 href="#"
-                 target="_blank"
-                 rel="noopener">
-                Read post ↗
-              </a>
-
-              <button class="text-button copy-button">
-                Copy caption
-              </button>
-
-            </div>
-
-            <p class="caption-text" hidden>
-              Concepts made simple: connecting chemistry
-              with everyday life. #Chemistry #Learning
-            </p>
-
-          </div>
-        </article>
-
-        <!-- POST 2 -->
-        <article class="post-card" data-category="science">
-
-          <img src="images/post-02.jpg"
-               alt="Science fact or infographic"
-               loading="lazy">
-
-          <div class="post-content">
-
-            <span class="tag">Science</span>
-
-            <h3>The Science Around Us</h3>
-
-            <p>
-              Discover the scientific explanations behind
-              everyday observations and natural phenomena.
-            </p>
-
-            <div class="post-actions">
-
-              <a class="text-button"
-                 href="#"
-                 target="_blank"
-                 rel="noopener">
-                Read post ↗
-              </a>
-
-              <button class="text-button copy-button">
-                Copy caption
-              </button>
-
-            </div>
-
-            <p class="caption-text" hidden>
-              The science around us is full of fascinating
-              questions. Keep observing and asking why.
-              #Science
-            </p>
-
-          </div>
-        </article>
-
-        <!-- POST 3 -->
-        <article class="post-card" data-category="reflection">
-
-          <img src="images/post-03.jpg"
-               alt="Reflective writing or quotation"
-               loading="lazy">
-
-          <div class="post-content">
-
-            <span class="tag">Reflection</span>
-
-            <h3>A Thought to Remember</h3>
-
-            <p>
-              Personal reflections on life, relationships,
-              hope, learning and everyday experiences.
-            </p>
-
-            <div class="post-actions">
-
-              <a class="text-button"
-                 href="#"
-                 target="_blank"
-                 rel="noopener">
-                Read post ↗
-              </a>
-
-              <button class="text-button copy-button">
-                Copy caption
-              </button>
-
-            </div>
-
-            <p class="caption-text" hidden>
-              Some thoughts are worth pausing for,
-              even when the world is moving quickly.
-              #Reflection #Life
-            </p>
-
-          </div>
-        </article>
-
-        <!-- POST 4 -->
-        <article class="post-card" data-category="other">
-
-          <img src="Kinetic vs Thermodynamic Control Infographic.png"
-               alt="General post or creative idea"
-               loading="lazy">
-
-          <div class="post-content">
-
-            <span class="tag">Other</span>
-
-            <h3>Something Worth Sharing</h3>
-
-            <p>
-              Use this space for announcements, useful
-              resources, stories or other ideas.
-            </p>
-
-            <div class="post-actions">
-
-              <a class="text-button"
-                 href="#"
-                 target="_blank"
-                 rel="noopener">
-                Read post ↗
-              </a>
-
-              <button class="text-button copy-button">
-                Copy caption
-              </button>
-
-            </div>
-
-            <p class="caption-text" hidden>
-              Sharing an idea that may be useful or
-              meaningful to someone else. #Sharing
-            </p>
-
-          </div>
-        </article>
-
-      </div>
-
-      <div class="empty-state" id="emptyState">
-        No posts match your search. Try another word or category.
-      </div>
-
-    </section>
-
-    <section class="about">
-
-      <h2>About This Page</h2>
-
-      <p>
-        This page collects educational materials, science facts,
-        personal reflections and other social media posts.
-        Add your own images and links to make it personal.
-      </p>
-
-    </section>
-
-  </main>
-
-  <footer>
-    <p>
-      © <span id="year"></span> My Social Media Posts
-    </p>
-  </footer>
-
-  <script>
-
-    // Display the current year automatically.
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-
-
-    // Search and category filtering.
-    const searchInput =
-      document.getElementById("searchInput");
-
-    const categoryFilter =
-      document.getElementById("categoryFilter");
-
-    const cards =
-      Array.from(document.querySelectorAll(".post-card"));
-
-    const emptyState =
-      document.getElementById("emptyState");
-
-
-    function filterPosts() {
-
-      const query =
-        searchInput.value.trim().toLowerCase();
-
-      const category =
-        categoryFilter.value;
-
-      let visibleCount = 0;
-
-      cards.forEach(card => {
-
-        const matchesText =
-          card.textContent.toLowerCase().includes(query);
-
-        const matchesCategory =
-          category === "all" ||
-          card.dataset.category === category;
-
-        const show =
-          matchesText && matchesCategory;
-
-        card.hidden = !show;
-
-        if (show) {
-          visibleCount++;
+            document.getElementById("largeImage").src = img.src;
+            document.getElementById("viewer").style.display = "flex";
         }
 
-      });
+        function closeImage() {
+            document.getElementById("viewer").style.display = "none";
+        }
 
-      emptyState.style.display =
-        visibleCount ? "none" : "block";
-
-    }
-
-
-    searchInput.addEventListener(
-      "input", filterPosts
-    );
-
-    categoryFilter.addEventListener(
-      "change", filterPosts
-    );
-
-
-    // Copy the caption associated with each post.
-    document.querySelectorAll(".copy-button")
-      .forEach(button => {
-
-        button.addEventListener("click", async () => {
-
-          const caption = button
-            .closest(".post-content")
-            .querySelector(".caption-text")
-            .textContent.trim();
-
-          try {
-
-            await navigator.clipboard.writeText(caption);
-
-            const originalText = button.textContent;
-
-            button.textContent = "Copied!";
-
-            window.setTimeout(() => {
-              button.textContent = originalText;
-            }, 1400);
-
-          } catch (error) {
-
-            window.prompt(
-              "Copy this caption:",
-              caption
-            );
-
-          }
-
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeImage();
+            }
         });
-
-      });
-
-  </script>
+    </script>
 
 </body>
 </html>
-
